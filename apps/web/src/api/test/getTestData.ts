@@ -5,8 +5,10 @@ import { buildURL } from "@/utils/buildURL";
 import { getRequest } from "@repo/shared/axios";
 import { API_URLS } from "@/constants/api";
 
-export const getTestData = async () => {
-  const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, {});
+export const getTestData = async (index: number) => {
+  const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, {
+    index,
+  });
 
   try {
     const result = await getRequest<Post>(url);

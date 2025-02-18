@@ -1,15 +1,30 @@
 "use client";
 
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { useGetTestData } from "@/hooks/api/useGetTestData";
 
 const Test = () => {
-  const { testData, isLoading } = useGetTestData();
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const { testData, isLoading } = useGetTestData(currentIndex);
 
-  if (isLoading) return;
+  const handleClick = useCallback(() => {
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+  }, []);
 
   return (
-    <div>{testData && <pre>{JSON.stringify(testData, null, 2)}</pre>}</div>
+    <div>
+      <div>
+        현재 글 제목 :{" "}
+        {isLoading ? (
+          <span style={{ backgroundColor: "#ddd", padding: "4px 8px" }}>
+            ...
+          </span>
+        ) : (
+          <span>{testData?.title}</span>
+        )}
+      </div>
+      <button onClick={handleClick}>다음글</button>
+    </div>
   );
 };
 
