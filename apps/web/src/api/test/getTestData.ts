@@ -6,6 +6,7 @@ import { getRequest } from "@repo/shared/axios";
 import { API_URLS } from "@/constants/api";
 
 export const getTestData = async (index: number) => {
+  // index를 받아와서 해당 index의 test post 데이터를 가져오는 함수
   const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, {
     index,
   });
