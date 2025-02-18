@@ -11,13 +11,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@components/*": ["src/components/*"],
-      "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
-      "@constants/*": ["src/constants/*"],
       "@api/*": ["src/api/*"],
-      "@asset/*": ["src/asset/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@components/*": ["src/components/*"],
+      "@constants/*": ["src/constants/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": [

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 import React from "react";
-import QueryProvider from "@repo/shared/QueryProvider";
 import localFont from "next/font/local";
+import QueryProvider from "@repo/shared/QueryProvider";
 
 import "./globals.css";
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const pretendard = localFont({
   //localFont를 사용하여 로컬 폰트 적용
-  src: "../src/asset/fonts/PretendardVariable.woff2",
+  src: "../public/fonts/PretendardVariable.woff2",
   display: "swap",
   weight: "45 920",
   variable: "--font-pretendard",

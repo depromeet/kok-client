@@ -1,5 +1,5 @@
 /**
- * Type: test Post 데이터터 타입 정의
+ * Type: test Post 데이터 타입 정의
  */
 
 export interface Post {
