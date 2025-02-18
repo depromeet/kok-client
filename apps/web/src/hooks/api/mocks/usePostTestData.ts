@@ -8,12 +8,14 @@ import {
 import testDataController from "@/api/controllers/mocks/testData.controller";
 
 export const usePostTestData = (
+  // 데이터 생성 훅
   index: number,
-  onSuccessCallback?: () => void
+  onSuccessCallback?: () => void // 성공 시 콜백 함수
 ) => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient(); // 쿼리 클라이언트
 
   const mutation: UseMutationResult<Post | undefined, Error, Post, unknown> =
+    // 데이터 생성 요청
     useMutation({
       mutationFn: async (newData: Post) => {
         const response = await testDataController.postTestData(newData);

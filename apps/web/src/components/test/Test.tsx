@@ -5,20 +5,23 @@ import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import React, { useState, useCallback, useMemo } from "react";
 
 const Test = () => {
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const { testData, isLoading } = useGetTestData(currentIndex);
+  const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
+  const { testData, isLoading } = useGetTestData(currentIndex); // 특정 인덱스의 데이터 가져오기
 
   const onSuccess = useCallback(() => {
+    // 데이터 생성 성공 시 알림
     alert("새로운 데이터가 생성되었습니다!");
   }, []);
 
-  const { createData, isCreating } = usePostTestData(currentIndex, onSuccess);
+  const { createData, isCreating } = usePostTestData(currentIndex, onSuccess); // 데이터 생성하기
 
   const handleClick = useCallback(() => {
+    // 다음 데이터로 이동
     setCurrentIndex((prevIndex) => prevIndex + 1);
   }, []);
 
   const handleSubmit = useCallback(() => {
+    // 새 데이터 추가
     const newPost = {
       userId: 101,
       id: 123123,
@@ -30,6 +33,7 @@ const Test = () => {
   }, [createData]);
 
   const loadingTextStyle = useMemo(
+    // 로딩 텍스트 스타일
     () => ({ backgroundColor: "#ddd", padding: "4px 8px" }),
     []
   );

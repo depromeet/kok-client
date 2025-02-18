@@ -9,6 +9,10 @@ class TestDataController {
   private static instance: TestDataController;
   private constructor() {}
 
+  /**
+   * 싱글톤 인스턴스를 반환.
+   * 인스턴스가 없으면 새로 생성.
+   */
   public static getInstance(): TestDataController {
     if (!TestDataController.instance) {
       TestDataController.instance = new TestDataController();
@@ -16,7 +20,11 @@ class TestDataController {
     return TestDataController.instance;
   }
 
-  // 데이터 가져오기
+  /**
+   * 데이터를 가져옵니다.
+   * @param index 데이터의 인덱스
+   * @returns Post 객체 또는 undefined
+   */
   public async getTestData(index: number): Promise<Post | undefined> {
     const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, { index });
     try {
@@ -27,7 +35,11 @@ class TestDataController {
     }
   }
 
-  // 데이터 생성
+  /**
+   * 데이터를 생성합니다.
+   * @param data 생성할 Post 데이터
+   * @returns 생성된 Post 객체 또는 undefined
+   */
   public async postTestData(data: Post): Promise<Post | undefined> {
     try {
       return await postRequest<Post, Post>(API_URLS.JSONPLACEHOLDER_POST, data);
@@ -37,7 +49,10 @@ class TestDataController {
     }
   }
 
-  // 데이터 삭제
+  /**
+   * 데이터를 삭제합니다.
+   * @param index 삭제할 데이터의 인덱스
+   */
   public async deleteTestData(index: number): Promise<void> {
     const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, { index });
     try {
@@ -47,15 +62,21 @@ class TestDataController {
     }
   }
 
-  // 에러 처리
+  /**
+   * 에러를 처리합니다.
+   * @param error 발생한 에러 객체
+   */
   private handleError(error: any): void {
     const { status, desc } = error.response?.data || {};
+
+    // 에러 메시지를 설정
     const message =
       desc ||
       (status === 400
-        ? "Invalid parameters provided."
-        : "An unexpected error occurred.");
-    throw new Error(`Error: ${message}`);
+        ? "잘못된 매개변수가 제공되었습니다."
+        : "예기치 않은 오류가 발생했습니다.");
+
+    throw new Error(`오류: ${message}`);
   }
 }
 
