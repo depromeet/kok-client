@@ -1,0 +1,31 @@
+{
+  "name": "@repo/shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    "./axios": "./src/axios/index.ts",
+    "./QueryProvider": "./src/tanstackQuery/QueryProvider.tsx",
+    "./tanstack-query": "./src/tanstackQuery/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@turbo/gen": "^2.4.0",
+    "@types/node": "^22.13.0",
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3",
+    "eslint": "9.19.0",
+    "typescript": "5.7.3"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.66.3",
+    "axios": "^1.7.9"
+  }
+}
