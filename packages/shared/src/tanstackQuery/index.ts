@@ -1,9 +1,9 @@
 export type { UseMutationResult } from "@tanstack/react-query";
 
 export {
+  QueryClient,
   useQuery,
   useMutation,
-  QueryClient,
   QueryClientProvider,
   useQueryClient,
 } from "@tanstack/react-query";

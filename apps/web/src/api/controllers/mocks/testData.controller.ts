@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Post } from "@/api/types/mocks/testData.type";
+import type { Post, TPost } from "@/api/types/mocks/testData.type";
 
 import { buildURL } from "@/utils/buildURL";
 import { deleteRequest, getRequest, postRequest } from "@repo/shared/axios";
@@ -25,10 +25,27 @@ class TestDataController {
    * @param index 데이터의 인덱스
    * @returns Post 객체 또는 undefined
    */
-  public async getTestData(index: number): Promise<Post | undefined> {
+  public async getTestData(index: number) {
     const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, { index });
     try {
       return await getRequest<Post>({
+        url,
+      });
+    } catch (error: any) {
+      this.handleError(error);
+      return undefined;
+    }
+  }
+
+  /**
+   * 실제 API 데이터를 가져올 때 예시
+   */
+  public async getTestDataWithRealData(
+    index: number
+  ): Promise<TPost | undefined> {
+    const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, { index });
+    try {
+      return await getRequest<TPost>({
         url,
       });
     } catch (error: any) {
@@ -83,7 +100,8 @@ class TestDataController {
         ? "잘못된 매개변수가 제공되었습니다."
         : "예기치 않은 오류가 발생했습니다.");
 
-    throw new Error(`오류: ${message}`);
+    // throw new Error(`오류: ${message}`); -> 앱이 죽을것 같아서 그냥 console.error로 변경
+    console.error("API 요청 오류 발생:", message);
   }
 }
 
