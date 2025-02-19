@@ -35,7 +35,7 @@ instance.interceptors.response.use(
       const { method, url } = error.config as InternalAxiosRequestConfig;
       const { status, statusText } = error.response as AxiosResponse;
 
-      console.log(
+      console.error(
         `🚨 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${statusText} | ${message}`
       );
     }
@@ -44,10 +44,13 @@ instance.interceptors.response.use(
 );
 
 /* get 요청 */
-export const getRequest = async <T>(
-  url: string,
-  config?: AxiosRequestConfig
-): Promise<T> => {
+export const getRequest = async <T>({
+  url,
+  config,
+}: {
+  url: string;
+  config?: AxiosRequestConfig;
+}): Promise<T> => {
   const response = await instance.get<T>(
     url,
     config as InternalAxiosRequestConfig
@@ -56,11 +59,15 @@ export const getRequest = async <T>(
 };
 
 /* post 요청 */
-export const postRequest = async <T, D>(
-  url: string,
-  data?: D,
-  config?: AxiosRequestConfig
-): Promise<T> => {
+export const postRequest = async <T, D>({
+  url,
+  data,
+  config,
+}: {
+  url: string;
+  data?: D;
+  config?: AxiosRequestConfig;
+}): Promise<T> => {
   const response = await instance.post<T>(
     url,
     data,
@@ -70,10 +77,13 @@ export const postRequest = async <T, D>(
 };
 
 /* delete 요청 */
-export const deleteRequest = async <T>(
-  url: string,
-  config?: AxiosRequestConfig
-): Promise<T> => {
+export const deleteRequest = async <T>({
+  url,
+  config,
+}: {
+  url: string;
+  config?: AxiosRequestConfig;
+}): Promise<T> => {
   const response = await instance.delete<T>(
     url,
     config as InternalAxiosRequestConfig
@@ -82,11 +92,15 @@ export const deleteRequest = async <T>(
 };
 
 /* put 요청 */
-export const putRequest = async <T, D>(
-  url: string,
-  data: D,
-  config?: AxiosRequestConfig
-): Promise<T> => {
+export const putRequest = async <T, D>({
+  url,
+  data,
+  config,
+}: {
+  url: string;
+  data?: D;
+  config?: AxiosRequestConfig;
+}): Promise<T> => {
   const response = await instance.put<T>(
     url,
     data,
@@ -96,11 +110,15 @@ export const putRequest = async <T, D>(
 };
 
 /* patch 요청 */
-export const patchRequest = async <T, D>(
-  url: string,
-  data: D,
-  config?: AxiosRequestConfig
-): Promise<T> => {
+export const patchRequest = async <T, D>({
+  url,
+  data,
+  config,
+}: {
+  url: string;
+  data?: D;
+  config?: AxiosRequestConfig;
+}): Promise<T> => {
   const response = await instance.patch<T>(
     url,
     data,

@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
- * API 요청을 보낼 때 URL을 생성하는 util 함수입니다.
- * baseURL과 params를 받아 URL을 생성합니다.
- * usePathParam이 true이면 path parameter로 사용하고,
- * false이면 query parameter로 사용합니다.
+ * 주어진 baseURL과 params를 이용하여 요청할 URL을 생성하는 유틸 함수입니다.
+ *
+ * @param {string} baseURL - 기본 요청 URL
+ * @param {Record<string, any>} params - URL에 추가할 파라미터 객체
+ * @param {boolean} [usePathParam=true] - true이면 `index` 값을 경로 파라미터로 사용하고,
+ *                                       false이면 모든 값을 쿼리 파라미터로 추가합니다.
+ * @returns {string} 생성된 URL 문자열
  */
 
 export const buildURL = (
@@ -20,8 +23,8 @@ export const buildURL = (
     }
     const queryString = new URLSearchParams(queryParams).toString();
     return queryString ? `${url}?${queryString}` : url;
-  } else {
-    const queryString = new URLSearchParams(params).toString();
-    return `${baseURL}?${queryString}`;
   }
+
+  const queryString = new URLSearchParams(params).toString();
+  return `${baseURL}?${queryString}`;
 };

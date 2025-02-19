@@ -28,7 +28,9 @@ class TestDataController {
   public async getTestData(index: number): Promise<Post | undefined> {
     const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, { index });
     try {
-      return await getRequest<Post>(url);
+      return await getRequest<Post>({
+        url,
+      });
     } catch (error: any) {
       this.handleError(error);
       return undefined;
@@ -42,7 +44,10 @@ class TestDataController {
    */
   public async postTestData(data: Post): Promise<Post | undefined> {
     try {
-      return await postRequest<Post, Post>(API_URLS.JSONPLACEHOLDER_POST, data);
+      return await postRequest<Post, Post>({
+        url: API_URLS.JSONPLACEHOLDER_POST,
+        data,
+      });
     } catch (error: any) {
       this.handleError(error);
       return undefined;
@@ -56,7 +61,9 @@ class TestDataController {
   public async deleteTestData(index: number): Promise<void> {
     const url = buildURL(API_URLS.JSONPLACEHOLDER_POST, { index });
     try {
-      await deleteRequest(url);
+      await deleteRequest({
+        url,
+      });
     } catch (error: any) {
       this.handleError(error);
     }
