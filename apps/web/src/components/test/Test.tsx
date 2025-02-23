@@ -3,6 +3,8 @@
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import React, { useState, useCallback, useMemo } from "react";
+import * as Style from "./styles.css";
+import "@/styles/GlobalStyle.css";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
@@ -48,8 +50,14 @@ const Test = () => {
           <span>{testData?.title}</span>
         )}
       </div>
-      <button onClick={handleClick}>다음글</button>
-      <button onClick={handleSubmit} disabled={isCreating}>
+      <button className={Style.nextButton} onClick={handleClick}>
+        다음글
+      </button>
+      <button
+        className={Style.addButton}
+        onClick={handleSubmit}
+        disabled={isCreating}
+      >
         {isCreating ? "업로드 중..." : "새 데이터 추가"}
       </button>
     </div>
