@@ -1,0 +1,40 @@
+name: Label PR Based on Comments
+
+on:
+  issue_comment:
+    types: [created, edited]
+  pull_request_review_comment:
+    types: [created, edited]
+
+jobs:
+  label-pr:
+    name: PR Comment Label
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add labels based on comment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.ACTIONS_TOKEN }}
+          script: |
+            const comment = context.payload.comment.body;
+            const issueNumber = context.payload.issue?.number || context.payload.pull_request.number;
+            const repo = context.repo;
+
+            // 찾을 키워드 목록
+            const keywords = ["p1", "p2", "p3"];
+            let labelsToAdd = [];
+
+            keywords.forEach(keyword => {
+              if (comment.includes(keyword)) {
+                labelsToAdd.push(keyword);
+              }
+            });
+
+            if (labelsToAdd.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: repo.owner,
+                repo: repo.repo,
+                issue_number: issueNumber,
+                labels: labelsToAdd
+              });
+            }
