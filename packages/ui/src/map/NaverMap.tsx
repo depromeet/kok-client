@@ -1,12 +1,11 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+
+import { useEffect, useRef } from "react";
 import { NaverMapProps } from "./types";
 
-export const NaverMap = ({
-  width = "100%",
-  height = "400px",
-}: NaverMapProps) => {
+export const NaverMap = ({ width, height }: NaverMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
+  const defaultZoomLevel = 16; // 디자인팀 논의 후 수정
 
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_NAVER_CLIENT_ID) {
@@ -29,14 +28,14 @@ export const NaverMap = ({
       }
       try {
         const mapOptions = {
-          center: new window.naver.maps.LatLng(37.5666103, 126.9783882), // 기본: 시청
-          zoom: 17,
+          center: new naver.maps.LatLng(37.5666103, 126.9783882), // 기본: 시청
+          zoom: defaultZoomLevel,
           logoControl: false,
           mapDataControl: false,
           scaleControl: false,
         };
 
-        new window.naver.maps.Map(mapRef.current, mapOptions);
+        new naver.maps.Map(mapRef.current, mapOptions);
       } catch (error) {
         console.error("네이버 지도 생성 실패", error);
       }
