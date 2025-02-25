@@ -5,9 +5,11 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "new-package": "hygen new package"
   },
   "devDependencies": {
+    "hygen": "^6.2.11",
     "prettier": "^3.4.2",
     "turbo": "^2.4.0",
     "typescript": "5.7.3"
