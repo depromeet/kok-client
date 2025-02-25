@@ -1,6 +1,6 @@
 import React from "react";
 import Test from "@/components/test/Test";
-import { NaverMap } from "@repo/ui/map";
+import { NaverMap } from "@repo/map";
 
 const Page = () => {
   return (
