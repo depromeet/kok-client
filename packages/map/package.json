@@ -1,25 +1,21 @@
 {
-  "name": "@repo/ui",
+  "name": "@repo/map",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx",
-    "./map": "./src/map/index.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component",
-    "check-types": "tsc --noEmit"
+    "lint": "eslint . --max-warnings 0"
   },
-  "devDependencies": {
+  "dependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@turbo/gen": "^2.4.0",
     "@types/node": "^22.13.0",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
+    "@types/navermaps": "^3.7.9",
     "eslint": "^9.19.0",
     "typescript": "5.7.3"
   },

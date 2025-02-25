@@ -1,13 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalEnv": ["NEXT_PUBLIC_BASE_URL"],
+  "globalEnv": ["NEXT_PUBLIC_BASE_URL", "NEXT_PUBLIC_NAVER_CLIENT_ID"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["NEXT_PUBLIC_BASE_URL"]
+      "env": ["NEXT_PUBLIC_BASE_URL", "NEXT_PUBLIC_NAVER_CLIENT_ID"]
     },
     "lint": {
       "dependsOn": ["^lint"]
