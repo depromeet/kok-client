@@ -1,9 +1,10 @@
+import { theme } from "@repo/ui/tokens";
 import { style, styleVariants } from "@vanilla-extract/css";
 
 const base = style({ color: "white" });
 export const variant = styleVariants({
-  primary: [base, { background: "blue" }],
-  secondary: [base, { background: "red" }],
+  primary: [base, { background: theme.colors.blue80 }],
+  secondary: [base, { background: theme.colors.red80 }],
 });
 
 // 배열로 합성 가능
