@@ -180,6 +180,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@vanilla-extract/css':
+        specifier: ^1.17.1
+        version: 1.17.1
       react:
         specifier: ^19.0.0
         version: 19.0.0
