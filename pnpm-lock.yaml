@@ -23,9 +23,9 @@ importers:
 
   apps/web:
     dependencies:
-      '@repo/map':
+      '@repo/naver-map':
         specifier: workspace:*
-        version: link:../../packages/map
+        version: link:../../packages/naver-map
       '@repo/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -106,7 +106,7 @@ importers:
         specifier: ^8.23.0
         version: 8.23.0(eslint@9.19.0)(typescript@5.7.3)
 
-  packages/map:
+  packages/naver-map:
     dependencies:
       '@repo/eslint-config':
         specifier: workspace:*
