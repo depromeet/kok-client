@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { SmallPolygonProps, NaverPolygon } from "./types";
+import { PolygonProps, NaverPolygon } from "./types";
+import { NAVER_MAP_CONFIG } from "./NaverMap";
 
 const SmallPolygon = ({
   map,
   markerData,
   centerMarker,
-  scaleFactor,
-}: SmallPolygonProps) => {
+  scaleFactor = NAVER_MAP_CONFIG.SCALE_FACTOR,
+}: PolygonProps) => {
   const polygonRef = useRef<NaverPolygon>(null);
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import Polygon from "./Polygon";
 import SmallPolygon from "./SmallPolygon";
 import Polyline from "./Polyline";
 
-const NAVER_MAP_CONFIG = {
+export const NAVER_MAP_CONFIG = {
   ZOOM_LEVEL: 17, // 확정
   MIN_ZOOM: 11, // 10, 11 추후 결정 예정
   SCALE_FACTOR: 0.3,
