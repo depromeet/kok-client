@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, PropsWithChildren, RefObject } from "react";
 import { buttonReceipe, ButtonVariants } from "./style.css";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonVariants & { ref?: RefObject<HTMLButtonElement | null> };
 
 export const Button = ({
