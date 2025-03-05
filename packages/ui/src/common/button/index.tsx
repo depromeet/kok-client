@@ -9,16 +9,17 @@ export const Button = ({
   width,
   padding,
   ref,
+  className,
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   return (
     <button
-      className={buttonReceipe({
+      className={`${buttonReceipe({
         variant,
         width,
         padding,
-      })}
+      })} ${className ?? ""}`}
       ref={ref}
       {...props}
     >
