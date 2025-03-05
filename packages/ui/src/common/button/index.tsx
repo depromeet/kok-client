@@ -5,7 +5,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonVariants & { ref?: RefObject<HTMLButtonElement | null> };
 
 export const Button = ({
-  buttonType,
+  variant,
   width,
   padding,
   ref,
@@ -15,7 +15,7 @@ export const Button = ({
   return (
     <button
       className={buttonReceipe({
-        buttonType,
+        variant,
         width,
         padding,
       })}

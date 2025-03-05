@@ -71,20 +71,20 @@ const Test = () => {
       <Button disabled onClick={onClickButton}>
         text
       </Button>
-      <Button buttonType="secondary" onClick={onClickButton}>
+      <Button variant="secondary" onClick={onClickButton}>
         text
       </Button>
 
-      <Button buttonType="primary" width="auto" padding="sm">
+      <Button variant="primary" width="auto" padding="sm">
         <AddIcon />
       </Button>
-      <Button buttonType="primary" width="auto" padding="sm" disabled>
+      <Button variant="primary" width="auto" padding="sm" disabled>
         <AddIcon />
       </Button>
 
       <div style={{ display: "flex", gap: "12px" }}>
         <Button onClick={onClickButton}>text</Button>
-        <Button buttonType="secondary" onClick={onClickButton}>
+        <Button variant="secondary" onClick={onClickButton}>
           abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijk
         </Button>
       </div>

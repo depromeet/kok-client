@@ -29,7 +29,7 @@ export const buttonReceipe = recipe({
   ],
 
   variants: {
-    buttonType: {
+    variant: {
       primary: {
         backgroundColor: theme.colors.gray95,
       },
@@ -52,7 +52,7 @@ export const buttonReceipe = recipe({
   },
 
   defaultVariants: {
-    buttonType: "primary",
+    variant: "primary",
     width: "full",
     padding: "md",
   },
