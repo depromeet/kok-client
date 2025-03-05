@@ -1,6 +1,8 @@
-import { recipe } from "@vanilla-extract/recipes";
+import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
 import { theme } from "../tokens";
 import { style } from "@vanilla-extract/css";
+
+export type ButtonVariants = RecipeVariants<typeof buttonReceipe>;
 
 const buttonReset = style({
   all: "unset",

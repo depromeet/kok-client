@@ -1,15 +1,7 @@
-import { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
-import { buttonReceipe } from "./style.css";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
+import { buttonReceipe, ButtonVariants } from "./style.css";
 
-export type ButtonType = keyof typeof buttonReceipe.variants;
-
-interface ButtonProps
-  extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
-  buttonType?: string;
-  width?: string;
-  padding?: string;
-  children: ReactNode;
-}
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonVariants;
 
 export const Button = ({
   buttonType,
@@ -17,7 +9,7 @@ export const Button = ({
   padding,
   children,
   ...props
-}: ButtonProps) => {
+}: PropsWithChildren<ButtonProps>) => {
   return (
     <button
       {...props}
@@ -25,7 +17,7 @@ export const Button = ({
         buttonType,
         width,
         padding,
-      } as ButtonType)}
+      })}
     >
       {children}
     </button>
