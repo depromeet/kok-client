@@ -5,8 +5,8 @@ import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import React, { useState, useCallback, useMemo } from "react";
 import * as Style from "./styles.css";
 import "@/styles/GlobalStyle.css";
-import { Button } from "@repo/ui/button";
 import AddIcon from "@/assets/icons/add-icon";
+import { Button } from "@repo/ui/common";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
