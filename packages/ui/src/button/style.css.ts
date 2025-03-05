@@ -38,17 +38,20 @@ export const buttonReceipe = recipe({
 
     width: {
       full: { width: "100%" },
+      fit: { width: "fit-content" },
+      auto: { width: "auto" },
     },
 
     padding: {
       none: { padding: 0 },
-      normal: { padding: "18px" },
+      sm: { padding: "16px" },
+      md: { padding: "18px" },
     },
   },
 
   defaultVariants: {
     buttonType: "primary",
     width: "full",
-    padding: "normal",
+    padding: "md",
   },
 });

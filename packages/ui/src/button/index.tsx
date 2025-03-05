@@ -6,14 +6,26 @@ export type ButtonType = keyof typeof buttonReceipe.variants;
 interface ButtonProps
   extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
   buttonType?: string;
+  width?: string;
+  padding?: string;
   children: ReactNode;
 }
 
-export const Button = ({ buttonType, children, ...props }: ButtonProps) => {
+export const Button = ({
+  buttonType,
+  width,
+  padding,
+  children,
+  ...props
+}: ButtonProps) => {
   return (
     <button
       {...props}
-      className={buttonReceipe({ buttonType: buttonType as ButtonType })}
+      className={buttonReceipe({
+        buttonType,
+        width,
+        padding,
+      } as ButtonType)}
     >
       {children}
     </button>
