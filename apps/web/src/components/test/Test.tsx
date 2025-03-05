@@ -6,6 +6,7 @@ import React, { useState, useCallback, useMemo } from "react";
 import * as Style from "./styles.css";
 import "@/styles/GlobalStyle.css";
 import { Button } from "@repo/ui/button";
+import AddIcon from "@/assets/icons/add-icon";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
@@ -74,10 +75,17 @@ const Test = () => {
         text
       </Button>
 
+      <Button buttonType="primary" width="auto" padding="sm">
+        <AddIcon />
+      </Button>
+      <Button buttonType="primary" width="auto" padding="sm" disabled>
+        <AddIcon />
+      </Button>
+
       <div style={{ display: "flex", gap: "12px" }}>
         <Button onClick={onClickButton}>text</Button>
         <Button buttonType="secondary" onClick={onClickButton}>
-          texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext
+          abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijk
         </Button>
       </div>
     </div>
