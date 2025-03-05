@@ -1,12 +1,12 @@
 import React from "react";
 import Test from "@/components/test/Test";
-import { NaverMap } from "@repo/map";
+import MapTest from "@/components/MapTest";
 
 const Page = () => {
   return (
     <div>
       <Test />
-      <NaverMap width="500px" height="700px" />
+      <MapTest />
     </div>
   );
 };
