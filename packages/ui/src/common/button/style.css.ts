@@ -5,12 +5,9 @@ import { theme } from "../../tokens";
 export type ButtonVariants = RecipeVariants<typeof buttonReceipe>;
 
 const buttonReset = style({
-  all: "unset",
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
   cursor: "pointer",
   fontFamily: "inherit",
+  border: 0,
 });
 
 export const buttonReceipe = recipe({
