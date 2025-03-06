@@ -1,6 +1,6 @@
 import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
 import { style } from "@vanilla-extract/css";
-import { theme } from "../../tokens";
+import { theme } from "../tokens";
 
 export type ButtonVariants = RecipeVariants<typeof buttonReceipe>;
 

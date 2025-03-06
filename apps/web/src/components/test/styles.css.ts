@@ -1,4 +1,4 @@
-import { theme } from "@repo/ui/tokens";
+import { theme } from "@repo/ui";
 import { style, styleVariants } from "@vanilla-extract/css";
 
 const base = style({ color: "white" });

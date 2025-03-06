@@ -6,7 +6,7 @@ import React, { useState, useCallback, useMemo } from "react";
 import * as Style from "./styles.css";
 import "@/styles/GlobalStyle.css";
 import AddIcon from "@/assets/icons/add-icon";
-import { Button } from "@repo/ui/common";
+import { Button } from "@repo/ui";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
