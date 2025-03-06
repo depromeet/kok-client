@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import React from "react";
 import localFont from "next/font/local";
 import QueryProvider from "@repo/shared/QueryProvider";
-import { Container } from "@repo/ui";
+import { Container } from "@repo/ui/components";
 
 import "@/styles/global.css";
 
