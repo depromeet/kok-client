@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import React from "react";
 import localFont from "next/font/local";
 import QueryProvider from "@repo/shared/QueryProvider";
+import { Container } from "@repo/ui";
 
-import "./globals.css";
-import Container from "@repo/ui/container";
+import "@/styles/global.css";
 
 export const metadata: Metadata = {
   title: "콕",

@@ -1,12 +1,11 @@
 "use client";
 
+import React, { useState, useCallback, useMemo } from "react";
+import { Button } from "@repo/ui";
+import AddIcon from "@/assets/icons/add-icon";
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
-import React, { useState, useCallback, useMemo } from "react";
 import * as Style from "./styles.css";
-import "@/styles/GlobalStyle.css";
-import AddIcon from "@/assets/icons/add-icon";
-import { Button } from "@repo/ui";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
