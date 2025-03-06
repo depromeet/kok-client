@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./common": "./src/common/index.ts",
+    "./components": "./src/components/index.ts",
     "./tokens": "./src/tokens/index.ts"
   },
   "scripts": {

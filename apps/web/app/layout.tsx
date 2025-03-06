@@ -4,7 +4,7 @@ import React from "react";
 import localFont from "next/font/local";
 import QueryProvider from "@repo/shared/QueryProvider";
 
-import "./globals.css";
+import "@/styles/global.css";
 
 export const metadata: Metadata = {
   title: "콕",
@@ -26,7 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={pretendard.className}>
+      <body
+        style={{
+          maxWidth: "600px",
+          width: "100%",
+          margin: "0 auto",
+        }}
+        className={pretendard.className}
+      >
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
