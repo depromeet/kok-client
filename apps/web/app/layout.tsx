@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import React from "react";
 import localFont from "next/font/local";
 import QueryProvider from "@repo/shared/QueryProvider";
-import { Container } from "@repo/ui/components";
 
 import "@/styles/global.css";
 
@@ -27,10 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={pretendard.className}>
-        <QueryProvider>
-          <Container>{children}</Container>
-        </QueryProvider>
+      <body
+        style={{
+          maxWidth: "600px",
+          width: "100%",
+          margin: "0 auto",
+        }}
+        className={pretendard.className}
+      >
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

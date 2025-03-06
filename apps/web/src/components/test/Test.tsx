@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import AddIcon from "@/assets/icons/add-icon";
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
