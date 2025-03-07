@@ -42,14 +42,14 @@ const Test = () => {
 
   return (
     <div>
-      <div>
+      <Text as="p">
         현재 글 제목 :{" "}
         {isLoading ? (
           <Text style={loadingTextStyle}>...</Text>
         ) : (
           <Text>{testData?.title}</Text>
         )}
-      </div>
+      </Text>
       <button className={Style.nextButton} onClick={handleClick}>
         다음글
       </button>
