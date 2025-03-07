@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback } from "react";
 import AddIcon from "@/assets/icons/add-icon";
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import * as Style from "./styles.css";
-import { Button } from "@repo/ui/components";
+import { Button, Flex } from "@repo/ui/components";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
@@ -39,54 +39,50 @@ const Test = () => {
     createData(newPost);
   }, [createData]);
 
-  const loadingTextStyle = useMemo(
-    // 로딩 텍스트 스타일
-    () => ({ backgroundColor: "#ddd", padding: "4px 8px" }),
-    []
-  );
-
   return (
     <div>
       <div>
         현재 글 제목 :{" "}
-        {isLoading ? (
-          <span style={loadingTextStyle}>...</span>
-        ) : (
-          <span>{testData?.title}</span>
-        )}
+        {isLoading ? <span>...</span> : <span>{testData?.title}</span>}
       </div>
-      <button className={Style.nextButton} onClick={handleClick}>
-        다음글
-      </button>
-      <button
-        className={Style.addButton}
-        onClick={handleSubmit}
-        disabled={isCreating}
-      >
-        {isCreating ? "업로드 중..." : "새 데이터 추가"}
-      </button>
+      <Flex direction="column" gap={12}>
+        <button className={Style.nextButton} onClick={handleClick}>
+          다음글
+        </button>
+        <button
+          className={Style.addButton}
+          onClick={handleSubmit}
+          disabled={isCreating}
+        >
+          {isCreating ? "업로드 중..." : "새 데이터 추가"}
+        </button>
+      </Flex>
 
-      <Button onClick={onClickButton}>text</Button>
-      <Button disabled onClick={onClickButton}>
-        text
-      </Button>
-      <Button variant="secondary" onClick={onClickButton}>
-        text
-      </Button>
+      <Flex justify="justify-between" align="items-center">
+        <Button onClick={onClickButton}>text</Button>
+        <Button disabled onClick={onClickButton}>
+          text
+        </Button>
+        <Button variant="secondary" onClick={onClickButton}>
+          text
+        </Button>
+      </Flex>
 
-      <Button variant="primary" width="auto" padding="sm">
-        <AddIcon />
-      </Button>
-      <Button variant="primary" width="auto" padding="sm" disabled>
-        <AddIcon />
-      </Button>
+      <Flex justify="justify-between" align="items-end">
+        <Button variant="primary" width="auto" padding="sm">
+          <AddIcon />
+        </Button>
+        <Button variant="primary" width="auto" padding="sm" disabled>
+          <AddIcon />
+        </Button>
+      </Flex>
 
-      <div style={{ display: "flex", gap: "12px" }}>
+      <Flex gap={12}>
         <Button onClick={onClickButton}>text</Button>
         <Button variant="secondary" onClick={onClickButton}>
           abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijk
         </Button>
-      </div>
+      </Flex>
     </div>
   );
 };
