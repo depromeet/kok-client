@@ -6,7 +6,8 @@ import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import * as Style from "./styles.css";
 import { Button } from "@repo/ui/components";
-
+import { Input } from "@repo/ui/components";
+import { SearchIcon, DeleteIcon } from "@repo/ui/icons";
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
   const { testData, isLoading } = useGetTestData(currentIndex); // 특정 인덱스의 데이터 가져오기
@@ -65,6 +66,42 @@ const Test = () => {
       >
         {isCreating ? "업로드 중..." : "새 데이터 추가"}
       </button>
+      <div style={{ display: "flex", gap: "12px" }}>
+        <Input
+          variant="rectangular"
+          placeholder="이름을 입력해주세요"
+          maxLength={10}
+          padding="sm"
+          width="fit"
+          alwaysShowCounter={true}
+        />
+        <Input
+          variant="rounded"
+          placeholder="출발지를 입력해주세요"
+          rightIcon={<SearchIcon />}
+          padding="sm"
+          width="full"
+        />
+      </div>
+      <Input
+        variant="rounded"
+        placeholder="이름을 입력해주세요"
+        maxLength={10}
+        padding="sm"
+      />
+      <SearchIcon />
+      <SearchIcon disabled={true} />
+      <DeleteIcon />
+      <DeleteIcon disabled={true} />
+      <div style={{ display: "flex", gap: "12px" }}>
+        <Input
+          variant="rectangular"
+          width="profile"
+          rightIcon={<DeleteIcon />}
+        />
+        <Input variant="rectangular" width="people" />
+      </div>
+      <Input />
 
       <Button onClick={onClickButton}>text</Button>
       <Button disabled onClick={onClickButton}>

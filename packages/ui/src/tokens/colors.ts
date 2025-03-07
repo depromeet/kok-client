@@ -2,6 +2,7 @@ export const colors = {
   gray5: "#F6F6F6",
   gray10: "#E7E7E7",
   gray20: "#D1D1D1",
+  gray25: "#EFEFEF", // input 배경색
   gray30: "#B0B0B0",
   gray40: "#888888",
   gray50: "#6D6D6D",
