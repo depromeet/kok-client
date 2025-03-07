@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
-import AddIcon from "@/assets/icons/add-icon";
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import * as Style from "./styles.css";
-import { Button } from "@repo/ui/components";
+import { Text } from "@repo/ui/components";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
@@ -15,10 +14,6 @@ const Test = () => {
     // 데이터 생성 성공 시 알림
     alert("새로운 데이터가 생성되었습니다!");
   }, []);
-
-  const onClickButton = () => {
-    alert("Clicked!");
-  };
 
   const { createData, isCreating } = usePostTestData(currentIndex, onSuccess); // 데이터 생성하기
 
@@ -50,9 +45,9 @@ const Test = () => {
       <div>
         현재 글 제목 :{" "}
         {isLoading ? (
-          <span style={loadingTextStyle}>...</span>
+          <Text style={loadingTextStyle}>...</Text>
         ) : (
-          <span>{testData?.title}</span>
+          <Text>{testData?.title}</Text>
         )}
       </div>
       <button className={Style.nextButton} onClick={handleClick}>
@@ -65,28 +60,6 @@ const Test = () => {
       >
         {isCreating ? "업로드 중..." : "새 데이터 추가"}
       </button>
-
-      <Button onClick={onClickButton}>text</Button>
-      <Button disabled onClick={onClickButton}>
-        text
-      </Button>
-      <Button variant="secondary" onClick={onClickButton}>
-        text
-      </Button>
-
-      <Button variant="primary" width="auto" padding="sm">
-        <AddIcon />
-      </Button>
-      <Button variant="primary" width="auto" padding="sm" disabled>
-        <AddIcon />
-      </Button>
-
-      <div style={{ display: "flex", gap: "12px" }}>
-        <Button onClick={onClickButton}>text</Button>
-        <Button variant="secondary" onClick={onClickButton}>
-          abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijk
-        </Button>
-      </div>
     </div>
   );
 };
