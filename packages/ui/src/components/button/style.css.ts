@@ -5,9 +5,13 @@ import { theme } from "../../tokens";
 export type ButtonVariants = RecipeVariants<typeof buttonReceipe>;
 
 const buttonReset = style({
+  display: "inline-flex",
+  justifyContent: "center",
   cursor: "pointer",
   fontFamily: "inherit",
   border: 0,
+  WebkitTapHighlightColor: "transparent",
+  overflow: "hidden",
 });
 
 export const buttonReceipe = recipe({
