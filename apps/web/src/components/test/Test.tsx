@@ -6,13 +6,10 @@ import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import * as Style from "./styles.css";
 import { Button, Flex, Text } from "@repo/ui/components";
-import { theme } from "@repo/ui/tokens";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
   const { testData, isLoading } = useGetTestData(currentIndex); // 특정 인덱스의 데이터 가져오기
-
-  console.log(theme.colors);
 
   const onSuccess = useCallback(() => {
     // 데이터 생성 성공 시 알림
