@@ -86,9 +86,6 @@ const scale = {
   subwayRaw8: "#D6406A",
   subwayRaw9: "#8E764B",
 
-  mapPolygon: "rgba(251, 83, 39, 0.12)",
-  mapMarkerBorder: "#000000",
-
   subwayAdjust1: "#006DD2",
   subwayAdjust2: "#00BF57",
   subwayAdjust3: "#F36630",
@@ -98,6 +95,9 @@ const scale = {
   subwayAdjust7: "#8F9A16",
   subwayAdjust8: "#D6406A",
   subwayAdjust9: "#8E764B",
+
+  mapPolygon: "rgba(251, 83, 39, 0.12)",
+  mapMarkerBorder: "#000000",
 };
 
 const token = {
