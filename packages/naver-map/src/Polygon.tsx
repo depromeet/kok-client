@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { NaverPolygon, PolygonProps } from "./types";
-import { theme } from "../../ui/src/tokens/theme.css";
+import { theme } from "@repo/ui/tokens";
 
 const Polygon = ({ map, markerData }: PolygonProps) => {
   const polygonRef = useRef<NaverPolygon>(null);

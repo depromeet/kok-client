@@ -1,6 +1,7 @@
 "use client";
+
 import RefreshIcon from "@/assets/icons/RefreshIcon";
-import { Text } from "../../../../packages/ui/src/components/text";
+import { Text } from "@repo/ui/components";
 import { useState } from "react";
 import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
 import * as styles from "../styles/RefreshCenterButton.css";
