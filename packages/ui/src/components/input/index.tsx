@@ -1,8 +1,6 @@
-import type { InputHTMLAttributes } from "react";
-import { useInput } from "./useInput";
+import type { InputHTMLAttributes, ChangeEvent } from "react";
 import {
   inputRecipeStyle,
-  charCounterStyle,
   inputContainerStyle,
   rightElementStyle,
 } from "./style.css";
@@ -13,9 +11,8 @@ export type InputProps = {
   padding?: "none" | "sm" | "md";
   maxLength?: number;
   rightElement?: React.ReactNode;
-  showCounter?: boolean;
-  alwaysShowCounter?: boolean;
-  autoDisabled?: boolean;
+  value?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
 
 export const Input = ({
@@ -23,29 +20,14 @@ export const Input = ({
   width = "full",
   padding = "sm",
   maxLength,
-  onChange,
-  value,
   className,
   placeholder,
   rightElement,
-  showCounter = false,
-  alwaysShowCounter = false,
-  autoDisabled = false,
-  disabled,
+  value,
+  onChange,
   ...props
 }: InputProps) => {
-  const { inputValue, isEmpty, isDisabled, handleChange } = useInput({
-    value: typeof value === "string" ? value : value?.toString() || "",
-    maxLength,
-    autoDisabled,
-    disabled,
-    onChange,
-  });
-
-  const showCounterElement =
-    showCounter && maxLength && (inputValue.length > 0 || alwaysShowCounter);
-
-  const hasRightElement = Boolean(rightElement || showCounterElement);
+  const hasRightElement = Boolean(rightElement);
 
   const presetWidths = ["full", "fit", "auto", "profile", "people", "custom"];
   const isPresetWidth =
@@ -59,6 +41,8 @@ export const Input = ({
   return (
     <div className={inputContainerStyle}>
       <input
+        value={value}
+        onChange={onChange}
         className={inputRecipeStyle({
           variant,
           width: isPresetWidth
@@ -68,23 +52,14 @@ export const Input = ({
           hasRightElement,
         })}
         style={widthStyle}
-        value={inputValue}
-        onChange={handleChange}
         placeholder={placeholder}
         maxLength={maxLength}
-        disabled={isDisabled}
         {...props}
       />
 
       {rightElement && (
         <span className={rightElementStyle}>{rightElement}</span>
       )}
-
-      {!rightElement && showCounterElement ? (
-        <span className={charCounterStyle}>
-          {inputValue.length}/{maxLength}
-        </span>
-      ) : null}
     </div>
   );
 };

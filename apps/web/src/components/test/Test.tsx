@@ -73,7 +73,6 @@ const Test = () => {
           maxLength={10}
           padding="sm"
           width="fit"
-          alwaysShowCounter={true}
         />
         <Input
           variant="rounded"
@@ -109,7 +108,6 @@ const Test = () => {
       <Button variant="secondary" onClick={onClickButton}>
         text
       </Button>
-
       <Button variant="primary" width="auto" padding="sm">
         <AddIcon />
       </Button>
