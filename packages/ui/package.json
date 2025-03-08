@@ -17,7 +17,6 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.5",
     "@repo/eslint-config": "workspace:*",
-    "@repo/motion": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@storybook/addon-essentials": "^8.2.1",
     "@storybook/addon-interactions": "^8.2.1",
@@ -52,6 +51,7 @@
     ]
   },
   "dependencies": {
-    "react-spring-bottom-sheet": "^3.4.1"
+    "@repo/motion": "workspace:*",
+    "@radix-ui/react-dialog": "^1.1.6"
   }
 }
