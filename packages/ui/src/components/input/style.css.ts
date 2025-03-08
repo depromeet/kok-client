@@ -9,13 +9,18 @@ const inputResetStyle = style({
   outline: "none",
   height: "48px",
   boxSizing: "border-box",
+
+  fontSize: "16px",
+  fontStyle: "normal",
+  fontWeight: 500,
+  lineHeight: "100%",
 });
 
 export const inputRecipeStyle = recipe({
   base: [
     inputResetStyle,
     {
-      backgroundColor: theme.colors.gray10,
+      backgroundColor: theme.colors.gray0,
       caretColor: theme.colors.orange40,
 
       "::placeholder": {
@@ -23,7 +28,7 @@ export const inputRecipeStyle = recipe({
       },
 
       ":focus": {
-        borderColor: theme.colors.gray10,
+        borderColor: theme.colors.gray0,
       },
 
       ":disabled": {
