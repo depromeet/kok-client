@@ -19,7 +19,7 @@ export const buttonReceipe = recipe({
       boxSizing: "border-box",
 
       ":disabled": {
-        backgroundColor: theme.colors.gray20,
+        backgroundColor: theme.colors.gray[20],
         cursor: "not-allowed",
       },
     },
@@ -28,10 +28,10 @@ export const buttonReceipe = recipe({
   variants: {
     variant: {
       primary: {
-        backgroundColor: theme.colors.gray95,
+        backgroundColor: theme.colors.gray[95],
       },
       secondary: {
-        backgroundColor: theme.colors.orange40,
+        backgroundColor: theme.colors.orange[40],
       },
     },
 

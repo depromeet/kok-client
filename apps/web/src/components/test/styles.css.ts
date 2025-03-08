@@ -3,8 +3,8 @@ import { style, styleVariants } from "@vanilla-extract/css";
 
 const base = style({ color: "white" });
 export const variant = styleVariants({
-  primary: [base, { background: theme.colors.blue80 }],
-  secondary: [base, { background: theme.colors.red80 }],
+  primary: [base, { background: theme.colors.blue[80] }],
+  secondary: [base, { background: theme.colors.red[80] }],
 });
 
 // 배열로 합성 가능
@@ -25,5 +25,6 @@ export const addButton = style([
     borderRadius: 50,
     backgroundColor: "none",
     border: "1px solid black",
+    color: theme.colors.text[1],
   },
 ]);
