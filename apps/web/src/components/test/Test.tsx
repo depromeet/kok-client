@@ -37,7 +37,7 @@ const Test = () => {
 
   return (
     <div>
-      <Text as="p">
+      <Text as="p" variant="heading1">
         현재 글 제목 :{" "}
         {isLoading ? <span>...</span> : <span>{testData?.title}</span>}
       </Text>
