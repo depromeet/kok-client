@@ -1,2 +1,2 @@
-export { Root as BottomSheet } from "./Root";
-export type { RootProps as BottomSheetRootProps } from "./Root";
+export { Root as BottomSheet } from "./compounds/Root";
+export type { RootProps as BottomSheetProps } from "./compounds/Root";

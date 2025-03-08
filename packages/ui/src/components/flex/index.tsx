@@ -1,6 +1,5 @@
 import { HTMLAttributes, PropsWithChildren, ElementType } from "react";
 import { flexRecipe } from "./style.css";
-import { classMerge } from "../../utils"; // classMerge 함수 임포트
 
 type JustifyType = "start" | "center" | "end" | "between";
 type AlignType = "start" | "center" | "end";
@@ -19,8 +18,8 @@ export const Flex = ({
   align,
   direction,
   gap,
-  className,
   children,
+  className,
   ...props
 }: PropsWithChildren<FlexProps>) => {
   return (

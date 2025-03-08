@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { MarkerProps, NaverMapMarker } from "./types";
+import { theme } from "@repo/ui/tokens";
+import { createMapMarkerIcon } from "./components/MapMarkerIcon";
 
 const Marker = ({ map, markerData, onMarkerClicked }: MarkerProps) => {
   const markersRef = useRef<NaverMapMarker[]>([]);
@@ -31,25 +33,17 @@ const Marker = ({ map, markerData, onMarkerClicked }: MarkerProps) => {
 
   const createMarkers = () => {
     if (!markerData.length) return;
+    const borderColor = theme.colors.mapMarkerBorder;
 
     markersRef.current = markerData.map((item) => {
-      const markerElement = document.createElement("div");
-      markerElement.style.cssText = `
-      width: 20px;
-      height: 20px;
-      background:rgb(251, 161, 143);
-      border-radius: 50px;
-      border: 3px solid rgb(248, 64, 27);
-      box-shadow: 0 2px 5px 3px rgba(145, 145, 145, 0.5);
-      cursor: pointer;
-      `; // 추후 스타일 코드 분리 예정
+      const markerIcon = createMapMarkerIcon({ borderColor });
 
       const marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(item.position.lat, item.position.lng),
         map: map,
         icon: {
-          content: markerElement,
-          anchor: new naver.maps.Point(10, 10),
+          content: markerIcon,
+          anchor: new naver.maps.Point(10, 30),
         },
         animation: 2,
       });
