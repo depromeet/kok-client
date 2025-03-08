@@ -150,6 +150,7 @@ const semantic = {
 
     input: {
       default: token.bg3,
+      default2: "rgba(255, 255, 255, 0.8)",
 
       text: {
         primary: token.textPrimary,
@@ -183,7 +184,17 @@ const semantic = {
   },
 
   text: {
+    primary: token.textPrimary,
     secondary: token.text5,
+    white: token.text1,
+    caption: token.text4,
+    divider: token.divider1,
+    kok: token.textKok,
+
+    label: {
+      primary: token.text1,
+      secondary: token.text5,
+    },
   },
 };
 
