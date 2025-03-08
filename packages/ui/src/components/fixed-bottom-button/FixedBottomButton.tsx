@@ -7,7 +7,7 @@ import { useVisualViewport } from "../../hook/useVisualViewport";
 import { motion } from "@repo/motion";
 
 interface Props extends ButtonProps {
-  top: ReactNode;
+  top?: ReactNode;
 }
 
 export function FixedBottomButton({ children, top, ...buttonProps }: Props) {
