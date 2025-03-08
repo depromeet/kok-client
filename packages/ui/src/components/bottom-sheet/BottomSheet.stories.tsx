@@ -18,8 +18,18 @@ export const PinInMap: StoryObj = {
     return (
       <>
         <Button onClick={() => setOpen(true)}>바텀싯 열기</Button>
-        <BottomSheet open={open} onClose={() => setOpen(false)}>
-          버튼
+        <BottomSheet
+          open={open}
+          header={
+            <div
+              style={{ height: "40px", width: "100%", backgroundColor: "red" }}
+            ></div>
+          }
+          onClose={() => setOpen(false)}
+        >
+          <div
+            style={{ height: "100vh", width: "100%", backgroundColor: "blue" }}
+          />
         </BottomSheet>
       </>
     );
