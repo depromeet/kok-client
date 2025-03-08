@@ -5,6 +5,7 @@ export const container = style({
   left: 0,
   bottom: 0,
   width: "100%",
+  maxWidth: 600,
   position: "fixed",
   maxHeight: "60vh",
   display: "flex",
