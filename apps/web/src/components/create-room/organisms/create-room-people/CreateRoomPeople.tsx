@@ -15,8 +15,7 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
   const [peopleCount, setPeopleCount] = useState("2");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // eslint-disable-next-line prefer-const
-    let value = e.target.value.replace(/\D/g, "");
+    const value = e.target.value.replace(/\D/g, "");
 
     if (value === "") {
       setPeopleCount("");
