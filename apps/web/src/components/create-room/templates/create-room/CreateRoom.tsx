@@ -9,34 +9,55 @@ import CreateRoomProfile from "../../organisms/create-room-profile/CreateRoomPro
 import CreateRoomPeople from "../../organisms/create-room-people/CreateRoomPeople";
 
 const CreateRoom = () => {
-  const lastStep = 4; // 최대 단계 설정
   const [createRoomValues, setCreateRoomValues] = useState<
     Partial<ICreateRoomValues>
   >({
     step: 1,
   });
 
-  const step = createRoomValues.step ?? 0; // step 값이 없을 경우 기본값 0
+  console.log(createRoomValues);
+
+  const handleRoomName = (roomName: string) => {
+    setCreateRoomValues((prevValues) => ({
+      ...prevValues,
+      roomName,
+      step: (prevValues.step as number) + 1,
+    }));
+  };
+
+  const handleRoomProfile = (hostProfile: string, hostNickname: string) => {
+    setCreateRoomValues((prevValues) => ({
+      ...prevValues,
+      hostProfile,
+      hostNickname,
+      step: (prevValues.step as number) + 1,
+    }));
+  };
+
+  const handleRoomPeople = (capacity: number) => {
+    setCreateRoomValues((prevValues) => ({
+      ...prevValues,
+      capacity,
+      step: (prevValues.step as number) + 1,
+    }));
+  };
+
+  const lastStep = 4;
 
   return (
     <>
-      <ProgressBar step={step} lastStep={lastStep} />
+      <ProgressBar step={createRoomValues.step ?? 1} lastStep={lastStep} />
 
-      {/* {step === 0 && (
-        <CreateRoomName
-          onNext={() => setCreateRoomValues({ step: step + 1 })}
-        />
+      {createRoomValues.step === 1 && (
+        <CreateRoomName onNext={handleRoomName} />
       )}
-      {step === 1 && (
-        <CreateRoomProfile
-          onNext={() => setCreateRoomValues({ step: step + 1 })}
-        />
+      {createRoomValues.step === 2 && (
+        <CreateRoomProfile onNext={handleRoomProfile} />
       )}
-      {step === 2 && (
-        <CreateRoomPeople
-          onNext={() => setCreateRoomValues({ step: step + 1 })}
-        />
-      )} */}
+      {createRoomValues.step === 3 && (
+        <CreateRoomPeople onNext={handleRoomPeople} />
+      )}
+      {createRoomValues.step === 4 && <div>asdasd</div>}
 
       {/* todo: step === lastStep 일때 준영 형 컴포넌트 불러오기 */}
     </>

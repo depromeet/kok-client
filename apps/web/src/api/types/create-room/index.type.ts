@@ -3,7 +3,6 @@ export interface ICreateRoom {
   capacity: number;
   hostProfile: string;
   hostNickname: string;
-  password: string;
 }
 
 export interface ICreateRoomValues extends ICreateRoom {

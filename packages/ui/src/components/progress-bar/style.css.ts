@@ -2,12 +2,12 @@ import { recipe } from "@vanilla-extract/recipes";
 import { style } from "@vanilla-extract/css";
 
 export const progressBarContainerStyle = style({
-  margin: "40px auto",
+  margin: "0 auto",
   width: "168px",
-  padding: "0 23px",
+  padding: "40px 23px",
 });
 
-export const progressStepRecipe = recipe({
+export const progressBarRecipe = recipe({
   base: {
     width: "36px",
     height: "4px",
@@ -15,10 +15,11 @@ export const progressStepRecipe = recipe({
     flexShrink: 0,
     minWidth: "36px",
   },
+
   variants: {
     active: {
-      true: { backgroundColor: "black" },
-      false: { backgroundColor: "lightgray" },
+      true: { backgroundColor: "black" }, //todo : 색상 표 대로 수정하기
+      false: { backgroundColor: "lightgray" }, //todo : 색상 표 대로 수정하기
     },
   },
 });

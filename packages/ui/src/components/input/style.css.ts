@@ -83,7 +83,7 @@ export const charCounterStyle = style({
 export const inputContainerStyle = style({
   position: "relative",
   display: "inline-block",
-  width: "auto",
+  width: "100%",
 });
 
 export const rightElementStyle = style({
