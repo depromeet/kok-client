@@ -51,6 +51,7 @@
     ]
   },
   "dependencies": {
-    "react-spring-bottom-sheet": "^3.4.1"
+    "@repo/motion": "workspace:*",
+    "@radix-ui/react-dialog": "^1.1.6"
   }
 }
