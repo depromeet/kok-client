@@ -16,10 +16,6 @@ const Test = () => {
     alert("새로운 데이터가 생성되었습니다!");
   }, []);
 
-  const onClickButton = () => {
-    alert("Clicked!");
-  };
-
   const { createData, isCreating } = usePostTestData(currentIndex, onSuccess); // 데이터 생성하기
 
   const handleClick = useCallback(() => {
@@ -41,7 +37,7 @@ const Test = () => {
 
   return (
     <div>
-      <div>
+      <Text as="p">
         현재 글 제목 :{" "}
         {isLoading ? <span>...</span> : <span>{testData?.title}</span>}
       </div>
