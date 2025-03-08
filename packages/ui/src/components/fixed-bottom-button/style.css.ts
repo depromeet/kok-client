@@ -8,4 +8,6 @@ export const buttonContainer = style({
   bottom: 0,
   background:
     "linear-gradient(0deg, #FBFBFB 70.62%, rgba(251, 251, 251, 0.00) 100%)",
+  display: "flex",
+  flexDirection: "column",
 });

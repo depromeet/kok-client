@@ -163,6 +163,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../ui
       '@turbo/gen':
         specifier: ^2.4.0
         version: 2.4.0(@types/node@22.13.0)(typescript@5.7.3)
@@ -235,6 +238,9 @@ importers:
       '@repo/motion':
         specifier: workspace:*
         version: link:../motion
+      '@repo/z-index':
+        specifier: workspace:*
+        version: link:../z-index
       '@vanilla-extract/css':
         specifier: ^1.17.1
         version: 1.17.1

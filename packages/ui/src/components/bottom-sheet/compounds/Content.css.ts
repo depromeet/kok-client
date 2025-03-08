@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { zIndex } from "@repo/z-index";
 
 export const container = style({
   left: 0,
@@ -14,6 +15,8 @@ export const container = style({
   borderTopLeftRadius: 32,
   borderTopRightRadius: 32,
   backgroundColor: "#FFFFFF",
+
+  zIndex: zIndex.overlay,
 });
 
 export const content = style({

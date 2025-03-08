@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { NaverMapProps, NaverMapInstance } from "./types";
 import Marker from "./Marker";
 import Polygon from "./Polygon";
-import SmallPolygon from "./SmallPolygon";
-import Polyline from "./Polyline";
+import { getCenterMarkerElement } from "./components/CenterMarkerElement";
 
 export const NAVER_MAP_CONFIG = {
   ZOOM_LEVEL: 17, // 확정
   MIN_ZOOM: 11, // 10, 11 추후 결정 예정
+  MAX_ZOOM: 17,
   SCALE_FACTOR: 0.3,
   SEOUL_CENTER: { lat: 37.5665, lng: 126.978 },
   SEOUL_BOUNDS: {
@@ -32,6 +32,7 @@ export const NaverMap = ({
   const [isLoaded, setIsLoaded] = useState(false);
   const [showPolygon, setShowPolygon] = useState<boolean>(false);
   const [showPolyline, setShowPolyline] = useState<boolean>(false);
+  const centerMarkerRef = useRef<naver.maps.Marker | null>(null);
 
   const loadNaverMapScript = () => {
     if (window.naver && window.naver.maps) {
@@ -70,6 +71,7 @@ export const NaverMap = ({
         ),
         zoom: NAVER_MAP_CONFIG.ZOOM_LEVEL,
         minZoom: NAVER_MAP_CONFIG.MIN_ZOOM,
+        maxZoom: NAVER_MAP_CONFIG.MAX_ZOOM,
         logoControl: false,
         mapDataControl: false,
         scaleControl: false,
@@ -94,6 +96,25 @@ export const NaverMap = ({
             )
           ); // 서울 외 지역 클릭 시 시청으로 이동
         }
+      });
+
+      // 센터 마커 생성
+      const centerMarkerElement = getCenterMarkerElement();
+
+      if (centerMarkerRef.current) {
+        centerMarkerRef.current.setMap(null);
+      }
+
+      centerMarkerRef.current = new window.naver.maps.Marker({
+        position: new window.naver.maps.LatLng(
+          centerMarker.position.lat,
+          centerMarker.position.lng
+        ),
+        map: map,
+        icon: {
+          content: centerMarkerElement,
+          anchor: new window.naver.maps.Point(20.5, 20.5),
+        },
       });
 
       setMapInstance(map);
@@ -125,25 +146,25 @@ export const NaverMap = ({
       style={{
         width,
         height,
+        position: "relative",
       }}
     >
       {!isLoaded && <div>지도 스크립트 로딩 중..</div>}
 
       {mapInstance && markerData && (
         <>
-          {centerMarker && (
+          {/* {centerMarker && (
             <Marker map={mapInstance} markerData={[centerMarker]} />
-          )}
-
+          )} */}
           {showPolygon && (
             <>
               <Polygon map={mapInstance} markerData={markerData} />
-              <SmallPolygon
+              {/* <SmallPolygon
                 map={mapInstance}
                 markerData={markerData}
                 centerMarker={centerMarker}
                 scaleFactor={NAVER_MAP_CONFIG.SCALE_FACTOR}
-              />
+              /> */}
             </>
           )}
 
@@ -152,14 +173,6 @@ export const NaverMap = ({
             markerData={markerData}
             onMarkerClicked={handleMarkerClicked}
           />
-
-          {showPolyline && (
-            <Polyline
-              map={mapInstance}
-              markerData={markerData}
-              centerMarker={centerMarker}
-            />
-          )}
         </>
       )}
     </div>

@@ -1,3 +1,4 @@
+import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 
 export const overlay = style({
@@ -10,4 +11,5 @@ export const overlay = style({
   backgroundColor: "rgba(0, 0, 0, 0.65)",
   border: "none",
   cursor: "pointer",
+  zIndex: zIndex.overlay,
 });
