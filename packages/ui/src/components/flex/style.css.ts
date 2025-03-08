@@ -6,15 +6,15 @@ export const flexRecipe = recipe({
   },
   variants: {
     justify: {
-      "justify-start": { justifyContent: "flex-start" },
-      "justify-center": { justifyContent: "center" },
-      "justify-end": { justifyContent: "flex-end" },
-      "justify-between": { justifyContent: "space-between" },
+      start: { justifyContent: "flex-start" },
+      center: { justifyContent: "center" },
+      end: { justifyContent: "flex-end" },
+      between: { justifyContent: "space-between" },
     },
     align: {
-      "items-start": { alignItems: "flex-start" },
-      "items-center": { alignItems: "center" },
-      "items-end": { alignItems: "flex-end" },
+      start: { alignItems: "flex-start" },
+      center: { alignItems: "center" },
+      end: { alignItems: "flex-end" },
     },
     direction: {
       row: { flexDirection: "row" },

@@ -1,13 +1,9 @@
 import { HTMLAttributes, PropsWithChildren, ElementType } from "react";
 import { flexRecipe } from "./style.css";
 
-type JustifyType =
-  | "justify-start"
-  | "justify-center"
-  | "justify-end"
-  | "justify-between";
+type JustifyType = "start" | "center" | "end" | "between";
 
-type AlignType = "items-start" | "items-center" | "items-end";
+type AlignType = "start" | "center" | "end";
 
 interface FlexProps extends HTMLAttributes<HTMLDivElement> {
   as?: ElementType;

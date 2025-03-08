@@ -58,7 +58,7 @@ const Test = () => {
         </button>
       </Flex>
 
-      <Flex justify="justify-between" align="items-center">
+      <Flex justify="between" align="center">
         <Button onClick={onClickButton}>text</Button>
         <Button disabled onClick={onClickButton}>
           text
@@ -68,7 +68,7 @@ const Test = () => {
         </Button>
       </Flex>
 
-      <Flex justify="justify-between" align="items-end">
+      <Flex justify="between" align="end">
         <Button variant="primary" width="auto" padding="sm">
           <AddIcon />
         </Button>
