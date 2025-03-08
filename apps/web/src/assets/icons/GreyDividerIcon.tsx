@@ -1,6 +1,6 @@
 import { theme } from "@repo/ui/tokens";
 
-const GreyDivider = () => {
+const GreyDividerIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,4 +14,4 @@ const GreyDivider = () => {
   );
 };
 
-export default GreyDivider;
+export default GreyDividerIcon;

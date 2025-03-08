@@ -115,7 +115,6 @@ export const NaverMap = ({
           content: centerMarkerElement,
           anchor: new window.naver.maps.Point(20.5, 20.5),
         },
-        zIndex: 100,
       });
 
       setMapInstance(map);
