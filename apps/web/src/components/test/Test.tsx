@@ -5,8 +5,7 @@ import AddIcon from "@/assets/icons/add-icon";
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import * as Style from "./styles.css";
-import { Input } from "@repo/ui/components";
-import { SearchIcon, DeleteIcon } from "@repo/ui/icons";
+import { Text, Flex, Button } from "@repo/ui/components";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
