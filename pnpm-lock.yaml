@@ -32,6 +32,9 @@ importers:
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@repo/z-index':
+        specifier: workspace:*
+        version: link:../../packages/z-index
       '@vanilla-extract/css':
         specifier: ^1.17.1
         version: 1.17.1
@@ -268,6 +271,24 @@ importers:
       vite:
         specifier: ^6.2.1
         version: 6.2.1(@types/node@22.13.0)(jiti@1.21.7)(terser@5.39.0)
+
+  packages/z-index:
+    dependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@turbo/gen':
+        specifier: ^2.4.0
+        version: 2.4.0(@types/node@22.13.0)(typescript@5.7.3)
+      eslint:
+        specifier: ^9.19.0
+        version: 9.19.0(jiti@1.21.7)
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
 
 packages:
 
