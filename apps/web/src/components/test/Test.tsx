@@ -5,8 +5,7 @@ import AddIcon from "@/assets/icons/add-icon";
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import * as Style from "./styles.css";
-import { Input } from "@repo/ui/components";
-import { SearchIcon, DeleteIcon } from "@repo/ui/icons";
+import { Flex, Button, Text } from "@repo/ui/components";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
@@ -38,7 +37,7 @@ const Test = () => {
 
   return (
     <div>
-      <Text as="p">
+      <Text as="p" variant="heading1">
         현재 글 제목 :{" "}
         {isLoading ? <span>...</span> : <span>{testData?.title}</span>}
       </Text>
