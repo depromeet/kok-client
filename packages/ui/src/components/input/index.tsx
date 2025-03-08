@@ -9,10 +9,7 @@ export type InputProps = {
   variant?: "rectangular" | "rounded";
   width?: "full" | "fit" | "auto" | "profile" | "people" | string | number;
   padding?: "none" | "sm" | "md";
-  maxLength?: number;
   rightElement?: React.ReactNode;
-  value?: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
 
 export const Input = ({
