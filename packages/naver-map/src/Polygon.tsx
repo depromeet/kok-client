@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { NaverPolygon, PolygonProps } from "./types";
+import { theme } from "@repo/ui/tokens";
 
 const Polygon = ({ map, markerData }: PolygonProps) => {
   const polygonRef = useRef<NaverPolygon>(null);
@@ -21,9 +22,9 @@ const Polygon = ({ map, markerData }: PolygonProps) => {
     const polygon = new naver.maps.Polygon({
       map: map,
       paths: [paths],
-      fillColor: "rgb(248, 64, 27)",
-      strokeWeight: 0,
-      fillOpacity: 0.5,
+      fillColor: theme.colors.mapPolygon,
+      strokeColor: theme.colors.orange30,
+      strokeWeight: 0.5,
     });
 
     polygonRef.current = polygon;

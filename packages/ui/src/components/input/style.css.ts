@@ -15,7 +15,7 @@ export const inputRecipeStyle = recipe({
   base: [
     inputResetStyle,
     {
-      backgroundColor: theme.colors.gray25,
+      backgroundColor: theme.colors.gray20,
       caretColor: theme.colors.orange40,
 
       "::placeholder": {
