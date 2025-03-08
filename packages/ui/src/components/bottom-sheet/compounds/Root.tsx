@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixDialog from "@radix-ui/react-dialog";
 import { Content, ContentProps } from "./Content";
 import { Overlay } from "./Overlay";

@@ -6,6 +6,7 @@ export const overlay = style({
   left: 0,
   height: "100%",
   width: "100%",
+  maxWidth: 600,
   backgroundColor: "rgba(0, 0, 0, 0.65)",
   border: "none",
   cursor: "pointer",
