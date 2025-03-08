@@ -5,7 +5,8 @@ import AddIcon from "@/assets/icons/add-icon";
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import * as Style from "./styles.css";
-import { Button, Flex } from "@repo/ui/components";
+import { Input } from "@repo/ui/components";
+import { SearchIcon, DeleteIcon } from "@repo/ui/icons";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
@@ -40,7 +41,7 @@ const Test = () => {
       <Text as="p">
         현재 글 제목 :{" "}
         {isLoading ? <span>...</span> : <span>{testData?.title}</span>}
-      </div>
+      </Text>
       <Flex direction="column" gap={12}>
         <button className={Style.nextButton} onClick={handleClick}>
           다음글
@@ -54,29 +55,12 @@ const Test = () => {
         </button>
       </Flex>
 
-      <Flex justify="between" align="center">
-        <Button onClick={onClickButton}>text</Button>
-        <Button disabled onClick={onClickButton}>
-          text
-        </Button>
-        <Button variant="secondary" onClick={onClickButton}>
-          text
-        </Button>
-      </Flex>
-
       <Flex justify="between" align="end">
         <Button variant="primary" width="auto" padding="sm">
           <AddIcon />
         </Button>
         <Button variant="primary" width="auto" padding="sm" disabled>
           <AddIcon />
-        </Button>
-      </Flex>
-
-      <Flex gap={12}>
-        <Button onClick={onClickButton}>text</Button>
-        <Button variant="secondary" onClick={onClickButton}>
-          abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijk
         </Button>
       </Flex>
     </div>
