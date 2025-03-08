@@ -22,6 +22,6 @@ export const flexRecipe = recipe({
     },
   },
   defaultVariants: {
-    direction: "row", // 기본값 지정
+    direction: "row",
   },
 });

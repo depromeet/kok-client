@@ -1,9 +1,7 @@
 import { HTMLAttributes, PropsWithChildren, ElementType } from "react";
 import { flexRecipe } from "./style.css";
-import { classMerge } from "../../utils";
 
 type JustifyType = "start" | "center" | "end" | "between";
-
 type AlignType = "start" | "center" | "end";
 
 interface FlexProps extends HTMLAttributes<HTMLDivElement> {
@@ -27,10 +25,7 @@ export const Flex = ({
   return (
     <Tag
       style={{ gap }}
-      className={classMerge(
-        className,
-        flexRecipe({ justify, align, direction })
-      )}
+      className={`${flexRecipe({ justify, align, direction })} ${className}`}
       {...props}
     >
       {children}

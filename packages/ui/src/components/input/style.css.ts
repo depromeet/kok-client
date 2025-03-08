@@ -9,21 +9,26 @@ const inputResetStyle = style({
   outline: "none",
   height: "48px",
   boxSizing: "border-box",
+
+  fontSize: "16px",
+  fontStyle: "normal",
+  fontWeight: 500,
+  lineHeight: "100%",
 });
 
 export const inputRecipeStyle = recipe({
   base: [
     inputResetStyle,
     {
-      backgroundColor: theme.colors.gray20,
+      backgroundColor: theme.colors.gray0,
       caretColor: theme.colors.orange40,
 
       "::placeholder": {
-        color: theme.colors.gray30,
+        color: theme.colors.gray0,
       },
 
       ":focus": {
-        borderColor: theme.colors.gray95,
+        borderColor: theme.colors.gray0,
       },
 
       ":disabled": {
@@ -83,7 +88,7 @@ export const charCounterStyle = style({
 export const inputContainerStyle = style({
   position: "relative",
   display: "inline-block",
-  width: "auto",
+  width: "100%",
 });
 
 export const rightElementStyle = style({
