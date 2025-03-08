@@ -1,10 +1,11 @@
-import { Button, Flex, Input } from "@repo/ui/components";
+import { Button, Flex, Input, Text } from "@repo/ui/components";
 import React, { useState } from "react";
 import {
   containerStyle,
   footerContainerStyle,
   headingContainerStyle,
 } from "./style.css";
+import { theme } from "@repo/ui/tokens";
 
 interface ICreateRoomPeople {
   onNext: (capacity: number) => void;
@@ -45,11 +46,22 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
       {/* 제목 */}
       <Flex
         justify="center"
+        align="center"
         direction="column"
         className={headingContainerStyle}
       >
-        <div>사랑해요의 </div>
-        <div>인원수를 입력해 주세요</div>
+        <Flex>
+          <Text variant="heading3" style={{ color: theme.colors.orange50 }}>
+            {" "}
+            사랑해요
+          </Text>
+          <Text variant="heading3"> 의</Text>
+        </Flex>
+
+        <Text as="p" variant="heading3">
+          {" "}
+          인원수를 입력해 주세요
+        </Text>
       </Flex>
 
       {/* 인원수 입력 */}

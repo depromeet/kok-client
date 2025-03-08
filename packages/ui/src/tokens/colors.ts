@@ -86,18 +86,6 @@ const scale = {
   subwayRaw8: "#D6406A",
   subwayRaw9: "#8E764B",
 
-  yellow5: "#FFFBEA",
-  yellow10: "#FFF5C6",
-  yellow20: "#FFEB87",
-  yellow30: "#FFD949",
-  yellow40: "#FFC61F",
-  yellow50: "#F4A004", // main color
-  yellow60: "#DE7C01",
-  yellow70: "#B85605",
-  yellow80: "#95420B",
-  yellow90: "#7B360C",
-  yellow95: "#471B01",
-
   mapPolygon: "rgba(251, 83, 39, 0.12)",
   mapMarkerBorder: "#000000",
 

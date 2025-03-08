@@ -1,5 +1,6 @@
 import { recipe } from "@vanilla-extract/recipes";
 import { style } from "@vanilla-extract/css";
+import { theme } from "../../tokens";
 
 export const progressBarContainerStyle = style({
   margin: "0 auto",
@@ -18,8 +19,8 @@ export const progressBarRecipe = recipe({
 
   variants: {
     active: {
-      true: { backgroundColor: "black" }, //todo : 색상 표 대로 수정하기
-      false: { backgroundColor: "lightgray" }, //todo : 색상 표 대로 수정하기
+      true: { backgroundColor: theme.colors.gray95 },
+      false: { backgroundColor: theme.colors.gray15 },
     },
   },
 });

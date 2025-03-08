@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, Input } from "@repo/ui/components";
+import { Button, Flex, Input, Text } from "@repo/ui/components";
 import { useState } from "react";
 import Image from "next/image";
 import { DeleteIcon } from "@repo/ui/icons";
@@ -21,8 +21,8 @@ const CreateRoomProfile = ({ onNext }: ICreateRoomProfile) => {
   const profileImage = "/mocks/mock.svg"; // todo: 서버에서 가져오거나 사용자가 업로드 가능하도록 변경
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let newValue = e.target.value.slice(0, 10); // 최대 10자 제한
-    newValue = newValue.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, ""); // 특수문자 제거
+    let newValue = e.target.value.slice(0, 10);
+    newValue = newValue.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, "");
     setNickname(newValue);
   };
 
@@ -32,7 +32,7 @@ const CreateRoomProfile = ({ onNext }: ICreateRoomProfile) => {
     <Flex align="center" direction="column" className={containerStyle}>
       {/* 제목 */}
       <Flex justify="center" className={headingContainerStyle}>
-        프로필을 생성해주세요
+        <Text variant="heading3"> 프로필을 생성해주세요</Text>
       </Flex>
 
       {/* 프로필 이미지 */}

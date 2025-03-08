@@ -15,15 +15,15 @@ export const inputRecipeStyle = recipe({
   base: [
     inputResetStyle,
     {
-      backgroundColor: theme.colors.gray20,
+      backgroundColor: theme.colors.gray10,
       caretColor: theme.colors.orange40,
 
       "::placeholder": {
-        color: theme.colors.gray30,
+        color: theme.colors.gray0,
       },
 
       ":focus": {
-        borderColor: theme.colors.gray95,
+        borderColor: theme.colors.gray10,
       },
 
       ":disabled": {

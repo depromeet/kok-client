@@ -6,7 +6,7 @@ import {
   footerContainerStyle,
   headingContainerStyle,
 } from "./style.css";
-import { Button, Flex, Input } from "@repo/ui/components";
+import { Button, Flex, Input, Text } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
 
 interface ICreateRoomName {
@@ -34,9 +34,8 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
       direction="column"
       className={containerStyle}
     >
-      {/* todo : heading2로 채워넣기 */}
       <Flex justify="center" className={headingContainerStyle}>
-        모임 이름을 입력해 주세요
+        <Text variant="heading3">모임 이름을 입력해 주세요</Text>
       </Flex>
       <Flex
         align="center"
