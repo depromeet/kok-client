@@ -1,98 +1,92 @@
-import React, { forwardRef } from "react";
+import type { InputHTMLAttributes } from "react";
 import { useInput } from "./useInput";
 import {
-  inputRecipe,
-  charCounter,
-  inputContainer,
-  iconStyle,
+  inputRecipeStyle,
+  charCounterStyle,
+  inputContainerStyle,
+  rightElementStyle,
 } from "./style.css";
 
 export type InputProps = {
   variant?: "rectangular" | "rounded";
-  width?: "full" | "fit" | "auto" | "profile" | "people";
+  width?: "full" | "fit" | "auto" | "profile" | "people" | string | number;
   padding?: "none" | "sm" | "md";
   maxLength?: number;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string;
-  className?: string;
-  placeholder?: string;
-  rightIcon?: React.ReactNode;
-  showCounter?: boolean; // 카운터 표시
-  alwaysShowCounter?: boolean; // 카운트 항상 표시
-  autoDisabled?: boolean; // 텍스트 유무에 따라 disabled 변경
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">;
+  rightElement?: React.ReactNode;
+  showCounter?: boolean;
+  alwaysShowCounter?: boolean;
+  autoDisabled?: boolean;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      variant = "rounded",
-      width = "full",
-      padding = "sm",
-      maxLength,
-      onChange,
-      value,
-      className,
-      placeholder,
-      rightIcon,
-      showCounter = true,
-      alwaysShowCounter = false,
-      autoDisabled = false,
-      disabled,
-      ...props
-    },
-    ref
-  ) => {
-    const { inputValue, isEmpty, isDisabled, handleChange } = useInput({
-      value,
-      maxLength,
-      autoDisabled,
-      disabled,
-      onChange,
-    });
+export const Input = ({
+  variant = "rounded",
+  width = "full",
+  padding = "sm",
+  maxLength,
+  onChange,
+  value,
+  className,
+  placeholder,
+  rightElement,
+  showCounter = false,
+  alwaysShowCounter = false,
+  autoDisabled = false,
+  disabled,
+  ...props
+}: InputProps) => {
+  const { inputValue, isEmpty, isDisabled, handleChange } = useInput({
+    value: typeof value === "string" ? value : value?.toString() || "",
+    maxLength,
+    autoDisabled,
+    disabled,
+    onChange,
+  });
 
-    // 아이콘 비활성화
-    const iconWithProps =
-      rightIcon && React.isValidElement(rightIcon)
-        ? React.cloneElement(rightIcon as React.ReactElement<any>, {
-            disabled: isEmpty,
-          })
-        : rightIcon;
+  const showCounterElement =
+    showCounter && maxLength && (inputValue.length > 0 || alwaysShowCounter);
 
-    // 카운터 표시 여부
-    const showCounterElement =
-      showCounter && maxLength && (inputValue.length > 0 || alwaysShowCounter);
+  const hasRightElement = Boolean(rightElement || showCounterElement);
 
-    // 오른쪽 요소 여부
-    const hasRightElement = !!(rightIcon || showCounterElement);
+  const presetWidths = ["full", "fit", "auto", "profile", "people", "custom"];
+  const isPresetWidth =
+    width !== undefined &&
+    typeof width === "string" &&
+    presetWidths.includes(width);
 
-    return (
-      <div className={inputContainer}>
-        <input
-          ref={ref}
-          className={inputRecipe({
-            variant,
-            width,
-            padding,
-            hasRightIcon: hasRightElement,
-          })}
-          value={inputValue}
-          onChange={handleChange}
-          placeholder={placeholder}
-          maxLength={maxLength}
-          disabled={isDisabled}
-          {...props}
-        />
-        {rightIcon && <span className={iconStyle}>{iconWithProps}</span>}
-        {!rightIcon && showCounterElement && (
-          <span className={charCounter}>
-            {inputValue.length}/{maxLength}
-          </span>
-        )}
-      </div>
-    );
-  }
-);
+  const widthStyle = !isPresetWidth
+    ? { width: typeof width === "number" ? `${width}px` : width }
+    : {};
+  return (
+    <div className={inputContainerStyle}>
+      <input
+        className={inputRecipeStyle({
+          variant,
+          width: isPresetWidth
+            ? (width as "full" | "fit" | "auto" | "profile" | "people")
+            : "custom",
+          padding,
+          hasRightElement,
+        })}
+        style={widthStyle}
+        value={inputValue}
+        onChange={handleChange}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        disabled={isDisabled}
+        {...props}
+      />
 
-Input.displayName = "Input";
+      {rightElement && (
+        <span className={rightElementStyle}>{rightElement}</span>
+      )}
+
+      {!rightElement && showCounterElement ? (
+        <span className={charCounterStyle}>
+          {inputValue.length}/{maxLength}
+        </span>
+      ) : null}
+    </div>
+  );
+};
 
 export default Input;

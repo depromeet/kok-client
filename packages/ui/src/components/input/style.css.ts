@@ -2,18 +2,18 @@ import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
 import { style } from "@vanilla-extract/css";
 import { theme } from "../../tokens";
 
-export type InputVariants = RecipeVariants<typeof inputRecipe>;
+export type InputVariants = RecipeVariants<typeof inputRecipeStyle>;
 
-const inputReset = style({
+const inputResetStyle = style({
   border: 0,
   outline: "none",
   height: "48px",
   boxSizing: "border-box",
 });
 
-export const inputRecipe = recipe({
+export const inputRecipeStyle = recipe({
   base: [
-    inputReset,
+    inputResetStyle,
     {
       backgroundColor: theme.colors.gray25,
       caretColor: theme.colors.orange40,
@@ -48,13 +48,14 @@ export const inputRecipe = recipe({
       auto: { width: "auto" },
       profile: { width: "211px" },
       people: { width: "72px" },
+      custom: {},
     },
     padding: {
       none: { padding: 0 },
       sm: { padding: "16px" },
       md: { padding: "18px" },
     },
-    hasRightIcon: {
+    hasRightElement: {
       true: {
         paddingRight: "40px",
       },
@@ -69,7 +70,7 @@ export const inputRecipe = recipe({
 });
 
 // 문자 카운터 ex) 0/10
-export const charCounter = style({
+export const charCounterStyle = style({
   position: "absolute",
   right: "16px",
   top: "50%",
@@ -79,13 +80,13 @@ export const charCounter = style({
   pointerEvents: "none",
 });
 
-export const inputContainer = style({
+export const inputContainerStyle = style({
   position: "relative",
   display: "inline-block",
   width: "auto",
 });
 
-export const iconStyle = style({
+export const rightElementStyle = style({
   position: "absolute",
   right: "12px",
   top: "50%",

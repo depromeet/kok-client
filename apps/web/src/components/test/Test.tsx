@@ -78,7 +78,7 @@ const Test = () => {
         <Input
           variant="rounded"
           placeholder="출발지를 입력해주세요"
-          rightIcon={<SearchIcon />}
+          rightElement={<SearchIcon />}
           padding="sm"
           width="full"
         />
@@ -90,19 +90,18 @@ const Test = () => {
         padding="sm"
       />
       <SearchIcon />
-      <SearchIcon disabled={true} />
+      <SearchIcon />
       <DeleteIcon />
-      <DeleteIcon disabled={true} />
+      <DeleteIcon />
       <div style={{ display: "flex", gap: "12px" }}>
         <Input
           variant="rectangular"
-          width="profile"
-          rightIcon={<DeleteIcon />}
+          width="300px"
+          rightElement={<DeleteIcon />}
         />
-        <Input variant="rectangular" width="people" />
+        <Input variant="rectangular" />
       </div>
-      <Input />
-
+      <Input variant="rectangular" width={300} rightElement={<DeleteIcon />} />
       <Button onClick={onClickButton}>text</Button>
       <Button disabled onClick={onClickButton}>
         text

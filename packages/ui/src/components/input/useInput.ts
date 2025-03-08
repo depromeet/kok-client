@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
 interface UseInputProps {
   value?: string;
   maxLength?: number;
   autoDisabled?: boolean;
   disabled?: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const useInput = ({
@@ -23,9 +23,9 @@ export const useInput = ({
     if (value !== undefined && value !== inputValue) {
       setInputValue(value);
     }
-  }, [value]);
+  }, [value, inputValue]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     if (maxLength && newValue.length > maxLength) return;
 
