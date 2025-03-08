@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, ChangeEvent } from "react";
+import type { InputHTMLAttributes, ReactNode } from "react";
 import {
   inputRecipeStyle,
   inputContainerStyle,
@@ -9,7 +9,7 @@ export type InputProps = {
   variant?: "rectangular" | "rounded";
   width?: "full" | "fit" | "auto" | "profile" | "people" | string | number;
   padding?: "none" | "sm" | "md";
-  rightElement?: React.ReactNode;
+  rightElement?: ReactNode;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
 
 export const Input = ({
