@@ -1,5 +1,3 @@
-import { deepMerge } from "../utils";
-
 const scale = {
   gray0: "#FFFFFF",
   gray2: "#FBFBFB",
@@ -186,5 +184,4 @@ const semantic = {
   },
 };
 
-// TODO: reduce 사용시 타입 추론이 되지 않아 논의 후 필요시 추후 개선 필요
-export const colors = deepMerge(deepMerge(scale, token), semantic);
+export const colors = { ...scale, token, semantic };
