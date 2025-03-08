@@ -21,7 +21,7 @@ const scale = {
   red20: "#FFC7C8",
   red30: "#FFA0A2",
   red40: "#FF6A6D",
-  red50: "#F73418",
+  red50: "#F94A4D",
   red60: "#E61C1F",
   red70: "#C21316",
   red80: "#A01416",
