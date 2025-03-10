@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { MarkerProps, NaverMapMarker } from "./types";
 import { theme } from "@repo/ui/tokens";
-import { createMapMarkerIcon } from "./components/MapMarkerIcon";
+import { createMapMarkerIcon } from "./MapMarkerIcon";
 
 const Marker = ({ map, markerData, onMarkerClicked }: MarkerProps) => {
   const markersRef = useRef<NaverMapMarker[]>([]);
