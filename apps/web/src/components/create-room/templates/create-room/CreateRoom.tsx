@@ -6,6 +6,8 @@ import { ProgressBar } from "@repo/ui/components";
 import CreateRoomName from "../../organisms/create-room-name/CreateRoomName";
 import CreateRoomProfile from "../../organisms/create-room-profile/CreateRoomProfile";
 import CreateRoomPeople from "../../organisms/create-room-people/CreateRoomPeople";
+import SelectStartPlace from "../../organisms/select-start-place/SelectStartPlace";
+import * as Style from "./style.css";
 
 const CreateRoom = () => {
   const [createRoomValues, setCreateRoomValues] = useState<
@@ -58,25 +60,29 @@ const CreateRoom = () => {
 
   return (
     <div
-      className="w-full h-screen bg-cover bg-center transition-all duration-500"
+      className={Style.container}
       style={{
         backgroundImage: `url(${backgroundImage()})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <ProgressBar step={createRoomValues.step ?? 1} lastStep={lastStep} />
+      <ProgressBar
+        step={createRoomValues.step ?? 1}
+        lastStep={lastStep}
+        backgroundTransparent={!(createRoomValues.step === 4)}
+      />
 
-      {createRoomValues.step === 1 && (
+      {createRoomValues.step === 2 && (
         <CreateRoomName onNext={handleRoomName} />
       )}
-      {createRoomValues.step === 2 && (
+      {createRoomValues.step === 3 && (
         <CreateRoomProfile onNext={handleRoomProfile} />
       )}
-      {createRoomValues.step === 3 && (
+      {createRoomValues.step === 4 && (
         <CreateRoomPeople onNext={handleRoomPeople} />
       )}
-      {createRoomValues.step === 4 && <div>asdasd</div>}
+      {createRoomValues.step === 1 && <SelectStartPlace />}
 
       {/* todo: step === lastStep 일때 준영 형 컴포넌트 불러오기 */}
     </div>
