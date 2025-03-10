@@ -165,6 +165,8 @@ const semantic = {
         white: token.bg1,
       },
     },
+
+    disabled: token.bg6,
   },
 
   icon: {

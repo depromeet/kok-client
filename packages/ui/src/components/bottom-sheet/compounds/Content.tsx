@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import * as Style from "./Content.css";
 import { motion, transition } from "@repo/motion";
-import { useVisualViewport } from "../hook/useVisualViewport";
+import { useVisualViewport } from "../../../hook/useVisualViewport";
 
 export interface ContentProps {
   /**

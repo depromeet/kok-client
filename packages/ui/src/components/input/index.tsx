@@ -17,7 +17,6 @@ export const Input = ({
   width = "full",
   padding = "sm",
   maxLength,
-  className,
   placeholder,
   rightElement,
   value,

@@ -8,12 +8,16 @@ export function usePressEffect() {
 
   const onPressStart = useCallback(() => {
     containerAnimate(containerRef.current, { scale: 0.96 });
-    backgroundAnimate(backgroundRef.current, { opacity: 1 });
+    if (backgroundRef.current != null) {
+      backgroundAnimate(backgroundRef.current, { opacity: 1 });
+    }
   }, []);
 
   const onPressEnd = useCallback(() => {
     containerAnimate(containerRef.current, { scale: 1 });
-    backgroundAnimate(backgroundRef.current, { opacity: 0 });
+    if (backgroundRef.current != null) {
+      backgroundAnimate(backgroundRef.current, { opacity: 0 });
+    }
   }, []);
 
   const { pressProps } = usePress({

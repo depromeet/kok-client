@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@repo/motion": "workspace:*",
+    "@repo/z-index": "workspace:*",
     "@radix-ui/react-dialog": "^1.1.6"
   }
 }
