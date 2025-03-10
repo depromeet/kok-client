@@ -73,16 +73,16 @@ const CreateRoom = () => {
         backgroundTransparent={!(createRoomValues.step === 4)}
       />
 
-      {createRoomValues.step === 2 && (
+      {createRoomValues.step === 1 && (
         <CreateRoomName onNext={handleRoomName} />
       )}
-      {createRoomValues.step === 3 && (
+      {createRoomValues.step === 2 && (
         <CreateRoomProfile onNext={handleRoomProfile} />
       )}
-      {createRoomValues.step === 4 && (
+      {createRoomValues.step === 3 && (
         <CreateRoomPeople onNext={handleRoomPeople} />
       )}
-      {createRoomValues.step === 1 && <SelectStartPlace />}
+      {createRoomValues.step === 4 && <SelectStartPlace />}
 
       {/* todo: step === lastStep 일때 준영 형 컴포넌트 불러오기 */}
     </div>
