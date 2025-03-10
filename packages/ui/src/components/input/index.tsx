@@ -1,15 +1,17 @@
-import type { InputHTMLAttributes, ReactNode } from "react";
+import type { InputHTMLAttributes, ReactNode, Ref } from "react";
 import {
   inputRecipeStyle,
   inputContainerStyle,
   rightElementStyle,
 } from "./style.css";
+import { classMerge } from "../../utils";
 
 export type InputProps = {
   variant?: "rectangular" | "rounded";
   width?: "full" | "fit" | "auto" | "profile" | "people" | string | number;
-  padding?: "none" | "sm" | "md";
+  padding?: "none" | "xs" | "sm" | "md";
   rightElement?: ReactNode;
+  ref?: Ref<HTMLInputElement>;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
 
 export const Input = ({
@@ -21,6 +23,8 @@ export const Input = ({
   rightElement,
   value,
   onChange,
+  ref,
+  className,
   ...props
 }: InputProps) => {
   const hasRightElement = Boolean(rightElement);
@@ -35,8 +39,9 @@ export const Input = ({
     ? { width: typeof width === "number" ? `${width}px` : width }
     : {};
   return (
-    <div className={inputContainerStyle}>
+    <div className={classMerge(inputContainerStyle, className)}>
       <input
+        ref={ref}
         value={value}
         onChange={onChange}
         className={inputRecipeStyle({

@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import AddIcon from "@/assets/icons/add-icon";
 import { useGetTestData } from "@/hooks/api/mocks/useGetTestData";
 import { usePostTestData } from "@/hooks/api/mocks/usePostTestData";
 import * as Style from "./styles.css";
-import { Text, Flex, Button } from "@repo/ui/components";
+import { Text, Flex } from "@repo/ui/components";
 
 const Test = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // 현재 데이터 인덱스
@@ -52,15 +51,6 @@ const Test = () => {
         >
           {isCreating ? "업로드 중..." : "새 데이터 추가"}
         </button>
-      </Flex>
-
-      <Flex justify="between" align="end">
-        <Button variant="primary" width="auto" padding="sm">
-          <AddIcon />
-        </Button>
-        <Button variant="primary" width="auto" padding="sm" disabled>
-          <AddIcon />
-        </Button>
       </Flex>
     </div>
   );

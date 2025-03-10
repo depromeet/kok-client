@@ -65,10 +65,12 @@ export const NaverMap = ({
 
     try {
       const mapOptions = {
-        center: new window.naver.maps.LatLng(
-          centerMarker.position.lat,
-          centerMarker.position.lng
-        ),
+        center: centerMarker
+          ? new window.naver.maps.LatLng(
+              centerMarker.position.lat,
+              centerMarker.position.lng
+            )
+          : undefined,
         zoom: NAVER_MAP_CONFIG.ZOOM_LEVEL,
         minZoom: NAVER_MAP_CONFIG.MIN_ZOOM,
         maxZoom: NAVER_MAP_CONFIG.MAX_ZOOM,
@@ -97,6 +99,8 @@ export const NaverMap = ({
           ); // 서울 외 지역 클릭 시 시청으로 이동
         }
       });
+
+      if (!centerMarker) return;
 
       // 센터 마커 생성
       const centerMarkerElement = getCenterMarkerElement();

@@ -190,4 +190,4 @@ const semantic = {
   },
 };
 
-export const colors = { ...scale, token, semantic };
+export const colors = { ...scale, ...token, ...semantic };

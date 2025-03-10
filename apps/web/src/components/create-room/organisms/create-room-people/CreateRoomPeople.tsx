@@ -42,42 +42,44 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
       direction="column"
       className={containerStyle}
     >
-      {/* 제목 */}
-      <Flex
-        justify="center"
-        align="center"
-        direction="column"
-        className={headingContainerStyle}
-      >
-        <Flex>
-          <Text variant="heading3" style={{ color: theme.colors.orange50 }}>
+      <Flex direction="column" align="center">
+        {/* 제목 */}
+        <Flex
+          justify="center"
+          align="center"
+          direction="column"
+          className={headingContainerStyle}
+        >
+          <Flex>
+            <Text variant="heading3" style={{ color: theme.colors.orange50 }}>
+              {" "}
+              사랑해요
+            </Text>
+            <Text variant="heading3"> 의</Text>
+          </Flex>
+
+          <Text as="p" variant="heading3">
             {" "}
-            사랑해요
+            인원수를 입력해 주세요
           </Text>
-          <Text variant="heading3"> 의</Text>
         </Flex>
 
-        <Text as="p" variant="heading3">
-          {" "}
-          인원수를 입력해 주세요
-        </Text>
-      </Flex>
-
-      {/* 인원수 입력 */}
-      <Flex
-        gap={12}
-        justify="center"
-        align="center"
-        className={headingContainerStyle}
-      >
-        <Input
-          variant="rectangular"
-          width="people"
-          value={peopleCount}
-          onChange={handleChange}
-          maxLength={2}
-        />
-        <div>명</div>
+        {/* 인원수 입력 */}
+        <Flex
+          gap={12}
+          justify="center"
+          align="center"
+          className={headingContainerStyle}
+        >
+          <Input
+            variant="rectangular"
+            width="people"
+            value={peopleCount}
+            onChange={handleChange}
+            maxLength={2}
+          />
+          <div>명</div>
+        </Flex>
       </Flex>
 
       {/* 하단 버튼 */}

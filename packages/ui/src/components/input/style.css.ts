@@ -57,6 +57,7 @@ export const inputRecipeStyle = recipe({
     },
     padding: {
       none: { padding: 0 },
+      xs: { padding: "12px" },
       sm: { padding: "16px" },
       md: { padding: "18px" },
     },
