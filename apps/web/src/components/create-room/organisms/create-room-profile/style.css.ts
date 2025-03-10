@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
-  paddingTop: "92px",
+  paddingTop: "60px",
   height: "100%",
 });
 
@@ -14,7 +14,6 @@ export const imageContainerStyle = style({
 });
 
 export const footerContainerStyle = style({
-  marginTop: "218px",
   width: "100%",
   padding: "20px 16px",
 });

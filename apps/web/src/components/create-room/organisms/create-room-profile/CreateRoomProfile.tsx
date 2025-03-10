@@ -29,31 +29,38 @@ const CreateRoomProfile = ({ onNext }: ICreateRoomProfile) => {
   const isButtonDisabled = nickname.length === 0;
 
   return (
-    <Flex align="center" direction="column" className={containerStyle}>
-      {/* 제목 */}
-      <Flex justify="center" className={headingContainerStyle}>
-        <Text variant="heading3"> 프로필을 생성해주세요</Text>
-      </Flex>
+    <Flex
+      align="center"
+      direction="column"
+      justify="between"
+      className={containerStyle}
+    >
+      <Flex direction="column" align="center">
+        {/* 제목 */}
+        <Flex justify="center" className={headingContainerStyle}>
+          <Text variant="heading3"> 프로필을 생성해주세요</Text>
+        </Flex>
 
-      {/* 프로필 이미지 */}
-      <Flex
-        align="center"
-        direction="column"
-        gap={24}
-        className={imageContainerStyle}
-      >
-        <Image src={profileImage} alt="mock" width={80} height={80} />
-        <Input
-          width="profile"
-          variant="rectangular"
-          placeholder="닉네임을 입력해주세요"
-          value={nickname}
-          onChange={handleChange}
-          maxLength={10}
-          rightElement={
-            <span>{<DeleteIcon onClick={() => setNickname("")} />}</span>
-          }
-        />
+        {/* 프로필 이미지 */}
+        <Flex
+          align="center"
+          direction="column"
+          gap={24}
+          className={imageContainerStyle}
+        >
+          <Image src={profileImage} alt="mock" width={80} height={80} />
+          <Input
+            width="profile"
+            variant="rectangular"
+            placeholder="닉네임을 입력해주세요"
+            value={nickname}
+            onChange={handleChange}
+            maxLength={10}
+            rightElement={
+              <span>{<DeleteIcon onClick={() => setNickname("")} />}</span>
+            }
+          />
+        </Flex>
       </Flex>
 
       {/* 하단 버튼 */}
