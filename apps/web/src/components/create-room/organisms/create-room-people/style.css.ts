@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
+  paddingTop: "92px",
   height: "100%",
 });
 
