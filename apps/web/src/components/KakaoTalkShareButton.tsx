@@ -9,6 +9,7 @@ type KakaoTalkShareButtonProps = ButtonProps;
 
 const KakaoTalkShareButton = ({
   children,
+  ...props
 }: PropsWithChildren<KakaoTalkShareButtonProps>) => {
   const onClickShareButton = () => {
     if (!window.Kakao) return;
@@ -25,7 +26,7 @@ const KakaoTalkShareButton = ({
   }, []);
 
   return (
-    <Button variant="secondary" onClick={onClickShareButton}>
+    <Button onClick={onClickShareButton} {...props}>
       {children}
     </Button>
   );
