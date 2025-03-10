@@ -25,6 +25,12 @@ export const containerRecipe = recipe({
   },
 });
 
+export const mapContainer = style({
+  height: "100%",
+  maxWidth: "600px",
+  overflow: "hidden",
+});
+
 export const wrapper = style({
   width: "100%",
 });
@@ -33,12 +39,13 @@ export const container = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "fit-content",
+  width: "183px",
   height: "36px",
   borderRadius: "100px",
   padding: "12px",
   cursor: "pointer",
   backgroundColor: theme.colors.gray0,
+  whiteSpace: "nowrap",
 });
 
 export const locationTextStyle = style({
@@ -53,7 +60,8 @@ export const stationTextStyle = style({
 
 export const bannerContainerStyle = style({
   position: "absolute",
-  width: "600px",
+  width: "100%",
+  maxWidth: "600px",
   bottom: 180,
   zIndex: zIndex.floating,
 });
@@ -101,17 +109,20 @@ export const deleteBtnStyle = style({
   right: 12,
   top: 12,
   cursor: "pointer",
+  zIndex: zIndex.overlay,
 });
 
 export const headerStyle = style({
   backgroundColor: theme.colors.gray0,
-  position: "absolute",
+  position: "fixed",
   top: 0,
-  width: "600px",
+  width: "100%",
+  maxWidth: "600px",
   height: "58px",
   zIndex: zIndex.overlay,
   display: "flex",
   alignItems: "center",
+  justifyContent: "center",
   cursor: "pointer",
 });
 
