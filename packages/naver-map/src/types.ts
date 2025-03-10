@@ -1,9 +1,9 @@
 export interface NaverMapProps {
   width?: string;
   height?: string;
-  markerData: any;
-  centerMarker: any;
-  onMarkerClick: (markerId: number) => void;
+  markerData?: any;
+  centerMarker?: any;
+  onMarkerClick?: (markerId: number) => void;
 }
 
 export interface MarkerData {
