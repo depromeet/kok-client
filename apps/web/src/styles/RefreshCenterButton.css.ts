@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { theme } from "@repo/ui/tokens";
 
 export const container = style({
   display: "flex",
@@ -9,14 +10,15 @@ export const container = style({
   borderRadius: "100px",
   padding: "12px",
   cursor: "pointer",
+  backgroundColor: theme.colors.gray0,
 });
 
 export const locationText = style({
   margin: "0 8px 0 10px",
-  fontSize: "14px",
+  color: theme.colors.gray90,
 });
 
 export const stationText = style({
   marginLeft: "8px",
-  fontSize: "14px",
+  color: theme.colors.gray95,
 });
