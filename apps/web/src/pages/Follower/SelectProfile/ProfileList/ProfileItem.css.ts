@@ -24,6 +24,6 @@ export const name = style({
 export const address = style({
   fontSize: 14,
   fontWeight: 500,
-  color: theme.colors.semantic.text.caption,
+  // color: theme.colors.semantic.text.caption,
   textAlign: "center",
 });

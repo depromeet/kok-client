@@ -1,39 +1,37 @@
 import { Button, Flex, Input, Text } from "@repo/ui/components";
-import React, { useState } from "react";
+import { useState, useCallback } from "react";
+import { theme } from "@repo/ui/tokens";
+
 import {
   containerStyle,
   footerContainerStyle,
   headingContainerStyle,
 } from "./style.css";
-import { theme } from "@repo/ui/tokens";
+import { textRecipe } from "node_modules/@repo/ui/src/components/text/style.css";
 
 interface ICreateRoomPeople {
   onNext: (capacity: number) => void;
 }
 
+const MIN_PEOPLE = 2;
+const MAX_PEOPLE = 12;
+
 const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
   const [peopleCount, setPeopleCount] = useState("2");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "");
+    if (!value) return setPeopleCount("");
 
-    if (value === "") {
-      setPeopleCount("");
-      return;
-    }
-
-    let numValue = parseInt(value, 10);
-
-    if (numValue < 2) {
-      numValue = 2;
-    } else if (numValue > 12) {
-      numValue = 12;
-    }
-
+    let numValue = Math.max(
+      MIN_PEOPLE,
+      Math.min(parseInt(value, 10), MAX_PEOPLE)
+    );
     setPeopleCount(numValue.toString());
-  };
+  }, []);
 
-  const isButtonDisabled = peopleCount === "" || parseInt(peopleCount, 10) < 2;
+  const isButtonDisabled =
+    peopleCount === "" || parseInt(peopleCount, 10) < MIN_PEOPLE;
 
   return (
     <Flex
@@ -57,7 +55,6 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
             </Text>
             <Text variant="heading3"> 의</Text>
           </Flex>
-
           <Text as="p" variant="heading3">
             {" "}
             인원수를 입력해 주세요
@@ -85,6 +82,7 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
       {/* 하단 버튼 */}
       <Flex justify="center" className={footerContainerStyle}>
         <Button
+          className={textRecipe({ variant: "title3" })}
           onClick={() => onNext(Number(peopleCount))}
           disabled={isButtonDisabled}
         >

@@ -1,9 +1,5 @@
-import KakaoTalkShareButton from "@/components/KakaoTalkShareButton";
+import ShareRoomLayout from "@/components/share-room/templates/ShareRoomLayout";
 
 export function Page() {
-  return (
-    <KakaoTalkShareButton variant="secondary">
-      링크 공유하기
-    </KakaoTalkShareButton>
-  );
+  return <ShareRoomLayout />;
 }

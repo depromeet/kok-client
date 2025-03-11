@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import React from "react";
 import localFont from "next/font/local";
 import QueryProvider from "@repo/shared/QueryProvider";
 

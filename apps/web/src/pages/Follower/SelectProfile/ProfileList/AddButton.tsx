@@ -19,7 +19,7 @@ export function AddButton({ disabled }: Props) {
         initial={disabled ? "disabled" : "abled"}
         animate={disabled ? "disabled" : "abled"}
         variants={{
-          disabled: { backgroundColor: theme.colors.semantic.btn.disabled },
+          // disabled: { backgroundColor: theme.colors.semantic.btn.disabled },
           abled: { backgroundColor: theme.colors.gray95 },
         }}
         {...pressProps}
