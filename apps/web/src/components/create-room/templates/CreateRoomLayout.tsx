@@ -48,7 +48,7 @@ const CreateRoomLayout = ({
 
   return (
     <div
-      className={Style.container}
+      className={Style.containerStyle}
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",

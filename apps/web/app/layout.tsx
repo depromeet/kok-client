@@ -6,8 +6,8 @@ import QueryProvider from "@repo/shared/QueryProvider";
 import "@/styles/global.css";
 
 export const metadata: Metadata = {
-  title: "콕",
-  description: "",
+  title: "콕 | 중간지점 찾기",
+  description: "중간지점 찾기",
 };
 
 const pretendard = localFont({
