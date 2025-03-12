@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { NaverMapProps, NaverMapInstance } from "./types";
-import Marker from "./Marker";
 import Polygon from "./Polygon";
-import { getCenterMarkerElement } from "./components/CenterMarkerElement";
+import { getCenterMarkerElement } from "./CenterMarkerElement";
+import DotMarker from "./DotMarker";
+import { getFinalMarkerElement } from "./FinalMarker";
 
 export const NAVER_MAP_CONFIG = {
   ZOOM_LEVEL: 17, // 확정
@@ -25,7 +26,9 @@ export const NaverMap = ({
   height,
   markerData,
   centerMarker,
+  finaCenterMarker,
   onMarkerClick,
+  polygon,
 }: NaverMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapInstance, setMapInstance] = useState<NaverMapInstance | null>(null);
@@ -62,15 +65,19 @@ export const NaverMap = ({
   // 지도 초기화 함수
   const initializeMap = () => {
     if (!mapRef.current || !window.naver || !window.naver.maps) return;
-
     try {
       const mapOptions = {
-        center: centerMarker
+        center: finaCenterMarker
           ? new window.naver.maps.LatLng(
-              centerMarker.position.lat,
-              centerMarker.position.lng
+              finaCenterMarker.centroid.latitude,
+              finaCenterMarker.centroid.longitude
             )
-          : undefined,
+          : centerMarker
+            ? new window.naver.maps.LatLng(
+                centerMarker.centroid.latitude,
+                centerMarker.centroid.longitude
+              )
+            : undefined,
         zoom: NAVER_MAP_CONFIG.ZOOM_LEVEL,
         minZoom: NAVER_MAP_CONFIG.MIN_ZOOM,
         maxZoom: NAVER_MAP_CONFIG.MAX_ZOOM,
@@ -100,26 +107,46 @@ export const NaverMap = ({
         }
       });
 
-      if (!centerMarker) return;
+      if (centerMarker) {
+        // 센터 마커 생성
+        const centerMarkerElement = getCenterMarkerElement();
 
-      // 센터 마커 생성
-      const centerMarkerElement = getCenterMarkerElement();
+        if (centerMarkerRef.current) {
+          centerMarkerRef.current.setMap(null);
+        }
 
-      if (centerMarkerRef.current) {
-        centerMarkerRef.current.setMap(null);
+        centerMarkerRef.current = new window.naver.maps.Marker({
+          position: new window.naver.maps.LatLng(
+            centerMarker.centroid.latitude,
+            centerMarker.centroid.longitude
+          ),
+          map: map,
+          icon: {
+            content: centerMarkerElement,
+            anchor: new window.naver.maps.Point(20.5, 20.5),
+          },
+        });
       }
 
-      centerMarkerRef.current = new window.naver.maps.Marker({
-        position: new window.naver.maps.LatLng(
-          centerMarker.position.lat,
-          centerMarker.position.lng
-        ),
-        map: map,
-        icon: {
-          content: centerMarkerElement,
-          anchor: new window.naver.maps.Point(20.5, 20.5),
-        },
-      });
+      if (finaCenterMarker) {
+        if (centerMarkerRef.current) {
+          centerMarkerRef.current.setMap(null);
+        }
+
+        const finalMarkerElement = getFinalMarkerElement();
+
+        centerMarkerRef.current = new window.naver.maps.Marker({
+          position: new window.naver.maps.LatLng(
+            finaCenterMarker.centroid.latitude,
+            finaCenterMarker.centroid.longitude
+          ),
+          map: map,
+          icon: {
+            content: finalMarkerElement,
+            anchor: new window.naver.maps.Point(46, 46),
+          },
+        });
+      }
 
       setMapInstance(map);
       setShowPolygon(true);
@@ -155,30 +182,22 @@ export const NaverMap = ({
     >
       {!isLoaded && <div>지도 스크립트 로딩 중..</div>}
 
-      {mapInstance && markerData && (
+      {mapInstance && (
         <>
-          {/* {centerMarker && (
-            <Marker map={mapInstance} markerData={[centerMarker]} />
-          )} */}
-          {showPolygon && (
-            <>
-              <Polygon map={mapInstance} markerData={markerData} />
-              {/* <SmallPolygon
-                map={mapInstance}
-                markerData={markerData}
-                centerMarker={centerMarker}
-                scaleFactor={NAVER_MAP_CONFIG.SCALE_FACTOR}
-              /> */}
-            </>
+          {showPolygon && polygon && polygon.length > 0 && (
+            <Polygon map={mapInstance} path={polygon} />
           )}
-
-          <Marker
-            map={mapInstance}
-            markerData={markerData}
-            onMarkerClicked={handleMarkerClicked}
-          />
+          {markerData && (
+            <DotMarker
+              map={mapInstance}
+              markerData={markerData}
+              onMarkerClicked={handleMarkerClicked}
+            />
+          )}
         </>
       )}
     </div>
   );
 };
+
+export default NaverMap;

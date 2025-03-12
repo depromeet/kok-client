@@ -7,7 +7,7 @@ import { Place } from "./types";
 import SearchListItem from "./SearchListItem";
 import { SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
-import CurrentLocationIcon from "@/assets/icons/currentLocationIcon";
+import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
 
 // TODO: 선택한 주소에 해당하는 마커 표기, 시트 배경 dimmed 처리, 현재 위치 지정 기능 필요
 
