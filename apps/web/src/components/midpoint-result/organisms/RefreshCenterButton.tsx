@@ -4,16 +4,23 @@ import RefreshIcon from "@/assets/icons/RefreshIcon";
 import { Text } from "@repo/ui/components";
 import { useState } from "react";
 import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
-import * as styles from "../styles/RefreshCenterButton.css";
+import * as styles from "../style.css";
 
 const RefreshCenterButton = () => {
   const [centerStation, setCenterStation] = useState<string>("강남역");
+  const handleRefresh = () => {
+    alert("현재 중간 장소 버튼 클릭");
+  };
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={handleRefresh}>
       <RefreshIcon />
-      <Text className={styles.locationText}>현재 중간 장소</Text>
+      <Text variant="caption" className={styles.locationTextStyle}>
+        현재 중간 장소
+      </Text>
       <GreyDividerIcon />
-      <Text className={styles.stationText}>{centerStation}</Text>
+      <Text variant="title4" className={styles.stationTextStyle}>
+        {centerStation}
+      </Text>
     </div>
   );
 };
