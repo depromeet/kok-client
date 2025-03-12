@@ -4,6 +4,6 @@
 
 export const API_URLS = {
   JSONPLACEHOLDER_POST: "https://jsonplaceholder.typicode.com/posts",
-  MAP_LOCATIONS: "/api/map/locations", // 수정 필요
-  MAP_CENTER: "/api/map/center", // 수정 필요
+  GET_CONVEXHULL: "/v1/api/locations/ConvH/",
+  GET_CENTROID: "/v1/api/locations/centroid/",
 };
