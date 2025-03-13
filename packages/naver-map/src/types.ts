@@ -1,9 +1,7 @@
 export interface LocationCentroid {
   uuid: string;
-  centroid: {
-    latitude: number;
-    longitude: number;
-  };
+  latitude: number;
+  longitude: number;
 }
 
 export interface NaverMapProps {
@@ -18,10 +16,8 @@ export interface NaverMapProps {
 
 export interface CenterMarkerData {
   uuid: string;
-  centroid: {
-    latitude: number;
-    longitude: number;
-  };
+  latitude: number;
+  longitude: number;
 }
 
 export interface MarkerData {

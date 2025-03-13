@@ -35,9 +35,7 @@ export const convertToCenterMarkerData = (centroid: any) => {
 
   return {
     uuid: centroid.uuid,
-    centroid: {
-      latitude: centroid.centroid.latitude,
-      longitude: centroid.centroid.longitude,
-    },
+    latitude: centroid.latitude,
+    longitude: centroid.longitude,
   };
 };

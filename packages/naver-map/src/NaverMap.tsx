@@ -69,13 +69,13 @@ export const NaverMap = ({
       const mapOptions = {
         center: finaCenterMarker
           ? new window.naver.maps.LatLng(
-              finaCenterMarker.centroid.latitude,
-              finaCenterMarker.centroid.longitude
+              finaCenterMarker.latitude,
+              finaCenterMarker.longitude
             )
           : centerMarker
             ? new window.naver.maps.LatLng(
-                centerMarker.centroid.latitude,
-                centerMarker.centroid.longitude
+                centerMarker.latitude,
+                centerMarker.longitude
               )
             : undefined,
         zoom: NAVER_MAP_CONFIG.ZOOM_LEVEL,
@@ -117,7 +117,7 @@ export const NaverMap = ({
 
         centerMarkerRef.current = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(
-            centerMarker.centroid.latitude,
+            centerMarker.latitude,
             centerMarker.centroid.longitude
           ),
           map: map,
@@ -137,8 +137,8 @@ export const NaverMap = ({
 
         centerMarkerRef.current = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(
-            finaCenterMarker.centroid.latitude,
-            finaCenterMarker.centroid.longitude
+            finaCenterMarker.latitude,
+            finaCenterMarker.longitude
           ),
           map: map,
           icon: {

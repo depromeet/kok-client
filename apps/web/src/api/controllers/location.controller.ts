@@ -19,25 +19,30 @@ class LocationController {
     return LocationController.instance;
   }
 
-  public async getCentroid(uuid: string): Promise<LocationCentroid> {
+  private handleError(operation: string, error: any): never {
+    console.error(`${operation} 오류 발생:`, error);
+    throw error;
+  }
+
+  public async getCentroid(uuid: string): Promise<{ data: LocationCentroid }> {
     try {
-      return await getRequest<LocationCentroid>({
+      return await getRequest<{ data: LocationCentroid }>({
         url: `${BASE_URL}${API_URLS.GET_CENTROID}${uuid}`,
       });
     } catch (error: any) {
-      console.error("getCentroid 오류 발생:", error);
-      throw error;
+      this.handleError("getCentroid", error);
     }
   }
 
-  public async getConvexHull(uuid: string): Promise<LocationConvexHull> {
+  public async getConvexHull(
+    uuid: string
+  ): Promise<{ data: LocationConvexHull }> {
     try {
-      return await getRequest<LocationConvexHull>({
+      return await getRequest<{ data: LocationConvexHull }>({
         url: `${BASE_URL}${API_URLS.GET_CONVEXHULL}${uuid}`,
       });
     } catch (error: any) {
-      console.error("getConvexHull 오류 발생:", error);
-      throw error;
+      this.handleError("getConvexHull", error);
     }
   }
 }
