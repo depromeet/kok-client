@@ -1,32 +1,37 @@
 "use client";
-
-import { Button, Flex, Input, Text } from "@repo/ui/components";
-import { useState } from "react";
+import type { IRaondomProfile } from "@/api/types/create-room/index.type";
+import { useState, useCallback } from "react";
 import Image from "next/image";
+import { Button, Flex, Input, Text } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
-
 import {
   containerStyle,
   footerContainerStyle,
   headingContainerStyle,
   imageContainerStyle,
 } from "./style.css";
+import { textRecipe } from "node_modules/@repo/ui/src/components/text/style.css";
 
 interface ICreateRoomProfile {
   onNext: (profile: string, nickname: string) => void;
+  randomProfile: IRaondomProfile;
 }
 
-const CreateRoomProfile = ({ onNext }: ICreateRoomProfile) => {
-  const [nickname, setNickname] = useState(""); // todo: 서버로부터 닉네임 받아오기
-  const profileImage = "/mocks/mock.svg"; // todo: 서버에서 가져오거나 사용자가 업로드 가능하도록 변경
+const MAX_NICKNAME_LENGTH = 10;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let newValue = e.target.value.slice(0, 10);
-    newValue = newValue.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, "");
+const CreateRoomProfile = ({ onNext, randomProfile }: ICreateRoomProfile) => {
+  const [nickname, setNickname] = useState(randomProfile.nickname);
+
+  // 닉네임 입력 핸들러
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value
+      .slice(0, MAX_NICKNAME_LENGTH)
+      .replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, "");
+
     setNickname(newValue);
-  };
+  }, []);
 
-  const isButtonDisabled = nickname.length === 0;
+  const handleClear = useCallback(() => setNickname(""), []);
 
   return (
     <Flex
@@ -48,17 +53,20 @@ const CreateRoomProfile = ({ onNext }: ICreateRoomProfile) => {
           gap={24}
           className={imageContainerStyle}
         >
-          <Image src={profileImage} alt="mock" width={80} height={80} />
+          <Image
+            src={randomProfile.imageUrl}
+            alt="profile"
+            width={80}
+            height={80}
+          />
           <Input
             width="profile"
             variant="rectangular"
             placeholder="닉네임을 입력해주세요"
             value={nickname}
             onChange={handleChange}
-            maxLength={10}
-            rightElement={
-              <span>{<DeleteIcon onClick={() => setNickname("")} />}</span>
-            }
+            maxLength={MAX_NICKNAME_LENGTH}
+            rightElement={<DeleteIcon onClick={handleClear} />}
           />
         </Flex>
       </Flex>
@@ -66,8 +74,9 @@ const CreateRoomProfile = ({ onNext }: ICreateRoomProfile) => {
       {/* 하단 버튼 */}
       <Flex justify="center" className={footerContainerStyle}>
         <Button
-          disabled={isButtonDisabled}
-          onClick={() => onNext(profileImage, nickname)} // onNext 호출 추가
+          className={textRecipe({ variant: "title3" })}
+          disabled={!nickname}
+          onClick={() => onNext(randomProfile.imageUrl, nickname)}
         >
           다음
         </Button>

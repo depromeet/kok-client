@@ -12,7 +12,7 @@
 
 export const buildURL = (
   baseURL: string,
-  params: Record<string, any>,
+  params: Record<string, any> = {},
   usePathParam = true
 ) => {
   if (usePathParam) {
@@ -26,5 +26,5 @@ export const buildURL = (
   }
 
   const queryString = new URLSearchParams(params).toString();
-  return `${baseURL}?${queryString}`;
+  return queryString ? `${baseURL}?${queryString}` : baseURL;
 };

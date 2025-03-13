@@ -1,3 +1,5 @@
+import { ICommon } from "../common/common.type";
+
 export interface ICreateRoom {
   roomName: string;
   capacity: number;
@@ -8,3 +10,10 @@ export interface ICreateRoom {
 export interface ICreateRoomValues extends ICreateRoom {
   step: number;
 }
+
+export interface IRaondomProfile {
+  imageUrl: string;
+  nickname: string;
+}
+
+export type TRaondomProfile = ICommon<IRaondomProfile>;
