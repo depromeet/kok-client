@@ -1,7 +1,12 @@
-import CreateRoom from "@/components/create-room/templates/create-room/CreateRoom";
+import CreateRoomLayout from "@/components/create-room/templates/CreateRoomLayout";
+import { API_URLS } from "@/constants/api";
 
-const CreateRoomPage = () => {
-  return <CreateRoom />;
-};
+export default async function CreateRoomPage() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}${API_URLS.GET_RANDOM_PROFILE}`
+  );
 
-export default CreateRoomPage;
+  const { data: randomProfile } = response.ok ? await response.json() : {};
+
+  return <CreateRoomLayout randomProfile={randomProfile} />;
+}

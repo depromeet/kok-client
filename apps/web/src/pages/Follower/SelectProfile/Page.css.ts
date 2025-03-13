@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 
 export const container = style({
   height: "100vh",
-  backgroundColor: theme.colors.semantic.bg.base,
+  // backgroundColor: theme.colors.semantic.bg.base,
 });
 
 export const title = style({

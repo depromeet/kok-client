@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 
-export const container = style({
+export const containerStyle = style({
   width: "100%", // w-full
   height: "100vh", // h-screen
   backgroundSize: "cover", // bg-cover
