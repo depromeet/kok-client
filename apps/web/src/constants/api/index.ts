@@ -3,7 +3,8 @@
  */
 
 export const API_URLS = {
-  MAP_LOCATIONS: "/api/map/locations", // 수정 필요
-  MAP_CENTER: "/api/map/center", // 수정 필요
+  JSONPLACEHOLDER_POST: "https://jsonplaceholder.typicode.com/posts",
+  GET_CONVEXHULL: "locations/ConvH/",
+  GET_CENTROID: "locations/centroid/",
   GET_RANDOM_PROFILE: "rooms/profile/random",
 };

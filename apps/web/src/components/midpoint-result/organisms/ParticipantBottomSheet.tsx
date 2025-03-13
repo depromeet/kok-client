@@ -5,20 +5,24 @@ import { Button, Flex, Text } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import * as styles from "../style.css";
 
-const ParticipantBottomSheet = () => {
+interface ParticipantBottomSheetProps {
+  totalParticipants?: number;
+}
+
+const ParticipantBottomSheet = ({
+  totalParticipants,
+}: ParticipantBottomSheetProps) => {
   const router = useRouter();
 
   const onClickCopyLink = () => {
     router.push("/result");
   };
 
-  const people = 9;
-
   return (
     <section className={styles.containerRecipe({})}>
       <div className={styles.wrapper}>
         <Text variant="title1" style={{ color: theme.colors.red50 }}>
-          {people}
+          {totalParticipants}
         </Text>
         <Text variant="title1">&nbsp;명 참여 중 ∙∙∙</Text>
       </div>

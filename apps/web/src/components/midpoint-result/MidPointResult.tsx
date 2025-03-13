@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useGetMapLocationData } from "@/hooks/api/useGetMapLocationData";
+import { useLocationCentroid } from "@/hooks/useLocation";
 import MapHeader from "./organisms/MapHeader";
 import { Flex, Text } from "@repo/ui/components";
 import { NaverMap } from "@repo/naver-map";
@@ -11,7 +11,7 @@ import { overlayStyle, mapContainer } from "./style.css";
 
 const MidPointResult = () => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
-  const { locations, centerPoint } = useGetMapLocationData();
+  const { data: centerPoint } = useLocationCentroid("ConvH"); // 테스트
 
   return (
     <div className={mapContainer}>
@@ -19,12 +19,13 @@ const MidPointResult = () => {
         <MapHeader>
           <Text>중간 장소 결과</Text>
         </MapHeader>
-        <NaverMap
-          width="100vw"
-          height="100vh"
-          markerData={locations}
-          centerMarker={centerPoint}
-        />
+        {centerPoint && (
+          <NaverMap
+            width="100vw"
+            height="100vh"
+            finaCenterMarker={centerPoint}
+          />
+        )}
         {isOverlayVisible && <div className={overlayStyle} />}
         <ResultBanner onClose={() => setIsOverlayVisible(false)} />
         <FinalBottomSheet />
