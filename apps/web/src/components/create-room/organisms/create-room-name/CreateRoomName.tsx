@@ -6,9 +6,8 @@ import {
   footerContainerStyle,
   headingContainerStyle,
 } from "./style.css";
-import { Button, Flex, Input, Text } from "@repo/ui/components";
+import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
-import { textRecipe } from "node_modules/@repo/ui/src/components/text/style.css";
 
 interface ICreateRoomName {
   onNext: (name: string) => void;
