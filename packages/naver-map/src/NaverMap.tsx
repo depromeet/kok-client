@@ -6,6 +6,7 @@ import Polygon from "./Polygon";
 import { getCenterMarkerElement } from "./CenterMarkerElement";
 import DotMarker from "./DotMarker";
 import { getFinalMarkerElement } from "./FinalMarker";
+import { Flex } from "@repo/ui/components";
 
 export const NAVER_MAP_CONFIG = {
   ZOOM_LEVEL: 17, // 확정
@@ -109,7 +110,7 @@ export const NaverMap = ({
 
       if (centerMarker) {
         // 센터 마커 생성
-        const centerMarkerElement = getCenterMarkerElement();
+        const centerMarkerElement = getFinalMarkerElement();
 
         if (centerMarkerRef.current) {
           centerMarkerRef.current.setMap(null);
@@ -162,41 +163,42 @@ export const NaverMap = ({
     }
   };
 
-  // 스크립트 로드
   useEffect(() => {
     if (!isLoaded) {
       loadNaverMapScript();
-    } else {
+    } else if (mapRef.current && !mapInstance) {
       initializeMap();
     }
-  }, [isLoaded, centerMarker, markerData]);
+  }, [isLoaded]);
 
   return (
-    <div
-      ref={mapRef}
-      style={{
-        width,
-        height,
-        position: "relative",
-      }}
-    >
-      {!isLoaded && <div>지도 스크립트 로딩 중..</div>}
+    <Flex style={{ maxWidth: "600px" }}>
+      <div
+        ref={mapRef}
+        style={{
+          width,
+          height,
+          position: "relative",
+        }}
+      >
+        {!isLoaded && <div>지도 스크립트 로딩 중..</div>}
 
-      {mapInstance && (
-        <>
-          {showPolygon && polygon && polygon.length > 0 && (
-            <Polygon map={mapInstance} path={polygon} />
-          )}
-          {markerData && (
-            <DotMarker
-              map={mapInstance}
-              markerData={markerData}
-              onMarkerClicked={handleMarkerClicked}
-            />
-          )}
-        </>
-      )}
-    </div>
+        {mapInstance && (
+          <>
+            {showPolygon && polygon && polygon.length > 0 && (
+              <Polygon map={mapInstance} path={polygon} />
+            )}
+            {markerData && (
+              <DotMarker
+                map={mapInstance}
+                markerData={markerData}
+                onMarkerClicked={handleMarkerClicked}
+              />
+            )}
+          </>
+        )}
+      </div>
+    </Flex>
   );
 };
 
