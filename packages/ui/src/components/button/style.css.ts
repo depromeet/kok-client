@@ -32,7 +32,7 @@ export const buttonReceipe = recipe({
   variants: {
     variant: {
       primary: {
-        backgroundColor: theme.colors.gray95,
+        backgroundColor: theme.colors.navy,
       },
       secondary: {
         backgroundColor: theme.colors.orange40,
