@@ -1,4 +1,4 @@
-import { Button, Flex, Input, Text } from "@repo/ui/components";
+import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
 import { useState, useCallback } from "react";
 import { theme } from "@repo/ui/tokens";
 
@@ -7,7 +7,6 @@ import {
   footerContainerStyle,
   headingContainerStyle,
 } from "./style.css";
-import { textRecipe } from "node_modules/@repo/ui/src/components/text/style.css";
 
 interface ICreateRoomPeople {
   onNext: (capacity: number) => void;
@@ -23,7 +22,7 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
     const value = e.target.value.replace(/\D/g, "");
     if (!value) return setPeopleCount("");
 
-    let numValue = Math.max(
+    const numValue = Math.max(
       MIN_PEOPLE,
       Math.min(parseInt(value, 10), MAX_PEOPLE)
     );

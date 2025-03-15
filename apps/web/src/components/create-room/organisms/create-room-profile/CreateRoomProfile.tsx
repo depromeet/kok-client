@@ -2,7 +2,7 @@
 import type { IRaondomProfile } from "@/api/types/create-room/index.type";
 import { useState, useCallback } from "react";
 import Image from "next/image";
-import { Button, Flex, Input, Text } from "@repo/ui/components";
+import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
 import {
   containerStyle,
@@ -10,7 +10,6 @@ import {
   headingContainerStyle,
   imageContainerStyle,
 } from "./style.css";
-import { textRecipe } from "node_modules/@repo/ui/src/components/text/style.css";
 
 interface ICreateRoomProfile {
   onNext: (profile: string, nickname: string) => void;

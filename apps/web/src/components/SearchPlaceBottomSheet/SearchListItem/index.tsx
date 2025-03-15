@@ -1,7 +1,7 @@
 import { Flex, Text } from "@repo/ui/components";
 import { Place } from "../types";
 import * as Style from "./style.css";
-import { classMerge } from "node_modules/@repo/ui/src/utils";
+import { classMerge } from "@repo/ui/utils";
 
 interface SearchListItemProps extends Place {
   isLast?: boolean;

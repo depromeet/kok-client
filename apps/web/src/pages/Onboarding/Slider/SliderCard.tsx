@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import * as Style from "@/pages/Onboarding/Slider/SliderCard.css";
-import { classMerge } from "node_modules/@repo/ui/src/utils";
+import { classMerge } from "@repo/ui/utils";
 import { ComponentProps } from "react";
 
 interface Props extends ComponentProps<"div"> {

@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, type ButtonProps } from "@repo/ui/components";
-import { textRecipe } from "node_modules/@repo/ui/src/components/text/style.css";
+import { Button, textRecipe, type ButtonProps } from "@repo/ui/components";
 import { PropsWithChildren, useEffect } from "react";
 
 const MESSAGE_TEMPLATE_START_INPUT = 117720;
