@@ -118,7 +118,7 @@ export const NaverMap = ({
         centerMarkerRef.current = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(
             centerMarker.latitude,
-            centerMarker.centroid.longitude
+            centerMarker.longitude
           ),
           map: map,
           icon: {
