@@ -1,4 +1,6 @@
 const scale = {
+  navy: "#1B202C",
+
   gray0: "#FFFFFF",
   gray2: "#FBFBFB",
   gray5: "#F6F6F6",
@@ -95,6 +97,12 @@ const scale = {
   subwayAdjust7: "#8F9A16",
   subwayAdjust8: "#D6406A",
   subwayAdjust9: "#8E764B",
+
+  subwayAdjustShinbundang: "#D42F4B",
+  subwayAdjustSuinbundang: "#F3AE21",
+  subwayAdjustGyeonguiJungang: "#40B8C0",
+  subwayAdjustIncheon1: "#7EA5CD",
+  subwayAdjustIncheon2: "#F7931D",
 
   mapPolygon: "rgba(251, 83, 39, 0.12)",
   mapMarkerBorder: "#000000",
