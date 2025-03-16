@@ -1,4 +1,4 @@
-import SearchPlaceBottomSheet from "@/components/SearchPlaceBottomSheet";
+import SearchPlaceBottomSheet from "@/components/search-place-bottom-sheet";
 import { NaverMap } from "@repo/naver-map";
 
 const SelectStartPlace = () => {

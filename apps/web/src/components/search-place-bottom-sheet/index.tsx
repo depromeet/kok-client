@@ -4,7 +4,7 @@ import { Button, Flex, Input, Text } from "@repo/ui/components";
 import { ChangeEvent, useState } from "react";
 import * as Style from "./style.css";
 import { Place } from "./types";
-import SearchListItem from "./SearchListItem";
+import SearchListItem from "./search-list-item";
 import { SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
