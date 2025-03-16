@@ -1,3 +1,5 @@
+import { getLatLng } from "@repo/naver-map";
+
 export const convertToMarkerData = (convH: any) => {
   if (!convH) return [];
 
@@ -38,4 +40,8 @@ export const convertToCenterMarkerData = (centroid: any) => {
     latitude: centroid.latitude,
     longitude: centroid.longitude,
   };
+};
+
+export const convertWGS84ToLatLng = ({ y, x }: { y: string; x: string }) => {
+  return getLatLng({ y: +y / 10000000, x: +x / 10000000 });
 };
