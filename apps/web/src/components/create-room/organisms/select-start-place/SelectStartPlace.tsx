@@ -1,13 +1,10 @@
-import SearchPlaceBottomSheet from "@/components/SearchPlaceBottomSheet";
-import * as Style from "./style.css";
+import SearchPlaceBottomSheet from "@/components/search-place-bottom-sheet";
 import { NaverMap } from "@repo/naver-map";
 
 const SelectStartPlace = () => {
   return (
     <>
-      <div className={Style.container}>
-        <NaverMap width="100vw" height="100vh" />
-      </div>
+      <NaverMap width="100vw" height="100vh" />
       <SearchPlaceBottomSheet />
     </>
   );
