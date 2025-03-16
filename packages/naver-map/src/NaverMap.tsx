@@ -7,6 +7,7 @@ import { getCenterMarkerElement } from "./CenterMarkerElement";
 import DotMarker from "./DotMarker";
 import { getFinalMarkerElement } from "./FinalMarker";
 import { Flex } from "@repo/ui/components";
+import { useNaverMap, useSetNaverMap } from "./naver-map-provider";
 
 export const NAVER_MAP_CONFIG = {
   ZOOM_LEVEL: 17, // 확정
@@ -37,6 +38,7 @@ export const NaverMap = ({
   const [showPolygon, setShowPolygon] = useState<boolean>(false);
   const [showPolyline, setShowPolyline] = useState<boolean>(false);
   const centerMarkerRef = useRef<naver.maps.Marker | null>(null);
+  const { setMap } = useNaverMap();
 
   const loadNaverMapScript = () => {
     if (window.naver && window.naver.maps) {
@@ -152,6 +154,7 @@ export const NaverMap = ({
       setMapInstance(map);
       setShowPolygon(true);
       setShowPolyline(true);
+      setMap(map);
     } catch (e) {
       console.error("네이버 지도 생성 실패", e);
     }
