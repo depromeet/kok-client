@@ -1,15 +1,16 @@
 "use client";
 
 import { Button, Flex, Input, Text } from "@repo/ui/components";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import * as Style from "./style.css";
 import { Place } from "./types";
 import SearchListItem from "./search-list-item";
 import { SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
-import { useNaverMap } from "@repo/naver-map";
+import { getLatLng, NaverLatLng, useNaverMap } from "@repo/naver-map";
 import { convertWGS84ToLatLng } from "@/utils/location";
+import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 
 // TODO: 선택한 주소에 해당하는 마커 표기, 시트 배경 dimmed 처리, 현재 위치 지정 기능 필요
 
@@ -19,9 +20,21 @@ const SearchPlaceBottomSheet = () => {
   const [place, setPlace] = useState<Place | null>(null);
   const { data, refetch } = useGetPlaceSearchList(query);
   const { map } = useNaverMap();
+  const { currentLocation, getCurrentLocation } = useCurrentLocation();
+
+  const moveTo = useCallback(
+    (latLng: NaverLatLng) => {
+      map.panTo(latLng);
+    },
+    [map]
+  );
 
   const onChangeInputText = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
+  };
+
+  const onClickCurrentLocation = () => {
+    getCurrentLocation();
   };
 
   const onClickSearchButton = () => {
@@ -36,7 +49,7 @@ const SearchPlaceBottomSheet = () => {
 
   const onClickListItem = (place: Place) => {
     const latLng = convertWGS84ToLatLng({ y: place.mapy, x: place.mapx });
-    map.panTo(latLng);
+    moveTo(latLng);
 
     setPlace(place);
     setIsSearching(false);
@@ -47,6 +60,13 @@ const SearchPlaceBottomSheet = () => {
 
     // TODO: 생성된 모임방 uuid를 통해 모임장 위치 등록 API 요청 및 링크 생성 페이지로 라우팅
   };
+
+  useEffect(() => {
+    if (!currentLocation) return;
+
+    const { latitude, longitude } = currentLocation;
+    moveTo(getLatLng({ y: latitude, x: longitude }));
+  }, [currentLocation, moveTo]);
 
   return (
     <section
@@ -75,7 +95,7 @@ const SearchPlaceBottomSheet = () => {
           />
 
           {!isSearching && (
-            <Button>
+            <Button onClick={onClickCurrentLocation}>
               <Flex as="div" gap={4} align="center">
                 <CurrentLocationIcon />
                 <Text variant="title3">현재 내 위치</Text>
