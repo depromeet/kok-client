@@ -8,6 +8,8 @@ import SearchListItem from "./search-list-item";
 import { SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
+import { useNaverMap } from "@repo/naver-map";
+import { convertWGS84ToLatLng } from "@/utils/location";
 
 // TODO: 선택한 주소에 해당하는 마커 표기, 시트 배경 dimmed 처리, 현재 위치 지정 기능 필요
 
@@ -16,6 +18,7 @@ const SearchPlaceBottomSheet = () => {
   const [query, setQuery] = useState<string>("");
   const [place, setPlace] = useState<Place | null>(null);
   const { data, refetch } = useGetPlaceSearchList(query);
+  const { map } = useNaverMap();
 
   const onChangeInputText = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -32,6 +35,9 @@ const SearchPlaceBottomSheet = () => {
   const onBlurSearchInput = () => {};
 
   const onClickListItem = (place: Place) => {
+    const latLng = convertWGS84ToLatLng({ y: place.mapy, x: place.mapx });
+    map.panTo(latLng);
+
     setPlace(place);
     setIsSearching(false);
   };

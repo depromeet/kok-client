@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import QueryProvider from "@repo/shared/QueryProvider";
 
 import "@/styles/global.css";
+import { NaverMapProvider } from "@repo/naver-map";
 
 export const metadata: Metadata = {
   title: "콕 | 중간지점 찾기",
@@ -33,7 +34,9 @@ export default function RootLayout({
         }}
         className={pretendard.className}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <NaverMapProvider>{children}</NaverMapProvider>
+        </QueryProvider>
       </body>
 
       <script
