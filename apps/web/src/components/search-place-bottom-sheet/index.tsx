@@ -82,7 +82,7 @@ const SearchPlaceBottomSheet = () => {
             <Flex as="ul" direction="column" className={Style.seachResultList}>
               {data.map((item: Place, index: number) => (
                 <SearchListItem
-                  key={item.title}
+                  key={`search-result-${index}-${item.title}`}
                   {...item}
                   isLast={index === data.length - 1}
                   onSelect={(place: Place) => onClickListItem(place)}
