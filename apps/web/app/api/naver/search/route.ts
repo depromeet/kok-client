@@ -1,4 +1,4 @@
-import { NaverPlaceSearchResponse } from "@/components/SearchPlaceBottomSheet/types";
+import { NaverPlaceSearchResponse } from "@/components/search-place-bottom-sheet/types";
 import { getRequest } from "@repo/shared/axios";
 import { NextRequest, NextResponse } from "next/server";
 
