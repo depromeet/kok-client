@@ -5,13 +5,13 @@ import type {
   IRaondomProfile,
 } from "@/api/types/create-room/index.type";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback } from "react";
 import { ProgressBar } from "@repo/ui/components";
 import * as Style from "./style.css";
-import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
 import CreateRoomProfile from "../organisms/create-room-profile/CreateRoomProfile";
 import CreateRoomPeople from "../organisms/create-room-people/CreateRoomPeople";
 import SelectStartPlace from "../organisms/select-start-place/SelectStartPlace";
+import CreateRoomNameRenewal from "../organisms/create-room-name-renewal/CreateRoomNameRenewal";
 
 const CreateRoomLayout = ({
   randomProfile,
@@ -44,16 +44,10 @@ const CreateRoomLayout = ({
 
   const lastStep = 4;
 
-  const backgroundImage = useMemo(() => "/images/blur4.png", []); //todo : 배경 이미지 논의
-
   return (
     <div
+      //!!!todo : 배경색 gradient로 변경 필수!!!
       className={Style.containerStyle}
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
     >
       <ProgressBar
         step={createRoomValues.step ?? 1}
@@ -62,7 +56,7 @@ const CreateRoomLayout = ({
       />
 
       {createRoomValues.step === 1 && (
-        <CreateRoomName onNext={handleRoomName} />
+        <CreateRoomNameRenewal onNext={handleRoomName} />
       )}
       {createRoomValues.step === 2 && (
         <CreateRoomProfile

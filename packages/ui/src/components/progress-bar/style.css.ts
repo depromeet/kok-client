@@ -7,7 +7,7 @@ export const progressBarContainerStyle = style({
   margin: "0 auto",
   width: "100%",
   maxWidth: "600px",
-  padding: "40px 23px",
+  padding: "24px",
   position: "fixed",
   top: 0,
   zIndex: zIndex.floating,
@@ -15,17 +15,30 @@ export const progressBarContainerStyle = style({
 
 export const progressBarRecipe = recipe({
   base: {
-    width: "36px",
-    height: "4px",
-    borderRadius: "2px",
     flexShrink: 0,
-    minWidth: "36px",
+    minWidth: "10px",
   },
 
   variants: {
-    active: {
-      true: { backgroundColor: theme.colors.gray95 },
-      false: { backgroundColor: theme.colors.gray15 },
+    status: {
+      current: {
+        width: "32px",
+        height: "10px",
+        borderRadius: "16px",
+        backgroundColor: theme.colors.gray95,
+      },
+      active: {
+        width: "10px",
+        height: "10px",
+        borderRadius: "50%",
+        backgroundColor: theme.colors.gray15,
+      },
+      inactive: {
+        width: "10px",
+        height: "10px",
+        borderRadius: "50%",
+        backgroundColor: theme.colors.gray15,
+      },
     },
   },
 });

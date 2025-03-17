@@ -21,7 +21,7 @@ export const ProgressBar = ({
     <Flex
       justify="center"
       align="center"
-      gap={8}
+      gap={16}
       className={classMerge(
         progressBarContainerStyle,
         backgroundTransparent
@@ -33,7 +33,12 @@ export const ProgressBar = ({
         <div
           key={index}
           className={progressBarRecipe({
-            active: index < step,
+            status:
+              index === step - 1
+                ? "current"
+                : index < step - 1
+                  ? "active"
+                  : "inactive",
           })}
         />
       ))}
