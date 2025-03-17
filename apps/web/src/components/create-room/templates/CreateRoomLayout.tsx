@@ -11,7 +11,7 @@ import * as Style from "./style.css";
 import CreateRoomProfile from "../organisms/create-room-profile/CreateRoomProfile";
 import CreateRoomPeople from "../organisms/create-room-people/CreateRoomPeople";
 import SelectStartPlace from "../organisms/select-start-place/SelectStartPlace";
-import CreateRoomNameRenewal from "../organisms/create-room-name-renewal/CreateRoomNameRenewal";
+import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
 
 const CreateRoomLayout = ({
   randomProfile,
@@ -21,7 +21,7 @@ const CreateRoomLayout = ({
   const [createRoomValues, setCreateRoomValues] = useState<
     Partial<ICreateRoomValues>
   >({
-    step: 2,
+    step: 3,
   });
 
   const updateRoomValues = useCallback(
@@ -56,7 +56,7 @@ const CreateRoomLayout = ({
       />
 
       {createRoomValues.step === 1 && (
-        <CreateRoomNameRenewal onNext={handleRoomName} />
+        <CreateRoomName onNext={handleRoomName} />
       )}
       {createRoomValues.step === 2 && (
         <CreateRoomProfile

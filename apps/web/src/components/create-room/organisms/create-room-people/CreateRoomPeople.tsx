@@ -4,7 +4,9 @@ import { theme } from "@repo/ui/tokens";
 
 import {
   containerStyle,
+  footerBtnContainerStyle,
   footerContainerStyle,
+  footerProfileContainerStyle,
   headingContainerStyle,
 } from "./style.css";
 
@@ -39,8 +41,8 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
       direction="column"
       className={containerStyle}
     >
+      {/* 상단 */}
       <Flex direction="column" align="center">
-        {/* 제목 */}
         <Flex
           justify="center"
           align="center"
@@ -78,15 +80,29 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
         </Flex>
       </Flex>
 
-      {/* 하단 버튼 */}
-      <Flex justify="center" className={footerContainerStyle}>
-        <Button
-          className={textRecipe({ variant: "title3" })}
-          onClick={() => onNext(Number(peopleCount))}
-          disabled={isButtonDisabled}
-        >
-          다음
-        </Button>
+      {/* 하단 */}
+      <Flex direction="column" className={footerContainerStyle}>
+        {/* 프로필 선택해서 인원 설정 */}
+        <Flex justify="center" className={footerProfileContainerStyle}>
+          <Button
+            className={textRecipe({ variant: "title3" })}
+            onClick={() => onNext(Number(peopleCount))}
+            disabled={isButtonDisabled}
+          >
+            다음
+          </Button>
+        </Flex>
+
+        {/* 하단 버튼 */}
+        <Flex justify="center" className={footerBtnContainerStyle}>
+          <Button
+            className={textRecipe({ variant: "title3" })}
+            onClick={() => onNext(Number(peopleCount))}
+            disabled={isButtonDisabled}
+          >
+            다음
+          </Button>
+        </Flex>
       </Flex>
     </Flex>
   );
