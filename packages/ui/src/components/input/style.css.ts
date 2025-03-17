@@ -10,6 +10,7 @@ const inputResetStyle = style({
   height: "48px",
   boxSizing: "border-box",
 
+  //호진 todo : body3을 쓰면 되지 않나..?
   fontSize: "16px",
   fontStyle: "normal",
   fontWeight: 500,
@@ -24,7 +25,7 @@ export const inputRecipeStyle = recipe({
       caretColor: theme.colors.orange40,
 
       "::placeholder": {
-        color: theme.colors.gray0,
+        color: theme.colors.gray30,
       },
 
       ":focus": {
@@ -51,7 +52,7 @@ export const inputRecipeStyle = recipe({
       full: { width: "100%" },
       fit: { width: "fit-content" },
       auto: { width: "auto" },
-      profile: { width: "211px" },
+      profile: { width: "250px" },
       people: { width: "72px" },
       custom: {},
     },
@@ -66,12 +67,21 @@ export const inputRecipeStyle = recipe({
         paddingRight: "40px",
       },
     },
+    isInvalid: {
+      true: {
+        outline: `2px solid ${theme.colors.red50}`,
+      },
+      false: {
+        outline: "none",
+      },
+    },
   },
 
   defaultVariants: {
     variant: "rounded",
     width: "full",
     padding: "sm",
+    isInvalid: false,
   },
 });
 

@@ -16,26 +16,26 @@ export const progressBarContainerStyle = style({
 export const progressBarRecipe = recipe({
   base: {
     flexShrink: 0,
-    minWidth: "10px",
+    minWidth: "9px",
   },
 
   variants: {
     status: {
       current: {
-        width: "32px",
-        height: "10px",
-        borderRadius: "16px",
+        width: "26px",
+        height: "8px",
+        borderRadius: "14px",
         backgroundColor: theme.colors.gray95,
       },
       active: {
-        width: "10px",
-        height: "10px",
+        width: "8px",
+        height: "8px",
         borderRadius: "50%",
         backgroundColor: theme.colors.gray15,
       },
       inactive: {
-        width: "10px",
-        height: "10px",
+        width: "8px",
+        height: "8px",
         borderRadius: "50%",
         backgroundColor: theme.colors.gray15,
       },

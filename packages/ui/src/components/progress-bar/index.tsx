@@ -18,10 +18,11 @@ export const ProgressBar = ({
   backgroundTransparent = true,
 }: ProgressBarProps) => {
   return (
+    //호진 todo : 프로그레스바 넘어갈 때 인터렉션 있으면 좋을듯
     <Flex
       justify="center"
       align="center"
-      gap={16}
+      gap={12}
       className={classMerge(
         progressBarContainerStyle,
         backgroundTransparent

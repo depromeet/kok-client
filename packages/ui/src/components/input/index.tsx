@@ -10,6 +10,7 @@ export type InputProps = {
   variant?: "rectangular" | "rounded";
   width?: "full" | "fit" | "auto" | "profile" | "people" | string | number;
   padding?: "none" | "xs" | "sm" | "md";
+  isInvalid?: boolean; // !!!추가!!!
   rightElement?: ReactNode;
   ref?: Ref<HTMLInputElement>;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
@@ -23,6 +24,7 @@ export const Input = ({
   rightElement,
   value,
   onChange,
+  isInvalid = false, // !!!기본값 false!!!
   ref,
   className,
   ...props
@@ -51,6 +53,7 @@ export const Input = ({
             : "custom",
           padding,
           hasRightElement,
+          isInvalid, // 호진 !!!변경 스타일 적용!!!
         })}
         style={widthStyle}
         placeholder={placeholder}

@@ -1,8 +1,15 @@
+import { theme } from "@repo/ui/tokens";
+import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
-  paddingTop: "60px",
+  paddingTop: "58px",
   height: "100%",
+  paddingBottom: "92px",
+});
+
+export const invalidSpanStyle = style({
+  color: theme.colors.red50,
 });
 
 export const headingContainerStyle = style({
@@ -10,6 +17,13 @@ export const headingContainerStyle = style({
 });
 
 export const footerContainerStyle = style({
+  maxWidth: "600px",
   width: "100%",
   padding: "20px 16px",
+  backgroundColor: "white", //호진 todo : 잘 모르겠음.
+  position: "fixed",
+  bottom: 0,
+  left: "50%",
+  transform: "translateX(-50%)",
+  zIndex: zIndex.floating,
 });

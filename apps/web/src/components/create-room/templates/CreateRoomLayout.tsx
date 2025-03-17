@@ -21,7 +21,7 @@ const CreateRoomLayout = ({
   const [createRoomValues, setCreateRoomValues] = useState<
     Partial<ICreateRoomValues>
   >({
-    step: 1,
+    step: 2,
   });
 
   const updateRoomValues = useCallback(
@@ -46,7 +46,7 @@ const CreateRoomLayout = ({
 
   return (
     <div
-      //!!!todo : 배경색 gradient로 변경 필수!!!
+      //!!!호진 todo : 배경색 gradient로 변경 필수!!!
       className={Style.containerStyle}
     >
       <ProgressBar
