@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, Text } from "@repo/ui/components";
+import { Button, Flex, Text, AnimationBottomSheet } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
 import * as styles from "../style.css";
@@ -14,7 +14,15 @@ const ResultBottomSheet = () => {
   const distance = "1.2km";
 
   return (
-    <section className={styles.containerRecipe({})}>
+    <AnimationBottomSheet
+      initialY="100%"
+      animateY={0}
+      transition={{
+        type: "spring",
+        stiffness: 250,
+        damping: 40,
+      }}
+    >
       <div className={styles.wrapper}>
         <Text variant="title4" style={{ color: theme.colors.orange50 }}>
           최적 이동경로
@@ -48,12 +56,13 @@ const ResultBottomSheet = () => {
         </Flex>
       </div>
       <div className={styles.directionLineStyle} />
+
       <Flex as="div" direction="column" gap={20}>
         <Button onClick={onClickCopyLink}>
           <Text variant="title3">링크 복사하기</Text>
         </Button>
       </Flex>
-    </section>
+    </AnimationBottomSheet>
   );
 };
 

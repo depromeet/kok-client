@@ -1,34 +1,33 @@
-import type { InputHTMLAttributes, ReactNode, Ref } from "react";
+import type { InputHTMLAttributes, ReactNode, RefObject } from "react";
 import {
-  inputRecipeStyle,
-  inputContainerStyle,
+  inputContainerRecipe,
+  inputStyle,
+  InputVariants,
   rightElementStyle,
 } from "./style.css";
 import { classMerge } from "../../utils";
+import { Flex } from "../flex";
 
-export type InputProps = {
-  variant?: "rectangular" | "rounded";
-  width?: "full" | "fit" | "auto" | "profile" | "people" | string | number;
-  padding?: "none" | "xs" | "sm" | "md";
-  rightElement?: ReactNode;
-  ref?: Ref<HTMLInputElement>;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
+export type InputProps = InputHTMLAttributes<HTMLInputElement> &
+  InputVariants & {
+    rightElement?: ReactNode;
+    ref?: RefObject<HTMLInputElement | null>;
+  };
 
 export const Input = ({
-  variant = "rounded",
-  width = "full",
-  padding = "sm",
+  variant,
+  width,
+  padding,
   maxLength,
   placeholder,
   rightElement,
   value,
   onChange,
+  isInvalid = false,
   ref,
   className,
   ...props
 }: InputProps) => {
-  const hasRightElement = Boolean(rightElement);
-
   const presetWidths = ["full", "fit", "auto", "profile", "people", "custom"];
   const isPresetWidth =
     width !== undefined &&
@@ -39,19 +38,25 @@ export const Input = ({
     ? { width: typeof width === "number" ? `${width}px` : width }
     : {};
   return (
-    <div className={classMerge(inputContainerStyle, className)}>
-      <input
-        ref={ref}
-        value={value}
-        onChange={onChange}
-        className={inputRecipeStyle({
+    <Flex
+      align="center"
+      className={classMerge(
+        inputContainerRecipe({
           variant,
           width: isPresetWidth
             ? (width as "full" | "fit" | "auto" | "profile" | "people")
             : "custom",
           padding,
-          hasRightElement,
-        })}
+          isInvalid,
+        }),
+        className
+      )}
+    >
+      <input
+        ref={ref}
+        value={value}
+        onChange={onChange}
+        className={inputStyle}
         style={widthStyle}
         placeholder={placeholder}
         maxLength={maxLength}
@@ -59,9 +64,11 @@ export const Input = ({
       />
 
       {rightElement && (
-        <span className={rightElementStyle}>{rightElement}</span>
+        <Flex align="center" justify="center" className={rightElementStyle}>
+          {rightElement}
+        </Flex>
       )}
-    </div>
+    </Flex>
   );
 };
 

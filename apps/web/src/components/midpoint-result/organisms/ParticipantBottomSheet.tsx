@@ -1,9 +1,9 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import { Button, Flex, Text } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import * as styles from "../style.css";
+import { AnimationBottomSheet } from "@repo/ui/components";
 
 interface ParticipantBottomSheetProps {
   totalParticipants?: number;
@@ -19,7 +19,15 @@ const ParticipantBottomSheet = ({
   };
 
   return (
-    <section className={styles.containerRecipe({})}>
+    <AnimationBottomSheet
+      initialY="100%"
+      animateY={0}
+      transition={{
+        type: "spring",
+        stiffness: 250,
+        damping: 40,
+      }}
+    >
       <div className={styles.wrapper}>
         <Text variant="title1" style={{ color: theme.colors.red50 }}>
           {totalParticipants}
@@ -39,7 +47,7 @@ const ParticipantBottomSheet = ({
           <Text variant="title3">링크 복사하기</Text>
         </Button>
       </Flex>
-    </section>
+    </AnimationBottomSheet>
   );
 };
 

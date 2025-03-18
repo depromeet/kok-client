@@ -104,7 +104,7 @@ const scale = {
   subwayAdjustIncheon1: "#7EA5CD",
   subwayAdjustIncheon2: "#F7931D",
 
-  mapPolygon: "rgba(251, 83, 39, 0.12)",
+  mapPolygon: "rgba(27, 32, 44, 0.1)",
   mapMarkerBorder: "#000000",
 };
 

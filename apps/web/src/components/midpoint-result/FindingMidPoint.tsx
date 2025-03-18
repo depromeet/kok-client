@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import MapHeader from "./organisms/MapHeader";
 import RefreshCenterButton from "./organisms/RefreshCenterButton";
 import { Flex, Text } from "@repo/ui/components";
 import ParticipantBottomSheet from "@/components/midpoint-result/organisms/ParticipantBottomSheet";
-import { refreshStyle, mapContainer } from "./style.css";
+import { refreshStyle, mapContainer, overlayStyle } from "./style.css";
 import {
   useLocationCentroid,
   useLocationConvexHull,
@@ -15,6 +16,7 @@ import {
   convertToPolygonPath,
   convertToCenterMarkerData,
 } from "@/utils/location";
+// import StartBanner from "./organisms/StartBanner";
 
 const FindingMidPoint = () => {
   const { data: centroid, isLoading: centroidLoading } =
@@ -26,6 +28,7 @@ const FindingMidPoint = () => {
   const markerData = convertToMarkerData(convH);
   const polygonPath = convertToPolygonPath(convH);
   const centerMarkerData = convertToCenterMarkerData(centroid);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 
   if (centroidLoading || convHLoading) {
     return <div>Loading...</div>;
@@ -47,6 +50,8 @@ const FindingMidPoint = () => {
           centerMarker={centerMarkerData}
           polygon={polygonPath}
         />
+        {isOverlayVisible && <div className={overlayStyle} />}
+        {/* <StartBanner onClose={() => setIsOverlayVisible(false)} />*/}
         <ParticipantBottomSheet totalParticipants={markerData.length} />
       </Flex>
     </div>
