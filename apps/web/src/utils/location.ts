@@ -45,3 +45,14 @@ export const convertToCenterMarkerData = (centroid: any) => {
 export const convertWGS84ToLatLng = ({ y, x }: { y: string; x: string }) => {
   return getLatLng({ y: +y / 10000000, x: +x / 10000000 });
 };
+
+export const getFullAddressAndTitle = (addressInfo: any) => {
+  const [admcode, loadAddr] = addressInfo;
+  const { addition0, name, number1, number2 } = loadAddr.land;
+  const { area1, area2 } = admcode.region;
+  const title = addition0.value ?? "현재 위치";
+  const firstAddress = `${area1.name} ${area2.name}`;
+  const secondAddress = `${name}${number1 !== "" ? ` ${number1 + (number2 !== "" ? `-${number2}` : "")}` : ""}`;
+  const fullAddress = `${firstAddress} ${secondAddress}`;
+  return { title, fullAddress };
+};

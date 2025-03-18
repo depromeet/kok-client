@@ -9,19 +9,22 @@ import { SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
 import { getLatLng, NaverLatLng, useNaverMap } from "@repo/naver-map";
-import { convertWGS84ToLatLng } from "@/utils/location";
+import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 
-// TODO: 선택한 주소에 해당하는 마커 표기, 현재 위치 지정 기능 필요
+// TODO: 선택한 주소에 해당하는 마커 표기
 
 const SearchPlaceBottomSheet = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [query, setQuery] = useState<string>("");
   const [place, setPlace] = useState<Place | null>(null);
+
+  const { map } = useNaverMap();
+  const { currentLocation, getCurrentLocation, addressInfo } =
+    useCurrentLocation();
+
+  const [query, setQuery] = useState<string>("");
   const { data: searchList, refetch: fetchSearchList } =
     useGetPlaceSearchList(query);
-  const { map } = useNaverMap();
-  const { currentLocation, getCurrentLocation } = useCurrentLocation();
 
   const moveTo = useCallback(
     (latLng: NaverLatLng) => {
@@ -66,13 +69,21 @@ const SearchPlaceBottomSheet = () => {
 
   // NOTE: 현 위치로 이동 및 출발지 설정 스텝으로 이동
   useEffect(() => {
-    if (!currentLocation) return;
+    if (!currentLocation || !addressInfo) return;
 
     const { latitude, longitude } = currentLocation;
     const latLng = getLatLng({ y: latitude, x: longitude });
+    const { title, fullAddress } = getFullAddressAndTitle(addressInfo);
 
     moveTo(latLng);
-  }, [currentLocation, moveTo]);
+
+    setPlace({
+      title,
+      mapy: latitude.toString(),
+      mapx: longitude.toString(),
+      address: fullAddress,
+    });
+  }, [currentLocation, addressInfo, moveTo]);
 
   return (
     <>

@@ -1,12 +1,44 @@
 import { useState } from "react";
+import { useQuery } from "@repo/shared/tanstack-query";
+import { readReadableStream } from "@/utils/readableStream";
 
 interface Location {
   latitude: number;
   longitude: number;
 }
 
+const getAddressByCoords = async ({
+  latitude,
+  longitude,
+}: {
+  latitude: number;
+  longitude: number;
+}) => {
+  const response = await fetch(
+    `/api/naver/map/reverseGeocoding?latitude=${latitude}&longitude=${longitude}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.body) throw new Error("No response body");
+  return readReadableStream(response.body);
+};
+
 export const useCurrentLocation = () => {
   const [location, setLocation] = useState<Location | null>(null);
+  const { data: addressInfo, refetch } = useQuery({
+    queryKey: ["ConvertedAddress", location],
+    queryFn: async () => {
+      if (!location) return null;
+      return await getAddressByCoords(location);
+    },
+    select: (data) => data.results,
+    enabled: !!location,
+    retry: false,
+  });
 
   const getCurrentLocation = () => {
     // TODO: 이후 error 대응은 콘솔이 아닌 팝업 창으로 개선 필요
@@ -17,10 +49,12 @@ export const useCurrentLocation = () => {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        const { latitude, longitude } = position.coords;
         setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          latitude,
+          longitude,
         });
+        refetch();
       },
       (err) => {
         console.error(err.message);
@@ -28,5 +62,9 @@ export const useCurrentLocation = () => {
     );
   };
 
-  return { currentLocation: location, getCurrentLocation };
+  return {
+    currentLocation: location,
+    addressInfo,
+    getCurrentLocation,
+  };
 };
