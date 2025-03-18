@@ -3,13 +3,10 @@ import { style } from "@vanilla-extract/css";
 import { theme } from "../../tokens";
 
 export const bannerContainerStyle = style({
-  position: "absolute",
   width: "100%",
-  height: "147px",
   maxWidth: "600px",
-  bottom: 140,
-  zIndex: zIndex.floating,
   backgroundColor: theme.colors.orange5,
+  paddingBottom: "33px",
 });
 
 export const textContainerStyle = style({

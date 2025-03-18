@@ -3,7 +3,7 @@
 import { Button, Flex, Text, AnimationBottomSheet } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
-import * as styles from "../style.css";
+import * as styles from "./styles.css";
 
 const ResultBottomSheet = () => {
   const onClickCopyLink = () => {

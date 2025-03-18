@@ -1,6 +1,7 @@
 "use client";
 
 import { Banner } from "@repo/ui/components";
+import { zIndex } from "@repo/z-index";
 import { useState } from "react";
 
 interface OriginSetBannerProps {
@@ -19,7 +20,18 @@ const StartBanner = ({ onClose }: OriginSetBannerProps) => {
 
   if (!isVisible) return null;
 
-  return <Banner onClose={handleClose} title={title} place={place} />;
+  return (
+    <div
+      style={{
+        width: "100%",
+        position: "absolute",
+        bottom: 120,
+        zIndex: zIndex.floating,
+      }}
+    >
+      <Banner onClose={handleClose} title={title} place={place} />;
+    </div>
+  );
 };
 
 export default StartBanner;
