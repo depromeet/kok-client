@@ -60,7 +60,6 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
       <Flex direction="column" gap={20} className={footerContainerStyle}>
         <Flex direction="column" gap={11}>
           <Input
-            variant="rectangular"
             width="full"
             placeholder="예) 호진이네 집들이 (최대 20자)"
             value={inputValue}

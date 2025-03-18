@@ -29,7 +29,9 @@ export const wrapper = style({
   width: "100%",
 });
 
-export const input = style({ padding: "20px 0" });
+export const input = style({
+  margin: "20px 0",
+});
 
 export const seachResultList = style({
   width: "100%",

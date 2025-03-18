@@ -2,50 +2,21 @@ import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
 import { style } from "@vanilla-extract/css";
 import { theme } from "../../tokens";
 
-export type InputVariants = RecipeVariants<typeof inputRecipeStyle>;
+export type InputVariants = RecipeVariants<typeof inputContainerRecipe>;
 
-const inputResetStyle = style({
-  border: 0,
-  outline: "none",
-  height: "48px",
-  boxSizing: "border-box",
-
-  //호진 todo : body3을 쓰면 되지 않나..?
-  fontSize: "16px",
-  fontStyle: "normal",
-  fontWeight: 500,
-  lineHeight: "100%",
-});
-
-export const inputRecipeStyle = recipe({
-  base: [
-    inputResetStyle,
-    {
-      backgroundColor: theme.colors.gray0,
-      caretColor: theme.colors.orange40,
-
-      "::placeholder": {
-        color: theme.colors.gray30,
-      },
-
-      ":focus": {
-        borderColor: theme.colors.gray0,
-      },
-
-      ":disabled": {
-        backgroundColor: theme.colors.gray20,
-        cursor: "not-allowed",
-      },
-    },
-  ],
+export const inputContainerRecipe = recipe({
+  base: {
+    display: "inline-block",
+    width: "100%",
+  },
 
   variants: {
     variant: {
-      rectangular: {
-        borderRadius: "12px",
+      text: {
+        background: theme.colors.btn.input.default2,
       },
-      rounded: {
-        borderRadius: "100px",
+      search: {
+        background: theme.colors.btn.input.default,
       },
     },
     width: {
@@ -62,10 +33,9 @@ export const inputRecipeStyle = recipe({
       sm: { padding: "16px" },
       md: { padding: "18px" },
     },
-    hasRightElement: {
-      true: {
-        paddingRight: "40px",
-      },
+    rounded: {
+      full: { borderRadius: "100px" },
+      sm: { borderRadius: "12px" },
     },
     isInvalid: {
       true: {
@@ -78,38 +48,47 @@ export const inputRecipeStyle = recipe({
   },
 
   defaultVariants: {
-    variant: "rounded",
+    variant: "text",
     width: "full",
-    padding: "sm",
+    padding: "xs",
+    rounded: "sm",
     isInvalid: false,
   },
 });
 
-// 문자 카운터 ex) 0/10
-export const charCounterStyle = style({
-  position: "absolute",
-  right: "16px",
-  top: "50%",
-  transform: "translateY(-50%)",
-  fontSize: "14px",
-  color: theme.colors.gray30,
-  pointerEvents: "none",
+const inputResetStyle = style({
+  border: 0,
+  outline: "none",
+  boxSizing: "border-box",
+  fontSize: "16px",
+  fontStyle: "normal",
+  fontWeight: 500,
+  lineHeight: "100%",
 });
 
-export const inputContainerStyle = style({
-  position: "relative",
-  display: "inline-block",
-  width: "100%",
-});
+export const inputStyle = style([
+  inputResetStyle,
+  {
+    caretColor: theme.colors.orange40,
+    width: "100%",
+    height: "18px",
+
+    "::placeholder": {
+      color: theme.colors.btn.input.text.placehorder,
+    },
+
+    ":focus": {
+      borderColor: theme.colors.gray0,
+    },
+
+    ":disabled": {
+      backgroundColor: theme.colors.gray20,
+      cursor: "not-allowed",
+    },
+  },
+]);
 
 export const rightElementStyle = style({
-  position: "absolute",
-  right: "12px",
-  top: "50%",
-  transform: "translateY(-50%)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
   pointerEvents: "auto",
   cursor: "pointer",
 });
