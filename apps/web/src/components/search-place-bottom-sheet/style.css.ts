@@ -23,7 +23,7 @@ export const containerRecipe = recipe({
     maxWidth: "600px",
     borderTopLeftRadius: "32px",
     borderTopRightRadius: "32px",
-    transition: "height 2s ease-in-out",
+    transition: "height 0.3s ease-in-out",
     backgroundColor: theme.colors.bg.base2,
     zIndex: zIndex.overlay,
   },
@@ -31,8 +31,12 @@ export const containerRecipe = recipe({
   variants: {
     isFocus: {
       true: { height: "80%" },
-      false: {},
+      false: { height: "216px" },
     },
+  },
+
+  defaultVariants: {
+    isFocus: false,
   },
 });
 
