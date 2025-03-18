@@ -73,7 +73,9 @@ const CreateRoomProfile = ({ onNext, randomProfile }: ICreateRoomProfile) => {
               onChange={handleChange}
               isInvalid={isOverWarningLength}
               rightElement={
-                <DeleteIcon onClick={handleClear} disabled={isNicknameEmpty} />
+                <button onClick={handleClear}>
+                  <DeleteIcon disabled={isNicknameEmpty} />
+                </button>
               }
             />
             {isOverWarningLength && (

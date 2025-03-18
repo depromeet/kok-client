@@ -19,16 +19,16 @@ interface ICreateRoomName {
 
 const CreateRoomName = ({ onNext }: ICreateRoomName) => {
   const [inputValue, setInputValue] = useState("");
-  const isInvalid = inputValue.length > 20; // 20글자 초과 시 true
+  const isInvalid = inputValue.length > 20;
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, ""); // 특수 문자 제거
+    const newValue = e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, "");
     setInputValue(newValue);
   }, []);
 
   const handleClear = useCallback(() => setInputValue(""), []);
 
-  const isButtonDisabled = inputValue.length === 0 || isInvalid; // 20글자 초과 시 버튼 비활성화
+  const isButtonDisabled = inputValue.length === 0 || isInvalid;
 
   return (
     <Flex
@@ -65,11 +65,13 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
             placeholder="예) 호진이네 집들이 (최대 20자)"
             value={inputValue}
             onChange={handleChange}
-            maxLength={30} // 20글자 이상 입력 가능하지만 경고만 표시됨
-            isInvalid={isInvalid} // 20글자 초과 시 스타일 변경
+            maxLength={30}
+            isInvalid={isInvalid}
             rightElement={
               inputValue.length > 0 ? (
-                <DeleteIcon onClick={handleClear} />
+                <button onClick={handleClear}>
+                  <DeleteIcon />
+                </button>
               ) : null
             }
           />

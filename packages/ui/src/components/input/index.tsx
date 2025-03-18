@@ -10,7 +10,7 @@ export type InputProps = {
   variant?: "rectangular" | "rounded";
   width?: "full" | "fit" | "auto" | "profile" | "people" | string | number;
   padding?: "none" | "xs" | "sm" | "md";
-  isInvalid?: boolean; // !!!추가!!!
+  isInvalid?: boolean;
   rightElement?: ReactNode;
   ref?: Ref<HTMLInputElement>;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "size">;
@@ -24,7 +24,7 @@ export const Input = ({
   rightElement,
   value,
   onChange,
-  isInvalid = false, // !!!기본값 false!!!
+  isInvalid = false,
   ref,
   className,
   ...props

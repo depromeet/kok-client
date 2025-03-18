@@ -150,6 +150,7 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
                 className={imageStyle}
                 style={{
                   filter: index >= peopleCount ? "grayscale(100%)" : "none",
+                  opacity: index >= peopleCount ? 0.55 : 1,
                 }}
               />
             </div>
