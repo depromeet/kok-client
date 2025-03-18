@@ -12,13 +12,14 @@ import { getLatLng, NaverLatLng, useNaverMap } from "@repo/naver-map";
 import { convertWGS84ToLatLng } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
 
-// TODO: 선택한 주소에 해당하는 마커 표기, 시트 배경 dimmed 처리, 현재 위치 지정 기능 필요
+// TODO: 선택한 주소에 해당하는 마커 표기, 현재 위치 지정 기능 필요
 
 const SearchPlaceBottomSheet = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const [place, setPlace] = useState<Place | null>(null);
-  const { data, refetch } = useGetPlaceSearchList(query);
+  const { data: searchList, refetch: fetchSearchList } =
+    useGetPlaceSearchList(query);
   const { map } = useNaverMap();
   const { currentLocation, getCurrentLocation } = useCurrentLocation();
 
@@ -38,7 +39,7 @@ const SearchPlaceBottomSheet = () => {
   };
 
   const onClickSearchButton = () => {
-    refetch();
+    fetchSearchList();
   };
 
   const onFocusSearchInput = () => {
@@ -63,11 +64,14 @@ const SearchPlaceBottomSheet = () => {
     // TODO: 생성된 모임방 uuid를 통해 모임장 위치 등록 API 요청 및 링크 생성 페이지로 라우팅
   };
 
+  // NOTE: 현 위치로 이동 및 출발지 설정 스텝으로 이동
   useEffect(() => {
     if (!currentLocation) return;
 
     const { latitude, longitude } = currentLocation;
-    moveTo(getLatLng({ y: latitude, x: longitude }));
+    const latLng = getLatLng({ y: latitude, x: longitude });
+
+    moveTo(latLng);
   }, [currentLocation, moveTo]);
 
   return (
@@ -108,18 +112,18 @@ const SearchPlaceBottomSheet = () => {
               </Button>
             )}
 
-            {isSearching && data && data.length > 0 && (
+            {isSearching && searchList && searchList.length > 0 && (
               // FIXME: 리스트가 overflow될 때 스크롤이 생기지 않는 현상 수정 필요
               <Flex
                 as="ul"
                 direction="column"
                 className={Style.seachResultList}
               >
-                {data.map((item: Place, index: number) => (
+                {searchList.map((item: Place, index: number) => (
                   <SearchListItem
                     key={`search-result-${index}-${item.title}`}
                     {...item}
-                    isLast={index === data.length - 1}
+                    isLast={index === searchList.length - 1}
                     onSelect={(place: Place) => onClickListItem(place)}
                   />
                 ))}
