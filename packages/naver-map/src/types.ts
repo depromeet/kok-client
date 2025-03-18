@@ -66,3 +66,4 @@ export interface PolygonProps {
 export type NaverMapInstance = naver.maps.Map;
 export type NaverPolygon = naver.maps.Polygon;
 export type NaverMapMarker = naver.maps.Marker;
+export type NaverLatLng = naver.maps.LatLng;

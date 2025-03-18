@@ -3,6 +3,17 @@ import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+export const backgroundDimmed = style({
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  maxWidth: "600px",
+  height: "100dvh",
+  background: "rgba(0,0,0,0.65)",
+  zIndex: zIndex.overlay - 1,
+});
+
 export const containerRecipe = recipe({
   base: {
     position: "fixed",
@@ -12,16 +23,21 @@ export const containerRecipe = recipe({
     maxWidth: "600px",
     borderTopLeftRadius: "32px",
     borderTopRightRadius: "32px",
-    transition: "height 2s ease-in-out",
+    transition: "height 0.3s ease-in-out",
     backgroundColor: theme.colors.bg.base2,
-    zIndex: zIndex.floating,
+    zIndex: zIndex.overlay,
   },
 
   variants: {
     isFocus: {
       true: { height: "80%" },
-      false: {},
+      false: { height: "216px" },
+      finish: {},
     },
+  },
+
+  defaultVariants: {
+    isFocus: false,
   },
 });
 
@@ -39,7 +55,10 @@ export const seachResultList = style({
   flexWrap: "wrap",
 });
 
+export const resultContainer = style({ width: "100%", height: "100%" });
+
 export const result = style({
   padding: "0 8px",
 });
+
 export const selectedAddress = style({ color: theme.colors.gray40 });

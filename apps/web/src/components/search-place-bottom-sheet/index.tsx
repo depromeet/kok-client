@@ -1,42 +1,61 @@
 "use client";
 
-import { Button, Flex, Input, Text } from "@repo/ui/components";
-import { ChangeEvent, useState } from "react";
+import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import * as Style from "./style.css";
 import { Place } from "./types";
 import SearchListItem from "./search-list-item";
-import { SearchIcon } from "@repo/ui/icons";
+import { DeleteIcon, SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
-import { useNaverMap } from "@repo/naver-map";
-import { convertWGS84ToLatLng } from "@/utils/location";
+import { getLatLng, NaverLatLng, useNaverMap } from "@repo/naver-map";
+import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
+import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
 
-// TODO: 선택한 주소에 해당하는 마커 표기, 시트 배경 dimmed 처리, 현재 위치 지정 기능 필요
+// TODO: 선택한 주소에 해당하는 마커 표기
 
 const SearchPlaceBottomSheet = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [query, setQuery] = useState<string>("");
   const [place, setPlace] = useState<Place | null>(null);
-  const { data, refetch } = useGetPlaceSearchList(query);
+
   const { map } = useNaverMap();
+  const { currentLocation, getCurrentLocation, addressInfo } =
+    useCurrentLocation();
+
+  const [query, setQuery] = useState<string>("");
+  const { data: searchList, refetch: fetchSearchList } =
+    useGetPlaceSearchList(query);
+
+  const moveTo = useCallback(
+    (latLng: NaverLatLng) => {
+      map.panTo(latLng);
+    },
+    [map]
+  );
 
   const onChangeInputText = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
+  const onClickCurrentLocation = () => {
+    getCurrentLocation();
+  };
+
   const onClickSearchButton = () => {
-    refetch();
+    fetchSearchList();
   };
 
   const onFocusSearchInput = () => {
     setIsSearching(true);
   };
 
-  const onBlurSearchInput = () => {};
+  const onClickBackground = () => {
+    setIsSearching(false);
+  };
 
   const onClickListItem = (place: Place) => {
     const latLng = convertWGS84ToLatLng({ y: place.mapy, x: place.mapx });
-    map.panTo(latLng);
+    moveTo(latLng);
 
     setPlace(place);
     setIsSearching(false);
@@ -48,75 +67,128 @@ const SearchPlaceBottomSheet = () => {
     // TODO: 생성된 모임방 uuid를 통해 모임장 위치 등록 API 요청 및 링크 생성 페이지로 라우팅
   };
 
+  const onClickRemovePlace = () => {
+    setPlace(null);
+  };
+
+  // NOTE: 현 위치로 이동 및 출발지 설정 스텝으로 이동
+  useEffect(() => {
+    if (!currentLocation || !addressInfo) return;
+
+    const { latitude, longitude } = currentLocation;
+    const latLng = getLatLng({ y: latitude, x: longitude });
+    const { title, fullAddress } = getFullAddressAndTitle(addressInfo);
+
+    moveTo(latLng);
+
+    setPlace({
+      title,
+      mapy: latitude.toString(),
+      mapx: longitude.toString(),
+      address: fullAddress,
+    });
+  }, [currentLocation, addressInfo, moveTo]);
+
   return (
-    <section
-      className={Style.containerRecipe({
-        // TODO: 출발지 선택 시트에서 언제 창이 넓어지고 다시 좁아지는지 시나리오 재정의 필요
-        isFocus: isSearching,
-      })}
-    >
-      {!place && (
-        <div className={Style.wrapper}>
-          <Text variant="title2">어디서 출발하시나요?</Text>
+    <>
+      {isSearching && (
+        <div className={Style.backgroundDimmed} onClick={onClickBackground} />
+      )}
+      <section
+        className={Style.containerRecipe({
+          // TODO: 출발지 선택 시트에서 언제 창이 넓어지고 다시 좁아지는지 시나리오 재정의 필요
+          isFocus: place !== null ? "finish" : isSearching,
+        })}
+      >
+        {!place && (
+          <div className={Style.wrapper}>
+            <Text variant="title2">어디서 출발하시나요?</Text>
 
-          <Input
-            className={Style.input}
-            variant="search"
-            placeholder="출발지를 입력해주세요"
-            value={query}
-            rightElement={
-              <button onClick={onClickSearchButton}>
-                <SearchIcon />
-              </button>
-            }
-            padding="xs"
-            onChange={onChangeInputText}
-            onFocus={onFocusSearchInput}
-            onBlur={onBlurSearchInput}
-          />
+            <Input
+              className={Style.input}
+              variant="search"
+              placeholder="출발지를 입력해주세요"
+              value={query}
+              rightElement={
+                <button onClick={onClickSearchButton}>
+                  <SearchIcon />
+                </button>
+              }
+              padding="xs"
+              onChange={onChangeInputText}
+              onFocus={onFocusSearchInput}
+            />
 
-          {!isSearching && (
-            <Button>
-              <Flex as="div" gap={4} align="center">
-                <CurrentLocationIcon />
-                <Text variant="title3">현재 내 위치</Text>
+            {!isSearching && (
+              <Button
+                className={textRecipe({ variant: "title3" })}
+                onClick={onClickCurrentLocation}
+              >
+                <Flex as="div" gap={4} align="center">
+                  <CurrentLocationIcon />
+                  <Text variant="title3">현재 내 위치</Text>
+                </Flex>
+              </Button>
+            )}
+
+            {isSearching && searchList && searchList.length > 0 && (
+              // FIXME: 리스트가 overflow될 때 스크롤이 생기지 않는 현상 수정 필요
+              <Flex
+                as="ul"
+                direction="column"
+                className={Style.seachResultList}
+              >
+                {searchList.map((item: Place, index: number) => (
+                  <SearchListItem
+                    key={`search-result-${index}-${item.title}`}
+                    {...item}
+                    isLast={index === searchList.length - 1}
+                    onSelect={(place: Place) => onClickListItem(place)}
+                  />
+                ))}
               </Flex>
-            </Button>
-          )}
+            )}
+          </div>
+        )}
 
-          {isSearching && data && data.length > 0 && (
-            // FIXME: 리스트가 overflow될 때 스크롤이 생기지 않는 현상 수정 필요
-            <Flex as="ul" direction="column" className={Style.seachResultList}>
-              {data.map((item: Place, index: number) => (
-                <SearchListItem
-                  key={`search-result-${index}-${item.title}`}
-                  {...item}
-                  isLast={index === data.length - 1}
-                  onSelect={(place: Place) => onClickListItem(place)}
-                />
-              ))}
+        {place && (
+          <Flex
+            as="div"
+            className={Style.resultContainer}
+            direction="column"
+            gap={20}
+          >
+            <Flex justify="between">
+              <Flex
+                as="div"
+                direction="column"
+                gap={12}
+                className={Style.result}
+              >
+                <Text variant="title2">{removeBTag(place.title)}</Text>
+
+                <Text variant="caption" className={Style.selectedAddress}>
+                  {place.address}
+                </Text>
+              </Flex>
+
+              <button onClick={onClickRemovePlace}>
+                <DeleteIcon />
+              </button>
             </Flex>
-          )}
-        </div>
-      )}
 
-      {place && (
-        <Flex as="div" direction="column" gap={20}>
-          <Flex as="div" direction="column" gap={12} className={Style.result}>
-            <Text variant="title2">주소</Text>
-
-            <Text variant="caption" className={Style.selectedAddress}>
-              {place.address}
-            </Text>
+            <Button onClick={onClickSelectPlace}>
+              <Text variant="title3">출발지로 설정하기</Text>
+            </Button>
           </Flex>
-
-          <Button onClick={onClickSelectPlace}>
-            <Text variant="title3">출발지로 설정하기</Text>
-          </Button>
-        </Flex>
-      )}
-    </section>
+        )}
+      </section>
+    </>
   );
 };
 
 export default SearchPlaceBottomSheet;
+
+const removeBTag = (str: string) => {
+  return str.trim().replace(/<\/?b>/g, "");
+};
