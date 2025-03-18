@@ -10,7 +10,7 @@ import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
 import { getLatLng, NaverLatLng, useNaverMap } from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
-import { useCurrentLocation } from "@/hooks/useCurrentLocation";
+import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
 
 // TODO: 선택한 주소에 해당하는 마커 표기
 
