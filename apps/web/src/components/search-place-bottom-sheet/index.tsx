@@ -45,7 +45,9 @@ const SearchPlaceBottomSheet = () => {
     setIsSearching(true);
   };
 
-  const onBlurSearchInput = () => {};
+  const onClickBackground = () => {
+    setIsSearching(false);
+  };
 
   const onClickListItem = (place: Place) => {
     const latLng = convertWGS84ToLatLng({ y: place.mapy, x: place.mapx });
@@ -69,72 +71,80 @@ const SearchPlaceBottomSheet = () => {
   }, [currentLocation, moveTo]);
 
   return (
-    <section
-      className={Style.containerRecipe({
-        // TODO: 출발지 선택 시트에서 언제 창이 넓어지고 다시 좁아지는지 시나리오 재정의 필요
-        isFocus: isSearching,
-      })}
-    >
-      {!place && (
-        <div className={Style.wrapper}>
-          <Text variant="title2">어디서 출발하시나요?</Text>
+    <>
+      {isSearching && (
+        <div className={Style.backgroundDimmed} onClick={onClickBackground} />
+      )}
+      <section
+        className={Style.containerRecipe({
+          // TODO: 출발지 선택 시트에서 언제 창이 넓어지고 다시 좁아지는지 시나리오 재정의 필요
+          isFocus: isSearching,
+        })}
+      >
+        {!place && (
+          <div className={Style.wrapper}>
+            <Text variant="title2">어디서 출발하시나요?</Text>
 
-          <Input
-            className={Style.input}
-            placeholder="출발지를 입력해주세요"
-            value={query}
-            rightElement={
-              <button onClick={onClickSearchButton}>
-                <SearchIcon />
-              </button>
-            }
-            padding="xs"
-            onChange={onChangeInputText}
-            onFocus={onFocusSearchInput}
-            onBlur={onBlurSearchInput}
-          />
+            <Input
+              className={Style.input}
+              placeholder="출발지를 입력해주세요"
+              value={query}
+              rightElement={
+                <button onClick={onClickSearchButton}>
+                  <SearchIcon />
+                </button>
+              }
+              padding="xs"
+              onChange={onChangeInputText}
+              onFocus={onFocusSearchInput}
+            />
 
-          {!isSearching && (
-            <Button onClick={onClickCurrentLocation}>
-              <Flex as="div" gap={4} align="center">
-                <CurrentLocationIcon />
-                <Text variant="title3">현재 내 위치</Text>
+            {!isSearching && (
+              <Button onClick={onClickCurrentLocation}>
+                <Flex as="div" gap={4} align="center">
+                  <CurrentLocationIcon />
+                  <Text variant="title3">현재 내 위치</Text>
+                </Flex>
+              </Button>
+            )}
+
+            {isSearching && data && data.length > 0 && (
+              // FIXME: 리스트가 overflow될 때 스크롤이 생기지 않는 현상 수정 필요
+              <Flex
+                as="ul"
+                direction="column"
+                className={Style.seachResultList}
+              >
+                {data.map((item: Place, index: number) => (
+                  <SearchListItem
+                    key={`search-result-${index}-${item.title}`}
+                    {...item}
+                    isLast={index === data.length - 1}
+                    onSelect={(place: Place) => onClickListItem(place)}
+                  />
+                ))}
               </Flex>
-            </Button>
-          )}
+            )}
+          </div>
+        )}
 
-          {isSearching && data && data.length > 0 && (
-            // FIXME: 리스트가 overflow될 때 스크롤이 생기지 않는 현상 수정 필요
-            <Flex as="ul" direction="column" className={Style.seachResultList}>
-              {data.map((item: Place, index: number) => (
-                <SearchListItem
-                  key={`search-result-${index}-${item.title}`}
-                  {...item}
-                  isLast={index === data.length - 1}
-                  onSelect={(place: Place) => onClickListItem(place)}
-                />
-              ))}
+        {place && (
+          <Flex as="div" direction="column" gap={20}>
+            <Flex as="div" direction="column" gap={12} className={Style.result}>
+              <Text variant="title2">주소</Text>
+
+              <Text variant="caption" className={Style.selectedAddress}>
+                {place.address}
+              </Text>
             </Flex>
-          )}
-        </div>
-      )}
 
-      {place && (
-        <Flex as="div" direction="column" gap={20}>
-          <Flex as="div" direction="column" gap={12} className={Style.result}>
-            <Text variant="title2">주소</Text>
-
-            <Text variant="caption" className={Style.selectedAddress}>
-              {place.address}
-            </Text>
+            <Button onClick={onClickSelectPlace}>
+              <Text variant="title3">출발지로 설정하기</Text>
+            </Button>
           </Flex>
-
-          <Button onClick={onClickSelectPlace}>
-            <Text variant="title3">출발지로 설정하기</Text>
-          </Button>
-        </Flex>
-      )}
-    </section>
+        )}
+      </section>
+    </>
   );
 };
 

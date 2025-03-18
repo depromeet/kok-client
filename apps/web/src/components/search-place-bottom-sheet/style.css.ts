@@ -3,6 +3,17 @@ import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+export const backgroundDimmed = style({
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  maxWidth: "600px",
+  height: "100dvh",
+  background: "rgba(0,0,0,0.65)",
+  zIndex: zIndex.overlay - 1,
+});
+
 export const containerRecipe = recipe({
   base: {
     position: "fixed",
@@ -14,7 +25,7 @@ export const containerRecipe = recipe({
     borderTopRightRadius: "32px",
     transition: "height 2s ease-in-out",
     backgroundColor: theme.colors.bg.base2,
-    zIndex: zIndex.floating,
+    zIndex: zIndex.overlay,
   },
 
   variants: {
