@@ -32,6 +32,7 @@ export const containerRecipe = recipe({
     isFocus: {
       true: { height: "80%" },
       false: { height: "216px" },
+      finish: {},
     },
   },
 
@@ -52,7 +53,10 @@ export const seachResultList = style({
   flexWrap: "wrap",
 });
 
+export const resultContainer = style({ width: "100%", height: "100%" });
+
 export const result = style({
   padding: "0 8px",
 });
+
 export const selectedAddress = style({ color: theme.colors.gray40 });

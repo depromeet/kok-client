@@ -1,11 +1,11 @@
 "use client";
 
-import { Button, Flex, Input, Text } from "@repo/ui/components";
+import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import * as Style from "./style.css";
 import { Place } from "./types";
 import SearchListItem from "./search-list-item";
-import { SearchIcon } from "@repo/ui/icons";
+import { DeleteIcon, SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
 import { getLatLng, NaverLatLng, useNaverMap } from "@repo/naver-map";
@@ -67,6 +67,10 @@ const SearchPlaceBottomSheet = () => {
     // TODO: 생성된 모임방 uuid를 통해 모임장 위치 등록 API 요청 및 링크 생성 페이지로 라우팅
   };
 
+  const onClickRemovePlace = () => {
+    setPlace(null);
+  };
+
   // NOTE: 현 위치로 이동 및 출발지 설정 스텝으로 이동
   useEffect(() => {
     if (!currentLocation || !addressInfo) return;
@@ -93,7 +97,7 @@ const SearchPlaceBottomSheet = () => {
       <section
         className={Style.containerRecipe({
           // TODO: 출발지 선택 시트에서 언제 창이 넓어지고 다시 좁아지는지 시나리오 재정의 필요
-          isFocus: isSearching,
+          isFocus: place !== null ? "finish" : isSearching,
         })}
       >
         {!place && (
@@ -115,7 +119,10 @@ const SearchPlaceBottomSheet = () => {
             />
 
             {!isSearching && (
-              <Button onClick={onClickCurrentLocation}>
+              <Button
+                className={textRecipe({ variant: "title3" })}
+                onClick={onClickCurrentLocation}
+              >
                 <Flex as="div" gap={4} align="center">
                   <CurrentLocationIcon />
                   <Text variant="title3">현재 내 위치</Text>
@@ -144,13 +151,29 @@ const SearchPlaceBottomSheet = () => {
         )}
 
         {place && (
-          <Flex as="div" direction="column" gap={20}>
-            <Flex as="div" direction="column" gap={12} className={Style.result}>
-              <Text variant="title2">주소</Text>
+          <Flex
+            as="div"
+            className={Style.resultContainer}
+            direction="column"
+            gap={20}
+          >
+            <Flex justify="between">
+              <Flex
+                as="div"
+                direction="column"
+                gap={12}
+                className={Style.result}
+              >
+                <Text variant="title2">{removeBTag(place.title)}</Text>
 
-              <Text variant="caption" className={Style.selectedAddress}>
-                {place.address}
-              </Text>
+                <Text variant="caption" className={Style.selectedAddress}>
+                  {place.address}
+                </Text>
+              </Flex>
+
+              <button onClick={onClickRemovePlace}>
+                <DeleteIcon />
+              </button>
             </Flex>
 
             <Button onClick={onClickSelectPlace}>
@@ -164,3 +187,7 @@ const SearchPlaceBottomSheet = () => {
 };
 
 export default SearchPlaceBottomSheet;
+
+const removeBTag = (str: string) => {
+  return str.trim().replace(/<\/?b>/g, "");
+};
