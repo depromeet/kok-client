@@ -61,6 +61,7 @@ const SearchPlaceBottomSheet = () => {
 
           <Input
             className={Style.input}
+            variant="search"
             placeholder="출발지를 입력해주세요"
             value={query}
             rightElement={

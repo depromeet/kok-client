@@ -67,7 +67,6 @@ const CreateRoomProfile = ({ onNext, randomProfile }: ICreateRoomProfile) => {
           <Flex direction="column" gap={8}>
             <Input
               width="profile"
-              variant="rectangular"
               placeholder="닉네임을 입력해주세요."
               value={nickname}
               onChange={handleChange}
