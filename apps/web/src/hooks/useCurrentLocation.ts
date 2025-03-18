@@ -38,6 +38,7 @@ export const useCurrentLocation = () => {
     select: (data) => data.results,
     enabled: !!location,
     retry: false,
+    staleTime: 1000 * 60 * 2,
   });
 
   const getCurrentLocation = () => {
