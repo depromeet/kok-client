@@ -46,24 +46,23 @@ const DotMarker = ({ map, markerData, onMarkerClicked }: MarkerProps) => {
     markersRef.current = markersToRender.map((data) => {
       const markerElement = document.createElement("div");
       markerElement.innerHTML = `
-        <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_3043_26622)">
-<circle cx="15.5" cy="15.5" r="3" fill="#1B202C" fill-opacity="0.8" shape-rendering="crispEdges"/>
-</g>
-<defs>
-<filter id="filter0_d_3043_26622" x="0.5" y="0.5" width="30" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="6"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.105882 0 0 0 0 0.12549 0 0 0 0 0.172549 0 0 0 0.4 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3043_26622"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3043_26622" result="shape"/>
-</filter>
-</defs>
-</svg>
-
+      <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#filter0_d_3043_26622)">
+        <circle cx="15.5" cy="15.5" r="3" fill="#1B202C" fill-opacity="0.8" shape-rendering="crispEdges"/>
+        </g>
+        <defs>
+        <filter id="filter0_d_3043_26622" x="0.5" y="0.5" width="30" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset/>
+          <feGaussianBlur stdDeviation="6"/>
+          <feComposite in2="hardAlpha" operator="out"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 0.105882 0 0 0 0 0.12549 0 0 0 0 0.172549 0 0 0 0.4 0"/>
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3043_26622"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3043_26622" result="shape"/>
+        </filter>
+        </defs>
+      </svg>
       `;
 
       const marker = new window.naver.maps.Marker({

@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactNode } from "react";
 import { motion, Transition } from "@repo/motion";
 import * as styles from "./style.css";
