@@ -24,7 +24,8 @@ const Polygon = ({ map, path }: PolygonProps) => {
         map: map,
         paths: [polygonPath],
         fillColor: theme.colors.mapPolygon,
-        strokeColor: theme.colors.orange30,
+        strokeColor: theme.colors.mapPolygon,
+        strokeWeight: 0.1,
       });
 
       polygonRef.current = polygon;

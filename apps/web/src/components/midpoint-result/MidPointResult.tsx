@@ -5,9 +5,9 @@ import { useLocationCentroid } from "@/hooks/useLocation";
 import MapHeader from "./organisms/MapHeader";
 import { Flex, Text } from "@repo/ui/components";
 import { NaverMap } from "@repo/naver-map";
-import ResultBanner from "@/components/midpoint-result/organisms/ResultBanner";
-import FinalBottomSheet from "@/components/midpoint-result/organisms/ResultBottomSheet";
+import ResultBottomSheet from "@/components/midpoint-result/organisms/ResultBottomSheet";
 import { overlayStyle, mapContainer } from "./style.css";
+// import ResultBanner from "./organisms/ResultBanner";
 
 const MidPointResult = () => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
@@ -27,8 +27,9 @@ const MidPointResult = () => {
           />
         )}
         {isOverlayVisible && <div className={overlayStyle} />}
-        <ResultBanner onClose={() => setIsOverlayVisible(false)} />
-        <FinalBottomSheet />
+        {/* <ResultBanner onClose={() => setIsOverlayVisible(false)} /> */}
+        {/* api 연동 후 props 추가 필요 */}
+        <ResultBottomSheet />
       </Flex>
     </div>
   );

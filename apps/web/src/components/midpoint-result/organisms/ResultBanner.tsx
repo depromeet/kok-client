@@ -1,21 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import OrangeCircleIcon from "../../../assets/icons/OrangeCircleIcon";
-import BlueCircleIcon from "../../../assets/icons/BlueCircleIcon";
-import GreenCircleIcon from "../../../assets/icons/GreenCircleIcon";
-import Blur2 from "../../../assets/backgrounds/Blur2";
 import { DeleteIcon } from "@repo/ui/icons";
-import { Text } from "@repo/ui/components";
+import { Text, Flex } from "@repo/ui/components";
 import * as styles from "../style.css";
+import { theme } from "@repo/ui/tokens";
+import SmallMidIcon from "@/assets/icons/SmallMidIcon";
+import ResultPattern from "./ResultPattern";
 
 interface ResultBannerProps {
   onClose: () => void;
+  subway?: string;
+  finalPlace?: string;
 }
 
-const ResultBanner = ({ onClose }: ResultBannerProps) => {
+const ResultBanner = ({
+  onClose,
+  subway = "line3",
+  finalPlace = "디프만 모각작!",
+}: ResultBannerProps) => {
   const [isBannerVisible, setIsBannerVisible] = useState(true);
-  const finalSub = "망원역";
 
   const handleDelete = () => {
     setIsBannerVisible(false);
@@ -25,19 +29,30 @@ const ResultBanner = ({ onClose }: ResultBannerProps) => {
   if (!isBannerVisible) return null;
 
   return (
-    <div className={styles.bannerContainerStyle}>
-      <div className={styles.textContainerStyle}>
-        <Text variant="body3">우리가 만날 장소는</Text>
-        <Text variant="heading1">{finalSub}</Text>
+    // TODO:api 연동 이후 타입 에러 해결하기
+    <div className={styles.resultBannerContainerRecipe({ subway: subway })}>
+      <div className={styles.patternWrapperStyle}>
+        <ResultPattern />
       </div>
-      <Blur2 />
+      <Flex
+        direction="column"
+        justify="center"
+        align="center"
+        gap={20}
+        className={styles.resultContainerStyle}
+      >
+        <Text variant="caption" className={styles.questionStyle}>
+          우리의 중간 장소는?
+        </Text>
+        <Flex gap={4}>
+          <SmallMidIcon outColor="rgba(255, 255, 255, 1)" subway={subway} />
+          <Text variant="heading2" style={{ color: theme.colors.gray0 }}>
+            {finalPlace}
+          </Text>
+        </Flex>
+      </Flex>
       <div onClick={handleDelete} className={styles.deleteBtnStyle}>
         <DeleteIcon />
-      </div>
-      <div className={styles.iconsContainerStyle}>
-        <GreenCircleIcon className={styles.greenCircleStyle} />
-        <BlueCircleIcon className={styles.blueCircleStyle} />
-        <OrangeCircleIcon className={styles.orangeCircleStyle} />
       </div>
     </div>
   );
