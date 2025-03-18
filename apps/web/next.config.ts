@@ -3,6 +3,9 @@ const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ["localhost", "*"],
+  },
   transpilePackages: ["@repo/ui"],
 };
 
