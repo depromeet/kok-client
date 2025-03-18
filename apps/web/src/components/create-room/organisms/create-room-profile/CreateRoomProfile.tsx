@@ -1,36 +1,42 @@
 "use client";
+
 import type { IRaondomProfile } from "@/api/types/create-room/index.type";
+
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
+
 import {
   containerStyle,
   footerContainerStyle,
   headingContainerStyle,
   imageContainerStyle,
+  errorMessageStyle,
 } from "./style.css";
+import ErrorIcon from "../../atom/error-icon/ErrorIcon";
 
 interface ICreateRoomProfile {
   onNext: (profile: string, nickname: string) => void;
   randomProfile: IRaondomProfile;
 }
 
-const MAX_NICKNAME_LENGTH = 10;
+const WARNING_NICKNAME_LENGTH = 10;
 
 const CreateRoomProfile = ({ onNext, randomProfile }: ICreateRoomProfile) => {
   const [nickname, setNickname] = useState(randomProfile.nickname);
 
-  // 닉네임 입력 핸들러
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-      .slice(0, MAX_NICKNAME_LENGTH)
-      .replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, "");
+    const newValue = e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, "");
 
     setNickname(newValue);
   }, []);
 
   const handleClear = useCallback(() => setNickname(""), []);
+
+  const isOverWarningLength = nickname.length > WARNING_NICKNAME_LENGTH;
+  const isNicknameEmpty = nickname.length === 0;
+  const isButtonDisabled = isNicknameEmpty || isOverWarningLength;
 
   return (
     <Flex
@@ -58,15 +64,29 @@ const CreateRoomProfile = ({ onNext, randomProfile }: ICreateRoomProfile) => {
             width={80}
             height={80}
           />
-          <Input
-            width="profile"
-            variant="rectangular"
-            placeholder="닉네임을 입력해주세요"
-            value={nickname}
-            onChange={handleChange}
-            maxLength={MAX_NICKNAME_LENGTH}
-            rightElement={<DeleteIcon onClick={handleClear} />}
-          />
+          <Flex direction="column" gap={8}>
+            <Input
+              width="profile"
+              variant="rectangular"
+              placeholder="닉네임을 입력해주세요."
+              value={nickname}
+              onChange={handleChange}
+              isInvalid={isOverWarningLength}
+              rightElement={
+                <button onClick={handleClear}>
+                  <DeleteIcon disabled={isNicknameEmpty} />
+                </button>
+              }
+            />
+            {isOverWarningLength && (
+              <Flex align="center" justify="center">
+                <ErrorIcon />
+                <Text className={errorMessageStyle} variant="caption">
+                  닉네임은 10자까지만 적어주세요.
+                </Text>
+              </Flex>
+            )}
+          </Flex>
         </Flex>
       </Flex>
 
@@ -74,7 +94,7 @@ const CreateRoomProfile = ({ onNext, randomProfile }: ICreateRoomProfile) => {
       <Flex justify="center" className={footerContainerStyle}>
         <Button
           className={textRecipe({ variant: "title3" })}
-          disabled={!nickname}
+          disabled={isButtonDisabled}
           onClick={() => onNext(randomProfile.imageUrl, nickname)}
         >
           다음
