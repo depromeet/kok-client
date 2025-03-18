@@ -1,9 +1,12 @@
 "use client";
+
 import type { IRaondomProfile } from "@/api/types/create-room/index.type";
+
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
+
 import {
   containerStyle,
   footerContainerStyle,

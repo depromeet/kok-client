@@ -7,11 +7,12 @@ import type {
 
 import { useState, useCallback } from "react";
 import { ProgressBar } from "@repo/ui/components";
-import * as Style from "./style.css";
 import CreateRoomProfile from "../organisms/create-room-profile/CreateRoomProfile";
 import CreateRoomPeople from "../organisms/create-room-people/CreateRoomPeople";
 import SelectStartPlace from "../organisms/select-start-place/SelectStartPlace";
 import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
+
+import * as Style from "./style.css";
 
 const CreateRoomLayout = ({
   randomProfile,

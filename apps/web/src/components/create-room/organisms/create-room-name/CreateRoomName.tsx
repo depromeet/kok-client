@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import Image from "next/image";
 import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
+
 import {
   containerStyle,
   footerContainerStyle,
   headingContainerStyle,
   invalidSpanStyle,
 } from "./style.css";
-import Image from "next/image";
 
 interface ICreateRoomName {
   onNext: (name: string) => void;
