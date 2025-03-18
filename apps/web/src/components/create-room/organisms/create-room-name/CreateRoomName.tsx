@@ -11,6 +11,7 @@ import {
   headingContainerStyle,
   invalidSpanStyle,
 } from "./style.css";
+import ErrorIcon from "../../atom/error-icon/ErrorIcon";
 
 interface ICreateRoomName {
   onNext: (name: string) => void;
@@ -52,7 +53,6 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
           alt="main"
           priority
           loading="eager"
-          layout="intrinsic"
         />
       </Flex>
 
@@ -76,12 +76,7 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
           {/* 호진 todo : 너무 갑자기 나오니까 이상함 인터랙션 필요 */}
           {isInvalid && (
             <Flex align="center">
-              <Image
-                src={"/images/create-room/error.svg"}
-                width={20}
-                height={20}
-                alt="error"
-              />
+              <ErrorIcon />
               <Text className={invalidSpanStyle} variant="caption">
                 모임 이름은 20자까지만 적어주세요
               </Text>

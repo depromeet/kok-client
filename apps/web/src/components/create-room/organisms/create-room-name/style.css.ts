@@ -20,7 +20,6 @@ export const footerContainerStyle = style({
   maxWidth: "600px",
   width: "100%",
   padding: "20px 16px",
-  backgroundColor: "white", //호진 todo : 잘 모르겠음.
   position: "fixed",
   bottom: 0,
   left: "50%",

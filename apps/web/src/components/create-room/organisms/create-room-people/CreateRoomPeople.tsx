@@ -1,38 +1,52 @@
-import { useState, useCallback } from "react";
-import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
+import { useState } from "react";
+import Image from "next/image";
+import { Button, Flex, Text, textRecipe } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 
 import {
+  BottomIconStyle,
   containerStyle,
   footerBtnContainerStyle,
   footerContainerStyle,
-  footerProfileContainerStyle,
+  gridContainerStyle,
   headingContainerStyle,
+  imageStyle,
+  imageWrapperStyle,
+  peopleCountStyle,
+  roomNameContainerStyle,
+  TopIconStyle,
 } from "./style.css";
+import TopIcon from "../../atom/top-icon/TopIcon";
+import BottomIcon from "../../atom/bottom-icon/BottomIcon";
 
 interface ICreateRoomPeople {
   onNext: (capacity: number) => void;
+  roomName?: string;
 }
 
 const MIN_PEOPLE = 2;
-const MAX_PEOPLE = 12;
+const MAX_PEOPLE = 15;
 
-const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
-  const [peopleCount, setPeopleCount] = useState("2");
+const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
+  const [peopleCount, setPeopleCount] = useState(15);
+  const images = Array.from(
+    { length: 15 },
+    (_, i) => `/images/create-room/${i + 1}.png`
+  );
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, "");
-    if (!value) return setPeopleCount("");
+  const isButtonDisabled = peopleCount < MIN_PEOPLE || peopleCount > MAX_PEOPLE;
 
-    const numValue = Math.max(
-      MIN_PEOPLE,
-      Math.min(parseInt(value, 10), MAX_PEOPLE)
-    );
-    setPeopleCount(numValue.toString());
-  }, []);
+  const handleIncrease = () => {
+    if (peopleCount < MAX_PEOPLE) {
+      setPeopleCount((prev) => prev + 1);
+    }
+  };
 
-  const isButtonDisabled =
-    peopleCount === "" || parseInt(peopleCount, 10) < MIN_PEOPLE;
+  const handleDecrease = () => {
+    if (peopleCount > MIN_PEOPLE) {
+      setPeopleCount((prev) => prev - 1);
+    }
+  };
 
   return (
     <Flex
@@ -42,56 +56,92 @@ const CreateRoomPeople = ({ onNext }: ICreateRoomPeople) => {
       className={containerStyle}
     >
       {/* 상단 */}
-      <Flex direction="column" align="center">
-        <Flex
-          justify="center"
-          align="center"
-          direction="column"
-          className={headingContainerStyle}
-        >
-          <Flex>
-            <Text variant="heading3" style={{ color: theme.colors.orange50 }}>
-              {" "}
-              사랑해요
+      <Flex
+        justify="between"
+        align="center"
+        direction="column"
+        className={headingContainerStyle}
+        gap={60}
+      >
+        <div className={roomNameContainerStyle}>
+          <div>
+            <Text
+              variant="heading3"
+              as="span"
+              style={{ color: theme.colors.orange50 }}
+            >
+              {roomName}
             </Text>
-            <Text variant="heading3"> 의</Text>
-          </Flex>
-          <Text as="p" variant="heading3">
-            {" "}
-            인원수를 입력해 주세요
-          </Text>
-        </Flex>
+            <Text variant="heading3" as="span">
+              의
+            </Text>
+          </div>
+          <div>
+            <Text variant="heading3" as="span">
+              인원수를 입력해 주세요
+            </Text>
+          </div>
+        </div>
 
-        {/* 인원수 입력 */}
-        <Flex
-          gap={12}
-          justify="center"
-          align="center"
-          className={headingContainerStyle}
-        >
-          <Input
-            variant="rectangular"
-            width="people"
-            value={peopleCount}
-            onChange={handleChange}
-            maxLength={2}
-          />
-          <div>명</div>
+        {/* 명 수 입력 */}
+        <Flex gap={12} align="center" justify="center">
+          <Flex gap={4} align="center" justify="center">
+            <Flex align="center" justify="center" className={peopleCountStyle}>
+              <Text variant="body1" style={{ cursor: "default" }}>
+                {peopleCount}
+              </Text>
+            </Flex>
+
+            <Flex direction="column">
+              {/* 증가 버튼 */}
+              <button
+                style={{
+                  cursor:
+                    peopleCount === MAX_PEOPLE ? "not-allowed" : "pointer",
+                }}
+                className={TopIconStyle}
+                disabled={peopleCount >= MAX_PEOPLE}
+                onClick={handleIncrease}
+              >
+                <TopIcon disabled={peopleCount === MAX_PEOPLE} />
+              </button>
+
+              {/* 감소 버튼 */}
+              <button
+                style={{
+                  cursor:
+                    peopleCount === MIN_PEOPLE ? "not-allowed" : "pointer",
+                }}
+                className={BottomIconStyle}
+                disabled={peopleCount <= MIN_PEOPLE}
+                onClick={handleDecrease}
+              >
+                <BottomIcon disabled={peopleCount === MIN_PEOPLE} />
+              </button>
+            </Flex>
+          </Flex>
+
+          <Text variant="body1">명</Text>
         </Flex>
       </Flex>
 
       {/* 하단 */}
       <Flex direction="column" className={footerContainerStyle}>
         {/* 프로필 선택해서 인원 설정 */}
-        <Flex justify="center" className={footerProfileContainerStyle}>
-          <Button
-            className={textRecipe({ variant: "title3" })}
-            onClick={() => onNext(Number(peopleCount))}
-            disabled={isButtonDisabled}
-          >
-            다음
-          </Button>
-        </Flex>
+
+        <div className={gridContainerStyle}>
+          {images.map((src, index) => (
+            <div key={index} className={imageWrapperStyle}>
+              <Image
+                src={src}
+                alt={`Profile ${index + 1}`}
+                width={56}
+                height={56}
+                className={imageStyle}
+              />
+            </div>
+          ))}
+        </div>
 
         {/* 하단 버튼 */}
         <Flex justify="center" className={footerBtnContainerStyle}>

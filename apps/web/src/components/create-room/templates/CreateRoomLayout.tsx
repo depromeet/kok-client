@@ -22,7 +22,7 @@ const CreateRoomLayout = ({
   const [createRoomValues, setCreateRoomValues] = useState<
     Partial<ICreateRoomValues>
   >({
-    step: 3,
+    step: 1,
   });
 
   const updateRoomValues = useCallback(
@@ -66,7 +66,10 @@ const CreateRoomLayout = ({
         />
       )}
       {createRoomValues.step === 3 && (
-        <CreateRoomPeople onNext={handleRoomPeople} />
+        <CreateRoomPeople
+          roomName={createRoomValues?.roomName}
+          onNext={handleRoomPeople}
+        />
       )}
       {createRoomValues.step === 4 && <SelectStartPlace />}
     </div>

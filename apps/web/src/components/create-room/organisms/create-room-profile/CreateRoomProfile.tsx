@@ -14,6 +14,7 @@ import {
   imageContainerStyle,
   errorMessageStyle,
 } from "./style.css";
+import ErrorIcon from "../../atom/error-icon/ErrorIcon";
 
 interface ICreateRoomProfile {
   onNext: (profile: string, nickname: string) => void;
@@ -70,19 +71,14 @@ const CreateRoomProfile = ({ onNext, randomProfile }: ICreateRoomProfile) => {
               placeholder="닉네임을 입력해주세요."
               value={nickname}
               onChange={handleChange}
-              isInvalid={isOverWarningLength} // ✅ 10자 초과 시 Input 스타일 변경
+              isInvalid={isOverWarningLength}
               rightElement={
                 <DeleteIcon onClick={handleClear} disabled={isNicknameEmpty} />
               }
             />
             {isOverWarningLength && (
               <Flex align="center" justify="center">
-                <Image
-                  src={"/images/create-room/error.svg"}
-                  width={20}
-                  height={20}
-                  alt="error"
-                />
+                <ErrorIcon />
                 <Text className={errorMessageStyle} variant="caption">
                   닉네임은 10자까지만 적어주세요.
                 </Text>
