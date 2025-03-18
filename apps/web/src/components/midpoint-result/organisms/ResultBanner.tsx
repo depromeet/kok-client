@@ -29,7 +29,7 @@ const ResultBanner = ({
   if (!isBannerVisible) return null;
 
   return (
-    // api 연동 이후 타입 에러 해결하기
+    // TODO:api 연동 이후 타입 에러 해결하기
     <div className={styles.resultBannerContainerRecipe({ subway: subway })}>
       <div className={styles.patternWrapperStyle}>
         <ResultPattern />
@@ -44,7 +44,7 @@ const ResultBanner = ({
         <Text variant="caption" className={styles.questionStyle}>
           우리의 중간 장소는?
         </Text>
-        <Flex style={{ gap: 4 }}>
+        <Flex gap={4}>
           <SmallMidIcon outColor="rgba(255, 255, 255, 1)" subway={subway} />
           <Text variant="heading2" style={{ color: theme.colors.gray0 }}>
             {finalPlace}

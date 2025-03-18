@@ -1,31 +1,29 @@
 "use client";
 import { ReactNode } from "react";
-import { motion } from "@repo/motion";
+import { motion, Transition } from "@repo/motion";
 import * as styles from "./style.css";
 
-interface AniBottomSheetProps {
+interface AnimationBottomSheetProps {
   children: ReactNode;
   onAnimationComplete?: () => void;
   initialY?: string;
   animateY?: number | string;
-  stiffness?: number;
-  damping?: number;
+  transition?: Transition;
 }
 
-export const AniBottomSheet = ({
+export const AnimationBottomSheet = ({
   children,
   onAnimationComplete,
   initialY = "100%",
   animateY = 0,
-  stiffness = 250,
-  damping = 40,
-}: AniBottomSheetProps) => {
+  transition = { type: "spring", stiffness: 250, damping: 40 },
+}: AnimationBottomSheetProps) => {
   return (
     <motion.section
       className={styles.containerRecipe({})}
       initial={{ y: initialY }}
       animate={{ y: animateY }}
-      transition={{ type: "spring", stiffness, damping }}
+      transition={transition}
       onAnimationComplete={onAnimationComplete}
     >
       {children}
