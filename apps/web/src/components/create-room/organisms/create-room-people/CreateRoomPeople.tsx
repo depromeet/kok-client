@@ -28,12 +28,11 @@ const MIN_PEOPLE = 2;
 const MAX_PEOPLE = 15;
 
 const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
-  const [peopleCount, setPeopleCount] = useState(15);
+  const [peopleCount, setPeopleCount] = useState(2);
   const images = Array.from(
     { length: 15 },
     (_, i) => `/images/create-room/${i + 1}.png`
   );
-
   const isButtonDisabled = peopleCount < MIN_PEOPLE || peopleCount > MAX_PEOPLE;
 
   const handleIncrease = () => {
@@ -45,6 +44,13 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
   const handleDecrease = () => {
     if (peopleCount > MIN_PEOPLE) {
       setPeopleCount((prev) => prev - 1);
+    }
+  };
+
+  const handleImageClick = (index: number) => {
+    const newCount = index + 1;
+    if (newCount >= MIN_PEOPLE && newCount <= MAX_PEOPLE) {
+      setPeopleCount(newCount);
     }
   };
 
@@ -131,13 +137,20 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
 
         <div className={gridContainerStyle}>
           {images.map((src, index) => (
-            <div key={index} className={imageWrapperStyle}>
+            <div
+              key={index}
+              className={imageWrapperStyle}
+              onClick={() => handleImageClick(index)}
+            >
               <Image
                 src={src}
                 alt={`Profile ${index + 1}`}
                 width={56}
                 height={56}
                 className={imageStyle}
+                style={{
+                  filter: index >= peopleCount ? "grayscale(100%)" : "none",
+                }}
               />
             </div>
           ))}

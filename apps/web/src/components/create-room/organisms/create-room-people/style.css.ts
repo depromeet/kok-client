@@ -52,10 +52,6 @@ export const imageStyle = style({
   width: "56px",
   height: "56px",
   cursor: "pointer",
-  transition: "transform 0.2s ease-in-out",
-  ":hover": {
-    transform: "scale(1.2)", //너무 심심해서 효과 줘봤음
-  },
 });
 
 export const TopIconStyle = style({
