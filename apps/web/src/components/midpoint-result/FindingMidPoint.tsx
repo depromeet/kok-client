@@ -16,7 +16,7 @@ import {
   convertToPolygonPath,
   convertToCenterMarkerData,
 } from "@/utils/location";
-// import StartBanner from "./organisms/StartBanner";
+import StartBanner from "./organisms/StartBanner";
 
 const FindingMidPoint = () => {
   const { data: centroid, isLoading: centroidLoading } =
@@ -51,7 +51,7 @@ const FindingMidPoint = () => {
           polygon={polygonPath}
         />
         {isOverlayVisible && <div className={overlayStyle} />}
-        {/* <StartBanner onClose={() => setIsOverlayVisible(false)} />*/}
+        <StartBanner onClose={() => setIsOverlayVisible(false)} />
         <ParticipantBottomSheet totalParticipants={markerData.length} />
       </Flex>
     </div>

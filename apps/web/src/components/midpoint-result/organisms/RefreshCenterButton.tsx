@@ -4,7 +4,7 @@ import RefreshIcon from "@/assets/icons/RefreshIcon";
 import { Text } from "@repo/ui/components";
 import { useState } from "react";
 import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
-import * as styles from "../style.css";
+import * as styles from "./styles.css";
 
 interface RefreshCenterButtonProps {
   onRefresh?: () => void;

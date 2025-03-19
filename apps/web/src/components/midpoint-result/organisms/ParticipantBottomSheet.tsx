@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { Button, Flex, Text } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
-import * as styles from "../style.css";
+import * as styles from "./styles.css";
 import { AnimationBottomSheet } from "@repo/ui/components";
 
 interface ParticipantBottomSheetProps {

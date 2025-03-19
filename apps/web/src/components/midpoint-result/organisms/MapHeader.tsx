@@ -5,7 +5,7 @@ import BackIcon from "@/assets/icons/BackIcon";
 import { theme } from "@repo/ui/tokens";
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import * as styles from "../style.css";
+import * as styles from "./styles.css";
 
 interface MapHeaderProps {
   children?: ReactNode;

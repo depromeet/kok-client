@@ -6,3 +6,4 @@ export * from "./flex";
 export * from "./text";
 export * from "./progress-bar";
 export * from "./Spacing";
+export * from "./banner";
