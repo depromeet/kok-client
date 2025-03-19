@@ -24,12 +24,14 @@ const StartBanner = ({ onClose }: OriginSetBannerProps) => {
     <div
       style={{
         width: "100%",
+        maxWidth: "600px",
         position: "absolute",
-        bottom: 120,
+        bottom: 140,
         zIndex: zIndex.floating,
+        display: "flex",
       }}
     >
-      <Banner onClose={handleClose} title={title} place={place} />;
+      <Banner onClose={handleClose} title={title} place={place} />
     </div>
   );
 };
