@@ -6,7 +6,6 @@ import { recipe } from "@vanilla-extract/recipes";
 export const backgroundDimmed = style({
   position: "fixed",
   top: 0,
-  left: 0,
   width: "100%",
   maxWidth: "600px",
   height: "100dvh",
