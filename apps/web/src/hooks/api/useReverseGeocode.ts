@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
-import { NaverReverseGeocodeResponse } from "app/api/naver/reverse-geocode/types";
 import { extractDistrict } from "@/utils/location";
 
-interface Coordinates {
+export const useReverseGeocode = (coordinates: {
   lat: number;
   lng: number;
-}
-
-export const useReverseGeocode = (coordinates: Coordinates) => {
+}) => {
   const [district, setDistrict] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,7 +17,7 @@ export const useReverseGeocode = (coordinates: Coordinates) => {
       setError(null);
 
       const response = await fetch(
-        `/api/naver/reverse-geocode?lat=${coordinates.lat}&lng=${coordinates.lng}`
+        `/api/naver/map/reverseGeocoding?latitude=${coordinates.lat}&longitude=${coordinates.lng}`
       );
 
       const data = await response.json();
@@ -29,11 +26,10 @@ export const useReverseGeocode = (coordinates: Coordinates) => {
         throw new Error(data.error || "위치 정보를 가져오는데 실패했습니다");
       }
 
-      const districtName = extractDistrict(
-        data.fullData as NaverReverseGeocodeResponse
-      );
+      const districtName = extractDistrict(data);
       setDistrict(districtName);
     } catch (err) {
+      console.error("리버스 지오코딩 오류:", err);
       setError(
         err instanceof Error ? err.message : "알 수 없는 오류가 발생했습니다"
       );
