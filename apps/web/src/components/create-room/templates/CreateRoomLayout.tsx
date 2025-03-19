@@ -1,11 +1,13 @@
 "use client";
 
 import type {
+  ICreateRoom,
   ICreateRoomValues,
   IRaondomProfile,
 } from "@/api/types/create-room/index.type";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { ProgressBar } from "@repo/ui/components";
 import CreateRoomProfile from "../organisms/create-room-profile/CreateRoomProfile";
 import CreateRoomPeople from "../organisms/create-room-people/CreateRoomPeople";
@@ -13,28 +15,53 @@ import SelectStartPlace from "../organisms/select-start-place/SelectStartPlace";
 import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
 
 import * as Style from "./style.css";
+import { usePostTestData } from "@/hooks/api/useCreateRoom";
 
 const CreateRoomLayout = ({
   randomProfile,
 }: {
   randomProfile: IRaondomProfile;
 }) => {
+  const router = useRouter();
+
   const [createRoomValues, setCreateRoomValues] = useState<
     Partial<ICreateRoomValues>
   >({
     step: 1,
   });
 
+  const { mutateAsync } = usePostTestData();
+
   const updateRoomValues = useCallback(
     (newValues: Partial<ICreateRoomValues>) => {
       setCreateRoomValues((prevValues) => ({
         ...prevValues,
         ...newValues,
-        step: (prevValues.step ?? 1) + 1,
+        step: Math.min(lastStep, (prevValues.step ?? 1) + 1),
       }));
     },
     []
   );
+
+  useEffect(() => {
+    if (createRoomValues.step === 4) {
+      (async () => {
+        try {
+          const response = await mutateAsync({
+            roomName: createRoomValues.roomName!,
+            capacity: createRoomValues.capacity!,
+            hostProfile: createRoomValues.hostProfile!,
+            hostNickname: createRoomValues.hostNickname!,
+          } as ICreateRoom);
+          console.log(response); // 호진 todo : 받은 데이터 중 필요한 정보만 SelectStartPlace에 넘겨주기
+          return response;
+        } catch (error) {
+          alert("방 생성 중 알 수 없는 오류가 발생했습니다.");
+          router.push("/");
+        }
+      })();
+    }
+  }, [createRoomValues, mutateAsync]);
 
   const handleRoomName = (roomName: string) => updateRoomValues({ roomName });
 
@@ -46,10 +73,7 @@ const CreateRoomLayout = ({
   const lastStep = 4;
 
   return (
-    <div
-      //!!!호진 todo : 배경색 gradient로 변경 필수!!!
-      className={Style.containerStyle}
-    >
+    <div className={Style.containerStyle}>
       <ProgressBar
         step={createRoomValues.step ?? 1}
         lastStep={lastStep}
