@@ -1,8 +1,8 @@
 "use client";
 
 import { Banner } from "@repo/ui/components";
-import { zIndex } from "@repo/z-index";
 import { useState } from "react";
+import { bannerContainerStyle } from "./styles.css";
 
 interface OriginSetBannerProps {
   onClose: () => void;
@@ -21,16 +21,7 @@ const StartBanner = ({ onClose }: OriginSetBannerProps) => {
   if (!isVisible) return null;
 
   return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "600px",
-        position: "absolute",
-        bottom: 140,
-        zIndex: zIndex.floating,
-        display: "flex",
-      }}
-    >
+    <div className={bannerContainerStyle}>
       <Banner onClose={handleClose} title={title} place={place} />
     </div>
   );
