@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { extractDistrict } from "@/utils/location";
 
 export const useReverseGeocode = (coordinates: {
@@ -9,15 +9,22 @@ export const useReverseGeocode = (coordinates: {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  const coordinatesRef = useRef(coordinates);
+
+  useEffect(() => {
+    coordinatesRef.current = coordinates;
+  }, [coordinates]);
+
   const fetchLocation = async () => {
-    if (!coordinates.lat || !coordinates.lng) return;
+    const coords = coordinatesRef.current;
+    if (!coords.lat || !coords.lng) return;
 
     try {
       setIsLoading(true);
       setError(null);
 
       const response = await fetch(
-        `/api/naver/map/reverseGeocoding?latitude=${coordinates.lat}&longitude=${coordinates.lng}`
+        `/api/naver/map/reverseGeocoding?latitude=${coords.lat}&longitude=${coords.lng}`
       );
 
       const data = await response.json();
@@ -41,7 +48,6 @@ export const useReverseGeocode = (coordinates: {
 
   useEffect(() => {
     fetchLocation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coordinates]);
 
   return {
