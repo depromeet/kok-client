@@ -18,12 +18,12 @@ export const Banner = ({ onClose, title, place }: BannerProps) => {
 
   return (
     <div className={styles.bannerContainerStyle}>
-      <Flex direction="row" justify="between">
+      <Flex justify="between">
         <div className={styles.textContainerStyle}>
           <Text variant="caption" style={{ color: theme.colors.orange50 }}>
             {title}
           </Text>
-          <Flex style={{ gap: 4 }}>
+          <Flex gap={4}>
             <SmallMidIcon
               inColor={theme.colors.orange40}
               outColor={theme.colors.orange20}
