@@ -23,15 +23,12 @@ export const useReverseGeocode = (coordinates: Coordinates) => {
         `/api/naver/reverse-geocode?lat=${coordinates.lat}&lng=${coordinates.lng}`
       );
 
-      if (!response.ok) {
-        throw new Error("위치 정보를 가져오는데 실패했습니다");
-      }
-
       const data = await response.json();
 
-      if (data.error) {
-        throw new Error(data.error);
+      if (!response.ok) {
+        throw new Error(data.error || "위치 정보를 가져오는데 실패했습니다");
       }
+
       const districtName = extractDistrict(
         data.fullData as NaverReverseGeocodeResponse
       );
