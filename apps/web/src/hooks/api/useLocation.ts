@@ -14,6 +14,7 @@ export const useLocationCentroid = (uuid: string) => {
     queryKey: ["locationCentroid", uuid],
     queryFn: () => LocationController.getCentroid(uuid),
     enabled: !!uuid,
+    staleTime: 1000 * 60 * 60, // 개발 작업 동안
   });
   console.log("useLocationCentroid", result.data);
 

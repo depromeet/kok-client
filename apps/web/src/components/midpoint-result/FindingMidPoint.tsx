@@ -3,13 +3,13 @@
 import { useState } from "react";
 import MapHeader from "./organisms/MapHeader";
 import RefreshCenterButton from "./organisms/RefreshCenterButton";
-import { Flex, Text } from "@repo/ui/components";
+import { Flex } from "@repo/ui/components";
 import ParticipantBottomSheet from "@/components/midpoint-result/organisms/ParticipantBottomSheet";
 import { refreshStyle, mapContainer, overlayStyle } from "./style.css";
 import {
   useLocationCentroid,
   useLocationConvexHull,
-} from "@/hooks/useLocation";
+} from "@/hooks/api/useLocation";
 import { NaverMap } from "@repo/naver-map";
 import {
   convertToMarkerData,
@@ -25,8 +25,8 @@ const FindingMidPoint = () => {
   const { data: convH, isLoading: convHLoading } =
     useLocationConvexHull("ConvH");
 
-  const markerData = convertToMarkerData(convH);
-  const polygonPath = convertToPolygonPath(convH);
+  const markerData = convH ? convertToMarkerData(convH) : [];
+  const polygonPath = convH ? convertToPolygonPath(convH) : [];
   const centerMarkerData = convertToCenterMarkerData(centroid);
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 
@@ -37,11 +37,16 @@ const FindingMidPoint = () => {
   return (
     <div className={mapContainer}>
       <Flex direction="column">
-        <MapHeader>
-          <Text>디프만 모각작</Text>
-        </MapHeader>
+        <MapHeader title="디프만 모각자" />
         <div className={refreshStyle}>
-          <RefreshCenterButton />
+          {centerMarkerData && (
+            <RefreshCenterButton
+              coordinates={{
+                lat: centerMarkerData.latitude,
+                lng: centerMarkerData.longitude,
+              }}
+            />
+          )}
         </div>
         <NaverMap
           width="100vw"

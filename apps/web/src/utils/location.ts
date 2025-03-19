@@ -1,11 +1,28 @@
 import { getLatLng } from "@repo/naver-map";
+import { NaverReverseGeocodeResponse } from "app/api/naver/reverse-geocode/types";
+import { MarkerItem } from "@repo/naver-map";
+interface Point {
+  memberId: number;
+  latitude: number;
+  longitude: number;
+}
 
-export const convertToMarkerData = (convH: any) => {
+interface ConvexHullData {
+  convexHull?: Point[];
+  inside?: Point[];
+}
+
+interface Centroid {
+  uuid: string;
+  latitude: number;
+  longitude: number;
+}
+
+export const convertToMarkerData = (convH: ConvexHullData): MarkerItem[] => {
   if (!convH) return [];
-
   return [
     ...(convH.convexHull || []).map((point, index) => ({
-      id: point.memberId || index,
+      id: point.memberId,
       position: {
         lat: point.latitude,
         lng: point.longitude,
@@ -13,7 +30,7 @@ export const convertToMarkerData = (convH: any) => {
       title: `convH ${index + 1}`,
     })),
     ...(convH.inside || []).map((point, index) => ({
-      id: point.memberId || (convH.convexHull?.length || 0) + index,
+      id: point.memberId,
       position: {
         lat: point.latitude,
         lng: point.longitude,
@@ -23,18 +40,20 @@ export const convertToMarkerData = (convH: any) => {
   ];
 };
 
-export const convertToPolygonPath = (convH: any) => {
+export const convertToPolygonPath = (
+  convH: ConvexHullData
+): { lat: number; lng: number }[] => {
   if (!convH?.convexHull) return [];
-
   return convH.convexHull.map((point) => ({
     lat: point.latitude,
     lng: point.longitude,
   }));
 };
 
-export const convertToCenterMarkerData = (centroid: any) => {
+export const convertToCenterMarkerData = (
+  centroid: Centroid | null
+): Centroid | undefined => {
   if (!centroid) return undefined;
-
   return {
     uuid: centroid.uuid,
     latitude: centroid.latitude,
@@ -55,4 +74,9 @@ export const getFullAddressAndTitle = (addressInfo: any) => {
   const secondAddress = `${name}${number1 !== "" ? ` ${number1 + (number2 !== "" ? `-${number2}` : "")}` : ""}`;
   const fullAddress = `${firstAddress} ${secondAddress}`;
   return { title, fullAddress };
+};
+
+// 구 추출
+export const extractDistrict = (data: NaverReverseGeocodeResponse): string => {
+  return data.results?.[0]?.region?.area2?.name || "알 수 없음";
 };

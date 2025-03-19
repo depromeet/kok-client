@@ -3,15 +3,14 @@
 import { Text } from "@repo/ui/components";
 import BackIcon from "@/assets/icons/BackIcon";
 import { theme } from "@repo/ui/tokens";
-import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import * as styles from "./styles.css";
 
 interface MapHeaderProps {
-  children?: ReactNode;
+  title: string;
 }
 
-const MapHeader = ({ children }: MapHeaderProps) => {
+const MapHeader = ({ title }: MapHeaderProps) => {
   const router = useRouter();
 
   return (
@@ -22,7 +21,7 @@ const MapHeader = ({ children }: MapHeaderProps) => {
         </div>
         <div className={styles.titleStyle}>
           <Text variant="title3" color={theme.colors.gray95}>
-            {children}
+            {title}
           </Text>
         </div>
       </div>
