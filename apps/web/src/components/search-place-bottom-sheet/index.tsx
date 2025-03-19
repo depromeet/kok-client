@@ -11,8 +11,7 @@ import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
 import { getLatLng, Marker, NaverLatLng, useNaverMap } from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
-
-// TODO: 선택한 주소에 해당하는 마커 표기
+import ProfileMarker from "./profile-marker";
 
 const SearchPlaceBottomSheet = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -26,7 +25,14 @@ const SearchPlaceBottomSheet = () => {
   const { data: searchList, refetch: fetchSearchList } =
     useGetPlaceSearchList(query);
 
-  const marker = Marker({ map });
+  const marker = Marker({
+    map,
+    customMarkerData: {
+      marker: ProfileMarker({ profileImageUrl: "/images/create-room/2.png" }),
+      width: 48,
+      height: 48,
+    },
+  }); // TODO: 프로필 URL을 전달받아 렌더링
 
   const moveTo = useCallback(
     (latLng: NaverLatLng) => {
