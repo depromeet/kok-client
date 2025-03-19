@@ -5,6 +5,13 @@ const withVanillaExtract = createVanillaExtractPlugin();
 const nextConfig = {
   images: {
     domains: ["localhost", "*"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "kr.object.ncloudstorage.com",
+        pathname: "/kok-bucket/profile_default/**",
+      },
+    ],
   },
   transpilePackages: ["@repo/ui"],
 };
