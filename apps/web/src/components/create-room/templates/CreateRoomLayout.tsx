@@ -30,7 +30,12 @@ const CreateRoomLayout = ({
     step: 1,
   });
 
-  const { mutateAsync } = usePostTestData();
+  const { mutateAsync } = usePostTestData({
+    onError: () => {
+      alert("방 생성 중 알 수 없는 오류가 발생했습니다.");
+      router.push("/");
+    },
+  });
 
   const updateRoomValues = useCallback(
     (newValues: Partial<ICreateRoomValues>) => {
@@ -45,21 +50,14 @@ const CreateRoomLayout = ({
 
   useEffect(() => {
     if (createRoomValues.step === 4) {
-      (async () => {
-        try {
-          const response = await mutateAsync({
-            roomName: createRoomValues.roomName!,
-            capacity: createRoomValues.capacity!,
-            hostProfile: createRoomValues.hostProfile!,
-            hostNickname: createRoomValues.hostNickname!,
-          } as ICreateRoom);
-          console.log(response); // 호진 todo : 받은 데이터 중 필요한 정보만 SelectStartPlace에 넘겨주기
-          return response;
-        } catch (error) {
-          alert("방 생성 중 알 수 없는 오류가 발생했습니다.");
-          router.push("/");
-        }
-      })();
+      mutateAsync({
+        roomName: createRoomValues.roomName!,
+        capacity: createRoomValues.capacity!,
+        hostProfile: createRoomValues.hostProfile!,
+        hostNickname: createRoomValues.hostNickname!,
+      } as ICreateRoom).then((response) => {
+        console.log(response); // 호진 todo : 받은 데이터 중 필요한 정보만 SelectStartPlace에 넘겨주기
+      });
     }
   }, [createRoomValues, mutateAsync]);
 
