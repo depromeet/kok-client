@@ -3,16 +3,16 @@ import { NaverMap } from "@repo/naver-map";
 
 interface ISelectStartPlace {
   roomId: string;
-  profileId: string;
-  profile: string;
-  nickname: string;
+  memberId: string;
+  memberImgUrl: string;
+  memberNickname: string;
 }
 
 const SelectStartPlace = ({
   roomId,
-  profileId,
-  profile,
-  nickname,
+  memberId,
+  memberImgUrl,
+  memberNickname,
 }: ISelectStartPlace) => {
   return (
     <>
