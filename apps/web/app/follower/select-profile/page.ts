@@ -1,1 +1,2 @@
-export { Page as default } from "@/pages/Follower/SelectProfile/Page";
+import Page from "@/pages/Follower/SelectProfile/Page";
+export default Page;

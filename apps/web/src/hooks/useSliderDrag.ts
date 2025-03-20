@@ -1,9 +1,10 @@
 import { useCallback, useRef, useState } from "react";
 import { animate, useMotionValue } from "@repo/motion";
-import { Position, useDrag } from "./useDrag";
+import { Position } from "./useDrag";
 import { clamp } from "@repo/utils";
+import useDrag from "./useDrag";
 
-export function useSliderDrag() {
+export default function useSliderDrag() {
   const [sliderIndex, setSliderIndex] = useState(0);
 
   const dragging = useRef(false);

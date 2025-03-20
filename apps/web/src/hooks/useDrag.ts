@@ -11,7 +11,7 @@ interface Props {
   onDragEnd: () => void;
 }
 
-export function useDrag({ onDragStart, onDragEnd, onDragMove }: Props) {
+export default function useDrag({ onDragStart, onDragEnd, onDragMove }: Props) {
   const onTouchStart = useCallback(
     (event: TouchEvent) => {
       const touch = event.touches[0];

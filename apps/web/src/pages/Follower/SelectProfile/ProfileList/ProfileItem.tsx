@@ -1,6 +1,6 @@
 import { Flex, Spacing, Text } from "@repo/ui/components";
 // import Image from "next/image";
-import * as Style from "./ProfileItem.css";
+import * as Style from "../../../../styles/follower/select/ProfileItem.css";
 import { motion, useAnimate } from "@repo/motion";
 import { theme } from "@repo/ui/tokens";
 import { useEffect } from "react";
@@ -13,7 +13,7 @@ interface Props {
   selected: boolean;
 }
 
-export function ProfileItem({ name, address, selected }: Props) {
+export default function ProfileItem({ name, address, selected }: Props) {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export function ProfileItem({ name, address, selected }: Props) {
       <motion.div
         ref={scope}
         variants={{
-          selected: { borderColor: theme.colors.token.divider2 },
+          selected: { borderColor: theme.colors.divider2 },
           unselected: { borderColor: "rgba(0,0,0,0)" },
         }}
         initial={selected ? "selected" : "unselected"}

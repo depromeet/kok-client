@@ -1,5 +1,5 @@
 import { motion, usePressEffect } from "@repo/motion";
-import * as Style from "./AddButton.css";
+import * as Style from "../../../../styles/follower/select/AddButton.css";
 import { Flex } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 
@@ -7,7 +7,7 @@ interface Props {
   disabled: boolean;
 }
 
-export function AddButton({ disabled }: Props) {
+export default function AddButton({ disabled }: Props) {
   const { containerRef, pressProps } = usePressEffect();
 
   return (

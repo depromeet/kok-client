@@ -25,8 +25,8 @@ const FindingMidPoint = () => {
   const { data: convH, isLoading: convHLoading } =
     useLocationConvexHull("ConvH");
 
-  const markerData = convertToMarkerData(convH);
-  const polygonPath = convertToPolygonPath(convH);
+  const markerData = convH ? convertToMarkerData(convH) : [];
+  const polygonPath = convH ? convertToPolygonPath(convH) : [];
   const centerMarkerData = convertToCenterMarkerData(centroid);
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 

@@ -61,3 +61,6 @@ export const profileList: DummyProfile[] = [
     address: "Address",
   },
 ];
+export default function DummyPage() {
+  return null; // 빈 컴포넌트 반환
+}
