@@ -16,4 +16,22 @@ export interface IRaondomProfile {
   nickname: string;
 }
 
+export interface IMemberProfile {
+  id: string;
+  nickname: string;
+  profile: string;
+  role: string;
+}
+
+export interface ICompleteCreateRoom {
+  id: string;
+  roomName: string;
+  capacity: number;
+  member: IMemberProfile;
+  participantCount: number;
+  nonParticipantCount: number;
+}
+
 export type TRaondomProfile = ICommon<IRaondomProfile>;
+
+export type TCompleteCreateRoom = ICommon<ICompleteCreateRoom>;
