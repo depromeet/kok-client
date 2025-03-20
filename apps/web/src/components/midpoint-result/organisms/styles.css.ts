@@ -100,13 +100,13 @@ export const titleStyle = style({
 });
 
 // TODO: 결과 화면 구현중
-// export const directionLineStyle = style({
-//   width: "100%",
-//   height: "64px",
-//   padding: "8px",
-//   backgroundColor: theme.colors.gray10,
-//   marginBottom: "16px",
-// });
+export const directionLineStyle = style({
+  width: "100%",
+  height: "64px",
+  padding: "8px",
+  backgroundColor: theme.colors.gray10,
+  marginBottom: "16px",
+});
 
 export const resultBannerContainerStyle = style({
   position: "absolute",
