@@ -1,6 +1,5 @@
-"use client";
-
 import type {
+  ICompleteCreateRoom,
   ICreateRoom,
   ICreateRoomValues,
   IRaondomProfile,
@@ -13,9 +12,9 @@ import CreateRoomProfile from "../organisms/create-room-profile/CreateRoomProfil
 import CreateRoomPeople from "../organisms/create-room-people/CreateRoomPeople";
 import SelectStartPlace from "../organisms/select-start-place/SelectStartPlace";
 import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
+import { usePostTestData } from "@/hooks/api/useCreateRoom";
 
 import * as Style from "./style.css";
-import { usePostTestData } from "@/hooks/api/useCreateRoom";
 
 const CreateRoomLayout = ({
   randomProfile,
@@ -29,6 +28,9 @@ const CreateRoomLayout = ({
   >({
     step: 1,
   });
+
+  const [completeRoomDetails, setCompleteRoomDetails] =
+    useState<null | ICompleteCreateRoom>(null);
 
   const { mutateAsync } = usePostTestData({
     onError: () => {
@@ -56,7 +58,7 @@ const CreateRoomLayout = ({
         hostProfile: createRoomValues.hostProfile!,
         hostNickname: createRoomValues.hostNickname!,
       } as ICreateRoom).then((response) => {
-        console.log(response); // 호진 todo : 받은 데이터 중 필요한 정보만 SelectStartPlace에 넘겨주기
+        setCompleteRoomDetails(response.data);
       });
     }
   }, [createRoomValues, mutateAsync]);
@@ -93,7 +95,14 @@ const CreateRoomLayout = ({
           onNext={handleRoomPeople}
         />
       )}
-      {createRoomValues.step === 4 && <SelectStartPlace />}
+      {createRoomValues.step === 4 && completeRoomDetails && (
+        <SelectStartPlace
+          roomId={completeRoomDetails.id}
+          profileId={completeRoomDetails.member.id}
+          profile={completeRoomDetails.member.profile}
+          nickname={completeRoomDetails.member.nickname}
+        />
+      )}
     </div>
   );
 };
