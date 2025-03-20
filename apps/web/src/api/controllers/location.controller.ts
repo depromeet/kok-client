@@ -24,10 +24,12 @@ class LocationController {
     throw error;
   }
 
-  public async getCentroid(uuid: string): Promise<{ data: LocationCentroid }> {
+  public async getCentroid(
+    roomId: string
+  ): Promise<{ data: LocationCentroid }> {
     try {
       return await getRequest<{ data: LocationCentroid }>({
-        url: `${BASE_URL}${API_URLS.GET_CENTROID}${uuid}`,
+        url: `${BASE_URL}${API_URLS.GET_CENTROID}${roomId}`,
       });
     } catch (error: any) {
       this.handleError("getCentroid", error);
@@ -35,11 +37,11 @@ class LocationController {
   }
 
   public async getConvexHull(
-    uuid: string
+    roomId: string
   ): Promise<{ data: LocationConvexHull }> {
     try {
       return await getRequest<{ data: LocationConvexHull }>({
-        url: `${BASE_URL}${API_URLS.GET_CONVEXHULL}${uuid}`,
+        url: `${BASE_URL}${API_URLS.GET_CONVEXHULL}${roomId}`,
       });
     } catch (error: any) {
       this.handleError("getConvexHull", error);

@@ -11,23 +11,23 @@ export interface MapLocationParams {
 }
 
 export interface LocationCentroid {
-  uuid: string;
+  roomId: string;
   latitude: number;
   longitude: number;
 } // 중간역 필요
 
 export interface LocationConvexHull {
-  uuid: string;
+  roomId: string;
   convexHull: {
     latitude: number;
     longitude: number;
-    uuid: string;
+    roomId: string;
     memberId: number;
   }[];
   inside: {
     latitude: number;
     longitude: number;
-    uuid?: string;
+    roomId?: string;
     memberId: number;
   }[];
 }
