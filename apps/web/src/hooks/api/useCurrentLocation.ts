@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery } from "@repo/shared/tanstack-query";
-import { readReadableStream } from "@/utils/readableStream";
 
 interface Location {
   latitude: number;
@@ -23,8 +22,7 @@ const getAddressByCoords = async ({
       },
     }
   );
-  if (!response.body) throw new Error("No response body");
-  return readReadableStream(response.body);
+  return response.json();
 };
 
 export const useCurrentLocation = () => {

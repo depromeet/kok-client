@@ -8,11 +8,10 @@ import SearchListItem from "./search-list-item";
 import { DeleteIcon, SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
-import { getLatLng, NaverLatLng, useNaverMap } from "@repo/naver-map";
+import { getLatLng, Marker, NaverLatLng, useNaverMap } from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
-
-// TODO: 선택한 주소에 해당하는 마커 표기
+import ProfileMarker from "./profile-marker";
 
 const SearchPlaceBottomSheet = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -26,9 +25,20 @@ const SearchPlaceBottomSheet = () => {
   const { data: searchList, refetch: fetchSearchList } =
     useGetPlaceSearchList(query);
 
+  const marker = Marker({
+    map,
+    customMarkerData: {
+      marker: ProfileMarker({ profileImageUrl: "/images/create-room/2.png" }),
+      width: 48,
+      height: 48,
+    },
+  }); // TODO: 프로필 URL을 전달받아 렌더링
+
   const moveTo = useCallback(
     (latLng: NaverLatLng) => {
-      map.panTo(latLng);
+      if (map) {
+        map.panTo(latLng);
+      }
     },
     [map]
   );
@@ -55,9 +65,8 @@ const SearchPlaceBottomSheet = () => {
 
   const onClickListItem = (place: Place) => {
     const latLng = convertWGS84ToLatLng({ y: place.mapy, x: place.mapx });
-    moveTo(latLng);
 
-    setPlace(place);
+    setPlace({ ...place, mapy: latLng.y, mapx: latLng.x });
     setIsSearching(false);
   };
 
@@ -71,15 +80,12 @@ const SearchPlaceBottomSheet = () => {
     setPlace(null);
   };
 
-  // NOTE: 현 위치로 이동 및 출발지 설정 스텝으로 이동
+  // NOTE: 현 위치로 저장
   useEffect(() => {
     if (!currentLocation || !addressInfo) return;
 
     const { latitude, longitude } = currentLocation;
-    const latLng = getLatLng({ y: latitude, x: longitude });
     const { title, fullAddress } = getFullAddressAndTitle(addressInfo);
-
-    moveTo(latLng);
 
     setPlace({
       title,
@@ -87,7 +93,22 @@ const SearchPlaceBottomSheet = () => {
       mapx: longitude.toString(),
       address: fullAddress,
     });
-  }, [currentLocation, addressInfo, moveTo]);
+  }, [currentLocation, addressInfo]);
+
+  // NOTE: 출발지 선택시 해당 위치 마커 표기 및 이동
+  useEffect(() => {
+    if (!place) return;
+
+    const latLng = getLatLng({ y: Number(place.mapy), x: Number(place.mapx) });
+
+    marker.cleanUp();
+    marker.create({
+      latitude: latLng.y,
+      longitude: latLng.x,
+    });
+
+    moveTo(latLng);
+  }, [place, moveTo, marker]);
 
   return (
     <>

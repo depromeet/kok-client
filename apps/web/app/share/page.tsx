@@ -1,1 +1,3 @@
-export { Page as default } from "@pages/Share/Page";
+import Page from "@pages/Share/Page";
+
+export default Page;

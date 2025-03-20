@@ -1,8 +1,9 @@
 import { getLatLng } from "@repo/naver-map";
 import { NaverReverseGeocodeResponse } from "app/api/naver/reverse-geocode/types";
 import { MarkerItem } from "@repo/naver-map";
+
 interface Point {
-  memberId: number;
+  memberId?: number;
   latitude: number;
   longitude: number;
 }
@@ -12,13 +13,16 @@ interface ConvexHullData {
   inside?: Point[];
 }
 
-interface Centroid {
-  uuid: string;
-  latitude: number;
-  longitude: number;
+interface MarkerData {
+  id: number;
+  position: {
+    lat: number;
+    lng: number;
+  };
+  title: string;
 }
 
-export const convertToMarkerData = (convH: ConvexHullData): MarkerItem[] => {
+export const convertToMarkerData = (convH: ConvexHullData): MarkerData[] => {
   if (!convH) return [];
   return [
     ...(convH.convexHull || []).map((point, index) => ({
@@ -40,9 +44,8 @@ export const convertToMarkerData = (convH: ConvexHullData): MarkerItem[] => {
   ];
 };
 
-export const convertToPolygonPath = (
-  convH: ConvexHullData
-): { lat: number; lng: number }[] => {
+export const convertToPolygonPath = (convH: ConvexHullData) => {
+
   if (!convH?.convexHull) return [];
   return convH.convexHull.map((point) => ({
     lat: point.latitude,
