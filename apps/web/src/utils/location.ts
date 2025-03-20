@@ -1,6 +1,4 @@
 import { getLatLng } from "@repo/naver-map";
-import { NaverReverseGeocodeResponse } from "app/api/naver/reverse-geocode/types";
-import { MarkerItem } from "@repo/naver-map";
 
 interface Point {
   memberId?: number;
@@ -26,7 +24,7 @@ export const convertToMarkerData = (convH: ConvexHullData): MarkerData[] => {
   if (!convH) return [];
   return [
     ...(convH.convexHull || []).map((point, index) => ({
-      id: point.memberId,
+      id: point.memberId ?? -1,
       position: {
         lat: point.latitude,
         lng: point.longitude,
@@ -34,7 +32,7 @@ export const convertToMarkerData = (convH: ConvexHullData): MarkerData[] => {
       title: `convH ${index + 1}`,
     })),
     ...(convH.inside || []).map((point, index) => ({
-      id: point.memberId,
+      id: point.memberId ?? -1,
       position: {
         lat: point.latitude,
         lng: point.longitude,
@@ -45,13 +43,18 @@ export const convertToMarkerData = (convH: ConvexHullData): MarkerData[] => {
 };
 
 export const convertToPolygonPath = (convH: ConvexHullData) => {
-
   if (!convH?.convexHull) return [];
   return convH.convexHull.map((point) => ({
     lat: point.latitude,
     lng: point.longitude,
   }));
 };
+
+interface Centroid {
+  uuid: string;
+  latitude: number;
+  longitude: number;
+}
 
 export const convertToCenterMarkerData = (
   centroid: Centroid | null
@@ -79,7 +82,7 @@ export const getFullAddressAndTitle = (addressInfo: any) => {
   return { title, fullAddress };
 };
 
-// 구 추출
-export const extractDistrict = (data: NaverReverseGeocodeResponse): string => {
+// 구 추출 TODO: 타입 추가 필요 - 다른 브랜치에 존재
+export const extractDistrict = (data: any): string => {
   return data.results?.[0]?.region?.area2?.name || "알 수 없음";
 };
