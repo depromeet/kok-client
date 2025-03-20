@@ -28,7 +28,7 @@ export const NaverMap = ({
   height,
   markerData,
   centerMarker,
-  finaCenterMarker,
+  finalCenterMarker,
   onMarkerClick,
   polygon,
 }: NaverMapProps) => {
@@ -70,10 +70,10 @@ export const NaverMap = ({
     if (!mapRef.current || !window.naver || !window.naver.maps) return;
     try {
       const mapOptions = {
-        center: finaCenterMarker
+        center: finalCenterMarker
           ? new window.naver.maps.LatLng(
-              finaCenterMarker.latitude,
-              finaCenterMarker.longitude
+              finalCenterMarker.latitude,
+              finalCenterMarker.longitude
             )
           : centerMarker
             ? new window.naver.maps.LatLng(
@@ -131,7 +131,7 @@ export const NaverMap = ({
         });
       }
 
-      if (finaCenterMarker) {
+      if (finalCenterMarker) {
         if (centerMarkerRef.current) {
           centerMarkerRef.current.setMap(null);
         }
@@ -140,8 +140,8 @@ export const NaverMap = ({
 
         centerMarkerRef.current = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(
-            finaCenterMarker.latitude,
-            finaCenterMarker.longitude
+            finalCenterMarker.latitude,
+            finalCenterMarker.longitude
           ),
           map: map,
           icon: {
