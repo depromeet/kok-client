@@ -1,7 +1,7 @@
 import { theme } from "@repo/ui/tokens";
 import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
-import { recipe } from "@vanilla-extract/recipes";
+import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
 
 export const containerRecipe = recipe({
   base: {

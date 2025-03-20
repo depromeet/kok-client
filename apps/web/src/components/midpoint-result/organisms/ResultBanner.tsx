@@ -6,7 +6,7 @@ import { Text, Flex } from "@repo/ui/components";
 import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 // import SmallMidIcon from "@/assets/icons/SmallMidIcon";
-import ResultPattern from "./ResultPattern";
+// import ResultPattern from "./ResultPattern";
 
 interface ResultBannerProps {
   onClose: () => void;
@@ -30,10 +30,12 @@ const ResultBanner = ({
 
   return (
     // TODO:api 연동 이후 타입 에러 해결하기
-    <div className={styles.resultBannerContainerRecipe({ subway: subway })}>
-      <div className={styles.patternWrapperStyle}>
+    <div
+      className={styles.resultBannerContainerRecipe({ subway: subway as any })} // TODO: 타입 수정 필요
+    >
+      {/* <div className={styles.patternWrapperStyle}>
         <ResultPattern />
-      </div>
+      </div> */}
       <Flex
         direction="column"
         justify="center"

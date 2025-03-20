@@ -42,7 +42,7 @@ export function ProfileItem({ name, address, selected }: Props) {
       <motion.div
         ref={scope}
         variants={{
-          selected: { borderColor: theme.colors.token.divider2 },
+          selected: { borderColor: theme.colors.divider2 },
           unselected: { borderColor: "rgba(0,0,0,0)" },
         }}
         initial={selected ? "selected" : "unselected"}
