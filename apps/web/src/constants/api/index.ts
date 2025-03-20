@@ -7,4 +7,7 @@ export const API_URLS = {
   GET_CENTROID: "/locations/centroid/",
   GET_RANDOM_PROFILE: "/rooms/profile/random", // 랜덤 프로필 이미지, 닉네임 가져오기기
   POST_CREATE_ROOM: "/rooms", // 방 생성 요청
+  POST_ROUTE: "/route/",
+  POST_ROUTE_COMPLEX: "/route/complex/",
+  GET_RECOMMEND_STATION: "/stations/recommend/",
 };
