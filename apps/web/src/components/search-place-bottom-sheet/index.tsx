@@ -12,8 +12,22 @@ import { getLatLng, Marker, NaverLatLng, useNaverMap } from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
 import ProfileMarker from "./profile-marker";
+import { useSelectStartPlace } from "@/hooks/api/useSelectStartPlace";
+import { useRouter } from "next/navigation";
 
-const SearchPlaceBottomSheet = () => {
+interface SearchPlaceBottomSheetProps {
+  roomId: string;
+  memberId: string;
+  memberImgUrl: string;
+}
+
+const SearchPlaceBottomSheet = ({
+  roomId,
+  memberId,
+  memberImgUrl,
+}: SearchPlaceBottomSheetProps) => {
+  const router = useRouter();
+  const { mutate, isSuccess } = useSelectStartPlace();
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [place, setPlace] = useState<Place | null>(null);
 
@@ -28,7 +42,7 @@ const SearchPlaceBottomSheet = () => {
   const marker = Marker({
     map: map!,
     customMarkerData: {
-      marker: ProfileMarker({ profileImageUrl: "/images/create-room/2.png" }),
+      marker: ProfileMarker({ profileImageUrl: memberImgUrl }),
       width: 48,
       height: 48,
     },
@@ -77,7 +91,12 @@ const SearchPlaceBottomSheet = () => {
   const onClickSelectPlace = () => {
     if (!place) return;
 
-    // TODO: 생성된 모임방 uuid를 통해 모임장 위치 등록 API 요청 및 링크 생성 페이지로 라우팅
+    mutate({
+      roomId,
+      memberId,
+      latitude: Number(place.mapy),
+      longitude: Number(place.mapx),
+    });
   };
 
   const onClickRemovePlace = () => {
@@ -113,6 +132,12 @@ const SearchPlaceBottomSheet = () => {
 
     moveTo(latLng);
   }, [place, moveTo, marker]);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    router.push("/share");
+  }, [router, isSuccess]);
 
   return (
     <>
@@ -202,6 +227,7 @@ const SearchPlaceBottomSheet = () => {
               </button>
             </Flex>
 
+            {/* TODO: isSuccess를 활용해 API 요청중 버튼 disable */}
             <Button onClick={onClickSelectPlace}>
               <Text variant="title3">출발지로 설정하기</Text>
             </Button>

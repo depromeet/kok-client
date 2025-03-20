@@ -1,3 +1,5 @@
+"use client";
+
 import type {
   ICreateRoomValues,
   IRaondomProfile,
@@ -93,7 +95,6 @@ const CreateRoomLayout = ({
           roomId={data.data.id}
           memberId={data.data.member.id}
           memberImgUrl={data.data.member.profile}
-          memberNickname={data.data.member.nickname}
         />
       )}
     </div>

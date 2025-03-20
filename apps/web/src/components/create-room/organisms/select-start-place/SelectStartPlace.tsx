@@ -1,23 +1,17 @@
 import SearchPlaceBottomSheet from "@/components/search-place-bottom-sheet";
 import { NaverMap } from "@repo/naver-map";
 
-interface ISelectStartPlace {
+interface SelectStartPlaceProps {
   roomId: string;
   memberId: string;
   memberImgUrl: string;
-  memberNickname: string;
 }
 
-const SelectStartPlace = ({
-  roomId,
-  memberId,
-  memberImgUrl,
-  memberNickname,
-}: ISelectStartPlace) => {
+const SelectStartPlace = (props: SelectStartPlaceProps) => {
   return (
     <>
       <NaverMap width="100vw" height="100vh" />
-      <SearchPlaceBottomSheet />
+      <SearchPlaceBottomSheet {...props} />
     </>
   );
 };
