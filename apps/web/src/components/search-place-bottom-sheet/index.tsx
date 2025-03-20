@@ -26,7 +26,7 @@ const SearchPlaceBottomSheet = () => {
     useGetPlaceSearchList(query);
 
   const marker = Marker({
-    map,
+    map: map!,
     customMarkerData: {
       marker: ProfileMarker({ profileImageUrl: "/images/create-room/2.png" }),
       width: 48,
@@ -66,7 +66,11 @@ const SearchPlaceBottomSheet = () => {
   const onClickListItem = (place: Place) => {
     const latLng = convertWGS84ToLatLng({ y: place.mapy, x: place.mapx });
 
-    setPlace({ ...place, mapy: latLng.y, mapx: latLng.x });
+    setPlace({
+      ...place,
+      mapy: latLng.y.toString(),
+      mapx: latLng.x.toString(),
+    });
     setIsSearching(false);
   };
 
