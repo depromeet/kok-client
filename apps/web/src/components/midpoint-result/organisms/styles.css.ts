@@ -55,11 +55,9 @@ export const stationTextStyle = style({
 export const bannerContainerStyle = style({
   position: "absolute",
   width: "100%",
-  height: "147px",
   maxWidth: "600px",
   bottom: 140,
   zIndex: zIndex.floating,
-  backgroundColor: theme.colors.orange5,
 });
 
 export const textContainerStyle = style({
@@ -101,13 +99,14 @@ export const titleStyle = style({
   textAlign: "center",
 });
 
-export const directionLineStyle = style({
-  width: "100%",
-  margin: "24px 0",
-  backgroundColor: theme.colors.gray15,
-  height: "20px",
-  borderRadius: "20px",
-});
+// TODO: 결과 화면 구현중
+// export const directionLineStyle = style({
+//   width: "100%",
+//   height: "64px",
+//   padding: "8px",
+//   backgroundColor: theme.colors.gray10,
+//   marginBottom: "16px",
+// });
 
 export const resultBannerContainerStyle = style({
   position: "absolute",

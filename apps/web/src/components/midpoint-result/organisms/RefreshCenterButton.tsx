@@ -2,31 +2,30 @@
 
 import RefreshIcon from "@/assets/icons/RefreshIcon";
 import { Text } from "@repo/ui/components";
-import { useState } from "react";
 import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
 import * as styles from "./styles.css";
+import { useReverseGeocode } from "@/hooks/api/useReverseGeocode";
 
 interface RefreshCenterButtonProps {
-  onRefresh?: () => void;
+  coordinates: { lat: number; lng: number };
 }
 
-const RefreshCenterButton = ({ onRefresh }: RefreshCenterButtonProps) => {
-  const [centerStation, setCenterStation] = useState<string>("강남구"); // 네이버 geocoding api 연동 필요
+const RefreshCenterButton = ({ coordinates }: RefreshCenterButtonProps) => {
+  const { district, isLoading, refetch } = useReverseGeocode(coordinates);
 
-  const handleRefresh = () => {
-    alert("새로고침 버튼 클릭됨");
-    onRefresh?.();
+  const handleClick = () => {
+    refetch();
   };
 
   return (
-    <div className={styles.container} onClick={handleRefresh}>
+    <div className={styles.container} onClick={handleClick}>
       <RefreshIcon />
       <Text variant="caption" className={styles.locationTextStyle}>
         현재 중간 장소
       </Text>
       <GreyDividerIcon />
       <Text variant="title4" className={styles.stationTextStyle}>
-        {centerStation}
+        {isLoading ? "로딩 중..." : district}
       </Text>
     </div>
   );

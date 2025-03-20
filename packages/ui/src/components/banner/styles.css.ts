@@ -4,7 +4,6 @@ import { theme } from "../../tokens";
 
 export const bannerContainerStyle = style({
   width: "100%",
-  maxWidth: "600px",
   backgroundColor: theme.colors.orange5,
   paddingBottom: "33px",
 });
