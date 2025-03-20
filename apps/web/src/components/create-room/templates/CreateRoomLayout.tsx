@@ -1,7 +1,4 @@
-"use client";
-
 import type {
-  ICreateRoom,
   ICreateRoomValues,
   IRaondomProfile,
 } from "@/api/types/create-room/index.type";
@@ -13,9 +10,9 @@ import CreateRoomProfile from "../organisms/create-room-profile/CreateRoomProfil
 import CreateRoomPeople from "../organisms/create-room-people/CreateRoomPeople";
 import SelectStartPlace from "../organisms/select-start-place/SelectStartPlace";
 import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
+import { usePostData } from "@/hooks/api/useCreateRoom";
 
 import * as Style from "./style.css";
-import { usePostTestData } from "@/hooks/api/useCreateRoom";
 
 const CreateRoomLayout = ({
   randomProfile,
@@ -30,7 +27,7 @@ const CreateRoomLayout = ({
     step: 1,
   });
 
-  const { mutateAsync } = usePostTestData({
+  const { mutateAsync, data } = usePostData({
     onError: () => {
       alert("방 생성 중 알 수 없는 오류가 발생했습니다.");
       router.push("/");
@@ -55,8 +52,6 @@ const CreateRoomLayout = ({
         capacity: createRoomValues.capacity!,
         hostProfile: createRoomValues.hostProfile!,
         hostNickname: createRoomValues.hostNickname!,
-      } as ICreateRoom).then((response) => {
-        console.log(response); // 호진 todo : 받은 데이터 중 필요한 정보만 SelectStartPlace에 넘겨주기
       });
     }
   }, [createRoomValues, mutateAsync]);
@@ -93,7 +88,14 @@ const CreateRoomLayout = ({
           onNext={handleRoomPeople}
         />
       )}
-      {createRoomValues.step === 4 && <SelectStartPlace />}
+      {createRoomValues.step === 4 && data && (
+        <SelectStartPlace
+          roomId={data.data.id}
+          memberId={data.data.member.id}
+          memberImgUrl={data.data.member.profile}
+          memberNickname={data.data.member.nickname}
+        />
+      )}
     </div>
   );
 };
