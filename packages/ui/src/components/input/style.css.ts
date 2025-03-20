@@ -71,7 +71,7 @@ export const inputStyle = style([
   {
     caretColor: theme.colors.orange40,
     width: "100%",
-    height: "18px",
+    height: "24px",
 
     "::placeholder": {
       color: theme.colors.btn.input.text.placehorder,
