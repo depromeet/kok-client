@@ -1,1 +1,3 @@
-export { Page as default } from "@pages/Onboarding/Page";
+import Page from "@pages/Onboarding/Page";
+
+export default Page;

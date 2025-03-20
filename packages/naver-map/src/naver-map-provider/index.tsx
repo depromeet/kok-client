@@ -35,7 +35,7 @@ export type NaverMapProviderProps = {
 
 export const NaverMapProvider = ({
   children,
-}: NaverMapProviderProps): JSX.Element => {
+}: NaverMapProviderProps): ReactNode => {
   const [map, setMap] = useState<NaverMapInstance | null>(null);
   return (
     <NaverMapContext.Provider value={{ map, setMap }}>

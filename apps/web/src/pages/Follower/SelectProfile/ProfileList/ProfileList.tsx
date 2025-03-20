@@ -1,18 +1,18 @@
 "use client";
 
-import { AddButton } from "./AddButton";
+import AddButton from "./AddButton";
 import { DummyProfile } from "../dummy";
-import { ProfileItem } from "./ProfileItem";
-import * as Style from "./ProfileList.css";
+import ProfileItem from "./ProfileItem";
+import * as Style from "../../../../styles/follower/select/ProfileList.css";
 
 interface Props {
   selectedProfileId?: string;
-  profileList: DummyProfile[];
+  profileList?: DummyProfile[]; // 선택적으로 만듦
   onProfileClick: (id: string) => void;
 }
 
-export function ProfileList({
-  profileList,
+export default function ProfileList({
+  profileList = [], // 기본값으로 빈 배열 설정
   selectedProfileId,
   onProfileClick,
 }: Props) {

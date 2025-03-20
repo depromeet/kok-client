@@ -1,13 +1,13 @@
 "use client";
 
 import { Flex, Spacing, FixedBottomButton } from "@repo/ui/components";
-import * as Style from "./Page.css";
-import { ProfileList } from "@/pages/Follower/SelectProfile/ProfileList/ProfileList";
+import * as Style from "../../../styles/follower/Page.css";
+import ProfileList from "@/pages/Follower/SelectProfile/ProfileList/ProfileList";
 import { profileList } from "@/pages/Follower/SelectProfile/dummy";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export function Page() {
+export default function Page() {
   const router = useRouter();
   const [selectedProfileId, setSelectedProfileId] = useState<string>();
 

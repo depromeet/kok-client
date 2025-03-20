@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import * as Style from "@/pages/Onboarding/Slider/SliderCard.css";
+import * as Style from "@/styles/onboard/slider/SliderCard.css";
 import { classMerge } from "@repo/ui/utils";
 import { ComponentProps } from "react";
 
@@ -9,7 +9,7 @@ interface Props extends ComponentProps<"div"> {
   subtitle: string;
 }
 
-export function SliderCard({
+export default function SliderCard({
   imgSrc,
   title,
   subtitle,

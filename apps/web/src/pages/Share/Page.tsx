@@ -1,5 +1,5 @@
 import ShareRoomLayout from "@/components/share-room/templates/ShareRoomLayout";
 
-export function Page() {
+export default function Page() {
   return <ShareRoomLayout />;
 }

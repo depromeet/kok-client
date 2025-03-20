@@ -6,17 +6,27 @@ import { Text, Flex } from "@repo/ui/components";
 import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 // import SmallMidIcon from "@/assets/icons/SmallMidIcon";
-import ResultPattern from "./ResultPattern";
+// import ResultPattern from "./ResultPattern";
 
 interface ResultBannerProps {
   onClose: () => void;
-  subway?: string;
+  subway?:
+    | "line1"
+    | "line2"
+    | "line3"
+    | "line4"
+    | "line5"
+    | "line6"
+    | "line7"
+    | "line8"
+    | "line9"
+    | "default";
   finalPlace?: string;
 }
 
 const ResultBanner = ({
   onClose,
-  subway = "line3",
+  subway = "line3" as const,
   finalPlace = "디프만 모각작!",
 }: ResultBannerProps) => {
   const [isBannerVisible, setIsBannerVisible] = useState(true);
@@ -32,7 +42,7 @@ const ResultBanner = ({
     // TODO:api 연동 이후 타입 에러 해결하기
     <div className={styles.resultBannerContainerRecipe({ subway: subway })}>
       <div className={styles.patternWrapperStyle}>
-        <ResultPattern />
+        {/* <ResultPattern /> */}
       </div>
       <Flex
         direction="column"

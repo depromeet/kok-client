@@ -1,13 +1,13 @@
 "use client";
 
 import { range } from "@repo/utils";
-import * as Style from "./Slider.css";
+import * as Style from "../../../styles/onboard/slider/Slider.css";
 import { motion, transition } from "@repo/motion";
 import { theme } from "@repo/ui/tokens";
-import { useSliderDrag } from "./useSliderDrag";
-import { SliderCard } from "./SliderCard";
+import useSliderDrag from "../../../hooks/useSliderDrag";
+import SliderCard from "./SliderCard";
 
-export function Slider() {
+export default function Slider() {
   const { sliderIndex, translateXMotion, dragEvents } = useSliderDrag();
 
   return (

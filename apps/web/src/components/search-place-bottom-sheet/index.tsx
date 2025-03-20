@@ -28,7 +28,9 @@ const SearchPlaceBottomSheet = () => {
 
   const moveTo = useCallback(
     (latLng: NaverLatLng) => {
-      map.panTo(latLng);
+      if (map) {
+        map.panTo(latLng);
+      }
     },
     [map]
   );

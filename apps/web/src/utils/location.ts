@@ -1,6 +1,26 @@
 import { getLatLng } from "@repo/naver-map";
 
-export const convertToMarkerData = (convH: any) => {
+interface Point {
+  memberId?: number;
+  latitude: number;
+  longitude: number;
+}
+
+interface ConvexHullData {
+  convexHull?: Point[];
+  inside?: Point[];
+}
+
+interface MarkerData {
+  id: number;
+  position: {
+    lat: number;
+    lng: number;
+  };
+  title: string;
+}
+
+export const convertToMarkerData = (convH: ConvexHullData): MarkerData[] => {
   if (!convH) return [];
 
   return [
@@ -23,7 +43,7 @@ export const convertToMarkerData = (convH: any) => {
   ];
 };
 
-export const convertToPolygonPath = (convH: any) => {
+export const convertToPolygonPath = (convH: ConvexHullData) => {
   if (!convH?.convexHull) return [];
 
   return convH.convexHull.map((point) => ({
