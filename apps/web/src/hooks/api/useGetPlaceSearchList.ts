@@ -1,4 +1,3 @@
-import { readReadableStream } from "@/utils/readableStream";
 import { useQuery } from "@repo/shared/tanstack-query";
 
 const getPlaceSearchList = async (query: string) => {
@@ -8,8 +7,7 @@ const getPlaceSearchList = async (query: string) => {
       "Content-Type": "application/json",
     },
   });
-  if (!response.body) throw new Error("No response body");
-  return readReadableStream(response.body);
+  return response.json();
 };
 
 export const useGetPlaceSearchList = (query: string) => {
