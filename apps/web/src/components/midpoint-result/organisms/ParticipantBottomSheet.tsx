@@ -1,21 +1,32 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { Button, Flex, Text } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import * as styles from "./styles.css";
 import { AnimationBottomSheet } from "@repo/ui/components";
+import { useEffect } from "react";
+import { initKakaoSDK, shareKakao } from "../../../utils/kakao/kakaoShare";
 
 interface ParticipantBottomSheetProps {
   totalParticipants?: number;
+  roomId?: string;
+  roomName?: string;
 }
 
 const ParticipantBottomSheet = ({
-  totalParticipants,
+  totalParticipants = 0,
+  roomId = "",
+  roomName = "",
 }: ParticipantBottomSheetProps) => {
-  const router = useRouter();
+  useEffect(() => {
+    initKakaoSDK();
+  }, []);
 
-  const onClickCopyLink = () => {
-    router.push("/result");
+  const handleShareLink = () => {
+    shareKakao({
+      roomId,
+      roomName,
+      memberCount: totalParticipants,
+    });
   };
 
   return (
@@ -43,8 +54,8 @@ const ParticipantBottomSheet = ({
         </Text>
       </Flex>
       <Flex as="div" direction="column" gap={20}>
-        <Button onClick={onClickCopyLink}>
-          <Text variant="title3">링크 복사하기</Text>
+        <Button onClick={handleShareLink}>
+          <Text variant="title3">링크 공유하기</Text>
         </Button>
       </Flex>
     </AnimationBottomSheet>
