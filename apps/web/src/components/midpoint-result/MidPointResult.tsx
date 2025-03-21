@@ -37,7 +37,7 @@ const MidPointResult = () => {
     }
   );
 
-  console.log("centerPoint", centerPoint);
+  // console.log("centerPoint", centerPoint);
   // console.log("stations", stations);
   // console.log("simpleData", simpleData);
   // console.log("complexData", complexData);
