@@ -5,16 +5,16 @@ import type {
   LocationConvexHull,
 } from "@/api/types/location/location.types";
 
-export const useLocationCentroid = (uuid: string) => {
+export const useLocationCentroid = (roomId: string) => {
   const result = useQuery<
     { data: LocationCentroid },
     Error,
     { data: LocationCentroid }
   >({
-    queryKey: ["locationCentroid", uuid],
-    queryFn: () => LocationController.getCentroid(uuid),
-    enabled: !!uuid,
-    staleTime: 1000 * 60 * 60, // 개발 작업 동안
+    queryKey: ["locationCentroid", roomId],
+    queryFn: () => LocationController.getCentroid(roomId),
+    enabled: !!roomId,
+    // staleTime: 1000 * 60 * 60, // 개발 작업 동안
   });
   console.log("useLocationCentroid", result.data);
 
@@ -24,9 +24,9 @@ export const useLocationCentroid = (uuid: string) => {
     console.log("apiData", apiData);
 
     return {
-      uuid: apiData.uuid || uuid,
-      latitude: apiData.longitude, // longitude에 위도값이 들어있음. 수정 요청 필요
-      longitude: apiData.latitude, // latitude에 경도값이 들어있음.
+      roomId: apiData.roomId || roomId,
+      latitude: apiData.latitude, // 3.20 수정완료
+      longitude: apiData.longitude, //
     };
   })();
 
@@ -36,15 +36,15 @@ export const useLocationCentroid = (uuid: string) => {
   };
 };
 
-export const useLocationConvexHull = (uuid: string) => {
+export const useLocationConvexHull = (roomId: string) => {
   const result = useQuery<
     { data: LocationConvexHull },
     Error,
     { data: LocationConvexHull }
   >({
-    queryKey: ["locationConvexHull", uuid],
-    queryFn: () => LocationController.getConvexHull(uuid),
-    enabled: !!uuid,
+    queryKey: ["locationConvexHull", roomId],
+    queryFn: () => LocationController.getConvexHull(roomId),
+    enabled: !!roomId,
   });
 
   const transformedData: LocationConvexHull | null = (() => {
@@ -55,15 +55,15 @@ export const useLocationConvexHull = (uuid: string) => {
     // convexHull과 inside 배열이 있는 경우
     if (apiData.convexHull || apiData.inside) {
       return {
-        uuid: uuid,
+        roomId: roomId,
         convexHull: apiData.convexHull.map((point) => ({
-          uuid: point.uuid,
+          roomId: point.roomId,
           memberId: point.memberId,
           latitude: point.latitude,
           longitude: point.longitude,
         })),
         inside: apiData.inside.map((point) => ({
-          uuid: point.uuid,
+          roomId: point.roomId,
           memberId: point.memberId,
           latitude: point.latitude,
           longitude: point.longitude,

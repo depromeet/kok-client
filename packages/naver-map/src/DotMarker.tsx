@@ -30,12 +30,12 @@ const DotMarker = ({ map, markerData, onMarkerClicked }: MarkerProps) => {
           ...collection.convexHull,
           ...collection.inside,
         ].map((item) => ({
-          id: parseInt(item.uuid || "0"),
+          id: parseInt(item.roomId || "0"),
           position: {
             lat: item.latitude,
             lng: item.longitude,
           },
-          title: item.uuid || "",
+          title: item.roomId || "",
         }));
 
         markersToRender = convertedMarkers;

@@ -1,17 +1,38 @@
 "use client";
-
 import { Button, Flex, Text, AnimationBottomSheet } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
 import * as styles from "./styles.css";
+import { secondsToTime } from "@/utils/time";
+import { metersToKilometersString } from "@/utils/meterToKilometers";
+import TransportBar from "./TransporBar";
+import { parseSubwayLineNumber } from "@/utils/subway";
 
-const ResultBottomSheet = () => {
+interface ResultBottomSheetProps {
+  totalTime?: number;
+  totalDistance?: number;
+  transferCount?: number;
+  legs?: {
+    mode: "WALK" | "SUBWAY" | "BUS";
+    distance: number;
+    sectionTime: number;
+    route: string | null;
+    routeColor: string | null;
+  }[];
+}
+
+const ResultBottomSheet = ({
+  totalTime = 0,
+  totalDistance = 0,
+  transferCount = 0,
+  legs = [],
+}: ResultBottomSheetProps) => {
   const onClickCopyLink = () => {
     alert("링크 복사하기 클릭!");
   };
-  const time = 45;
-  const transferCount = 2;
-  const distance = "1.2km";
+
+  const transferTotalTime = secondsToTime(totalTime);
+  const transferTotalDistance = metersToKilometersString(totalDistance);
 
   return (
     <AnimationBottomSheet
@@ -31,13 +52,13 @@ const ResultBottomSheet = () => {
           as="div"
           justify="between"
           align="center"
-          style={{ marginTop: "4px" }}
+          style={{ marginTop: "12px" }}
         >
           <div>
             <Text variant="title1" style={{ color: theme.colors.gray90 }}>
-              {time}
+              {transferTotalTime}
             </Text>
-            <Text variant="caption" style={{ color: theme.colors.gray90 }}>
+            <Text variant="body1" style={{ color: theme.colors.gray90 }}>
               분
             </Text>
           </div>
@@ -51,15 +72,63 @@ const ResultBottomSheet = () => {
             <div style={{ margin: "0 8px 0 8px" }}>
               <GreyDividerIcon />
             </div>
-            <Text variant="caption">{distance}</Text>
+            <Text variant="caption">{transferTotalDistance}</Text>
           </Flex>
         </Flex>
       </div>
-      <div className={styles.directionLineStyle} />
+      <div className={styles.directionLineStyle}>
+        <Flex direction="row" style={{ width: "100%", height: "100%" }}>
+          {legs.map((leg, index) => {
+            const widthPercentage = Math.round(
+              (leg.sectionTime / totalTime) * 100
+            );
 
+            if (leg.mode === "SUBWAY") {
+              return (
+                <TransportBar
+                  key={index}
+                  width={widthPercentage}
+                  time={Math.round(leg.sectionTime / 60)}
+                  lineNum={parseSubwayLineNumber(leg.route)}
+                  isSubway={true}
+                  color={
+                    leg.routeColor ? `#${leg.routeColor}` : theme.colors.gray40
+                  }
+                  route={leg.route || undefined}
+                />
+              );
+            } else if (leg.mode === "BUS") {
+              return (
+                <TransportBar
+                  key={index}
+                  width={widthPercentage}
+                  time={Math.round(leg.sectionTime / 60)}
+                  lineNum={0}
+                  isSubway={false}
+                  color={theme.colors.gray40}
+                  route="BUS"
+                />
+              );
+            } else {
+              // WALK 모드
+              return (
+                <TransportBar
+                  key={index}
+                  width={widthPercentage}
+                  time={Math.round(leg.sectionTime / 60)}
+                  lineNum={0}
+                  isSubway={false}
+                  color={theme.colors.gray15}
+                  route="WALK"
+                />
+              );
+            }
+          })}
+        </Flex>
+      </div>
       <Flex as="div" direction="column" gap={20}>
         <Button onClick={onClickCopyLink}>
-          <Text variant="title3">링크 복사하기</Text>
+          <Text variant="title3">결과 공유하기</Text>
         </Button>
       </Flex>
     </AnimationBottomSheet>

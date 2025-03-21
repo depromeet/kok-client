@@ -51,7 +51,7 @@ export const convertToPolygonPath = (convH: ConvexHullData) => {
 };
 
 interface Centroid {
-  uuid: string;
+  roomId: string;
   latitude: number;
   longitude: number;
 }
@@ -61,7 +61,7 @@ export const convertToCenterMarkerData = (
 ): Centroid | undefined => {
   if (!centroid) return undefined;
   return {
-    uuid: centroid.uuid,
+    roomId: centroid.roomId,
     latitude: centroid.latitude,
     longitude: centroid.longitude,
   };

@@ -27,7 +27,9 @@ const FindingMidPoint = () => {
 
   const markerData = convH ? convertToMarkerData(convH) : [];
   const polygonPath = convH ? convertToPolygonPath(convH) : [];
-  const centerMarkerData = convertToCenterMarkerData(centroid);
+  const centerMarkerData = centroid
+    ? convertToCenterMarkerData({ ...centroid, roomId: "test_pt" })
+    : undefined;
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 
   if (centroidLoading || convHLoading) {

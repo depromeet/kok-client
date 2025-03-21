@@ -102,15 +102,16 @@ export const titleStyle = style({
 // TODO: 결과 화면 구현중
 export const directionLineStyle = style({
   width: "100%",
-  height: "64px",
+  height: "14px",
   padding: "8px",
-  backgroundColor: theme.colors.gray10,
-  marginBottom: "16px",
+  backgroundColor: theme.colors.gray15,
+  margin: "20px 0",
+  borderRadius: "10px",
 });
 
 export const resultBannerContainerStyle = style({
   position: "absolute",
-  bottom: 185,
+  bottom: 170,
   width: "100%",
   maxWidth: "600px",
   justifyContent: "center",
@@ -163,20 +164,11 @@ export const patternWrapperStyle = style({
 export const transportContainerStyle = style({
   display: "flex",
   alignItems: "center",
-  width: "100%",
-  gap: "8px",
+  zIndex: zIndex.toast,
 });
 
 export const lineIndicatorStyle = style({
-  borderRadius: "50%",
   display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "white",
-  fontWeight: "bold",
-  flexShrink: 0,
-  width: "45px",
-  height: "45px",
 });
 
 export const lineContentStyle = style({
@@ -187,22 +179,21 @@ export const lineContentStyle = style({
   textAlign: "center",
 });
 
-export const transportTypeStyle = style({
-  fontSize: "10px",
-  lineHeight: "1",
-});
-
 export const lineNumberStyle = style({
   fontSize: "14px",
   fontWeight: "bold",
 });
 
 export const progressBarStyle = style({
-  height: "16px",
-  backgroundColor: "#E5E7EB", // gray-300
+  height: "14px",
   flexGrow: 1,
-  borderRadius: "8px",
+  borderRadius: "10px",
   position: "relative",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: zIndex.overlay,
+  transform: "translate(-8px, 0)",
 });
 
 export const timeDisplayStyle = style({
