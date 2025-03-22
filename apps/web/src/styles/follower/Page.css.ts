@@ -1,4 +1,3 @@
-import { theme } from "@repo/ui/tokens";
 import { style } from "@vanilla-extract/css";
 
 export const container = style({
