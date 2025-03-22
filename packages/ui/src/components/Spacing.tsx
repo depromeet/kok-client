@@ -1,5 +1,5 @@
 interface Props {
-  size: number;
+  size: number | string;
   direction?: "column" | "row";
 }
 

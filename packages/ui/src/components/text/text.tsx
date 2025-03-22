@@ -6,6 +6,7 @@ type TextElement = "span" | "p";
 
 type TextProps = HTMLAttributes<HTMLParagraphElement> &
   TextVariants & {
+    color?: string;
     as?: TextElement;
     ref?: Ref<HTMLParagraphElement>;
   };
@@ -16,12 +17,15 @@ export const Text = ({
   ref,
   className,
   variant,
+  color,
+  style,
   ...props
 }: PropsWithChildren<TextProps>) => {
   return (
     <Tag
       className={classMerge(textRecipe({ variant }), className)}
       ref={ref}
+      style={{ color, ...style }}
       {...props}
     >
       {children}
