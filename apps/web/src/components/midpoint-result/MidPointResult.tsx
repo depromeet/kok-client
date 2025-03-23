@@ -57,17 +57,21 @@ const MidPointResult = () => {
             />
           )}
         {isOverlayVisible && <div className={overlayStyle} />}
-        <ResultBanner
-          onClose={() => setIsOverlayVisible(false)}
-          stationName={firstStation?.station.name}
-          routes={firstStation?.routes}
-        />
-        <ResultBottomSheet
-          totalTime={simpleData?.data?.totalTime}
-          transferCount={simpleData?.data?.transferCount}
-          totalDistance={complexData?.data?.parsedItinerary?.totalDistance}
-          legs={complexData?.data?.parsedItinerary?.legs}
-        />
+        <Flex>
+          <ResultBottomSheet
+            totalTime={simpleData?.data?.totalTime}
+            transferCount={simpleData?.data?.transferCount}
+            totalDistance={complexData?.data?.parsedItinerary?.totalDistance}
+            legs={complexData?.data?.parsedItinerary?.legs}
+            banner={
+              <ResultBanner
+                onClose={() => setIsOverlayVisible(false)}
+                stationName={firstStation?.station.name}
+                routes={firstStation?.routes}
+              />
+            }
+          />
+        </Flex>
       </Flex>
     </div>
   );

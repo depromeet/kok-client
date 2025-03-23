@@ -53,10 +53,9 @@ export const stationTextStyle = style({
 });
 
 export const bannerContainerStyle = style({
-  position: "absolute",
+  position: "relative",
   width: "100%",
   maxWidth: "600px",
-  bottom: 140,
   zIndex: zIndex.floating,
 });
 
@@ -110,14 +109,13 @@ export const directionLineStyle = style({
 });
 
 export const resultBannerContainerStyle = style({
-  position: "absolute",
-  bottom: 170,
+  position: "relative",
   width: "100%",
   maxWidth: "600px",
   justifyContent: "center",
   alignItems: "center",
   zIndex: zIndex.floating,
-  paddingBottom: "32px",
+  padding: "12px 0 32px",
 });
 
 export const resultBannerContainerRecipe = recipe({

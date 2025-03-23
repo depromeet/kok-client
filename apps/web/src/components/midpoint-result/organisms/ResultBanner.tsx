@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DeleteIcon } from "@repo/ui/icons";
+import { DeleteIcon, SmallMidIcon } from "@repo/ui/icons";
 import { Text, Flex } from "@repo/ui/components";
 import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
@@ -48,8 +48,9 @@ const ResultBanner = ({
           우리의 중간 장소는?
         </Text>
         <Flex gap={4}>
+          <SmallMidIcon inColor={backgroundColor} />
           <Text variant="heading2" style={{ color: theme.colors.gray0 }}>
-            {stationName}
+            {stationName}역
           </Text>
         </Flex>
       </Flex>

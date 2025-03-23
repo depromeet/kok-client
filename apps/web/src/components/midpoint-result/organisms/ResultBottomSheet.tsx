@@ -7,6 +7,7 @@ import { secondsToTime } from "@/utils/time";
 import { metersToKilometersString } from "@/utils/meterToKilometers";
 import TransportBar from "./TransporBar";
 import { parseSubwayLineNumber } from "@/utils/subway";
+import { ReactNode } from "react";
 
 interface ResultBottomSheetProps {
   totalTime?: number;
@@ -19,6 +20,7 @@ interface ResultBottomSheetProps {
     route: string | null;
     routeColor: string | null;
   }[];
+  banner?: ReactNode;
 }
 
 const ResultBottomSheet = ({
@@ -26,6 +28,7 @@ const ResultBottomSheet = ({
   totalDistance = 0,
   transferCount = 0,
   legs = [],
+  banner,
 }: ResultBottomSheetProps) => {
   const onClickCopyLink = () => {
     alert("링크 복사하기 클릭!");
@@ -43,6 +46,7 @@ const ResultBottomSheet = ({
         stiffness: 250,
         damping: 40,
       }}
+      banner={banner}
     >
       <div className={styles.wrapper}>
         <Text variant="title4" style={{ color: theme.colors.orange50 }}>

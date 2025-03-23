@@ -58,8 +58,10 @@ const FindingMidPoint = () => {
           polygon={polygonPath}
         />
         {isOverlayVisible && <div className={overlayStyle} />}
-        <StartBanner onClose={() => setIsOverlayVisible(false)} />
-        <ParticipantBottomSheet totalParticipants={markerData.length} />
+        <ParticipantBottomSheet
+          totalParticipants={markerData.length}
+          banner={<StartBanner onClose={() => setIsOverlayVisible(false)} />}
+        />
       </Flex>
     </div>
   );

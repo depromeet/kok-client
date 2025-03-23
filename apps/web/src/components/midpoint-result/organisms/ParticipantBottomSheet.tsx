@@ -4,13 +4,16 @@ import { Button, Flex, Text } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import * as styles from "./styles.css";
 import { AnimationBottomSheet } from "@repo/ui/components";
+import { ReactNode } from "react";
 
 interface ParticipantBottomSheetProps {
   totalParticipants?: number;
+  banner?: ReactNode;
 }
 
 const ParticipantBottomSheet = ({
   totalParticipants,
+  banner,
 }: ParticipantBottomSheetProps) => {
   const router = useRouter();
 
@@ -27,6 +30,7 @@ const ParticipantBottomSheet = ({
         stiffness: 250,
         damping: 40,
       }}
+      banner={banner}
     >
       <div className={styles.wrapper}>
         <Text variant="title1" style={{ color: theme.colors.red50 }}>
