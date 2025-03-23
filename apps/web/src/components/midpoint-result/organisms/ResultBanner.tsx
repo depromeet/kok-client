@@ -7,6 +7,7 @@ import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 import ResultPattern from "./ResultPattern";
 import { getSubwayColor } from "../../../utils/subway";
+import { AnimationBanner } from "@repo/ui/components";
 
 interface ResultBannerProps {
   onClose: () => void;
@@ -24,13 +25,12 @@ const ResultBanner = ({
 
   const handleDelete = () => {
     setIsBannerVisible(false);
-    onClose();
   };
 
-  if (!isBannerVisible) return null;
-
   return (
-    <div
+    <AnimationBanner
+      isBannerVisible={isBannerVisible}
+      onExitComplete={onClose}
       className={styles.resultBannerContainerRecipe()}
       style={{ backgroundColor }}
     >
@@ -57,7 +57,7 @@ const ResultBanner = ({
       <div onClick={handleDelete} className={styles.deleteBtnStyle}>
         <DeleteIcon />
       </div>
-    </div>
+    </AnimationBanner>
   );
 };
 
