@@ -12,6 +12,15 @@ import ResultBanner from "./organisms/ResultBanner";
 
 const MidPointResult = () => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
+
+  const handleBannerClose = () => {
+    setIsOverlayVisible(false);
+  };
+  const handleClick = () => {
+    setIsBannerVisible(false);
+  };
+
   const { data: stationsResponse } = useRecommendStation("test_pt");
 
   const stations = stationsResponse?.data;
@@ -37,11 +46,6 @@ const MidPointResult = () => {
     }
   );
 
-  // console.log("centerPoint", centerPoint);
-  // console.log("stations", stations);
-  // console.log("simpleData", simpleData);
-  // console.log("complexData", complexData);
-
   return (
     <div className={mapContainer}>
       <Flex direction="column">
@@ -56,7 +60,9 @@ const MidPointResult = () => {
               }
             />
           )}
-        {isOverlayVisible && <div className={overlayStyle} />}
+        {isOverlayVisible && (
+          <div className={overlayStyle} onClick={handleClick} />
+        )}
         <Flex>
           <ResultBottomSheet
             totalTime={simpleData?.data?.totalTime}
@@ -64,11 +70,15 @@ const MidPointResult = () => {
             totalDistance={complexData?.data?.parsedItinerary?.totalDistance}
             legs={complexData?.data?.parsedItinerary?.legs}
             banner={
-              <ResultBanner
-                onClose={() => setIsOverlayVisible(false)}
-                stationName={firstStation?.station.name}
-                routes={firstStation?.routes}
-              />
+              isOverlayVisible && (
+                <ResultBanner
+                  isVisible={isBannerVisible}
+                  onClose={handleBannerClose}
+                  onDeleteClick={handleClick}
+                  stationName={firstStation?.station.name}
+                  routes={firstStation?.routes}
+                />
+              )
             }
             bannerBottom="180px"
           />

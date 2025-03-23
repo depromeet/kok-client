@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DeleteIcon, SmallMidIcon } from "@repo/ui/icons";
 import { Text, Flex } from "@repo/ui/components";
 import * as styles from "./styles.css";
@@ -11,25 +11,28 @@ import { AnimationBanner } from "@repo/ui/components";
 
 interface ResultBannerProps {
   onClose: () => void;
+  onDeleteClick: () => void;
   stationName?: string;
   routes?: string[];
+  isVisible?: boolean;
 }
 
 const ResultBanner = ({
   onClose,
   stationName = "로딩중...",
   routes = [""],
+  isVisible = true,
+  onDeleteClick,
 }: ResultBannerProps) => {
-  const [isBannerVisible, setIsBannerVisible] = useState(true);
   const backgroundColor = getSubwayColor(routes[0] || null);
 
   const handleDelete = () => {
-    setIsBannerVisible(false);
+    onDeleteClick();
   };
 
   return (
     <AnimationBanner
-      isBannerVisible={isBannerVisible}
+      isBannerVisible={isVisible}
       onExitComplete={onClose}
       className={styles.resultBannerContainerRecipe()}
       style={{ backgroundColor }}

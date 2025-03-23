@@ -5,23 +5,36 @@ import { Text, Flex } from "@repo/ui/components";
 import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 import { AnimationBanner } from "./AnimationBanner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface BannerProps {
   onClose: () => void;
   title: string;
   place: string;
+  isBannerVisible: boolean;
+  onDeleteClick: () => void;
 }
 
-export const Banner = ({ onClose, title, place }: BannerProps) => {
-  const [isBannerVisible, setIsBannerVisible] = useState(true);
+export const Banner = ({
+  onClose,
+  title,
+  place,
+  isBannerVisible = true,
+  onDeleteClick,
+}: BannerProps) => {
+  const [isVisible, setIsVisible] = useState(isBannerVisible);
+
+  useEffect(() => {
+    setIsVisible(isBannerVisible);
+  }, [isBannerVisible]);
+
   const handleDelete = () => {
-    setIsBannerVisible(false);
+    onDeleteClick();
   };
 
   return (
     <AnimationBanner
-      isBannerVisible={isBannerVisible}
+      isBannerVisible={isVisible}
       onExitComplete={onClose}
       className={styles.bannerContainerStyle}
     >
