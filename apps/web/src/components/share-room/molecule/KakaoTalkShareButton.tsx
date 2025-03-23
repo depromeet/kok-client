@@ -2,21 +2,40 @@
 
 import { Button, textRecipe, type ButtonProps } from "@repo/ui/components";
 import { PropsWithChildren, useEffect } from "react";
+import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 
-const MESSAGE_TEMPLATE_START_INPUT = 117720;
-
-type KakaoTalkShareButtonProps = ButtonProps;
+type KakaoTalkShareButtonProps = ButtonProps & {
+  templateId?: number;
+  templateArgs?: {
+    roomId?: string;
+    roomName?: string;
+    memberCount?: number;
+  };
+};
 
 const KakaoTalkShareButton = ({
   children,
+  templateId,
+  templateArgs = {
+    roomId: "",
+    roomName: "",
+    memberCount: 0,
+  },
   ...props
 }: PropsWithChildren<KakaoTalkShareButtonProps>) => {
   const onClickShareButton = () => {
     if (!window.Kakao) return;
 
-    window.Kakao.Share.sendCustom({
-      templateId: MESSAGE_TEMPLATE_START_INPUT,
-    });
+    if (templateId === KAKAO_TEMPLATE_IDS.START_INPUT) {
+      window.Kakao.Share.sendCustom({
+        templateId,
+      });
+    } else {
+      window.Kakao.Share.sendCustom({
+        templateId,
+        templateArgs,
+      });
+    }
   };
 
   useEffect(() => {

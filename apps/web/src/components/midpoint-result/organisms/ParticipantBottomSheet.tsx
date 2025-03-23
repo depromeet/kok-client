@@ -4,7 +4,8 @@ import { theme } from "@repo/ui/tokens";
 import * as styles from "./styles.css";
 import { AnimationBottomSheet } from "@repo/ui/components";
 import { useEffect } from "react";
-import { initKakaoSDK, shareKakao } from "../../../utils/kakao/kakaoShare";
+import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
+import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 
 interface ParticipantBottomSheetProps {
   totalParticipants?: number;
@@ -17,18 +18,6 @@ const ParticipantBottomSheet = ({
   roomId = "",
   roomName = "",
 }: ParticipantBottomSheetProps) => {
-  useEffect(() => {
-    initKakaoSDK();
-  }, []);
-
-  const handleShareLink = () => {
-    shareKakao({
-      roomId,
-      roomName,
-      memberCount: totalParticipants,
-    });
-  };
-
   return (
     <AnimationBottomSheet
       initialY="100%"
@@ -54,9 +43,17 @@ const ParticipantBottomSheet = ({
         </Text>
       </Flex>
       <Flex as="div" direction="column" gap={20}>
-        <Button onClick={handleShareLink}>
-          <Text variant="title3">링크 공유하기</Text>
-        </Button>
+        <KakaoTalkShareButton
+          templateId={KAKAO_TEMPLATE_IDS.STARTING_POINT}
+          templateArgs={{
+            roomId,
+            roomName,
+            memberCount: totalParticipants,
+          }}
+          variant="primary"
+        >
+          링크 공유하기
+        </KakaoTalkShareButton>
       </Flex>
     </AnimationBottomSheet>
   );
