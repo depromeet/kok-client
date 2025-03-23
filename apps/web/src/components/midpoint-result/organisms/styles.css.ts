@@ -115,7 +115,7 @@ export const resultBannerContainerStyle = style({
   justifyContent: "center",
   alignItems: "center",
   zIndex: zIndex.floating,
-  padding: "12px 0 32px",
+  paddingBottom: "32px",
 });
 
 export const resultBannerContainerRecipe = recipe({
@@ -145,6 +145,7 @@ export const questionStyle = style({
   backgroundColor: "rgba(255, 255, 255, 0.16)",
   borderRadius: "100px",
   border: "1px solid rgba(255, 255, 255, 0.35)",
+  marginTop: "22px",
 });
 
 export const resultContainerStyle = style({

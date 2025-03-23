@@ -21,6 +21,7 @@ interface ResultBottomSheetProps {
     routeColor: string | null;
   }[];
   banner?: ReactNode;
+  bannerBottom?: string;
 }
 
 const ResultBottomSheet = ({
@@ -29,6 +30,7 @@ const ResultBottomSheet = ({
   transferCount = 0,
   legs = [],
   banner,
+  bannerBottom,
 }: ResultBottomSheetProps) => {
   const onClickCopyLink = () => {
     alert("링크 복사하기 클릭!");
@@ -47,6 +49,7 @@ const ResultBottomSheet = ({
         damping: 40,
       }}
       banner={banner}
+      bannerBottom={bannerBottom}
     >
       <div className={styles.wrapper}>
         <Text variant="title4" style={{ color: theme.colors.orange50 }}>

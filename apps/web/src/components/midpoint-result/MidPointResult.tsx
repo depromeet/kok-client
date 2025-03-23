@@ -70,6 +70,7 @@ const MidPointResult = () => {
                 routes={firstStation?.routes}
               />
             }
+            bannerBottom="180px"
           />
         </Flex>
       </Flex>

@@ -7,6 +7,7 @@ import { zIndex } from "@repo/z-index";
 interface AnimationBottomSheetProps {
   children: ReactNode;
   banner?: ReactNode;
+  bannerBottom?: string;
   onAnimationComplete?: () => void;
   initialY?: string;
   animateY?: number | string;
@@ -16,6 +17,7 @@ interface AnimationBottomSheetProps {
 export const AnimationBottomSheet = ({
   children,
   banner,
+  bannerBottom = "140px",
   onAnimationComplete,
   initialY = "100%",
   animateY = 0,
@@ -29,12 +31,13 @@ export const AnimationBottomSheet = ({
             position: "fixed",
             width: "100%",
             maxWidth: "600px",
-            bottom: "140px",
+            bottom: bannerBottom,
             zIndex: zIndex.floating,
           }}
-          initial={{ y: "200%" }}
+          initial={{ y: "150%" }}
           animate={{ y: "0%" }}
           transition={transition}
+          exit={{ y: "150%" }}
         >
           {banner}
         </motion.div>
