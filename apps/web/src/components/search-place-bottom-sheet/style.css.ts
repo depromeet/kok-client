@@ -48,6 +48,11 @@ export const seachResultList = style({
   width: "100%",
   height: "100%",
   overflow: "auto",
+
+  scrollbarWidth: "none",
+  "::-webkit-scrollbar": {
+    display: "none",
+  },
 });
 
 export const noResult = style({
