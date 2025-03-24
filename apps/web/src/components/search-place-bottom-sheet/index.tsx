@@ -1,6 +1,13 @@
 "use client";
 
-import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
+import {
+  Button,
+  Flex,
+  Input,
+  LoadingDots,
+  Text,
+  textRecipe,
+} from "@repo/ui/components";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import * as Style from "./style.css";
 import { Place } from "./types";
@@ -31,6 +38,7 @@ const SearchPlaceBottomSheet = ({
   const { mutate, isSuccess } = useSelectStartPlace();
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [place, setPlace] = useState<Place | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { map } = useNaverMap();
   const { currentLocation, getCurrentLocation, addressInfo } =
@@ -63,6 +71,7 @@ const SearchPlaceBottomSheet = ({
   };
 
   const onClickCurrentLocation = () => {
+    setIsLoading(true);
     getCurrentLocation();
   };
 
@@ -102,6 +111,7 @@ const SearchPlaceBottomSheet = ({
 
   const onClickRemovePlace = () => {
     setPlace(null);
+    marker.cleanUp();
   };
 
   // NOTE: 현 위치로 저장
@@ -119,7 +129,6 @@ const SearchPlaceBottomSheet = ({
     });
   }, [currentLocation, addressInfo]);
 
-  // NOTE: 출발지 선택시 해당 위치 마커 표기 및 이동
   useEffect(() => {
     if (!place) return;
 
@@ -132,6 +141,7 @@ const SearchPlaceBottomSheet = ({
     });
 
     moveTo(latLng);
+    setIsLoading(false);
   }, [place, moveTo, marker]);
 
   useEffect(() => {
@@ -147,7 +157,6 @@ const SearchPlaceBottomSheet = ({
       )}
       <section
         className={Style.containerRecipe({
-          // TODO: 출발지 선택 시트에서 언제 창이 넓어지고 다시 좁아지는지 시나리오 재정의 필요
           isFocus: place !== null ? "finish" : isSearching,
         })}
       >
@@ -174,10 +183,17 @@ const SearchPlaceBottomSheet = ({
               <Button
                 className={textRecipe({ variant: "title3" })}
                 onClick={onClickCurrentLocation}
+                disabled={isLoading}
               >
                 <Flex as="div" gap={4} align="center">
-                  <CurrentLocationIcon />
-                  <Text variant="title3">현재 내 위치</Text>
+                  {isLoading ? (
+                    <LoadingDots />
+                  ) : (
+                    <>
+                      <CurrentLocationIcon />
+                      <Text variant="title3">현재 내 위치</Text>
+                    </>
+                  )}
                 </Flex>
               </Button>
             )}
