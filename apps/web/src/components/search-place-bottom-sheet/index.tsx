@@ -158,7 +158,7 @@ const SearchPlaceBottomSheet = ({
             <Input
               className={Style.input}
               variant="search"
-              placeholder="출발지를 입력해주세요"
+              placeholder="아파트, 지하철역 등 장소 검색"
               value={query}
               rightElement={
                 <button onClick={onClickSearchButton}>
