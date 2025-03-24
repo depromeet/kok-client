@@ -155,13 +155,15 @@ const SearchPlaceBottomSheet = ({
       {isSearching && (
         <div className={Style.backgroundDimmed} onClick={onClickBackground} />
       )}
-      <section
+      <Flex
+        as="section"
+        direction="column"
         className={Style.containerRecipe({
           isFocus: place !== null ? "finish" : isSearching,
         })}
       >
         {!place && (
-          <div className={Style.wrapper}>
+          <>
             <Text variant="title2">어디서 출발하시나요?</Text>
 
             <Input
@@ -199,7 +201,6 @@ const SearchPlaceBottomSheet = ({
             )}
 
             {isSearching && searchList && (
-              // FIXME: 리스트가 overflow될 때 스크롤이 생기지 않는 현상 수정 필요
               <Flex
                 as="ul"
                 direction="column"
@@ -231,7 +232,7 @@ const SearchPlaceBottomSheet = ({
                 )}
               </Flex>
             )}
-          </div>
+          </>
         )}
 
         {place && (
@@ -266,7 +267,7 @@ const SearchPlaceBottomSheet = ({
             </Button>
           </Flex>
         )}
-      </section>
+      </Flex>
     </>
   );
 };

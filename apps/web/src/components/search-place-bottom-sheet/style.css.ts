@@ -40,10 +40,6 @@ export const containerRecipe = recipe({
   },
 });
 
-export const wrapper = style({
-  width: "100%",
-});
-
 export const input = style({
   margin: "20px 0",
 });
