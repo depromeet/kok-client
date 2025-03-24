@@ -1,9 +1,8 @@
 "use client";
-import { Button, Flex, Text } from "@repo/ui/components";
+import { Flex, Text } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import * as styles from "./styles.css";
 import { AnimationBottomSheet } from "@repo/ui/components";
-import { useEffect } from "react";
 import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 
