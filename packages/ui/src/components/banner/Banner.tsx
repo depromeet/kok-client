@@ -5,7 +5,6 @@ import { Text, Flex } from "@repo/ui/components";
 import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 import { AnimationBanner } from "./AnimationBanner";
-import { useEffect, useState } from "react";
 import { Mascot } from "./Mascot";
 
 interface BannerProps {
@@ -23,19 +22,13 @@ export const Banner = ({
   isBannerVisible = true,
   onDeleteClick,
 }: BannerProps) => {
-  const [isVisible, setIsVisible] = useState(isBannerVisible);
-
-  useEffect(() => {
-    setIsVisible(isBannerVisible);
-  }, [isBannerVisible]);
-
   const handleDelete = () => {
     onDeleteClick();
   };
 
   return (
     <AnimationBanner
-      isBannerVisible={isVisible}
+      isBannerVisible={isBannerVisible}
       onExitComplete={onClose}
       className={styles.bannerContainerStyle}
     >
