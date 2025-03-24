@@ -53,10 +53,9 @@ export const stationTextStyle = style({
 });
 
 export const bannerContainerStyle = style({
-  position: "absolute",
+  position: "relative",
   width: "100%",
   maxWidth: "600px",
-  bottom: 140,
   zIndex: zIndex.floating,
 });
 
@@ -82,7 +81,7 @@ export const headerStyle = style({
   width: "100%",
   maxWidth: "600px",
   height: "58px",
-  zIndex: zIndex.overlay,
+  zIndex: zIndex.floating,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -110,8 +109,7 @@ export const directionLineStyle = style({
 });
 
 export const resultBannerContainerStyle = style({
-  position: "absolute",
-  bottom: 170,
+  position: "relative",
   width: "100%",
   maxWidth: "600px",
   justifyContent: "center",
@@ -147,6 +145,7 @@ export const questionStyle = style({
   backgroundColor: "rgba(255, 255, 255, 0.16)",
   borderRadius: "100px",
   border: "1px solid rgba(255, 255, 255, 0.35)",
+  marginTop: "22px",
 });
 
 export const resultContainerStyle = style({

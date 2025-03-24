@@ -29,6 +29,14 @@ const FindingMidPoint = () => {
     ? convertToCenterMarkerData({ ...centroid, roomId: "test_pt" })
     : undefined;
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
+
+  const handleBannerClose = () => {
+    setIsOverlayVisible(false);
+  };
+  const handleClick = () => {
+    setIsBannerVisible(false);
+  };
 
   if (centroidLoading || convHLoading) {
     return <div>Loading...</div>;
@@ -58,12 +66,20 @@ const FindingMidPoint = () => {
           centerMarker={centerMarkerData}
           polygon={polygonPath}
         />
-        {isOverlayVisible && <div className={overlayStyle} />}
-        <StartBanner onClose={() => setIsOverlayVisible(false)} />
+        {isOverlayVisible && (
+          <div className={overlayStyle} onClick={handleClick} />
+        )}
         <ParticipantBottomSheet
           totalParticipants={markerData.length}
-          roomId={roomId}
-          roomName={roomName}
+          banner={
+            isOverlayVisible && (
+              <StartBanner
+                isVisible={isBannerVisible}
+                onClose={handleBannerClose}
+                onDeleteClick={handleClick}
+              />
+            )
+          }
         />
       </Flex>
     </div>

@@ -4,21 +4,34 @@ import { DeleteIcon, SmallMidIcon } from "@repo/ui/icons";
 import { Text, Flex } from "@repo/ui/components";
 import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
+import { AnimationBanner } from "./AnimationBanner";
 import { Mascot } from "./Mascot";
 
 interface BannerProps {
   onClose: () => void;
   title: string;
   place: string;
+  isBannerVisible: boolean;
+  onDeleteClick: () => void;
 }
 
-export const Banner = ({ onClose, title, place }: BannerProps) => {
+export const Banner = ({
+  onClose,
+  title,
+  place,
+  isBannerVisible = true,
+  onDeleteClick,
+}: BannerProps) => {
   const handleDelete = () => {
-    onClose();
+    onDeleteClick();
   };
 
   return (
-    <div className={styles.bannerContainerStyle}>
+    <AnimationBanner
+      isBannerVisible={isBannerVisible}
+      onExitComplete={onClose}
+      className={styles.bannerContainerStyle}
+    >
       <Flex justify="between">
         <div className={styles.textContainerStyle}>
           <Text variant="caption" style={{ color: theme.colors.orange50 }}>
@@ -39,6 +52,6 @@ export const Banner = ({ onClose, title, place }: BannerProps) => {
       <div onClick={handleDelete} className={styles.deleteBtnStyle}>
         <DeleteIcon />
       </div>
-    </div>
+    </AnimationBanner>
   );
 };

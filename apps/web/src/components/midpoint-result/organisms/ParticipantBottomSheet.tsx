@@ -5,17 +5,20 @@ import * as styles from "./styles.css";
 import { AnimationBottomSheet } from "@repo/ui/components";
 import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
+import { ReactNode } from "react";
 
 interface ParticipantBottomSheetProps {
   totalParticipants?: number;
   roomId?: string;
   roomName?: string;
+  banner?: ReactNode;
 }
 
 const ParticipantBottomSheet = ({
   totalParticipants = 0,
   roomId = "",
   roomName = "",
+  banner,
 }: ParticipantBottomSheetProps) => {
   return (
     <AnimationBottomSheet
@@ -26,6 +29,7 @@ const ParticipantBottomSheet = ({
         stiffness: 250,
         damping: 40,
       }}
+      banner={banner}
     >
       <div className={styles.wrapper}>
         <Text variant="title1" style={{ color: theme.colors.red50 }}>
