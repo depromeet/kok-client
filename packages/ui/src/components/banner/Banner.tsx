@@ -6,6 +6,7 @@ import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 import { AnimationBanner } from "./AnimationBanner";
 import { useEffect, useState } from "react";
+import { Mascot } from "./Mascot";
 
 interface BannerProps {
   onClose: () => void;
@@ -51,14 +52,9 @@ export const Banner = ({
             <Text variant="heading2">{place}</Text>
           </Flex>
         </div>
-        <div
-          style={{
-            width: 96,
-            height: 60,
-            backgroundColor: theme.colors.orange10,
-            margin: "28px 38px 0 0",
-          }}
-        ></div>
+        <Flex style={{ padding: "11px 33px 11px 0" }}>
+          <Mascot />
+        </Flex>
       </Flex>
       <div onClick={handleDelete} className={styles.deleteBtnStyle}>
         <DeleteIcon />

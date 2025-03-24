@@ -1,26 +1,25 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { Button, Flex, Text } from "@repo/ui/components";
+import { Flex, Text } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import * as styles from "./styles.css";
 import { AnimationBottomSheet } from "@repo/ui/components";
+import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
+import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 import { ReactNode } from "react";
 
 interface ParticipantBottomSheetProps {
   totalParticipants?: number;
+  roomId?: string;
+  roomName?: string;
   banner?: ReactNode;
 }
 
 const ParticipantBottomSheet = ({
-  totalParticipants,
+  totalParticipants = 0,
+  roomId = "",
+  roomName = "",
   banner,
 }: ParticipantBottomSheetProps) => {
-  const router = useRouter();
-
-  const onClickCopyLink = () => {
-    router.push("/result");
-  };
-
   return (
     <AnimationBottomSheet
       initialY="100%"
@@ -47,9 +46,17 @@ const ParticipantBottomSheet = ({
         </Text>
       </Flex>
       <Flex as="div" direction="column" gap={20}>
-        <Button onClick={onClickCopyLink}>
-          <Text variant="title3">링크 복사하기</Text>
-        </Button>
+        <KakaoTalkShareButton
+          templateId={KAKAO_TEMPLATE_IDS.STARTING_POINT}
+          templateArgs={{
+            roomId,
+            roomName,
+            memberCount: totalParticipants,
+          }}
+          variant="primary"
+        >
+          링크 공유하기
+        </KakaoTalkShareButton>
       </Flex>
     </AnimationBottomSheet>
   );

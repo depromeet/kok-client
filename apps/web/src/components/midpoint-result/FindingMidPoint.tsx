@@ -21,10 +21,8 @@ import StartBanner from "./organisms/StartBanner";
 const FindingMidPoint = () => {
   const { data: centroid, isLoading: centroidLoading } =
     useLocationCentroid("ConvH");
-
   const { data: convH, isLoading: convHLoading } =
     useLocationConvexHull("ConvH");
-
   const markerData = convH ? convertToMarkerData(convH) : [];
   const polygonPath = convH ? convertToPolygonPath(convH) : [];
   const centerMarkerData = centroid
@@ -44,10 +42,13 @@ const FindingMidPoint = () => {
     return <div>Loading...</div>;
   }
 
+  const roomId = centerMarkerData?.roomId || "test_pt";
+  const roomName = "디프만 모각자"; // TODO: 추후 방생성 후 연동해야함
+
   return (
     <div className={mapContainer}>
       <Flex direction="column">
-        <MapHeader title="디프만 모각자" />
+        <MapHeader title={roomName} />
         <div className={refreshStyle}>
           {centerMarkerData && (
             <RefreshCenterButton
