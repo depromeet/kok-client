@@ -50,8 +50,13 @@ export const input = style({
 
 export const seachResultList = style({
   width: "100%",
-  overflowY: "scroll",
-  flexWrap: "wrap",
+  height: "100%",
+  overflow: "auto",
+});
+
+export const noResult = style({
+  marginTop: "40px",
+  color: theme.colors.text.caption,
 });
 
 export const resultContainer = style({ width: "100%", height: "100%" });

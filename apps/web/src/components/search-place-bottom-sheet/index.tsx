@@ -14,6 +14,7 @@ import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
 import ProfileMarker from "./profile-marker";
 import { useSelectStartPlace } from "@/hooks/api/useSelectStartPlace";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface SearchPlaceBottomSheetProps {
   roomId: string;
@@ -181,21 +182,37 @@ const SearchPlaceBottomSheet = ({
               </Button>
             )}
 
-            {isSearching && searchList && searchList.length > 0 && (
+            {isSearching && searchList && (
               // FIXME: 리스트가 overflow될 때 스크롤이 생기지 않는 현상 수정 필요
               <Flex
                 as="ul"
                 direction="column"
                 className={Style.seachResultList}
               >
-                {searchList.map((item: Place, index: number) => (
-                  <SearchListItem
-                    key={`search-result-${index}-${item.title}`}
-                    {...item}
-                    isLast={index === searchList.length - 1}
-                    onSelect={(place: Place) => onClickListItem(place)}
-                  />
-                ))}
+                {searchList.length > 0 ? (
+                  searchList.map((item: Place, index: number) => (
+                    <SearchListItem
+                      key={`search-result-${index}-${item.title}`}
+                      {...item}
+                      isLast={index === searchList.length - 1}
+                      onSelect={(place: Place) => onClickListItem(place)}
+                    />
+                  ))
+                ) : (
+                  <Flex
+                    className={Style.noResult}
+                    direction="column"
+                    align="center"
+                  >
+                    <Image
+                      src="/images/ghost-character.png"
+                      alt="empty list image"
+                      width={100}
+                      height={100}
+                    />
+                    <Text variant="body2">주소를 다시 확인해주세요</Text>
+                  </Flex>
+                )}
               </Flex>
             )}
           </div>
