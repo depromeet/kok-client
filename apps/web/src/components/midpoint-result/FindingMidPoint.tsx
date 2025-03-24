@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import MapHeader from "./organisms/MapHeader";
 import RefreshCenterButton from "./organisms/RefreshCenterButton";
 import { Flex } from "@repo/ui/components";
@@ -17,7 +17,6 @@ import {
   convertToCenterMarkerData,
 } from "@/utils/location";
 import StartBanner from "./organisms/StartBanner";
-import { initKakaoSDK } from "../../utils/kakao/kakaoShare";
 
 const FindingMidPoint = () => {
   const { data: centroid, isLoading: centroidLoading } =
@@ -30,10 +29,6 @@ const FindingMidPoint = () => {
     ? convertToCenterMarkerData({ ...centroid, roomId: "test_pt" })
     : undefined;
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
-
-  useEffect(() => {
-    initKakaoSDK();
-  }, []);
 
   if (centroidLoading || convHLoading) {
     return <div>Loading...</div>;
