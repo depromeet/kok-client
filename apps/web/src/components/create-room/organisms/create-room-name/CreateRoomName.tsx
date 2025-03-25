@@ -31,34 +31,30 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
   const isButtonDisabled = inputValue.length === 0 || isInvalid;
 
   return (
-    <Flex
-      justify="between"
-      align="center"
-      direction="column"
-      className={containerStyle}
-    >
-      {/* 가운데 */}
+    <>
       <Flex
-        gap={60}
-        justify="center"
-        direction="column"
+        justify="between"
         align="center"
-        className={headingContainerStyle}
+        direction="column"
+        className={containerStyle}
       >
-        <Text variant="heading3">모임 이름을 입력해 주세요</Text>
-        <Image
-          src={"/images/create-room/main.svg"}
-          width={160}
-          height={160}
-          alt="main"
-          priority
-          loading="eager"
-        />
-      </Flex>
-
-      {/* 아래 */}
-      <Flex direction="column" gap={20} className={footerContainerStyle}>
-        <Flex direction="column" gap={11}>
+        {/* 가운데 */}
+        <Flex
+          gap={40}
+          justify="center"
+          direction="column"
+          align="center"
+          className={headingContainerStyle}
+        >
+          <Text variant="heading3">모임 이름을 입력해 주세요</Text>
+          <Image
+            src={"/images/create-room/main.svg"}
+            width={160}
+            height={160}
+            alt="main"
+            priority
+            loading="eager"
+          />
           <Input
             width="full"
             placeholder="예) 호진이네 집들이 (최대 20자)"
@@ -74,26 +70,32 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
               ) : null
             }
           />
-          {/* 호진 todo : 너무 갑자기 나오니까 이상함 인터랙션 필요 */}
-          {isInvalid && (
-            <Flex align="center">
-              <ErrorIcon />
-              <Text className={invalidSpanStyle} variant="caption">
-                모임 이름은 20자까지만 적어주세요
-              </Text>
-            </Flex>
-          )}
         </Flex>
 
-        <Button
-          className={textRecipe({ variant: "title3" })}
-          onClick={() => onNext(inputValue)}
-          disabled={isButtonDisabled}
-        >
-          다음
-        </Button>
+        {/* 아래 */}
+        <Flex direction="column" gap={20} className={footerContainerStyle}>
+          <Flex direction="column" gap={11}>
+            {/* 호진 todo : 너무 갑자기 나오니까 이상함 인터랙션 필요 */}
+            {isInvalid && (
+              <Flex align="center">
+                <ErrorIcon />
+                <Text className={invalidSpanStyle} variant="caption">
+                  모임 이름은 20자까지만 적어주세요
+                </Text>
+              </Flex>
+            )}
+          </Flex>
+
+          <Button
+            className={textRecipe({ variant: "title3" })}
+            onClick={() => onNext(inputValue)}
+            disabled={isButtonDisabled}
+          >
+            다음
+          </Button>
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };
 
