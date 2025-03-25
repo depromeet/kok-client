@@ -1,1 +1,3 @@
-export { Page as default } from "@pages/Vote/Finish/Page";
+import Page from "@pages/Vote/Finish/Page";
+
+export default Page;

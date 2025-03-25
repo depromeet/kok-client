@@ -1,5 +1,5 @@
 import { VoteFinishTemplate } from "@/components/vote-finish/templates/VoteFinishTemplate";
 
-export function Page() {
+export default function Page() {
   return <VoteFinishTemplate />;
 }

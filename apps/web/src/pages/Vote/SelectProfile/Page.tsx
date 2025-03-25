@@ -1,5 +1,5 @@
 import { VoteSelectProfile } from "@/components/vote-select-profile/templates/VoteSelectProfile";
 
-export function Page() {
+export default function Page() {
   return <VoteSelectProfile />;
 }
