@@ -20,9 +20,13 @@ import StartBanner from "./organisms/StartBanner";
 
 interface FindingMidPointProps {
   roomId: string;
+  isLeader?: boolean;
 }
 
-const FindingMidPoint = ({ roomId }: FindingMidPointProps) => {
+const FindingMidPoint = ({
+  roomId,
+  isLeader = false,
+}: FindingMidPointProps) => {
   const { data: centroid, isLoading: centroidLoading } =
     useLocationCentroid(roomId);
   const { data: convH, isLoading: convHLoading } =
@@ -81,6 +85,7 @@ const FindingMidPoint = ({ roomId }: FindingMidPointProps) => {
                 isVisible={isBannerVisible}
                 onClose={handleBannerClose}
                 onDeleteClick={handleClick}
+                isLeader={isLeader}
               />
             )
           }

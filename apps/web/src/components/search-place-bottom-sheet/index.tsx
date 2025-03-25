@@ -147,9 +147,8 @@ const SearchPlaceBottomSheet = ({
   useEffect(() => {
     if (!isSuccess) return;
 
-    router.push(`/share/${roomId}`);
+    router.push(`/share/${roomId}?role=${encodeURIComponent("leader")}`);
   }, [router, isSuccess, roomId]);
-  console.log("roomId", roomId);
 
   return (
     <>
