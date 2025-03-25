@@ -200,3 +200,14 @@ export const timeDisplayStyle = style({
   fontWeight: "bold",
   flexShrink: 0,
 });
+
+export const AddLocationButtonStyle = style({
+  background: theme.colors.orange40,
+  padding: "0 12px",
+  width: "150px",
+  height: "36px",
+  borderRadius: "100px",
+  justifyContent: "center",
+  alignItems: "center",
+  cursor: "pointer",
+});

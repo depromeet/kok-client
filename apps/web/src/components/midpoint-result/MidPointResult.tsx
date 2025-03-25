@@ -29,11 +29,12 @@ const MidPointResult = () => {
     latitude: firstStation?.station.latitude,
     longitude: firstStation?.station.longitude,
   };
+  const roomId = "test_pt";
 
   const { data: simpleData } = useSimpleTransfer(
     firstStation?.station.id ?? 59,
     {
-      roomId: "test_pt",
+      roomId: roomId,
       memberId: "1",
     }
   );
@@ -41,7 +42,7 @@ const MidPointResult = () => {
   const { data: complexData } = useComplexTransfer(
     firstStation?.station.id ?? 59,
     {
-      roomId: "test_pt",
+      roomId: roomId,
       memberId: "1",
     }
   );
@@ -65,6 +66,7 @@ const MidPointResult = () => {
         )}
         <Flex>
           <ResultBottomSheet
+            roomId={roomId}
             totalTime={simpleData?.data?.totalTime}
             transferCount={simpleData?.data?.transferCount}
             totalDistance={complexData?.data?.parsedItinerary?.totalDistance}
