@@ -49,6 +49,7 @@ export const useCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
+        console.log(latitude, longitude);
         setLocation({
           latitude,
           longitude,
@@ -57,6 +58,10 @@ export const useCurrentLocation = () => {
       },
       (err) => {
         console.error(err.message);
+      },
+      {
+        enableHighAccuracy: true, // GPS 기반 정확한 위치 요청
+        maximumAge: 0, // 캐시된 위치 데이터 사용하지 않음
       }
     );
   };
