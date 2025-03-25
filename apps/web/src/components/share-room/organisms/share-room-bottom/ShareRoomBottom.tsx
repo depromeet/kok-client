@@ -15,7 +15,7 @@ const ShareRoomBottom = () => {
       <Flex className={KakaoTalkShareButtonStyle}>
         <KakaoTalkShareButton
           variant="secondary"
-          templateId={KAKAO_TEMPLATE_IDS.START_INPUT}
+          templateId={KAKAO_TEMPLATE_IDS.SELECT_START}
         >
           링크 공유하기
         </KakaoTalkShareButton>
