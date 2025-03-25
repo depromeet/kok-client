@@ -1,4 +1,11 @@
+/**
+ * NOTE:
+ * - SELECT_START : 출발지 입력 공유
+ * - VOTE : 투표 공유
+ * - FINISH : 최종 장소 선정 완료
+ */
 export const KAKAO_TEMPLATE_IDS = {
-  START_INPUT: 117720, // 리더가 처음에 전송할 때
-  STARTING_POINT: 118630, // 팔로워가 전송할 때
+  SELECT_START: 118609,
+  VOTE: 118630,
+  FINISH: 118689,
 };

@@ -17,7 +17,6 @@ interface ParticipantBottomSheetProps {
 const ParticipantBottomSheet = ({
   totalParticipants = 0,
   roomId = "",
-  roomName = "",
   banner,
 }: ParticipantBottomSheetProps) => {
   return (
@@ -47,11 +46,9 @@ const ParticipantBottomSheet = ({
       </Flex>
       <Flex as="div" direction="column" gap={20}>
         <KakaoTalkShareButton
-          templateId={KAKAO_TEMPLATE_IDS.STARTING_POINT}
+          templateId={KAKAO_TEMPLATE_IDS.SELECT_START}
           templateArgs={{
             roomId,
-            roomName,
-            memberCount: totalParticipants,
           }}
           variant="primary"
         >
