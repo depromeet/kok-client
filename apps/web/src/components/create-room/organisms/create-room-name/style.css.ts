@@ -4,7 +4,6 @@ import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
   height: "100%",
-  // paddingBottom: "160px",
 });
 
 export const invalidSpanStyle = style({
