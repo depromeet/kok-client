@@ -15,7 +15,7 @@ import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
 import { usePostData } from "@/hooks/api/useCreateRoom";
 
 import * as Style from "./style.css";
-import { useMoveVisualViewportTop } from "@/hooks/useVisualViewport";
+import { useMoveVisualViewportTop } from "@/hooks/useMoveVisualViewportTop";
 
 const CreateRoomLayout = ({
   randomProfile,
