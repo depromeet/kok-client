@@ -1,23 +1,20 @@
 "use client";
 
 import MemberOnboarding from "@/components/member-onboarding";
-import { useRoomInfo } from "@/hooks/api/useRoomInfo";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useParams } from "next/navigation";
+import { ErrorBoundary } from "react-error-boundary";
 
-interface Props {
-  roomId: string;
-}
+export default function Page() {
+  const params = useParams<{
+    roomId: string;
+  }>()!;
 
-export default function Page({ roomId }: Props) {
-  const router = useRouter();
-  const { data, isError } = useRoomInfo(roomId);
-
-  useEffect(() => {
-    if (isError) router.push("/");
-  }, [router, isError]);
+  if (!params) return null; // NOTE: 초기 컴포넌트 로드시 params가 null일 수 있음
 
   return (
-    data && <MemberOnboarding roomId={roomId} roomName={data.data.roomName} />
+    // TODO: fallback UI 추가
+    <ErrorBoundary fallback={<>유효하지 않은 초대장입니다.</>}>
+      <MemberOnboarding roomId={params?.roomId || ""} />
+    </ErrorBoundary>
   );
 }
