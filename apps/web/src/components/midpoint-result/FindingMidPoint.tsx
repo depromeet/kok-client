@@ -5,7 +5,12 @@ import MapHeader from "./organisms/MapHeader";
 import RefreshCenterButton from "./organisms/RefreshCenterButton";
 import { Flex } from "@repo/ui/components";
 import ParticipantBottomSheet from "@/components/midpoint-result/organisms/ParticipantBottomSheet";
-import { refreshStyle, mapContainer, overlayStyle } from "./style.css";
+import {
+  refreshStyle,
+  mapContainer,
+  overlayStyle,
+  AddLocationButtonPositionStyle,
+} from "./style.css";
 import {
   useLocationCentroid,
   useLocationConvexHull,
@@ -17,6 +22,7 @@ import {
   convertToCenterMarkerData,
 } from "@/utils/location";
 import StartBanner from "./organisms/StartBanner";
+import AddLocationButton from "./organisms/AddLocationButton";
 
 interface FindingMidPointProps {
   roomId: string;
@@ -56,6 +62,7 @@ const FindingMidPoint = ({
     <div className={mapContainer}>
       <Flex direction="column">
         <MapHeader title={roomName} />
+
         <div className={refreshStyle}>
           {centerMarkerData && (
             <RefreshCenterButton
@@ -76,6 +83,9 @@ const FindingMidPoint = ({
         {isOverlayVisible && (
           <div className={overlayStyle} onClick={handleClick} />
         )}
+        <Flex className={AddLocationButtonPositionStyle}>
+          <AddLocationButton />
+        </Flex>
         <ParticipantBottomSheet
           roomId={roomId}
           totalParticipants={markerData.length}
