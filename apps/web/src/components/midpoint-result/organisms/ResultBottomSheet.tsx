@@ -9,6 +9,8 @@ import { metersToKilometersString } from "@/utils/meterToKilometers";
 import TransportBar from "./TransporBar";
 import { parseSubwayLineNumber } from "@/utils/subway";
 import { ReactNode } from "react";
+import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
+import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 
 interface ResultBottomSheetProps {
   totalTime?: number;
@@ -23,6 +25,7 @@ interface ResultBottomSheetProps {
   }[];
   banner?: ReactNode;
   bannerBottom?: string;
+  roomId?: string;
 }
 
 const ResultBottomSheet = ({
@@ -32,6 +35,7 @@ const ResultBottomSheet = ({
   legs = [],
   banner,
   bannerBottom,
+  roomId = "",
 }: ResultBottomSheetProps) => {
   const onClickCopyLink = () => {
     alert("링크 복사하기 클릭!");
@@ -135,9 +139,15 @@ const ResultBottomSheet = ({
         </Flex>
       </div>
       <Flex as="div" direction="column" gap={20}>
-        <Button onClick={onClickCopyLink}>
-          <Text variant="title3">결과 공유하기</Text>
-        </Button>
+        <KakaoTalkShareButton
+          variant="primary"
+          templateId={KAKAO_TEMPLATE_IDS.FINISH}
+          templateArgs={{
+            roomId,
+          }}
+        >
+          결과 공유하기
+        </KakaoTalkShareButton>
       </Flex>
     </AnimationBottomSheet>
   );
