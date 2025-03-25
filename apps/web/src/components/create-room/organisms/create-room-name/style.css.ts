@@ -3,9 +3,8 @@ import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
-  paddingTop: "56px",
   height: "100%",
-  paddingBottom: "160px",
+  // paddingBottom: "160px",
 });
 
 export const invalidSpanStyle = style({
@@ -13,7 +12,7 @@ export const invalidSpanStyle = style({
 });
 
 export const headingContainerStyle = style({
-  marginTop: "32px",
+  marginTop: "12px",
 });
 
 export const footerContainerStyle = style({

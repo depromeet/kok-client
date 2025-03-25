@@ -10,7 +10,7 @@ interface SelectStartPlaceProps {
 const SelectStartPlace = (props: SelectStartPlaceProps) => {
   return (
     <>
-      <NaverMap width="100vw" height="100vh" />
+      <NaverMap width="100vw" height="calc(100dvh - 56px)" />
       <SearchPlaceBottomSheet {...props} />
     </>
   );

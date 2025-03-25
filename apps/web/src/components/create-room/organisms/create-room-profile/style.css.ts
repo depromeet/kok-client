@@ -3,9 +3,9 @@ import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
-  paddingTop: "56px",
-  height: "100%",
-  paddingBottom: "92px",
+  // paddingTop: "56px",
+  height: "calc(100% - 56px)",
+  // paddingBottom: "92px",
 });
 
 export const headingContainerStyle = style({
