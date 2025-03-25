@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const query = searchParams.get("query");
 
   const data = await getRequest<NaverPlaceSearchResponse>({
-    url: `https://openapi.naver.com/v1/search/local.json?query=${query}&display=8`,
+    url: `https://openapi.naver.com/v1/search/local.json?query=${query}&display=5`,
     config: {
       headers: {
         "X-Naver-Client-Id": process.env.NEXT_PUBLIC_NAVER_SEARCH_CLIENT_ID,
