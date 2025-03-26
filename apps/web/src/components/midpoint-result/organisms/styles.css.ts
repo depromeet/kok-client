@@ -33,7 +33,6 @@ export const container = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "183px",
   height: "36px",
   borderRadius: "100px",
   padding: "12px",

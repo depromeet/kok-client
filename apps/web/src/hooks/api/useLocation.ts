@@ -16,12 +16,12 @@ export const useLocationCentroid = (roomId: string) => {
     enabled: !!roomId,
     // staleTime: 1000 * 60 * 60, // 개발 작업 동안
   });
-  console.log("useLocationCentroid", result.data);
+  // console.log("useLocationCentroid", result.data);
 
   const transformedData: LocationCentroid | null = (() => {
     if (!result.data?.data) return null;
     const apiData = result.data.data;
-    console.log("apiData", apiData);
+    // console.log("apiData", apiData);
 
     return {
       roomId: apiData.roomId || roomId,

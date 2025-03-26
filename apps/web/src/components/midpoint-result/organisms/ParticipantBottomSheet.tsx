@@ -34,7 +34,7 @@ const ParticipantBottomSheet = ({
         <Text variant="title1" style={{ color: theme.colors.red50 }}>
           {totalParticipants}
         </Text>
-        <Text variant="title1">&nbsp;명 참여 중 ∙∙∙</Text>
+        <Text variant="title1">&nbsp;명 미참여 중 ∙∙∙</Text>
       </div>
       <Flex>
         <Text

@@ -8,25 +8,51 @@ import { useReverseGeocode } from "@/hooks/api/useReverseGeocode";
 
 interface RefreshCenterButtonProps {
   coordinates: { lat: number; lng: number };
+  participantCount?: number;
+  onRefresh: () => void;
 }
 
-const RefreshCenterButton = ({ coordinates }: RefreshCenterButtonProps) => {
-  const { district, isLoading, refetch } = useReverseGeocode(coordinates);
+const LocationDisplay = ({
+  district,
+  isLoading,
+}: {
+  district: string;
+  isLoading: boolean;
+}) => (
+  <>
+    <GreyDividerIcon />
+    <Text variant="title4" className={styles.stationTextStyle}>
+      {isLoading ? "로딩 중..." : district}
+    </Text>
+  </>
+);
 
-  const handleClick = () => {
-    refetch();
-  };
+const getDisplayText = (participantCount: number) =>
+  participantCount <= 1 ? "아직 참여한 사람이 없어요!" : "현재 중간 장소";
+
+const RefreshCenterButton = ({
+  coordinates,
+  participantCount = 0,
+  onRefresh,
+}: RefreshCenterButtonProps) => {
+  const { district, isLoading, refetch } = useReverseGeocode(coordinates);
+  const displayText = getDisplayText(participantCount);
 
   return (
-    <div className={styles.container} onClick={handleClick}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        refetch();
+        onRefresh();
+      }}
+    >
       <RefreshIcon />
       <Text variant="caption" className={styles.locationTextStyle}>
-        현재 중간 장소
+        {displayText}
       </Text>
-      <GreyDividerIcon />
-      <Text variant="title4" className={styles.stationTextStyle}>
-        {isLoading ? "로딩 중..." : district}
-      </Text>
+      {participantCount > 1 && (
+        <LocationDisplay district={district} isLoading={isLoading} />
+      )}
     </div>
   );
 };

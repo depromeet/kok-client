@@ -10,7 +10,7 @@ import { Mascot } from "./Mascot";
 interface BannerProps {
   onClose: () => void;
   title: string;
-  place: string;
+  roomName: string;
   isBannerVisible: boolean;
   onDeleteClick: () => void;
 }
@@ -18,7 +18,7 @@ interface BannerProps {
 export const Banner = ({
   onClose,
   title,
-  place,
+  roomName,
   isBannerVisible = true,
   onDeleteClick,
 }: BannerProps) => {
@@ -42,7 +42,7 @@ export const Banner = ({
               inColor={theme.colors.orange40}
               outColor={theme.colors.orange20}
             />
-            <Text variant="heading2">{place}</Text>
+            <Text variant="heading2">{roomName}</Text>
           </Flex>
         </div>
         <Flex style={{ padding: "11px 33px 11px 0" }}>

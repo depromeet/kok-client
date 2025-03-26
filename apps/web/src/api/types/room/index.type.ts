@@ -10,8 +10,7 @@ export interface MemberInfo {
 export interface RoomInfo {
   id: string;
   roomName: string;
-  capacity: number;
-  member: MemberInfo;
+  nonParticipantCount: number;
 }
 
 export type RoomInfoResponse = ICommon<RoomInfo>;

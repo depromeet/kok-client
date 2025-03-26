@@ -28,12 +28,13 @@ export interface MarkerData {
 
 // 네이버 맵 컴포넌트에서 사용하는 마커
 export interface MarkerItem {
-  id: number;
+  id: number | string;
   position: {
     lat: number;
     lng: number;
   };
-  title: string;
+  title?: string;
+  profileUrl?: string;
 }
 
 // 마커 데이터 컬렉션 인터페이스

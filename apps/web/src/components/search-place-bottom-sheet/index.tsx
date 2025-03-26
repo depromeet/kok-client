@@ -22,6 +22,7 @@ import ProfileMarker from "./profile-marker";
 import { useSelectStartPlace } from "@/hooks/api/useSelectStartPlace";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useSetStartLocation } from "@/hooks/api/useStartLocation";
 
 interface SearchPlaceBottomSheetProps {
   roomId: string;
@@ -47,7 +48,7 @@ const SearchPlaceBottomSheet = ({
   const [query, setQuery] = useState<string>("");
   const { data: searchList, refetch: fetchSearchList } =
     useGetPlaceSearchList(query);
-
+  const { setStartLocation } = useSetStartLocation();
   const marker = Marker({
     map: map!,
     customMarkerData: {
@@ -100,6 +101,12 @@ const SearchPlaceBottomSheet = ({
 
   const onClickSelectPlace = () => {
     if (!place) return;
+    setStartLocation({
+      roomId,
+      latitude: Number(place.mapy),
+      longitude: Number(place.mapx),
+      profileImageUrl: memberImgUrl,
+    });
 
     mutate({
       roomId,
