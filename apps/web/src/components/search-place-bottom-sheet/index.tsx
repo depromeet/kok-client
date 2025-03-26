@@ -1,6 +1,13 @@
 "use client";
 
-import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
+import {
+  Button,
+  Flex,
+  Input,
+  LoadingDots,
+  Text,
+  textRecipe,
+} from "@repo/ui/components";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import * as Style from "./style.css";
 import { Place } from "./types";
@@ -14,6 +21,7 @@ import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
 import ProfileMarker from "./profile-marker";
 import { useSelectStartPlace } from "@/hooks/api/useSelectStartPlace";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface SearchPlaceBottomSheetProps {
   roomId: string;
@@ -30,6 +38,7 @@ const SearchPlaceBottomSheet = ({
   const { mutate, isSuccess } = useSelectStartPlace();
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [place, setPlace] = useState<Place | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { map } = useNaverMap();
   const { currentLocation, getCurrentLocation, addressInfo } =
@@ -62,6 +71,7 @@ const SearchPlaceBottomSheet = ({
   };
 
   const onClickCurrentLocation = () => {
+    setIsLoading(true);
     getCurrentLocation();
   };
 
@@ -101,6 +111,7 @@ const SearchPlaceBottomSheet = ({
 
   const onClickRemovePlace = () => {
     setPlace(null);
+    marker.cleanUp();
   };
 
   // NOTE: 현 위치로 저장
@@ -118,7 +129,6 @@ const SearchPlaceBottomSheet = ({
     });
   }, [currentLocation, addressInfo]);
 
-  // NOTE: 출발지 선택시 해당 위치 마커 표기 및 이동
   useEffect(() => {
     if (!place) return;
 
@@ -131,33 +141,35 @@ const SearchPlaceBottomSheet = ({
     });
 
     moveTo(latLng);
+    setIsLoading(false);
   }, [place, moveTo, marker]);
 
   useEffect(() => {
     if (!isSuccess) return;
 
-    router.push("/share");
-  }, [router, isSuccess]);
+    router.push(`/share/${roomId}?role=${encodeURIComponent("leader")}`);
+  }, [router, isSuccess, roomId]);
 
   return (
     <>
       {isSearching && (
         <div className={Style.backgroundDimmed} onClick={onClickBackground} />
       )}
-      <section
+      <Flex
+        as="section"
+        direction="column"
         className={Style.containerRecipe({
-          // TODO: 출발지 선택 시트에서 언제 창이 넓어지고 다시 좁아지는지 시나리오 재정의 필요
           isFocus: place !== null ? "finish" : isSearching,
         })}
       >
         {!place && (
-          <div className={Style.wrapper}>
+          <>
             <Text variant="title2">어디서 출발하시나요?</Text>
 
             <Input
               className={Style.input}
               variant="search"
-              placeholder="출발지를 입력해주세요"
+              placeholder="아파트, 지하철역 등 장소 검색"
               value={query}
               rightElement={
                 <button onClick={onClickSearchButton}>
@@ -173,32 +185,54 @@ const SearchPlaceBottomSheet = ({
               <Button
                 className={textRecipe({ variant: "title3" })}
                 onClick={onClickCurrentLocation}
+                disabled={isLoading}
               >
                 <Flex as="div" gap={4} align="center">
-                  <CurrentLocationIcon />
-                  <Text variant="title3">현재 내 위치</Text>
+                  {isLoading ? (
+                    <LoadingDots />
+                  ) : (
+                    <>
+                      <CurrentLocationIcon />
+                      <Text variant="title3">현재 내 위치</Text>
+                    </>
+                  )}
                 </Flex>
               </Button>
             )}
 
-            {isSearching && searchList && searchList.length > 0 && (
-              // FIXME: 리스트가 overflow될 때 스크롤이 생기지 않는 현상 수정 필요
+            {isSearching && searchList && (
               <Flex
                 as="ul"
                 direction="column"
                 className={Style.seachResultList}
               >
-                {searchList.map((item: Place, index: number) => (
-                  <SearchListItem
-                    key={`search-result-${index}-${item.title}`}
-                    {...item}
-                    isLast={index === searchList.length - 1}
-                    onSelect={(place: Place) => onClickListItem(place)}
-                  />
-                ))}
+                {searchList.length > 0 ? (
+                  searchList.map((item: Place, index: number) => (
+                    <SearchListItem
+                      key={`search-result-${index}-${item.title}`}
+                      {...item}
+                      isLast={index === searchList.length - 1}
+                      onSelect={(place: Place) => onClickListItem(place)}
+                    />
+                  ))
+                ) : (
+                  <Flex
+                    className={Style.noResult}
+                    direction="column"
+                    align="center"
+                  >
+                    <Image
+                      src="/images/ghost-character.png"
+                      alt="empty list image"
+                      width={100}
+                      height={100}
+                    />
+                    <Text variant="body2">주소를 다시 확인해주세요</Text>
+                  </Flex>
+                )}
               </Flex>
             )}
-          </div>
+          </>
         )}
 
         {place && (
@@ -233,7 +267,7 @@ const SearchPlaceBottomSheet = ({
             </Button>
           </Flex>
         )}
-      </section>
+      </Flex>
     </>
   );
 };

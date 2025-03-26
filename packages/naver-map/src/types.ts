@@ -1,5 +1,5 @@
 export interface LocationCentroid {
-  uuid: string;
+  roomId?: string;
   latitude: number;
   longitude: number;
 }
@@ -8,20 +8,20 @@ export interface NaverMapProps {
   width?: string;
   height?: string;
   markerData?: MarkerDataCollection | MarkerItem[]; // 두 형태 모두 지원하도록 변경
-  finaCenterMarker?: LocationCentroid;
+  finalCenterMarker?: LocationCentroid;
   centerMarker?: LocationCentroid;
   onMarkerClick?: (markerId: number) => void;
   polygon?: { lat: number; lng: number }[];
 }
 
 export interface CenterMarkerData {
-  uuid: string;
+  roomId: string;
   latitude: number;
   longitude: number;
 }
 
 export interface MarkerData {
-  uuid?: string;
+  roomId?: string;
   latitude: number;
   longitude: number;
 }
@@ -38,7 +38,7 @@ export interface MarkerItem {
 
 // 마커 데이터 컬렉션 인터페이스
 export interface MarkerDataCollection {
-  uuid: string;
+  roomId: string;
   convexHull: MarkerData[];
   inside: MarkerData[];
 }

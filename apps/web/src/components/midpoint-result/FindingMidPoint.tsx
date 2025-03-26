@@ -5,7 +5,12 @@ import MapHeader from "./organisms/MapHeader";
 import RefreshCenterButton from "./organisms/RefreshCenterButton";
 import { Flex } from "@repo/ui/components";
 import ParticipantBottomSheet from "@/components/midpoint-result/organisms/ParticipantBottomSheet";
-import { refreshStyle, mapContainer, overlayStyle } from "./style.css";
+import {
+  refreshStyle,
+  mapContainer,
+  overlayStyle,
+  AddLocationButtonPositionStyle,
+} from "./style.css";
 import {
   useLocationCentroid,
   useLocationConvexHull,
@@ -17,27 +22,47 @@ import {
   convertToCenterMarkerData,
 } from "@/utils/location";
 import StartBanner from "./organisms/StartBanner";
+import AddLocationButton from "./organisms/AddLocationButton";
 
-const FindingMidPoint = () => {
+interface FindingMidPointProps {
+  roomId: string;
+  isLeader?: boolean;
+}
+
+const FindingMidPoint = ({
+  roomId,
+  isLeader = false,
+}: FindingMidPointProps) => {
   const { data: centroid, isLoading: centroidLoading } =
-    useLocationCentroid("ConvH");
-
+    useLocationCentroid(roomId);
   const { data: convH, isLoading: convHLoading } =
-    useLocationConvexHull("ConvH");
-
+    useLocationConvexHull(roomId);
   const markerData = convH ? convertToMarkerData(convH) : [];
   const polygonPath = convH ? convertToPolygonPath(convH) : [];
-  const centerMarkerData = convertToCenterMarkerData(centroid);
+  const centerMarkerData = centroid
+    ? convertToCenterMarkerData({ ...centroid, roomId: roomId })
+    : undefined;
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
+
+  const handleBannerClose = () => {
+    setIsOverlayVisible(false);
+  };
+  const handleClick = () => {
+    setIsBannerVisible(false);
+  };
 
   if (centroidLoading || convHLoading) {
     return <div>Loading...</div>;
   }
 
+  const roomName = "디프만 모각자"; // 소정 TODO: 서버한테 달라하기
+
   return (
     <div className={mapContainer}>
       <Flex direction="column">
-        <MapHeader title="디프만 모각자" />
+        <MapHeader title={roomName} />
+
         <div className={refreshStyle}>
           {centerMarkerData && (
             <RefreshCenterButton
@@ -55,9 +80,26 @@ const FindingMidPoint = () => {
           centerMarker={centerMarkerData}
           polygon={polygonPath}
         />
-        {isOverlayVisible && <div className={overlayStyle} />}
-        <StartBanner onClose={() => setIsOverlayVisible(false)} />
-        <ParticipantBottomSheet totalParticipants={markerData.length} />
+        {isOverlayVisible && (
+          <div className={overlayStyle} onClick={handleClick} />
+        )}
+        <Flex className={AddLocationButtonPositionStyle}>
+          <AddLocationButton />
+        </Flex>
+        <ParticipantBottomSheet
+          roomId={roomId}
+          totalParticipants={markerData.length}
+          banner={
+            isOverlayVisible && (
+              <StartBanner
+                isVisible={isBannerVisible}
+                onClose={handleBannerClose}
+                onDeleteClick={handleClick}
+                isLeader={isLeader}
+              />
+            )
+          }
+        />
       </Flex>
     </div>
   );

@@ -26,3 +26,10 @@ export const refreshStyle = style({
   transform: "translateX(-50%)",
   zIndex: zIndex.floating,
 });
+
+export const AddLocationButtonPositionStyle = style({
+  position: "relative",
+  bottom: "220px",
+  justifyContent: "flex-end",
+  paddingRight: "20px",
+});

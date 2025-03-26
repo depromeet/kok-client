@@ -86,6 +86,12 @@ export const textRecipe = recipe({
         fontWeight: 500,
         lineHeight: "100%",
       },
+      subway: {
+        fontSize: "10px",
+        fontStyle: "normal",
+        fontWeight: 600,
+        lineHeight: "100%",
+      },
     },
   },
 });

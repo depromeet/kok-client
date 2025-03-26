@@ -51,7 +51,7 @@ export const convertToPolygonPath = (convH: ConvexHullData) => {
 };
 
 interface Centroid {
-  uuid: string;
+  roomId: string;
   latitude: number;
   longitude: number;
 }
@@ -61,7 +61,7 @@ export const convertToCenterMarkerData = (
 ): Centroid | undefined => {
   if (!centroid) return undefined;
   return {
-    uuid: centroid.uuid,
+    roomId: centroid.roomId,
     latitude: centroid.latitude,
     longitude: centroid.longitude,
   };
@@ -72,9 +72,17 @@ export const convertWGS84ToLatLng = ({ y, x }: { y: string; x: string }) => {
 };
 
 export const getFullAddressAndTitle = (addressInfo: any) => {
-  const [admcode, loadAddr] = addressInfo;
-  const { addition0, name, number1, number2 } = loadAddr.land;
-  const { area1, area2 } = admcode.region;
+  const [admcode, roadaddr] = addressInfo;
+  const { area1, area2, area3 } = admcode.region;
+
+  if (!roadaddr) {
+    const title = "현재 위치";
+    const fullAddress = `${area1.name} ${area2.name} ${area3.name}`;
+
+    return { title, fullAddress };
+  }
+
+  const { addition0, name, number1, number2 } = roadaddr.land;
   const title = addition0.value ?? "현재 위치";
   const firstAddress = `${area1.name} ${area2.name}`;
   const secondAddress = `${name}${number1 !== "" ? ` ${number1 + (number2 !== "" ? `-${number2}` : "")}` : ""}`;

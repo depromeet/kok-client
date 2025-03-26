@@ -8,7 +8,6 @@ export const progressBarContainerStyle = style({
   width: "100%",
   maxWidth: "600px",
   padding: "24px",
-  position: "fixed",
   top: 0,
   zIndex: zIndex.floating,
 });

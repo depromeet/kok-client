@@ -15,6 +15,7 @@ import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
 import { usePostData } from "@/hooks/api/useCreateRoom";
 
 import * as Style from "./style.css";
+import { useMoveVisualViewportTop } from "@/hooks/useMoveVisualViewportTop";
 
 const CreateRoomLayout = ({
   randomProfile,
@@ -66,6 +67,8 @@ const CreateRoomLayout = ({
   const handleRoomPeople = (capacity: number) => updateRoomValues({ capacity });
 
   const lastStep = 4;
+
+  useMoveVisualViewportTop();
 
   return (
     <div className={Style.containerStyle}>

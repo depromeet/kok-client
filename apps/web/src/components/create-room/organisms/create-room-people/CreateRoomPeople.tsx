@@ -67,7 +67,7 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
         align="center"
         direction="column"
         className={headingContainerStyle}
-        gap={60}
+        gap={32}
       >
         <div className={roomNameContainerStyle}>
           <div>

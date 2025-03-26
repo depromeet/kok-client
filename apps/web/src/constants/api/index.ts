@@ -8,4 +8,7 @@ export const API_URLS = {
   GET_RANDOM_PROFILE: "/rooms/profile/random",
   POST_CREATE_ROOM: "/rooms",
   GET_ROOM_INFO: "/rooms",
+  POST_ROUTE: "/route/",
+  POST_ROUTE_COMPLEX: "/route/complex/",
+  GET_RECOMMEND_STATION: "/stations/recommend/",
 };

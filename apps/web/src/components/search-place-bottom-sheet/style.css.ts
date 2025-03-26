@@ -40,18 +40,24 @@ export const containerRecipe = recipe({
   },
 });
 
-export const wrapper = style({
-  width: "100%",
-});
-
 export const input = style({
   margin: "20px 0",
 });
 
 export const seachResultList = style({
   width: "100%",
-  overflowY: "scroll",
-  flexWrap: "wrap",
+  height: "100%",
+  overflow: "auto",
+
+  scrollbarWidth: "none",
+  "::-webkit-scrollbar": {
+    display: "none",
+  },
+});
+
+export const noResult = style({
+  marginTop: "40px",
+  color: theme.colors.text.caption,
 });
 
 export const resultContainer = style({ width: "100%", height: "100%" });

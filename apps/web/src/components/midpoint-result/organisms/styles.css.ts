@@ -53,10 +53,9 @@ export const stationTextStyle = style({
 });
 
 export const bannerContainerStyle = style({
-  position: "absolute",
+  position: "relative",
   width: "100%",
   maxWidth: "600px",
-  bottom: 140,
   zIndex: zIndex.floating,
 });
 
@@ -82,7 +81,7 @@ export const headerStyle = style({
   width: "100%",
   maxWidth: "600px",
   height: "58px",
-  zIndex: zIndex.overlay,
+  zIndex: zIndex.floating,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -102,15 +101,15 @@ export const titleStyle = style({
 // TODO: 결과 화면 구현중
 export const directionLineStyle = style({
   width: "100%",
-  height: "64px",
+  height: "14px",
   padding: "8px",
-  backgroundColor: theme.colors.gray10,
-  marginBottom: "16px",
+  backgroundColor: theme.colors.gray15,
+  margin: "20px 0",
+  borderRadius: "10px",
 });
 
 export const resultBannerContainerStyle = style({
-  position: "absolute",
-  bottom: 185,
+  position: "relative",
   width: "100%",
   maxWidth: "600px",
   justifyContent: "center",
@@ -146,6 +145,7 @@ export const questionStyle = style({
   backgroundColor: "rgba(255, 255, 255, 0.16)",
   borderRadius: "100px",
   border: "1px solid rgba(255, 255, 255, 0.35)",
+  marginTop: "22px",
 });
 
 export const resultContainerStyle = style({
@@ -163,20 +163,11 @@ export const patternWrapperStyle = style({
 export const transportContainerStyle = style({
   display: "flex",
   alignItems: "center",
-  width: "100%",
-  gap: "8px",
+  zIndex: zIndex.toast,
 });
 
 export const lineIndicatorStyle = style({
-  borderRadius: "50%",
   display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "white",
-  fontWeight: "bold",
-  flexShrink: 0,
-  width: "45px",
-  height: "45px",
 });
 
 export const lineContentStyle = style({
@@ -187,26 +178,36 @@ export const lineContentStyle = style({
   textAlign: "center",
 });
 
-export const transportTypeStyle = style({
-  fontSize: "10px",
-  lineHeight: "1",
-});
-
 export const lineNumberStyle = style({
   fontSize: "14px",
   fontWeight: "bold",
 });
 
 export const progressBarStyle = style({
-  height: "16px",
-  backgroundColor: "#E5E7EB", // gray-300
+  height: "14px",
   flexGrow: 1,
-  borderRadius: "8px",
+  borderRadius: "10px",
   position: "relative",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: zIndex.overlay,
+  transform: "translate(-8px, 0)",
 });
 
 export const timeDisplayStyle = style({
   fontSize: "20px",
   fontWeight: "bold",
   flexShrink: 0,
+});
+
+export const AddLocationButtonStyle = style({
+  background: theme.colors.orange40,
+  padding: "0 12px",
+  width: "150px",
+  height: "36px",
+  borderRadius: "100px",
+  justifyContent: "center",
+  alignItems: "center",
+  cursor: "pointer",
 });

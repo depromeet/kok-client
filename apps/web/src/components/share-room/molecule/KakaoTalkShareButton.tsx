@@ -3,19 +3,27 @@
 import { Button, textRecipe, type ButtonProps } from "@repo/ui/components";
 import { PropsWithChildren, useEffect } from "react";
 
-const MESSAGE_TEMPLATE_START_INPUT = 117720;
-
-type KakaoTalkShareButtonProps = ButtonProps;
+type KakaoTalkShareButtonProps = ButtonProps & {
+  templateId?: number;
+  templateArgs?: {
+    roomId?: string;
+  };
+};
 
 const KakaoTalkShareButton = ({
   children,
+  templateId,
+  templateArgs = {
+    roomId: "",
+  },
   ...props
 }: PropsWithChildren<KakaoTalkShareButtonProps>) => {
   const onClickShareButton = () => {
     if (!window.Kakao) return;
 
     window.Kakao.Share.sendCustom({
-      templateId: MESSAGE_TEMPLATE_START_INPUT,
+      templateId,
+      templateArgs,
     });
   };
 
