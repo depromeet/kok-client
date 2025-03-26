@@ -3,7 +3,7 @@ import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
-  height: "100%",
+  height: "calc(100dvh - 56px)",
 });
 
 export const invalidSpanStyle = style({
