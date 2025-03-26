@@ -5,17 +5,37 @@ import {
   CreateBtnLayoutStyle,
   TooltipBoxStyle,
 } from "./style.css";
+import { useParams, useRouter } from "next/navigation";
 
-const ProfileCreateBtn = () => {
+interface IProfileCreateBtnProps {
+  isFull: boolean;
+}
+
+const ProfileCreateBtn = ({ isFull }: IProfileCreateBtnProps) => {
+  const router = useRouter();
+  const params = useParams();
+  const roomId = params?.roomId;
+
+  const handleClick = () => {
+    if (!isFull && roomId) {
+      router.push(`/member/${roomId}/profile/create`);
+    }
+  };
+
   return (
     <Flex
       direction="column"
       gap={12}
       align="center"
       className={CreateBtnLayoutStyle}
+      onClick={handleClick}
     >
       {/* 이미지 */}
-      <Flex justify="center" align="center" className={BtnLayoutStyle}>
+      <Flex
+        justify="center"
+        align="center"
+        className={BtnLayoutStyle[isFull ? "full" : "available"]}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="40"

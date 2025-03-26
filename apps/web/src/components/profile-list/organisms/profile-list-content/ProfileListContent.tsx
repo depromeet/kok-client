@@ -47,7 +47,7 @@ const ProfileListContent = ({
       ref={containerRef}
       className={`${gridContainerStyle} ${isScrolled ? maskedContainerStyle : ""}`}
     >
-      <ProfileCreateBtn />
+      <ProfileCreateBtn isFull={profileData.isFull} />
       {profileData.members.map((item) => (
         <ProfileItem
           key={item.memberId}

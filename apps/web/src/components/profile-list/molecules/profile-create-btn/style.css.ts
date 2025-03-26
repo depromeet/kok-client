@@ -1,5 +1,5 @@
 import { theme } from "@repo/ui/tokens";
-import { style } from "@vanilla-extract/css";
+import { style, styleVariants } from "@vanilla-extract/css";
 
 export const CreateBtnLayoutStyle = style({
   width: "115px",
@@ -7,11 +7,21 @@ export const CreateBtnLayoutStyle = style({
   outline: "none",
 });
 
-export const BtnLayoutStyle = style({
-  width: "80px",
-  height: "80px",
-  backgroundColor: theme.colors.gray20,
-  borderRadius: "50%",
+export const BtnLayoutStyle = styleVariants({
+  full: {
+    width: "80px",
+    height: "80px",
+    backgroundColor: theme.colors.gray20,
+    borderRadius: "50%",
+    cursor: "default",
+  },
+  available: {
+    width: "80px",
+    height: "80px",
+    backgroundColor: theme.colors.navy,
+    borderRadius: "50%",
+    cursor: "pointer",
+  },
 });
 
 export const TooltipBoxStyle = style({

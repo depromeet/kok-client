@@ -13,8 +13,15 @@ export const gridContainerStyle = style({
   overflow: "hidden auto",
   scrollbarWidth: "none",
   msOverflowStyle: "none",
-  maskImage:
-    "linear-gradient(to bottom, rgba(0,0,0,15) 85%, rgba(0,0,0,0.2) 90%, rgba(0,0,0,0) 95%)",
+  maskImage: `
+  linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,1) 85%, 
+    rgba(0,0,0,0.3) 95%, 
+    rgba(0,0,0,0.1) 100%
+  )
+`,
 });
 
 globalStyle(`${gridContainerStyle}::-webkit-scrollbar`, {
@@ -22,8 +29,16 @@ globalStyle(`${gridContainerStyle}::-webkit-scrollbar`, {
 });
 
 export const maskedContainerStyle = style({
-  maskImage:
-    "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 5%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 85%, rgba(0,0,0,0.2) 90%, rgba(0,0,0,0) 95%)",
+  maskImage: `
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.3) 5%,
+      rgba(0,0,0,1) 10%,
+      rgba(0,0,0,1) 90%,
+      rgba(0,0,0,0.3) 95%,
+      rgba(0,0,0,0.1) 100%
+    )
+  `,
 });
 
 globalStyle(`${gridContainerStyle}::-webkit-scrollbar`, {
