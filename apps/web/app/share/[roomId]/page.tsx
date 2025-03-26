@@ -1,14 +1,14 @@
 import FindingMidPoint from "@/components/midpoint-result/FindingMidPoint";
 
-export default function ShareRoomPage({
+export default async function ShareRoomPage({
   params,
   searchParams,
 }: {
-  params: { roomId: string };
-  searchParams?: { role?: string };
+  params: Promise<{ roomId: string }>;
+  searchParams?: Promise<{ role?: string }>;
 }) {
-  const { roomId } = params;
-  const isLeader = searchParams?.role === "leader";
+  const { roomId } = await params;
+  const isLeader = (await searchParams)?.role === "leader";
 
   return <FindingMidPoint roomId={roomId} isLeader={isLeader} />;
 }
