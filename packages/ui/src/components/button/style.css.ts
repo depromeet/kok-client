@@ -1,5 +1,5 @@
 import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
-import { style } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
 import { theme } from "../../tokens";
 
 export type ButtonVariants = RecipeVariants<typeof buttonReceipe>;
@@ -12,6 +12,12 @@ const buttonReset = style({
   border: 0,
   WebkitTapHighlightColor: "transparent",
   overflow: "hidden",
+});
+
+const gradientMove = keyframes({
+  "0%": { backgroundPosition: "0% 50%" },
+  "50%": { backgroundPosition: "100% 50%" },
+  "100%": { backgroundPosition: "0%" },
 });
 
 export const buttonReceipe = recipe({
@@ -37,8 +43,12 @@ export const buttonReceipe = recipe({
       secondary: {
         backgroundColor: theme.colors.orange40,
       },
+      "gradient-loop": {
+        background: "linear-gradient(90deg, #1B202C, #263350, #1B202C)",
+        backgroundSize: "200% 200%",
+        animation: `${gradientMove} 4s linear infinite`,
+      },
     },
-
     width: {
       full: { width: "100%" },
       fit: { width: "fit-content" },
