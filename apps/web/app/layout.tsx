@@ -5,10 +5,24 @@ import QueryProvider from "@repo/shared/QueryProvider";
 
 import "@/styles/global.css";
 import { NaverMapProvider } from "@repo/naver-map";
+import { META } from "@/constants/metadata";
 
 export const metadata: Metadata = {
-  title: "콕 | 중간지점 찾기",
-  description: "중간지점 찾기",
+  title: META.title,
+  description: META.description,
+
+  openGraph: {
+    title: META.title,
+    description: META.description,
+    url: META.url,
+    type: "website",
+    images: { url: META.ogImage },
+  },
+  twitter: {
+    title: META.title,
+    description: META.description,
+    images: { url: META.ogImage },
+  },
 };
 
 const pretendard = localFont({
