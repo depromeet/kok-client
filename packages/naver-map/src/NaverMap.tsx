@@ -6,7 +6,7 @@ import Polygon from "./Polygon";
 import { getCenterMarkerElement } from "./CenterMarkerElement";
 import DotMarker from "./DotMarker";
 import { getFinalMarkerElement } from "./FinalMarker";
-import { Flex } from "@repo/ui/components";
+import { Flex, LoadingSpinner } from "@repo/ui/components";
 import { useNaverMap, useSetNaverMap } from "./naver-map-provider";
 
 export const NAVER_MAP_CONFIG = {
@@ -184,7 +184,19 @@ export const NaverMap = ({
           position: "relative",
         }}
       >
-        {!isLoaded && <div>지도 스크립트 로딩 중..</div>}
+        {!isLoaded && (
+          <div
+            style={{
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <LoadingSpinner width={30} height={30} />
+          </div>
+        )}
 
         {mapInstance && (
           <>
