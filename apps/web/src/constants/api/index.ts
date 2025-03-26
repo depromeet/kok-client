@@ -11,4 +11,5 @@ export const API_URLS = {
   POST_ROUTE: "/route/",
   POST_ROUTE_COMPLEX: "/route/complex/",
   GET_RECOMMEND_STATION: "/stations/recommend/",
+  POST_JOIN_ROOM: (roomId: string) => `/rooms/${roomId}/join`,
 };

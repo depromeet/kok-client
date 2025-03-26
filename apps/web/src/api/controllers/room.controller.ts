@@ -1,9 +1,12 @@
-import { postRequest } from "@repo/shared/axios";
-import { API_URLS } from "../../constants/api";
-import {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type {
   ICreateRoom,
   TCompleteCreateRoom,
 } from "../types/create-room/index.type";
+import type { IJoinRoom } from "../types/participate-room";
+
+import { postRequest } from "@repo/shared/axios";
+import { API_URLS } from "../../constants/api";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -32,6 +35,17 @@ class RoomController {
       });
     } catch (error: any) {
       this.handleError("postCreateRoom", error);
+    }
+  }
+
+  public async postJoinRoom(roomId: string, memberValues: IJoinRoom) {
+    try {
+      return await postRequest<TCompleteCreateRoom, IJoinRoom>({
+        url: `${BASE_URL}${API_URLS.POST_JOIN_ROOM(roomId)}`,
+        data: memberValues,
+      });
+    } catch (error: any) {
+      this.handleError("postJoinRoom", error);
     }
   }
 }

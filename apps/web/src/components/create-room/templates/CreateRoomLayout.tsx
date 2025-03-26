@@ -12,10 +12,10 @@ import CreateRoomProfile from "../organisms/create-room-profile/CreateRoomProfil
 import CreateRoomPeople from "../organisms/create-room-people/CreateRoomPeople";
 import SelectStartPlace from "../organisms/select-start-place/SelectStartPlace";
 import CreateRoomName from "../organisms/create-room-name/CreateRoomName";
-import { usePostData } from "@/hooks/api/useCreateRoom";
+import { useCreateRoom } from "@/hooks/api/useCreateRoom";
+import { useMoveVisualViewportTop } from "@/hooks/useMoveVisualViewportTop";
 
 import * as Style from "./style.css";
-import { useMoveVisualViewportTop } from "@/hooks/useMoveVisualViewportTop";
 
 const CreateRoomLayout = ({
   randomProfile,
@@ -30,10 +30,10 @@ const CreateRoomLayout = ({
     step: 1,
   });
 
-  const { mutateAsync, data } = usePostData({
+  const { mutateAsync, data } = useCreateRoom({
     onError: () => {
       alert("방 생성 중 알 수 없는 오류가 발생했습니다.");
-      router.push("/");
+      router.replace("/");
     },
   });
 

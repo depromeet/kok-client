@@ -1,8 +1,9 @@
+import type { ICreateRoom } from "@/api/types/create-room/index.type";
+
 import { useMutation } from "@repo/shared/tanstack-query";
 import roomController from "@/api/controllers/room.controller";
-import { ICreateRoom } from "@/api/types/create-room/index.type";
 
-export const usePostData = (options?: { onError?: () => void }) => {
+export const useCreateRoom = (options?: { onError?: () => void }) => {
   return useMutation({
     mutationFn: async (createRoomValues: ICreateRoom) => {
       return await roomController.postCreateRoom(createRoomValues);
