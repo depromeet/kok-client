@@ -2,9 +2,9 @@ import { style } from "@vanilla-extract/css";
 
 export const ProfileItemLayoutStyle = style({
   width: "115px",
+  height: "128px",
   cursor: "pointer",
   outline: "none",
-  WebkitTapHighlightColor: "transparent",
 });
 
 export const imageContainerStyle = style({

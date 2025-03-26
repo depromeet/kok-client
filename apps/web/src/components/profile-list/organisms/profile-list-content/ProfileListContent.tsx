@@ -1,23 +1,33 @@
 "use client";
 
-import { IMemberProfile } from "@/api/types/profile-list/index.types";
-import ProfileItem from "../../molecules/profile-item/ProfileItem";
-import { gridContainerStyle, maskedContainerStyle } from "./style.css";
+import type { IProfileData } from "@/api/types/profile-list/index.types";
+
 import { useState, useRef, useEffect } from "react";
+import ProfileItem from "../../molecules/profile-item/ProfileItem";
+import ProfileCreateBtn from "../../molecules/profile-create-btn/ProfileCreateBtn";
+
+import { gridContainerStyle, maskedContainerStyle } from "./style.css";
 
 interface IProfileListContentProps {
-  profileData: IMemberProfile[];
+  profileData: IProfileData;
+  currentMemberId: string;
+  setCurrentMemberId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ProfileListContent = ({ profileData }: IProfileListContentProps) => {
-  const [selectedProfileId, setSelectedProfileId] = useState<string | null>(
-    null
-  );
+const ProfileListContent = ({
+  profileData,
+  currentMemberId,
+  setCurrentMemberId,
+}: IProfileListContentProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleSelectProfile = (profileId: string) => {
-    setSelectedProfileId(profileId);
+    if (currentMemberId === profileId) {
+      setCurrentMemberId("");
+    } else {
+      setCurrentMemberId(profileId);
+    }
   };
 
   useEffect(() => {
@@ -37,13 +47,14 @@ const ProfileListContent = ({ profileData }: IProfileListContentProps) => {
       ref={containerRef}
       className={`${gridContainerStyle} ${isScrolled ? maskedContainerStyle : ""}`}
     >
-      {profileData.map((item) => (
+      <ProfileCreateBtn />
+      {profileData.members.map((item) => (
         <ProfileItem
           key={item.memberId}
           profileId={item.memberId}
           profileImg={item.profile}
           profileName={item.nickname}
-          isSelected={selectedProfileId === item.memberId}
+          isSelected={currentMemberId === item.memberId}
           onSelect={handleSelectProfile}
         />
       ))}

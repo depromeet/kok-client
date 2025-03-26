@@ -1,6 +1,7 @@
-import { Flex, Text } from "@repo/ui/components";
+import { useRef } from "react";
 import Image from "next/image";
-import React from "react";
+import { Flex, Text } from "@repo/ui/components";
+
 import {
   imageContainerStyle,
   ProfileItemLayoutStyle,
@@ -22,14 +23,25 @@ const ProfileItem = ({
   isSelected,
   onSelect,
 }: ProfileItemProps) => {
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = () => {
+    onSelect(profileId);
+    itemRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "nearest",
+    });
+  };
+
   return (
     <Flex
+      ref={itemRef}
       align="center"
-      justify="center"
       direction="column"
       gap={16}
       className={ProfileItemLayoutStyle}
-      onClick={() => onSelect(profileId)}
+      onClick={handleClick}
     >
       <div
         className={`${imageContainerStyle} ${isSelected ? selectedImageStyle : ""}`}

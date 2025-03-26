@@ -1,5 +1,5 @@
 import { Flex, Text } from "@repo/ui/components";
-import React from "react";
+
 import { headingContainerStyle } from "./style.css";
 
 const ProfileListHeader = () => {

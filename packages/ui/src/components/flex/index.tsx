@@ -1,4 +1,10 @@
-import { HTMLAttributes, PropsWithChildren, ElementType } from "react";
+import {
+  HTMLAttributes,
+  PropsWithChildren,
+  ElementType,
+  ForwardedRef,
+  forwardRef,
+} from "react";
 import { flexRecipe } from "./style.css";
 import { classMerge } from "../../utils";
 
@@ -13,26 +19,34 @@ interface FlexProps extends HTMLAttributes<HTMLDivElement> {
   gap?: number;
 }
 
-export const Flex = ({
-  as: Tag = "div",
-  justify,
-  align,
-  direction,
-  gap,
-  children,
-  className,
-  ...props
-}: PropsWithChildren<FlexProps>) => {
-  return (
-    <Tag
-      style={{ gap }}
-      className={classMerge(
-        flexRecipe({ justify, align, direction }),
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </Tag>
-  );
-};
+export const Flex = forwardRef<HTMLDivElement, PropsWithChildren<FlexProps>>(
+  (
+    {
+      as: Tag = "div",
+      justify,
+      align,
+      direction,
+      gap,
+      children,
+      className,
+      ...props
+    },
+    ref: ForwardedRef<HTMLDivElement>
+  ) => {
+    return (
+      <Tag
+        ref={ref}
+        style={{ gap }}
+        className={classMerge(
+          flexRecipe({ justify, align, direction }),
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </Tag>
+    );
+  }
+);
+
+Flex.displayName = "Flex";
