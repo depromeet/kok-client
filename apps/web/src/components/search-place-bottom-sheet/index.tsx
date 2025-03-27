@@ -15,15 +15,19 @@ import SearchListItem from "./search-list-item";
 import { DeleteIcon, SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
-import { getLatLng, Marker, NaverLatLng, useNaverMap } from "@repo/naver-map";
+import {
+  getLatLng,
+  Marker,
+  NaverLatLng,
+  ProfileMarker,
+  useNaverMap,
+} from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
-
 import { useSelectStartPlace } from "@/hooks/api/useSelectStartPlace";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useSetStartLocation } from "@/hooks/api/useStartLocation";
-import ProfileMarker from "node_modules/@repo/naver-map/src/overlays/profile-marker";
 
 interface SearchPlaceBottomSheetProps {
   roomId: string;

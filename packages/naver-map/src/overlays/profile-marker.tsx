@@ -6,7 +6,7 @@ interface ProfileMarkerProps {
   profileImageUrl?: string;
 }
 
-const ProfileMarker = ({
+export const ProfileMarker = ({
   profileImageUrl = "/images/create-room/1.png",
 }: ProfileMarkerProps) => {
   if (typeof document === "undefined") return null;
@@ -26,5 +26,3 @@ const ProfileMarker = ({
   `;
   return markerElement;
 };
-
-export default ProfileMarker;
