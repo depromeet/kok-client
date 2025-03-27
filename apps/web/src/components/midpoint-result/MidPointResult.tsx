@@ -25,7 +25,7 @@ const MidPointResult = ({ roomId }: MidPointResultProps) => {
     setIsBannerVisible(false);
   };
 
-  const { data: stationsResponse } = useRecommendStation("test_pt");
+  const { data: stationsResponse } = useRecommendStation(roomId);
 
   const stations = stationsResponse?.data;
   const firstStation = stations?.[0]; //최종역
