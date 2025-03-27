@@ -92,6 +92,13 @@ export const textRecipe = recipe({
         fontWeight: 600,
         lineHeight: "100%",
       },
+
+      number: {
+        fontSize: "11px",
+        fontStyle: "normal",
+        fontWeight: 700,
+        lineHeight: "100%",
+      },
     },
   },
 });
