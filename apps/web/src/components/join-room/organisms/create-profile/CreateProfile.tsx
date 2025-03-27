@@ -1,3 +1,5 @@
+"use client";
+
 import type { IRaondomProfile } from "@/api/types/create-room/index.type";
 import type { IJoinRoom } from "@/api/types/join-room";
 

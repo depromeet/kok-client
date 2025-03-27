@@ -6,7 +6,7 @@ type ProfilePageProps = {
 
 async function getProfileData(roomId: string) {
   const res = await fetch(
-    `http://dev-api.kokokok.com:8080/v1/api/rooms/${roomId}/participants`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/rooms/${roomId}/participants`,
     {
       cache: "no-store",
     }
