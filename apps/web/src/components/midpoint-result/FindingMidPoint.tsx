@@ -15,7 +15,7 @@ import {
   useLocationCentroid,
   useLocationConvexHull,
 } from "@/hooks/api/useLocation";
-import { NaverMap } from "@repo/naver-map";
+import { MarkerItem, NaverMap } from "@repo/naver-map";
 import {
   convertToMarkerData,
   convertToPolygonPath,
@@ -23,6 +23,8 @@ import {
 } from "@/utils/location";
 import StartBanner from "./organisms/StartBanner";
 import AddLocationButton from "./organisms/AddLocationButton";
+import { useRoomInfo } from "@/hooks/api/useRoomInfo";
+import { useGetStartLocation } from "@/hooks/api/useStartLocation";
 
 interface FindingMidPointProps {
   roomId: string;
@@ -33,10 +35,16 @@ const FindingMidPoint = ({
   roomId,
   isLeader = false,
 }: FindingMidPointProps) => {
-  const { data: centroid, isLoading: centroidLoading } =
-    useLocationCentroid(roomId);
-  const { data: convH, isLoading: convHLoading } =
-    useLocationConvexHull(roomId);
+  const {
+    data: centroid,
+    isLoading: centroidLoading,
+    refetch: refetchCentroid,
+  } = useLocationCentroid(roomId);
+  const {
+    data: convH,
+    isLoading: convHLoading,
+    refetch: refetchConvexHull,
+  } = useLocationConvexHull(roomId);
   const markerData = convH ? convertToMarkerData(convH) : [];
   const polygonPath = convH ? convertToPolygonPath(convH) : [];
   const centerMarkerData = centroid
@@ -44,6 +52,8 @@ const FindingMidPoint = ({
     : undefined;
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
+  const { data: roomInfo, refetch: refetchRoomInfo } = useRoomInfo(roomId);
+  const { data: startLocation } = useGetStartLocation(roomId);
 
   const handleBannerClose = () => {
     setIsOverlayVisible(false);
@@ -52,11 +62,27 @@ const FindingMidPoint = ({
     setIsBannerVisible(false);
   };
 
+  let displayMarkerData: MarkerItem[] = [];
+
+  if (markerData.length > 1) {
+    displayMarkerData = markerData;
+  } else if (startLocation?.latitude && startLocation?.longitude) {
+    displayMarkerData = [
+      {
+        id: "leader-position",
+        position: {
+          lat: startLocation.latitude,
+          lng: startLocation.longitude,
+        },
+        profileUrl: startLocation.profileImageUrl || "",
+      },
+    ];
+  }
+
   if (centroidLoading || convHLoading) {
     return <div>Loading...</div>;
   }
-
-  const roomName = "디프만 모각자"; // 소정 TODO: 서버한테 달라하기
+  const roomName = roomInfo?.data?.roomName || "";
 
   return (
     <div className={mapContainer}>
@@ -64,21 +90,31 @@ const FindingMidPoint = ({
         <MapHeader title={roomName} />
 
         <div className={refreshStyle}>
-          {centerMarkerData && (
-            <RefreshCenterButton
-              coordinates={{
-                lat: centerMarkerData.latitude,
-                lng: centerMarkerData.longitude,
-              }}
-            />
-          )}
+          <RefreshCenterButton
+            coordinates={
+              centerMarkerData && markerData.length > 1
+                ? {
+                    lat: centerMarkerData.latitude,
+                    lng: centerMarkerData.longitude,
+                  }
+                : { lat: 0, lng: 0 }
+            }
+            participantCount={markerData.length}
+            onRefresh={async () => {
+              await Promise.all([
+                refetchCentroid(),
+                refetchConvexHull(),
+                refetchRoomInfo(),
+              ]);
+            }}
+          />
         </div>
         <NaverMap
           width="100vw"
           height="100vh"
-          markerData={markerData}
-          centerMarker={centerMarkerData}
-          polygon={polygonPath}
+          markerData={displayMarkerData}
+          centerMarker={markerData.length > 1 ? centerMarkerData : undefined}
+          polygon={markerData.length > 1 ? polygonPath : []}
         />
         {isOverlayVisible && (
           <div className={overlayStyle} onClick={handleClick} />
@@ -88,10 +124,11 @@ const FindingMidPoint = ({
         </Flex>
         <ParticipantBottomSheet
           roomId={roomId}
-          totalParticipants={markerData.length}
+          totalParticipants={roomInfo?.data?.nonParticipantCount} // 소정 TODO
           banner={
             isOverlayVisible && (
               <StartBanner
+                roomName={roomName}
                 isVisible={isBannerVisible}
                 onClose={handleBannerClose}
                 onDeleteClick={handleClick}

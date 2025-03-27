@@ -81,7 +81,9 @@ const DotMarker = ({ map, markerData, onMarkerClicked }: MarkerProps) => {
 
       if (onMarkerClicked) {
         window.naver.maps.Event.addListener(marker, "click", () => {
-          onMarkerClicked(data.id);
+          const markerId =
+            typeof data.id === "string" ? parseInt(data.id) : data.id;
+          onMarkerClicked(markerId);
         });
       }
 

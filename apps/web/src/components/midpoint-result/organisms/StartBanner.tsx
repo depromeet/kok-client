@@ -8,6 +8,7 @@ interface StartBannerProps {
   onDeleteClick: () => void;
   isVisible?: boolean;
   isLeader?: boolean;
+  roomName?: string;
 }
 
 const StartBanner = ({
@@ -15,9 +16,9 @@ const StartBanner = ({
   isVisible = true,
   onDeleteClick,
   isLeader = false,
+  roomName,
 }: StartBannerProps) => {
   const title = isLeader ? "모임이 생성 됐어요!" : "출발지 입력 완료!";
-  const place = "디프만 모각작"; // 소정 TODO
 
   return (
     <div className={bannerContainerStyle}>
@@ -26,7 +27,7 @@ const StartBanner = ({
         onDeleteClick={onDeleteClick}
         isBannerVisible={isVisible}
         title={title}
-        place={place}
+        roomName={roomName || ""}
       />
     </div>
   );

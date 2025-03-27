@@ -50,7 +50,9 @@ const Marker = ({ map, markerData, onMarkerClicked }: MarkerProps) => {
 
       naver.maps.Event.addListener(marker, "click", () => {
         if (onMarkerClicked) {
-          onMarkerClicked(item.id);
+          const markerId =
+            typeof item.id === "string" ? parseInt(item.id) : item.id;
+          onMarkerClicked(markerId);
         }
       });
       return marker;
