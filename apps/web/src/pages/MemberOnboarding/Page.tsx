@@ -2,7 +2,7 @@
 
 import MemberOnboarding from "@/components/member-onboarding";
 import { useParams } from "next/navigation";
-import { ErrorBoundary } from "react-error-boundary";
+// import { ErrorBoundary } from "react-error-boundary";
 
 export default function Page() {
   const params = useParams<{
@@ -13,8 +13,8 @@ export default function Page() {
 
   return (
     // TODO: fallback UI 추가
-    <ErrorBoundary fallback={<>유효하지 않은 초대장입니다.</>}>
-      <MemberOnboarding roomId={params?.roomId || ""} />
-    </ErrorBoundary>
+    // <ErrorBoundary fallback={<>유효하지 않은 초대장입니다.</>}>
+    <MemberOnboarding roomId={params?.roomId || ""} />
+    // </ErrorBoundary>
   );
 }

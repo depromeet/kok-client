@@ -1,7 +1,7 @@
 import ProfileListLayout from "@/components/profile-list/templates/ProfileListLayout";
 
 type ProfilePageProps = {
-  params: { roomId: string };
+  params: Promise<{ roomId: string }>;
 };
 
 async function getProfileData(roomId: string) {
@@ -20,8 +20,17 @@ async function getProfileData(roomId: string) {
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
-  const { roomId } = params;
+  const { roomId } = await params;
+
+  if (!roomId) {
+    return;
+  }
+
   const profileData = await getProfileData(roomId);
+
+  if (!profileData) {
+    return;
+  }
 
   return <ProfileListLayout profileData={profileData.data} />;
 }
