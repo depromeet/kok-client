@@ -3,28 +3,15 @@
 import { PageModal, Header } from "@repo/ui/components";
 import * as styles from "./style.css";
 import XIcon from "@/assets/icons/XIcon";
-import SearchList from "./organisms/SearchList";
-import { useState } from "react";
-import SearchResultMap from "./organisms/SearchResultMap";
+import ContextProvider from "./molecules/ContextProvider";
+import ModalBody from "./templates/ModalBody";
 
 interface AddLocationModalProps {
   isOpen: boolean;
   onClose: VoidFunction;
 }
 
-export interface StationInfo {
-  id: number;
-  name: string;
-  lines: string[];
-}
-
 const AddLocationModal = ({ isOpen, onClose }: AddLocationModalProps) => {
-  const [location, setLocation] = useState<StationInfo | null>(null);
-
-  const handleSelectSearchItem = (item: StationInfo) => {
-    setLocation(item);
-  };
-
   return (
     <PageModal isOpen={isOpen}>
       <div className={styles.container}>
@@ -40,11 +27,9 @@ const AddLocationModal = ({ isOpen, onClose }: AddLocationModalProps) => {
           }
         />
 
-        {location ? (
-          <SearchResultMap />
-        ) : (
-          <SearchList onSelect={handleSelectSearchItem} />
-        )}
+        <ContextProvider>
+          <ModalBody />
+        </ContextProvider>
       </div>
     </PageModal>
   );

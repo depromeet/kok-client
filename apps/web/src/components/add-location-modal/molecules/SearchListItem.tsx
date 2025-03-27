@@ -1,18 +1,19 @@
 import { Flex, Text } from "@repo/ui/components";
-import LineNumber from "../atoms/LineNumber";
 import * as styles from "../style.css";
+import { useStation } from "../contexts/station";
+import { StationInfo } from "../types";
+import LineNumbers from "./LineNumbers";
 
-interface SearchListItemProps {
-  name: string;
-  lines: string[];
-  onClick: VoidFunction;
-}
+type SearchListItemProps = StationInfo;
 
-const removeLineSuffix = (line: string): string => {
-  return line.replace(/(선|호선|철도)$/, "");
-};
+const SearchListItem = (stationInfo: SearchListItemProps) => {
+  const { setStation } = useStation();
+  const { name, lines } = stationInfo;
 
-const SearchListItem = ({ name, lines, onClick }: SearchListItemProps) => {
+  const handleClickItem = () => {
+    setStation(stationInfo);
+  };
+
   return (
     <>
       <li className={styles.searchItem}>
@@ -21,14 +22,12 @@ const SearchListItem = ({ name, lines, onClick }: SearchListItemProps) => {
           align="center"
           gap={8}
           className={styles.searchItemButton}
-          onClick={onClick}
+          onClick={handleClickItem}
         >
-          <Flex gap={4} align="center">
-            {lines.map(removeLineSuffix).map((line) => (
-              <LineNumber key={line} line={line} />
-            ))}
-          </Flex>
+          <LineNumbers lines={lines} />
+
           <div className={styles.divider} />
+
           <Text variant="body3" className={styles.stationName}>
             {name}
           </Text>

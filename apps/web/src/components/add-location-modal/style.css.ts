@@ -1,4 +1,5 @@
 import { theme } from "@repo/ui/tokens";
+import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
 
@@ -87,4 +88,25 @@ export const mapContainer = style({
   width: "100%",
   height: "calc(100dvh - 58px)",
   backgroundColor: "black",
+});
+
+export const bottomSheetContainer = style({
+  position: "fixed",
+  bottom: 0,
+  padding: "24px 20px 20px 20px",
+  width: "100%",
+  maxWidth: "600px",
+  borderTopLeftRadius: "32px",
+  borderTopRightRadius: "32px",
+  transition: "height 0.3s ease-in-out",
+  backgroundColor: theme.colors.bg.base2,
+  zIndex: zIndex.overlay + 2,
+});
+
+export const infoContainer = style({
+  padding: "0 8px",
+});
+
+export const description = style({
+  color: theme.colors.text.kok,
 });

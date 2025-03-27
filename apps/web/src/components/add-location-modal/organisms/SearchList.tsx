@@ -4,7 +4,6 @@ import { SearchIcon } from "@repo/ui/icons";
 import SearchListItem from "../molecules/SearchListItem";
 import useDebounce from "@/hooks/useDebounce";
 import * as styles from "../style.css";
-import { StationInfo } from "..";
 
 const dummyList = [
   {
@@ -28,11 +27,7 @@ const dummyList = [
   { id: 15, name: "잠실", lines: ["2호선", "8호선"] },
 ];
 
-interface SearchListProps {
-  onSelect: (item: StationInfo) => void;
-}
-
-const SearchList = ({ onSelect }: SearchListProps) => {
+const SearchList = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const debouncedValue = useDebounce(inputValue, 300);
 
@@ -61,11 +56,7 @@ const SearchList = ({ onSelect }: SearchListProps) => {
               : stationInfo
           )
           .map((stationInfo) => (
-            <SearchListItem
-              key={stationInfo.name}
-              {...stationInfo}
-              onClick={() => onSelect(stationInfo)}
-            />
+            <SearchListItem key={stationInfo.name} {...stationInfo} />
           ))}
       </Flex>
     </Flex>

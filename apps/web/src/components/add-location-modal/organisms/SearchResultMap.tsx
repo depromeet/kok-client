@@ -1,7 +1,14 @@
-import * as styles from "../style.css";
+import { NaverMap } from "@repo/naver-map";
+import AddCandidateBottomSheet from "../molecules/AddCandidateBottomSheet";
 
 const SearchResultMap = () => {
-  return <div className={styles.mapContainer}></div>;
+  return (
+    <>
+      <NaverMap width="100vw" height="calc(100dvh - 58px)" />
+
+      <AddCandidateBottomSheet />
+    </>
+  );
 };
 
 export default SearchResultMap;
