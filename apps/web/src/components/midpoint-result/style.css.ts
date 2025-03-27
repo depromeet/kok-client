@@ -29,7 +29,8 @@ export const refreshStyle = style({
 
 export const AddLocationButtonPositionStyle = style({
   position: "fixed",
-  right: 0,
+  width: "100%",
+  maxWidth: "600px",
   bottom: "190px",
   justifyContent: "flex-end",
   paddingRight: "20px",
