@@ -20,7 +20,7 @@ export const overlayStyle = style({
 });
 
 export const refreshStyle = style({
-  position: "absolute",
+  position: "fixed",
   top: 74,
   left: "50%",
   transform: "translateX(-50%)",
@@ -28,8 +28,10 @@ export const refreshStyle = style({
 });
 
 export const AddLocationButtonPositionStyle = style({
-  position: "relative",
-  bottom: "220px",
+  position: "fixed",
+  width: "100%",
+  maxWidth: "600px",
+  bottom: "190px",
   justifyContent: "flex-end",
   paddingRight: "20px",
 });
