@@ -5,9 +5,11 @@
 export const API_URLS = {
   GET_CONVEXHULL: "/locations/ConvH/",
   GET_CENTROID: "/locations/centroid/",
-  GET_RANDOM_PROFILE: "/rooms/profile/random", // 랜덤 프로필 이미지, 닉네임 가져오기기
-  POST_CREATE_ROOM: "/rooms", // 방 생성 요청
+  GET_RANDOM_PROFILE: "/rooms/profile/random",
+  POST_CREATE_ROOM: "/rooms",
+  GET_ROOM_INFO: "/rooms",
   POST_ROUTE: "/route/",
   POST_ROUTE_COMPLEX: "/route/complex/",
   GET_RECOMMEND_STATION: "/stations/recommend/",
+  POST_JOIN_ROOM: (roomId: string) => `/rooms/${roomId}/join`,
 };
