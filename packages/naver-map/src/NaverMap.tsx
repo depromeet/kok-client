@@ -7,7 +7,7 @@ import DotMarker from "./DotMarker";
 import { getFinalMarkerElement } from "./FinalMarker";
 import { Flex, LoadingSpinner } from "@repo/ui/components";
 import { useNaverMap } from "./naver-map-provider";
-import ProfileMarker from "./ProfileMarker";
+import { ProfileMarker } from "./overlays/profile-marker";
 
 export const NAVER_MAP_CONFIG = {
   ZOOM_LEVEL: 17,

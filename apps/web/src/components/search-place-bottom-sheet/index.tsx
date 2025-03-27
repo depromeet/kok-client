@@ -15,10 +15,15 @@ import SearchListItem from "./search-list-item";
 import { DeleteIcon, SearchIcon } from "@repo/ui/icons";
 import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
-import { getLatLng, Marker, NaverLatLng, useNaverMap } from "@repo/naver-map";
+import {
+  getLatLng,
+  Marker,
+  NaverLatLng,
+  ProfileMarker,
+  useNaverMap,
+} from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
-import ProfileMarker from "./profile-marker";
 import { useSelectStartPlace } from "@/hooks/api/useSelectStartPlace";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -49,14 +54,17 @@ const SearchPlaceBottomSheet = ({
   const { data: searchList, refetch: fetchSearchList } =
     useGetPlaceSearchList(query);
   const { setStartLocation } = useSetStartLocation();
+  const profileMarkerElement = ProfileMarker({ profileImageUrl: memberImgUrl });
   const marker = Marker({
     map: map!,
-    customMarkerData: {
-      marker: ProfileMarker({ profileImageUrl: memberImgUrl }),
-      width: 48,
-      height: 48,
-    },
-  }); // TODO: 프로필 URL을 전달받아 렌더링
+    customMarkerData: profileMarkerElement
+      ? {
+          marker: profileMarkerElement,
+          width: 48,
+          height: 48,
+        }
+      : undefined, // NOTE: undefined시 기본 마커 사용
+  });
 
   const moveTo = useCallback(
     (latLng: NaverLatLng) => {
