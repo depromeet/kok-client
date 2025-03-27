@@ -10,7 +10,11 @@ import ResultBottomSheet from "@/components/midpoint-result/organisms/ResultBott
 import { overlayStyle, mapContainer } from "./style.css";
 import ResultBanner from "./organisms/ResultBanner";
 
-const MidPointResult = () => {
+interface MidPointResultProps {
+  roomId: string;
+}
+
+const MidPointResult = ({ roomId }: MidPointResultProps) => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
 
@@ -21,7 +25,7 @@ const MidPointResult = () => {
     setIsBannerVisible(false);
   };
 
-  const { data: stationsResponse } = useRecommendStation("test_pt");
+  const { data: stationsResponse } = useRecommendStation(roomId);
 
   const stations = stationsResponse?.data;
   const firstStation = stations?.[0]; //최종역
@@ -29,7 +33,6 @@ const MidPointResult = () => {
     latitude: firstStation?.station.latitude,
     longitude: firstStation?.station.longitude,
   };
-  const roomId = "test_pt";
 
   const { data: simpleData } = useSimpleTransfer(
     firstStation?.station.id ?? 59,

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import MapHeader from "./organisms/MapHeader";
 import RefreshCenterButton from "./organisms/RefreshCenterButton";
 import { Flex } from "@repo/ui/components";
@@ -35,6 +36,7 @@ const FindingMidPoint = ({
   roomId,
   isLeader = false,
 }: FindingMidPointProps) => {
+  const router = useRouter();
   const {
     data: centroid,
     isLoading: centroidLoading,
@@ -61,6 +63,12 @@ const FindingMidPoint = ({
   const handleClick = () => {
     setIsBannerVisible(false);
   };
+
+  useEffect(() => {
+    if (roomInfo?.data?.nonParticipantCount === 0) {
+      router.push(`/result/${roomId}`);
+    }
+  }, [roomInfo?.data?.nonParticipantCount, roomId, router]);
 
   let displayMarkerData: MarkerItem[] = [];
 
