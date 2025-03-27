@@ -1,8 +1,11 @@
-import type { IJoinRoom } from "@/api/types/participate-room";
+import type { IJoinRoom } from "@/api/types/join-room";
 import { useMutation } from "@repo/shared/tanstack-query";
 import roomController from "@/api/controllers/room.controller";
 
-export const useJoinRoom = (options?: { onError?: () => void }) => {
+export const useJoinRoom = (options?: {
+  onError?: () => void;
+  onSuccess?: () => void;
+}) => {
   return useMutation({
     mutationFn: async ({
       roomId,
@@ -15,9 +18,14 @@ export const useJoinRoom = (options?: { onError?: () => void }) => {
     },
 
     onError: (error) => {
-      console.error("방 참여 실패:", error);
       if (options?.onError) {
         options.onError();
+      }
+    },
+
+    onSuccess: (data) => {
+      if (options?.onSuccess) {
+        options.onSuccess(); // onSuccess 콜백 호출
       }
     },
   });

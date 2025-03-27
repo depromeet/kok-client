@@ -31,7 +31,7 @@ const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
             {data ? (
               data.data.roomName
             ) : (
-              <div style={{ height: "16px", width: "20px" }} /> // TODO: 스켈레톤 적용
+              <div style={{ height: "16px", width: "20px" }} />
             )}
             <div className={Style.speachBubbleTail} />
           </Text>

@@ -75,7 +75,6 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
         {/* 아래 */}
         <Flex direction="column" gap={20} className={footerContainerStyle}>
           <Flex direction="column" gap={11}>
-            {/* 호진 todo : 너무 갑자기 나오니까 이상함 인터랙션 필요 */}
             {isInvalid && (
               <Flex align="center">
                 <ErrorIcon />

@@ -26,7 +26,6 @@ export const metadata: Metadata = {
 };
 
 const pretendard = localFont({
-  //localFont를 사용하여 로컬 폰트 적용
   src: "../public/fonts/PretendardVariable.woff2",
   display: "swap",
   weight: "45 920",

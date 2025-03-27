@@ -3,7 +3,7 @@ import type {
   ICreateRoom,
   TCompleteCreateRoom,
 } from "../types/create-room/index.type";
-import type { IJoinRoom } from "../types/participate-room";
+import type { IJoinRoom, TCompleteJoinRoom } from "../types/join-room";
 
 import { postRequest } from "@repo/shared/axios";
 import { API_URLS } from "../../constants/api";
@@ -40,7 +40,7 @@ class RoomController {
 
   public async postJoinRoom(roomId: string, memberValues: IJoinRoom) {
     try {
-      return await postRequest<TCompleteCreateRoom, IJoinRoom>({
+      return await postRequest<TCompleteJoinRoom, IJoinRoom>({
         url: `${BASE_URL}${API_URLS.POST_JOIN_ROOM(roomId)}`,
         data: memberValues,
       });

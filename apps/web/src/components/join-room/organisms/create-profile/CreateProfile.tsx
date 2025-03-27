@@ -1,5 +1,5 @@
 import type { IRaondomProfile } from "@/api/types/create-room/index.type";
-import type { IJoinRoom } from "@/api/types/participate-room";
+import type { IJoinRoom } from "@/api/types/join-room";
 
 import { useCallback, useState } from "react";
 import Image from "next/image";
@@ -24,14 +24,14 @@ interface IRaondomProfileProps {
 
 const WARNING_NICKNAME_LENGTH = 10;
 
-const CreateProfile = ({ randomProfile }: IRaondomProfileProps) => {
+const CreateProfile = ({ randomProfile, setStep }: IRaondomProfileProps) => {
   const router = useRouter();
   const params = useParams();
   const roomId = params?.roomId;
 
   const [profileValue, setProfileValue] = useState<IJoinRoom>({
-    hostProfile: randomProfile.imageUrl,
-    hostNickname: randomProfile.nickname,
+    profile: randomProfile.imageUrl,
+    nickname: randomProfile.nickname,
   });
 
   const { mutateAsync, data } = useJoinRoom({
@@ -39,9 +39,10 @@ const CreateProfile = ({ randomProfile }: IRaondomProfileProps) => {
       alert("방 생성 중 알 수 없는 오류가 발생했습니다.");
       router.replace("/");
     },
+    onSuccess: () => {
+      setStep((prevStep) => prevStep + 1);
+    },
   });
-
-  console.log(data);
 
   const handleBtnClick = () => {
     mutateAsync({
@@ -54,20 +55,20 @@ const CreateProfile = ({ randomProfile }: IRaondomProfileProps) => {
     const newNickname = e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, "");
     setProfileValue((prev) => ({
       ...prev,
-      hostNickname: newNickname,
+      nickname: newNickname,
     }));
   }, []);
 
   const handleClear = useCallback(() => {
     setProfileValue((prev) => ({
       ...prev,
-      hostNickname: "",
+      nickname: "",
     }));
   }, []);
 
   const isOverWarningLength =
-    profileValue.hostNickname.length > WARNING_NICKNAME_LENGTH;
-  const isNicknameEmpty = profileValue.hostNickname.length === 0;
+    profileValue.nickname.length > WARNING_NICKNAME_LENGTH;
+  const isNicknameEmpty = profileValue.nickname.length === 0;
   const isButtonDisabled = isNicknameEmpty || isOverWarningLength;
 
   return (
@@ -100,7 +101,7 @@ const CreateProfile = ({ randomProfile }: IRaondomProfileProps) => {
             <Input
               width="profile"
               placeholder="닉네임을 입력해주세요."
-              value={profileValue.hostNickname}
+              value={profileValue.nickname}
               onChange={handleChange}
               isInvalid={isOverWarningLength}
               rightElement={
