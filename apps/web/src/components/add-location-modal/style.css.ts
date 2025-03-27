@@ -82,3 +82,9 @@ export const lineNumberRecipe = recipe({
 export const stationName = style({
   paddingTop: "1px",
 });
+
+export const mapContainer = style({
+  width: "100%",
+  height: "calc(100dvh - 58px)",
+  backgroundColor: "black",
+});

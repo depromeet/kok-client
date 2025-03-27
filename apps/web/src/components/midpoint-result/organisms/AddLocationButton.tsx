@@ -4,7 +4,7 @@ import { Text, Flex } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import { AddLocationButtonStyle } from "./styles.css";
 import { useState } from "react";
-import AddLocationModal from "./AddLocationModal";
+import AddLocationModal from "@/components/add-location-modal";
 
 const AddLocationButton = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
