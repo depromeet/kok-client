@@ -39,5 +39,3 @@ export const Flex = ({
     </Tag>
   );
 };
-
-Flex.displayName = "Flex";
