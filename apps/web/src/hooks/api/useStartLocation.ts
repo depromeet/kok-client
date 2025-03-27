@@ -23,5 +23,7 @@ export const useGetStartLocation = (roomId: string) => {
     queryKey: ["startLocation", roomId],
     queryFn: () => null, // 실제 API 호출 없음
     enabled: false, // 자동 요청 비활성화
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 };
