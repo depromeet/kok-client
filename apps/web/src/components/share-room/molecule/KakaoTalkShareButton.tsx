@@ -35,9 +35,10 @@ const KakaoTalkShareButton = ({
 
   return (
     <Button
+      {...props}
+      variant="gradient-loop"
       onClick={onClickShareButton}
       className={textRecipe({ variant: "title3" })}
-      {...props}
     >
       {children}
     </Button>
