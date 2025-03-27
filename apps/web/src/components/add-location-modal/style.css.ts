@@ -98,7 +98,6 @@ export const bottomSheetContainer = style({
   maxWidth: "600px",
   borderTopLeftRadius: "32px",
   borderTopRightRadius: "32px",
-  transition: "height 0.3s ease-in-out",
   backgroundColor: theme.colors.bg.base2,
   zIndex: zIndex.overlay + 2,
 });

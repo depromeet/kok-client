@@ -3,15 +3,22 @@ import { DeleteIcon } from "@repo/ui/icons";
 import { useStation } from "../contexts/station";
 import LineNumbers from "./LineNumbers";
 import WarningIcon from "@/assets/icons/WarningIcon";
+import { useSelectFlag } from "../contexts/selected-flag";
 import * as styles from "../style.css";
 
 const AddCandidateBottomSheet = () => {
   const { station, setStation } = useStation();
+  const { setSelectFlag } = useSelectFlag();
 
-  if (!station) return null;
+  if (!station || !setSelectFlag) return null;
 
   const handleClickDelete = () => {
     setStation(null);
+  };
+
+  const handleClickAddCandidate = () => {
+    // TODO: 후보지 추가 API 연결
+    setSelectFlag(true);
   };
 
   return (
@@ -41,7 +48,7 @@ const AddCandidateBottomSheet = () => {
         </Flex>
       </Flex>
 
-      <Button>투표 후보 추가하기</Button>
+      <Button onClick={handleClickAddCandidate}>투표 후보 추가하기</Button>
     </Flex>
   );
 };
