@@ -163,7 +163,6 @@ const SearchPlaceBottomSheet = ({
   useEffect(() => {
     if (!isSuccess || !pathname) return;
 
-    console.log(pathname);
     const roleQueryParam = pathname.includes("member")
       ? ""
       : `?role=${encodeURIComponent("leader")}`;
