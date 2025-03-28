@@ -25,7 +25,7 @@ import {
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
 import { useSelectStartPlace } from "@/hooks/api/useSelectStartPlace";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useSetStartLocation } from "@/hooks/api/useStartLocation";
 
@@ -41,6 +41,7 @@ const SearchPlaceBottomSheet = ({
   memberImgUrl,
 }: SearchPlaceBottomSheetProps) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { mutate, isSuccess } = useSelectStartPlace();
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [place, setPlace] = useState<Place | null>(null);
@@ -160,10 +161,14 @@ const SearchPlaceBottomSheet = ({
   }, [place, moveTo, marker]);
 
   useEffect(() => {
-    if (!isSuccess) return;
+    if (!isSuccess || !pathname) return;
 
-    router.push(`/share/${roomId}?role=${encodeURIComponent("leader")}`);
-  }, [router, isSuccess, roomId]);
+    console.log(pathname);
+    const roleQueryParam = pathname.includes("member")
+      ? ""
+      : `?role=${encodeURIComponent("leader")}`;
+    router.push(`/share/${roomId}${roleQueryParam}`);
+  }, [router, pathname, isSuccess, roomId]);
 
   return (
     <>

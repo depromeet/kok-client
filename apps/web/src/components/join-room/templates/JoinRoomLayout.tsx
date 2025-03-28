@@ -10,6 +10,7 @@ import CreateProfile from "../organisms/create-profile/CreateProfile";
 import { useMoveVisualViewportTop } from "@/hooks/useMoveVisualViewportTop";
 import { useJoinRoom } from "@/hooks/api/useJoinRoom";
 import { useParams, useRouter } from "next/navigation";
+import SelectStartPlace from "@/components/create-room/organisms/select-start-place/SelectStartPlace";
 
 interface IJoinRoomLayoutProps {
   randomProfile: IRaondomProfile;
@@ -68,13 +69,13 @@ const JoinRoomLayout = ({ randomProfile }: IJoinRoomLayoutProps) => {
           setProfileValue={setProfileValue}
         />
       )}
-      {step === 2 && data && <div>형 담당</div>}
-      {/* 
-      props는 이거 복붙 하면 됨.
-      roomId={roomId}
-      memberImgUrl={data.data.profile} 
-      memberId={data.data.id}
-      */}
+      {step === 2 && data && roomId && (
+        <SelectStartPlace
+          roomId={roomId as string}
+          memberImgUrl={data.data.profile}
+          memberId={data.data.id}
+        />
+      )}
     </div>
   );
 };
