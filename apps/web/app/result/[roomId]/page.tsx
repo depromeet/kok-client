@@ -5,10 +5,10 @@ export default async function FinalPage({
   searchParams,
 }: {
   params: Promise<{ roomId: string }>;
-  searchParams?: { memberId?: string };
+  searchParams?: Promise<{ memberId?: string }>;
 }) {
   const { roomId } = await params;
-  const memberId = searchParams?.memberId || "";
+  const memberId = (await searchParams)?.memberId || "";
 
   return <MidPointResult roomId={roomId} memberId={memberId} />;
 }
