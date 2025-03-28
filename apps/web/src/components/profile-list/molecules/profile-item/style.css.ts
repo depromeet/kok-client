@@ -11,9 +11,12 @@ export const imageContainerStyle = style({
   width: "80px",
   height: "80px",
   position: "relative",
+  overflow: "hidden",
+  transformOrigin: "50% 80%",
+  borderRadius: "50%",
+  border: "4px solid transparent",
 });
 
 export const selectedImageStyle = style({
-  border: "4px solid black",
-  borderRadius: "50%",
+  borderColor: "black",
 });
