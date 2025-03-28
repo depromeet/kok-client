@@ -12,9 +12,10 @@ import ResultBanner from "./organisms/ResultBanner";
 
 interface MidPointResultProps {
   roomId: string;
+  memberId: string;
 }
 
-const MidPointResult = ({ roomId }: MidPointResultProps) => {
+const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
 
@@ -35,18 +36,18 @@ const MidPointResult = ({ roomId }: MidPointResultProps) => {
   };
 
   const { data: simpleData } = useSimpleTransfer(
-    firstStation?.station.id ?? 59,
+    firstStation?.station.id || 0,
     {
       roomId: roomId,
-      memberId: "1",
+      memberId: memberId,
     }
   );
 
   const { data: complexData } = useComplexTransfer(
-    firstStation?.station.id ?? 59,
+    firstStation?.station.id || 0,
     {
       roomId: roomId,
-      memberId: "1",
+      memberId: memberId,
     }
   );
 
