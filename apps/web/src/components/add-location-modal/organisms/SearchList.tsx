@@ -29,7 +29,7 @@ const dummyList = [
 
 const SearchList = () => {
   const [inputValue, setInputValue] = useState<string>("");
-  const debouncedValue = useDebounce(inputValue, 300);
+  const debouncedValue = useDebounce<string>(inputValue, 300);
 
   const handleChangeInputValue = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
