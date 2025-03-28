@@ -4,19 +4,27 @@ import { Button, Flex, LoadingDots, Text } from "@repo/ui/components";
 import Image from "next/image";
 import * as Style from "./style.css";
 import { useRoomInfo } from "@/hooks/api/useRoomInfo";
+import { useRouter } from "next/navigation";
+import { usePressEffect } from "@repo/motion";
 
 interface MemberOnboardingProps {
   roomId: string;
 }
 
 const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
+  const router = useRouter();
   const { data } = useRoomInfo(roomId);
+  const { backgroundRef, containerRef, pressProps } = usePressEffect();
 
   const descriptions = [
     "내 프로필을 만들고 출발지를 입력해요",
     "중간장소 후보를 확인하고 추가해요",
     "투표 안한 친구 들을 독촉해요",
   ];
+
+  const handleClickJoin = () => {
+    router.push(`/member/${roomId}/profile`);
+  };
 
   return (
     <Flex
@@ -59,7 +67,17 @@ const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
         </Flex>
       </Flex>
 
-      <Button variant="secondary">약속방 참여하기</Button>
+      <div className={Style.buttonContainer}>
+        <Button
+          variant="secondary"
+          ref={containerRef}
+          {...pressProps}
+          onClick={handleClickJoin}
+        >
+          <div ref={backgroundRef} className={Style.buttonBackground} />
+          약속방 참여하기
+        </Button>
+      </div>
     </Flex>
   );
 };
