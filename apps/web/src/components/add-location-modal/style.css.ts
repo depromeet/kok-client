@@ -80,17 +80,27 @@ export const horizontalDivider = style({
 
 export const lineNumberRecipe = recipe({
   base: {
-    padding: "2px 6px",
-    minWidth: "20px",
-    minHeight: "20px",
     borderRadius: "100px",
     color: "white",
   },
   variants: {
     subway: subwayBackgroundVariants,
+    size: {
+      sm: {
+        padding: "2px 6px",
+        minWidth: "20px",
+        minHeight: "20px",
+      },
+      md: {
+        padding: "4px 12px",
+        minWidth: "40px",
+        minHeight: "40px",
+      },
+    },
   },
   defaultVariants: {
     subway: "default",
+    size: "sm",
   },
 });
 

@@ -16,7 +16,7 @@ const StationBanner = ({ name, lines }: StationBannerProps) => {
         gap={12}
         className={styles.bannerRecipe({ border: lineColor })}
       >
-        <LineNumbers lines={lines} />
+        <LineNumbers lines={lines} size="md" />
         <Text variant="heading3">{name}</Text>
       </Flex>
 
