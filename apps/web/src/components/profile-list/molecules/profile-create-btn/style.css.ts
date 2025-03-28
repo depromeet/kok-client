@@ -14,6 +14,7 @@ export const BtnLayoutStyle = styleVariants({
     backgroundColor: theme.colors.gray20,
     borderRadius: "50%",
     cursor: "default",
+    overflow: "hidden",
   },
   available: {
     width: "80px",
@@ -21,6 +22,7 @@ export const BtnLayoutStyle = styleVariants({
     backgroundColor: theme.colors.navy,
     borderRadius: "50%",
     cursor: "pointer",
+    overflow: "hidden",
   },
 });
 

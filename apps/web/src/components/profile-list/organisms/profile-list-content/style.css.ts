@@ -1,7 +1,7 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 
 export const gridContainerStyle = style({
-  marginTop: "72px",
+  marginTop: "52px",
   paddingBottom: "92px",
   width: "100%",
   maxHeight: "70%",

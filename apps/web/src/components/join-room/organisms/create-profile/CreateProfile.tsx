@@ -3,7 +3,7 @@
 import type { IRaondomProfile } from "@/api/types/create-room/index.type";
 import type { IJoinRoom } from "@/api/types/join-room";
 
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import Image from "next/image";
 import ErrorIcon from "@/components/create-room/atom/error-icon/ErrorIcon";
 import { Button, Flex, Input, Text, textRecipe } from "@repo/ui/components";
@@ -16,57 +16,46 @@ import {
   headingContainerStyle,
   imageContainerStyle,
 } from "./style.css";
-import { useJoinRoom } from "@/hooks/api/useJoinRoom";
-import { useParams, useRouter } from "next/navigation";
 
 interface IRaondomProfileProps {
   randomProfile: IRaondomProfile;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  profileValue: IJoinRoom;
+  setProfileValue: React.Dispatch<React.SetStateAction<IJoinRoom>>;
 }
 
 const WARNING_NICKNAME_LENGTH = 10;
 
-const CreateProfile = ({ randomProfile, setStep }: IRaondomProfileProps) => {
-  const router = useRouter();
-  const params = useParams();
-  const roomId = params?.roomId;
-
-  const [profileValue, setProfileValue] = useState<IJoinRoom>({
-    profile: randomProfile.imageUrl,
-    nickname: randomProfile.nickname,
-  });
-
-  const { mutateAsync, data } = useJoinRoom({
-    onError: () => {
-      alert("방 생성 중 알 수 없는 오류가 발생했습니다.");
-      router.replace("/");
-    },
-    onSuccess: () => {
-      setStep((prevStep) => prevStep + 1);
-    },
-  });
-
+const CreateProfile = ({
+  randomProfile,
+  setStep,
+  profileValue,
+  setProfileValue,
+}: IRaondomProfileProps) => {
   const handleBtnClick = () => {
-    mutateAsync({
-      roomId: roomId as string,
-      profileValue: profileValue,
-    });
+    setStep((prevStep) => prevStep + 1);
   };
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newNickname = e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g, "");
-    setProfileValue((prev) => ({
-      ...prev,
-      nickname: newNickname,
-    }));
-  }, []);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newNickname = e.target.value.replace(
+        /[^ㄱ-ㅎ가-힣a-zA-Z0-9\s]/g,
+        ""
+      );
+      setProfileValue((prev) => ({
+        ...prev,
+        nickname: newNickname,
+      }));
+    },
+    [setProfileValue]
+  );
 
   const handleClear = useCallback(() => {
     setProfileValue((prev) => ({
       ...prev,
       nickname: "",
     }));
-  }, []);
+  }, [setProfileValue]);
 
   const isOverWarningLength =
     profileValue.nickname.length > WARNING_NICKNAME_LENGTH;
@@ -81,12 +70,10 @@ const CreateProfile = ({ randomProfile, setStep }: IRaondomProfileProps) => {
       className={containerStyle}
     >
       <Flex direction="column" align="center">
-        {/* 제목 */}
         <Flex justify="center" className={headingContainerStyle}>
           <Text variant="heading3"> 프로필을 생성해주세요</Text>
         </Flex>
 
-        {/* 프로필 이미지 */}
         <Flex
           align="center"
           direction="column"
@@ -124,7 +111,6 @@ const CreateProfile = ({ randomProfile, setStep }: IRaondomProfileProps) => {
         </Flex>
       </Flex>
 
-      {/* 하단 버튼 */}
       <Flex justify="center" className={footerContainerStyle}>
         <Button
           onClick={handleBtnClick}
