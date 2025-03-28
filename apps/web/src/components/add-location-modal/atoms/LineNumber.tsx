@@ -5,8 +5,9 @@ interface LineNumberProps {
   line: string;
 }
 
-const getLineColorName = (lineName: string): styles.SubwayProps => {
-  if (!isNaN(Number(lineName))) return `line${lineName}` as styles.SubwayProps;
+export const getLineColorName = (lineName: string): styles.SubwayColorProps => {
+  if (!isNaN(Number(lineName)))
+    return `line${lineName}` as styles.SubwayColorProps;
 
   switch (lineName) {
     case "신분당":
