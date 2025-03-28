@@ -59,7 +59,7 @@ const JoinRoomLayout = ({ randomProfile }: IJoinRoomLayoutProps) => {
         lastStep={lastStep}
         backgroundTransparent={step !== lastStep}
       />
-      ₩
+
       {step === 1 && (
         <CreateProfile
           randomProfile={randomProfile}
