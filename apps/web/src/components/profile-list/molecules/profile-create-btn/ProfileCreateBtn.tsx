@@ -18,7 +18,7 @@ const ProfileCreateBtn = ({ isFull }: IProfileCreateBtnProps) => {
 
   const handleClick = () => {
     if (!isFull && roomId) {
-      router.push(`/member/${roomId}/profile/join`);
+      router.push(`/room/${roomId}/create-profile`);
     }
   };
 

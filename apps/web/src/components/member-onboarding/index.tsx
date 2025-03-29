@@ -23,7 +23,7 @@ const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
   ];
 
   const handleClickJoin = () => {
-    router.push(`/member/${roomId}/profile`);
+    router.push(`/room/${roomId}/select-profile`);
   };
 
   return (

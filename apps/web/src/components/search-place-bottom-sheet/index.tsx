@@ -123,6 +123,8 @@ const SearchPlaceBottomSheet = ({
       latitude: Number(place.mapy),
       longitude: Number(place.mapx),
     });
+
+    // router.push(`/share/${roomId}`);
   };
 
   const onClickRemovePlace = () => {
@@ -163,9 +165,9 @@ const SearchPlaceBottomSheet = ({
   useEffect(() => {
     if (!isSuccess || !pathname) return;
 
-    const roleQueryParam = pathname.includes("member")
-      ? ""
-      : `?role=${encodeURIComponent("leader")}`;
+    const roleQueryParam = pathname.includes("create-room")
+      ? `?role=${encodeURIComponent("leader")}`
+      : "";
     router.push(`/share/${roomId}${roleQueryParam}`);
   }, [router, pathname, isSuccess, roomId]);
 
