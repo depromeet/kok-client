@@ -1,6 +1,6 @@
 import { transportContainerStyle, progressBarStyle } from "./styles.css";
 import { theme } from "@repo/ui/tokens";
-import { Text } from "@repo/ui/components";
+import { Flex, Text } from "@repo/ui/components";
 import { getSubwayColor } from "../../../utils/subway";
 import {
   Line1,
@@ -41,6 +41,7 @@ interface TransportBarProps {
   isSubway: boolean;
   color?: string;
   route?: string; // 노선명 ('수도권1호선', '수도권2호선')
+  mode?: "WALK" | "SUBWAY" | "BUS";
 }
 
 const TransportBar = ({
@@ -50,6 +51,7 @@ const TransportBar = ({
   isSubway,
   color,
   route,
+  mode,
 }: TransportBarProps) => {
   const getBarColor = () => {
     if (isSubway) {
@@ -64,6 +66,12 @@ const TransportBar = ({
       }
     }
     return color || SUBWAY_COLORS.default;
+  };
+
+  const getBusNumber = (route: string | undefined) => {
+    if (!route) return "";
+    const match = route.match(/[^:]+:(.+)/);
+    return match ? match[1] : "";
   };
 
   // SUBWAY | BUS | WALK 에 따라 아이콘 결정
@@ -93,38 +101,71 @@ const TransportBar = ({
             return <></>;
         }
       }
-    } else if (route === "BUS") {
-      return <BusIcon />;
+      if (route) {
+        if (route.includes("수인분당")) {
+          return <LineSuinBundang />;
+        } else if (route.includes("신분당")) {
+          return <LineShinBundang />;
+        } else if (route.includes("경의중앙")) {
+          return <LineGyeonguiJungang />;
+        } else if (route.includes("인천1호선")) {
+          return <LineIncheon1 />;
+        } else if (route.includes("인천2호선")) {
+          return <LineIncheon2 />;
+        }
+      }
+    } else if (mode === "BUS") {
+      return (
+        <Flex
+          direction="column"
+          align="center"
+          style={{
+            transform: "translate(2px, 4px)",
+          }}
+        >
+          <BusIcon />
+          {mode === "BUS" && route && (
+            <Text
+              variant="subway"
+              style={{ color: theme.colors.gray40, marginTop: "2px" }}
+            >
+              {getBusNumber(route)}
+            </Text>
+          )}
+        </Flex>
+      );
     }
     return <></>; // WALK
   };
 
   return (
     <div className={transportContainerStyle} style={{ width: `${width}%` }}>
-      {renderLineIcon()}
+      <div
+        style={{
+          zIndex: 2,
+          transform: "translate(0, 2px)",
+        }}
+      >
+        {renderLineIcon()}
+      </div>
       <div
         className={progressBarStyle}
         style={{ backgroundColor: getBarColor() }}
       >
-        {/* TODO: 스타일 수정 */}
         <div
           style={{
             position: "absolute",
             left: "50%",
             top: "50%",
             transform: "translate(-50%, -50%)",
-            color: theme.colors.gray0,
-            fontSize: "12px",
-            fontWeight: "bold",
           }}
         >
-          {(isSubway || route === "BUS") && (
-            <Text
-              variant={isSubway ? "subway" : "caption"}
-              style={{ color: theme.colors.gray0 }}
-            >
-              {time} 분
-            </Text>
+          {(isSubway || mode === "BUS") && (
+            <>
+              <Text variant="subway" style={{ color: theme.colors.gray0 }}>
+                {time} 분
+              </Text>
+            </>
           )}
         </div>
       </div>

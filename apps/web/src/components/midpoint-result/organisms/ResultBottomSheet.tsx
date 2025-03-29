@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, Text, AnimationBottomSheet } from "@repo/ui/components";
+import { Flex, Text, AnimationBottomSheet } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
 import * as styles from "./styles.css";
@@ -37,13 +37,12 @@ const ResultBottomSheet = ({
   bannerBottom,
   roomId = "",
 }: ResultBottomSheetProps) => {
-  const onClickCopyLink = () => {
-    alert("링크 복사하기 클릭!");
-  };
-
   const transferTotalTime = secondsToTime(totalTime);
   const transferTotalDistance = metersToKilometersString(totalDistance);
-
+  const getWidthPercentage = (sectionTime: number) => {
+    const originalPercentage = (sectionTime / totalTime) * 100;
+    return originalPercentage < 5 ? 5 : Math.round(originalPercentage);
+  };
   return (
     <AnimationBottomSheet
       initialY="100%"
@@ -91,9 +90,7 @@ const ResultBottomSheet = ({
       <div className={styles.directionLineStyle}>
         <Flex direction="row" style={{ width: "100%", height: "100%" }}>
           {legs.map((leg, index) => {
-            const widthPercentage = Math.round(
-              (leg.sectionTime / totalTime) * 100
-            );
+            const widthPercentage = getWidthPercentage(leg.sectionTime);
 
             if (leg.mode === "SUBWAY") {
               return (
@@ -107,6 +104,7 @@ const ResultBottomSheet = ({
                     leg.routeColor ? `#${leg.routeColor}` : theme.colors.gray40
                   }
                   route={leg.route || undefined}
+                  mode={leg.mode}
                 />
               );
             } else if (leg.mode === "BUS") {
@@ -118,7 +116,8 @@ const ResultBottomSheet = ({
                   lineNum={0}
                   isSubway={false}
                   color={theme.colors.gray40}
-                  route="BUS"
+                  route={leg.route || undefined}
+                  mode={leg.mode}
                 />
               );
             } else {
@@ -132,6 +131,7 @@ const ResultBottomSheet = ({
                   isSubway={false}
                   color={theme.colors.gray15}
                   route="WALK"
+                  mode={leg.mode}
                 />
               );
             }
