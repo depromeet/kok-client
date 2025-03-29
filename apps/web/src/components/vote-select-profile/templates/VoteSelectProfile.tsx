@@ -4,11 +4,13 @@ import { Flex, Text, Button, Spacing } from "@repo/ui/components";
 import * as Style from "./style.css";
 import { ProfileList } from "../organism/ProfileList";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { profileList } from "./dummy";
 
-export function VoteSelectProfile() {
-  const router = useRouter();
+interface Props {
+  onNext: VoidFunction;
+}
+
+export function VoteSelectProfile({ onNext }: Props) {
   const [selectedProfileId, setSelectedProfileId] = useState<string>();
 
   return (
@@ -38,10 +40,7 @@ export function VoteSelectProfile() {
 
       {/* 아래 */}
       <div className={Style.footerContainerStyle}>
-        <Button
-          disabled={selectedProfileId == null}
-          onClick={() => router.push("/vote/voting")}
-        >
+        <Button disabled={selectedProfileId == null} onClick={onNext}>
           투표 하러가기
         </Button>
       </div>

@@ -8,12 +8,14 @@ import { Counter } from "../atom/Counter";
 import { Controller } from "../atom/Controller";
 import { CardList } from "../organism/CardList";
 import { dummyPlaceList } from "@/components/vote-voting/templates/dummy";
-import { useRouter } from "next/navigation";
 
 const DUMMY_REST_TIME = "9시간 59분";
 
-export function VoteVotingLayout() {
-  const router = useRouter();
+interface Props {
+  onNext: VoidFunction;
+}
+
+export function VoteVotingLayout({ onNext }: Props) {
   const [view, setView] = useState<"card" | "list">("card");
   const [order, setOrder] = useState(1);
 
@@ -60,9 +62,7 @@ export function VoteVotingLayout() {
 
       {/* 아래 */}
       <div className={Style.footerContainerStyle}>
-        <Button onClick={() => router.push("/vote/finish")}>
-          1가지 이상 장소에 콕!
-        </Button>
+        <Button onClick={onNext}>1가지 이상 장소에 콕!</Button>
       </div>
     </Flex>
   );
