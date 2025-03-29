@@ -1,12 +1,14 @@
+"use client";
+
 import { VoteSelectProfile } from "@/components/vote-select-profile/templates/VoteSelectProfile";
 import { useState } from "react";
 import { VoteVotingLayout } from "@/components/vote-voting/templates/VoteVotingLayout";
 import { VoteFinishTemplate } from "@/components/vote-finish/templates/VoteFinishTemplate";
 
 export default function Page() {
-  const [funnel, setFunnel] = useState<
-    "select-profile" | "voting" | "finish"
-  >();
+  const [funnel, setFunnel] = useState<"select-profile" | "voting" | "finish">(
+    "select-profile"
+  );
 
   if (funnel === "select-profile") {
     return <VoteSelectProfile onNext={() => setFunnel("voting")} />;
