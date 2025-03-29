@@ -18,7 +18,7 @@ import {
 } from "./style.css";
 import TopIcon from "../../atom/top-icon/TopIcon";
 import BottomIcon from "../../atom/bottom-icon/BottomIcon";
-import { motion, useAnimationControls } from "@repo/motion";
+import { AnimateNumber, motion, useAnimationControls } from "@repo/motion";
 
 interface ICreateRoomPeople {
   onNext: (capacity: number) => void;
@@ -97,7 +97,7 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
           <Flex gap={4} align="center" justify="center">
             <Flex align="center" justify="center" className={peopleCountStyle}>
               <Text variant="body1" style={{ cursor: "default" }}>
-                {peopleCount}
+                <AnimateNumber variant="type1" number={peopleCount} />
               </Text>
             </Flex>
 
