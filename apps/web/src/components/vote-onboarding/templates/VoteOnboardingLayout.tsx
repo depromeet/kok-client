@@ -5,13 +5,14 @@ import * as Style from "./style.css";
 import { Tooltip } from "../atom/Tooltip/Tooltip";
 import Image from "next/image";
 import { Stepper } from "../atom/Stepper/Stepper";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const DUMMY_PLACE_NUM = 3;
 const DUMMY_HOUR = "9시간 59분";
 
 export function VoteOnboardingLayout() {
   const router = useRouter();
+  const params = useParams();
 
   return (
     <Flex
@@ -54,7 +55,9 @@ export function VoteOnboardingLayout() {
         <Spacing size={20} />
         <Button
           variant="secondary"
-          onClick={() => router.push("/vote/select-profile")}
+          onClick={() =>
+            router.push(`/room/${params?.roomId}/vote/select-profile`)
+          }
         >
           투표 참여하기
         </Button>
