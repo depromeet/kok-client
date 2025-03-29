@@ -48,6 +48,10 @@ export const buttonReceipe = recipe({
         backgroundSize: "200% 200%",
         animation: `${gradientMove} 4s linear infinite`,
       },
+      border: {
+        color: theme.colors.text.secondary,
+        border: `1px solid ${theme.colors.gray10}`,
+      },
     },
     width: {
       full: { width: "100%" },
