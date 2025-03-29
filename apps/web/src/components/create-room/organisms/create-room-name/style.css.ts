@@ -24,3 +24,7 @@ export const footerContainerStyle = style({
   transform: "translateX(-50%)",
   zIndex: zIndex.floating,
 });
+
+export const deleteButtonStyle = style({
+  height: 24,
+});

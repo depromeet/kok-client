@@ -1,7 +1,6 @@
 import { zIndex } from "./../../../../z-index/src/index";
 import { recipe } from "@vanilla-extract/recipes";
 import { style, styleVariants } from "@vanilla-extract/css";
-import { theme } from "../../tokens";
 
 export const progressBarContainerStyle = style({
   margin: "0 auto",
@@ -20,23 +19,15 @@ export const progressBarRecipe = recipe({
 
   variants: {
     status: {
-      current: {
+      active: {
         width: "26px",
         height: "8px",
         borderRadius: "14px",
-        backgroundColor: theme.colors.gray95,
-      },
-      active: {
-        width: "8px",
-        height: "8px",
-        borderRadius: "50%",
-        backgroundColor: theme.colors.gray15,
       },
       inactive: {
         width: "8px",
         height: "8px",
-        borderRadius: "50%",
-        backgroundColor: theme.colors.gray15,
+        borderRadius: "14px",
       },
     },
   },

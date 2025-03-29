@@ -5,6 +5,8 @@ import {
   progressBarRecipe,
 } from "./style.css";
 import { classMerge } from "../../utils";
+import { motion } from "@repo/motion";
+import { theme } from "../../tokens";
 
 interface ProgressBarProps {
   step: number;
@@ -29,19 +31,22 @@ export const ProgressBar = ({
           : backgroundStyle.solid
       )}
     >
-      {Array.from({ length: lastStep }, (_, index) => (
-        <div
-          key={index}
-          className={progressBarRecipe({
-            status:
-              index === step - 1
-                ? "current"
-                : index < step - 1
-                  ? "active"
-                  : "inactive",
-          })}
-        />
-      ))}
+      {Array.from({ length: lastStep }, (_, index) => {
+        const status = index === step - 1 ? "active" : "inactive";
+        console.log(status);
+        return (
+          <motion.div
+            key={index}
+            initial={status}
+            variants={{
+              active: { width: 26, backgroundColor: theme.colors.gray95 },
+              inactive: { width: 8, backgroundColor: theme.colors.gray15 },
+            }}
+            animate={status}
+            className={progressBarRecipe({ status })}
+          />
+        );
+      })}
     </Flex>
   );
 };

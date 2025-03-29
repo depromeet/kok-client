@@ -2,6 +2,7 @@ import { Flex, Text } from "@repo/ui/components";
 import { Place } from "../types";
 import * as Style from "./style.css";
 import { classMerge } from "@repo/ui/utils";
+import { motion } from "@repo/motion";
 
 interface SearchListItemProps extends Place {
   isLast?: boolean;
@@ -19,7 +20,10 @@ const SearchListItem = ({
   const parts = title.split(/(<b>.*?<\/b>)/g);
 
   return (
-    <li className={classMerge(Style.listItem, isLast ? "" : Style.divider)}>
+    <motion.li
+      whileTap={{ scale: 0.96 }}
+      className={classMerge(Style.listItem, isLast ? "" : Style.divider)}
+    >
       <Flex
         as="button"
         direction="column"
@@ -44,7 +48,7 @@ const SearchListItem = ({
           {address}
         </Text>
       </Flex>
-    </li>
+    </motion.li>
   );
 };
 

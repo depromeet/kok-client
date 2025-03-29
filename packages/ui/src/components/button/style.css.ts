@@ -4,6 +4,10 @@ import { theme } from "../../tokens";
 
 export type ButtonVariants = RecipeVariants<typeof buttonReceipe>;
 
+export const buttonContainerStyle = style({
+  width: "inherit",
+});
+
 const buttonReset = style({
   display: "inline-flex",
   justifyContent: "center",

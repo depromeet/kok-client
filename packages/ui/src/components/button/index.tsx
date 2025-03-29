@@ -1,12 +1,20 @@
+import { mergeProps } from "react-aria";
 import { ButtonHTMLAttributes, PropsWithChildren, RefObject } from "react";
-import { buttonReceipe, ButtonVariants } from "./style.css";
+import {
+  buttonContainerStyle,
+  buttonReceipe,
+  ButtonVariants,
+} from "./style.css";
 import { classMerge } from "../../utils";
+import { motion, usePressEffect } from "@repo/motion";
+import mergeRefs from "merge-refs";
+import { theme } from "../../tokens";
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   ButtonVariants & { ref?: RefObject<HTMLButtonElement | null> };
 
 export const Button = ({
-  variant,
+  variant = "primary",
   width,
   padding,
   ref,
@@ -14,20 +22,50 @@ export const Button = ({
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
+  const { containerRef, pressProps } = usePressEffect();
+
   return (
-    <button
-      className={classMerge(
-        buttonReceipe({
-          variant,
-          width,
-          padding,
-        }),
-        className
-      )}
-      ref={ref}
-      {...props}
+    <motion.div
+      className={buttonContainerStyle}
+      variants={{
+        wiggle: {
+          x: [4, -4, 4, -4, 4, -4, 4, -4],
+        },
+      }}
+      transition={{ duration: 3 }}
+      whileTap={props.disabled ? "wiggle" : ""}
     >
-      {children}
-    </button>
+      <motion.button
+        animate={
+          props.disabled
+            ? {
+                background: theme.colors.gray20,
+              }
+            : { background: buttonBackgroundVariants[variant] }
+        }
+        className={classMerge(
+          buttonReceipe({
+            variant,
+            width,
+            padding,
+          }),
+          className
+        )}
+        ref={mergeRefs(ref, containerRef)}
+        {...mergeProps(props, props.disabled ? {} : pressProps)}
+      >
+        {children}
+      </motion.button>
+    </motion.div>
   );
+};
+
+const buttonBackgroundVariants: Record<
+  "primary" | "secondary" | "border" | "gradient-loop",
+  string
+> = {
+  primary: theme.colors.navy,
+  secondary: theme.colors.orange40,
+  border: "transparent",
+  "gradient-loop": "linear-gradient(90deg, #1B202C, #263350, #1B202C)",
 };

@@ -45,6 +45,7 @@ export const imageWrapperStyle = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  WebkitTapHighlightColor: "transparent",
 });
 
 export const imageStyle = style({
@@ -60,6 +61,7 @@ export const TopIconStyle = style({
   padding: "4px",
   backgroundColor: "#FFFFFFCC",
   borderRadius: "8px 8px 0 0 ",
+  WebkitTapHighlightColor: "transparent",
 });
 
 export const BottomIconStyle = style({
@@ -69,4 +71,5 @@ export const BottomIconStyle = style({
   padding: "4px",
   backgroundColor: "#FFFFFFCC",
   borderRadius: "0 0 8px 8px ",
+  WebkitTapHighlightColor: "transparent",
 });
