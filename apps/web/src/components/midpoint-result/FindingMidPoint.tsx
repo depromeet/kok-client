@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import MapHeader from "./organisms/MapHeader";
 import RefreshCenterButton from "./organisms/RefreshCenterButton";
 import { Flex } from "@repo/ui/components";
@@ -25,18 +24,19 @@ import {
 import StartBanner from "./organisms/StartBanner";
 import AddLocationButton from "./organisms/AddLocationButton";
 import { useRoomInfo } from "@/hooks/api/useRoomInfo";
-import { useGetStartLocation } from "@/hooks/api/useStartLocation";
+import { useMemberLocation } from "@/hooks/api/useLocation";
 
 interface FindingMidPointProps {
   roomId: string;
+  memberId: string;
   isLeader?: boolean;
 }
 
 const FindingMidPoint = ({
   roomId,
+  memberId,
   isLeader = false,
 }: FindingMidPointProps) => {
-  const router = useRouter();
   const {
     data: centroid,
     isLoading: centroidLoading,
@@ -55,41 +55,25 @@ const FindingMidPoint = ({
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
   const { data: roomInfo, refetch: refetchRoomInfo } = useRoomInfo(roomId);
-  const { data: startLocation } = useGetStartLocation(roomId);
+  const { data: locationsData } = useMemberLocation(roomId, memberId);
 
   const handleBannerClose = () => {
     setIsOverlayVisible(false);
   };
+
   const handleClick = () => {
     setIsBannerVisible(false);
   };
 
-  useEffect(() => {
-    if (roomInfo?.data?.nonParticipantCount === 0) {
-      router.push(`/result/${roomId}`);
-    }
-  }, [roomInfo?.data?.nonParticipantCount, roomId, router]);
-
   let displayMarkerData: MarkerItem[] = [];
-
-  if (markerData.length > 1) {
+  if (markerData.length > 0) {
     displayMarkerData = markerData;
-  } else if (startLocation?.latitude && startLocation?.longitude) {
-    displayMarkerData = [
-      {
-        id: "leader-position",
-        position: {
-          lat: startLocation.latitude,
-          lng: startLocation.longitude,
-        },
-        profileUrl: startLocation.profileImageUrl || "",
-      },
-    ];
   }
 
   if (centroidLoading || convHLoading) {
     return <div>Loading...</div>;
   }
+
   const roomName = roomInfo?.data?.roomName || "";
 
   return (
@@ -123,6 +107,17 @@ const FindingMidPoint = ({
           markerData={displayMarkerData}
           centerMarker={markerData.length > 1 ? centerMarkerData : undefined}
           polygon={markerData.length > 1 ? polygonPath : []}
+          memberMarkers={
+            locationsData?.data
+              ? [
+                  {
+                    latitude: locationsData.data.latitude,
+                    longitude: locationsData.data.longitude,
+                    imageUrl: locationsData.data.imageUrl,
+                  },
+                ]
+              : []
+          }
         />
         {isOverlayVisible && (
           <div className={overlayStyle} onClick={handleClick} />
@@ -132,7 +127,7 @@ const FindingMidPoint = ({
         </Flex>
         <ParticipantBottomSheet
           roomId={roomId}
-          totalParticipants={roomInfo?.data?.nonParticipantCount} // 소정 TODO
+          totalParticipants={roomInfo?.data?.nonParticipantCount}
           banner={
             isOverlayVisible && (
               <StartBanner

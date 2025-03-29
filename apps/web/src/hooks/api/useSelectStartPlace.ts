@@ -3,7 +3,7 @@ import { useMutation } from "@repo/shared/tanstack-query";
 
 const selectStartPlace = async (requestBody: LocationsRequestProps) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/api/locations`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/locations`,
     {
       method: "POST",
       headers: {

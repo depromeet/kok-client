@@ -5,10 +5,14 @@ export default async function ShareRoomPage({
   searchParams,
 }: {
   params: Promise<{ roomId: string }>;
-  searchParams?: Promise<{ role?: string }>;
+  searchParams?: Promise<{ role?: string; memberId?: string }>;
 }) {
   const { roomId } = await params;
-  const isLeader = (await searchParams)?.role === "leader";
+  const resolvedSearchParams = await searchParams;
+  const isLeader = resolvedSearchParams?.role === "leader";
+  const memberId = resolvedSearchParams?.memberId || "";
 
-  return <FindingMidPoint roomId={roomId} isLeader={isLeader} />;
+  return (
+    <FindingMidPoint roomId={roomId} isLeader={isLeader} memberId={memberId} />
+  );
 }
