@@ -28,6 +28,8 @@ import { useSelectStartPlace } from "@/hooks/api/useSelectStartPlace";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useSetStartLocation } from "@/hooks/api/useStartLocation";
+import { searchButton } from "@/components/search-place-bottom-sheet/style.css";
+import { AnimatePresence, motion } from "@repo/motion";
 
 interface SearchPlaceBottomSheetProps {
   roomId: string;
@@ -173,9 +175,17 @@ const SearchPlaceBottomSheet = ({
 
   return (
     <>
-      {isSearching && (
-        <div className={Style.backgroundDimmed} onClick={onClickBackground} />
-      )}
+      <AnimatePresence>
+        {isSearching && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={Style.backgroundDimmed}
+            onClick={onClickBackground}
+          />
+        )}
+      </AnimatePresence>
       <Flex
         as="section"
         direction="column"
@@ -184,42 +194,56 @@ const SearchPlaceBottomSheet = ({
         })}
       >
         {!place && (
-          <>
+          <div className={Style.placeContainer}>
             <Text variant="title2">어디서 출발하시나요?</Text>
 
-            <Input
-              className={Style.input}
-              variant="search"
-              placeholder="아파트, 지하철역 등 장소 검색"
-              value={query}
-              rightElement={
-                <button onClick={onClickSearchButton}>
-                  <SearchIcon />
-                </button>
-              }
-              padding="xs"
-              onChange={onChangeInputText}
-              onFocus={onFocusSearchInput}
-            />
+            <motion.div whileTap={{ scale: 0.96 }}>
+              <Input
+                className={Style.input}
+                variant="search"
+                placeholder="아파트, 지하철역 등 장소 검색"
+                value={query}
+                rightElement={
+                  <motion.button
+                    className={searchButton}
+                    onClick={onClickSearchButton}
+                  >
+                    <SearchIcon />
+                  </motion.button>
+                }
+                padding="xs"
+                onChange={onChangeInputText}
+                onFocus={onFocusSearchInput}
+              />
+            </motion.div>
 
-            {!isSearching && (
-              <Button
-                className={textRecipe({ variant: "title3" })}
-                onClick={onClickCurrentLocation}
-                disabled={isLoading}
-              >
-                <Flex as="div" gap={4} align="center">
-                  {isLoading ? (
-                    <LoadingDots />
-                  ) : (
-                    <>
-                      <CurrentLocationIcon />
-                      <Text variant="title3">현재 내 위치</Text>
-                    </>
-                  )}
-                </Flex>
-              </Button>
-            )}
+            <AnimatePresence>
+              {!isSearching && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className={Style.buttonContainer}
+                >
+                  <Button
+                    className={textRecipe({ variant: "title3" })}
+                    onClick={onClickCurrentLocation}
+                    disabled={isLoading}
+                  >
+                    <Flex as="div" gap={4} align="center">
+                      {isLoading ? (
+                        <LoadingDots />
+                      ) : (
+                        <>
+                          <CurrentLocationIcon />
+                          <Text variant="title3">현재 내 위치</Text>
+                        </>
+                      )}
+                    </Flex>
+                  </Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {isSearching && searchList && (
               <Flex
@@ -253,7 +277,7 @@ const SearchPlaceBottomSheet = ({
                 )}
               </Flex>
             )}
-          </>
+          </div>
         )}
 
         {place && (

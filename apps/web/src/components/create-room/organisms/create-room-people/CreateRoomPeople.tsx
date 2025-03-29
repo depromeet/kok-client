@@ -18,6 +18,7 @@ import {
 } from "./style.css";
 import TopIcon from "../../atom/top-icon/TopIcon";
 import BottomIcon from "../../atom/bottom-icon/BottomIcon";
+import { motion, useAnimationControls } from "@repo/motion";
 
 interface ICreateRoomPeople {
   onNext: (capacity: number) => void;
@@ -34,6 +35,7 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
     (_, i) => `/images/create-room/${i + 1}.png`
   );
   const isButtonDisabled = peopleCount < MIN_PEOPLE || peopleCount > MAX_PEOPLE;
+  const control = useAnimationControls();
 
   const handleIncrease = () => {
     if (peopleCount < MAX_PEOPLE) {
@@ -90,6 +92,7 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
         </div>
 
         {/* 명 수 입력 */}
+
         <Flex gap={12} align="center" justify="center">
           <Flex gap={4} align="center" justify="center">
             <Flex align="center" justify="center" className={peopleCountStyle}>
@@ -100,7 +103,8 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
 
             <Flex direction="column">
               {/* 증가 버튼 */}
-              <button
+              <motion.button
+                whileTap={{ opacity: 0.5 }}
                 style={{
                   cursor:
                     peopleCount === MAX_PEOPLE ? "not-allowed" : "pointer",
@@ -110,10 +114,11 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
                 onClick={handleIncrease}
               >
                 <TopIcon disabled={peopleCount === MAX_PEOPLE} />
-              </button>
+              </motion.button>
 
               {/* 감소 버튼 */}
-              <button
+              <motion.button
+                whileTap={{ opacity: 0.5 }}
                 style={{
                   cursor:
                     peopleCount === MIN_PEOPLE ? "not-allowed" : "pointer",
@@ -123,10 +128,9 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
                 onClick={handleDecrease}
               >
                 <BottomIcon disabled={peopleCount === MIN_PEOPLE} />
-              </button>
+              </motion.button>
             </Flex>
           </Flex>
-
           <Text variant="body1">명</Text>
         </Flex>
       </Flex>
@@ -137,7 +141,15 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
 
         <div className={gridContainerStyle}>
           {images.map((src, index) => (
-            <div
+            <motion.div
+              variants={{
+                active: { opacity: 1 },
+                inactive: { opacity: 0.55 },
+              }}
+              animate={index >= peopleCount ? "inactive" : "active"}
+              whileTap={{
+                scale: 0.96,
+              }}
               key={index}
               className={imageWrapperStyle}
               onClick={() => handleImageClick(index)}
@@ -153,7 +165,7 @@ const CreateRoomPeople = ({ onNext, roomName }: ICreateRoomPeople) => {
                   opacity: index >= peopleCount ? 0.55 : 1,
                 }}
               />
-            </div>
+            </motion.div>
           ))}
         </div>
 

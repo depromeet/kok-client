@@ -52,8 +52,10 @@
     ]
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.6",
     "@repo/motion": "workspace:*",
     "@repo/z-index": "workspace:*",
-    "@radix-ui/react-dialog": "^1.1.6"
+    "merge-refs": "^2.0.0",
+    "react-aria": "^3.38.1"
   }
 }

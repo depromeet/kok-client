@@ -40,8 +40,26 @@ export const containerRecipe = recipe({
   },
 });
 
+export const placeContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  justifyContent: "space-between",
+});
+
+export const buttonContainer = style({
+  position: "absolute",
+  bottom: 20,
+  right: 20,
+  left: 20,
+});
+
 export const input = style({
   margin: "20px 0",
+});
+
+export const searchButton = style({
+  WebkitTapHighlightColor: "transparent",
 });
 
 export const seachResultList = style({
