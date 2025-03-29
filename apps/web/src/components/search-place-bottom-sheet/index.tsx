@@ -110,6 +110,13 @@ const SearchPlaceBottomSheet = ({
 
   const onClickSelectPlace = () => {
     if (!place) return;
+
+    marker.cleanUp();
+    marker.create({
+      latitude: Number(place.mapy),
+      longitude: Number(place.mapx),
+    });
+
     setStartLocation({
       roomId,
       latitude: Number(place.mapy),
@@ -122,9 +129,8 @@ const SearchPlaceBottomSheet = ({
       memberId,
       latitude: Number(place.mapy),
       longitude: Number(place.mapx),
+      name: place.address,
     });
-
-    // router.push(`/share/${roomId}`);
   };
 
   const onClickRemovePlace = () => {
@@ -166,10 +172,10 @@ const SearchPlaceBottomSheet = ({
     if (!isSuccess || !pathname) return;
 
     const roleQueryParam = pathname.includes("create-room")
-      ? `?role=${encodeURIComponent("leader")}`
-      : "";
+      ? `?memberId=${encodeURIComponent(memberId)}&role=${encodeURIComponent("leader")}`
+      : `?memberId=${encodeURIComponent(memberId)}`;
     router.push(`/share/${roomId}${roleQueryParam}`);
-  }, [router, pathname, isSuccess, roomId]);
+  }, [router, pathname, isSuccess, roomId, memberId]);
 
   return (
     <>

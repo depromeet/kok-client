@@ -10,6 +10,11 @@ export interface NaverMapProps {
   markerData?: MarkerDataCollection | MarkerItem[]; // 두 형태 모두 지원하도록 변경
   finalCenterMarker?: LocationCentroid;
   centerMarker?: LocationCentroid;
+  memberMarkers?: {
+    latitude: number;
+    longitude: number;
+    imageUrl?: string;
+  }[];
   onMarkerClick?: (markerId: number) => void;
   polygon?: { lat: number; lng: number }[];
 }

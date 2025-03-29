@@ -5,6 +5,7 @@
 export const API_URLS = {
   GET_CONVEXHULL: "/locations/ConvH/",
   GET_CENTROID: "/locations/centroid/",
+  GET_LOCATION: "/locations/",
   GET_RANDOM_PROFILE: "/rooms/profile/random",
   POST_CREATE_ROOM: "/rooms",
   GET_ROOM_INFO: "/rooms",

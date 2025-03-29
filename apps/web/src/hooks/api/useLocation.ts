@@ -4,6 +4,9 @@ import type {
   LocationCentroid,
   LocationConvexHull,
 } from "@/api/types/location/location.types";
+import { LocationsResponse } from "@/api/types/locations/index.types";
+import { getRequest } from "@repo/shared/axios";
+import { API_URLS } from "@/constants/api";
 
 export const useLocationCentroid = (roomId: string) => {
   const result = useQuery<
@@ -26,7 +29,7 @@ export const useLocationCentroid = (roomId: string) => {
     return {
       roomId: apiData.roomId || roomId,
       latitude: apiData.latitude, // 3.20 수정완료
-      longitude: apiData.longitude, //
+      longitude: apiData.longitude,
     };
   })();
 
@@ -78,4 +81,14 @@ export const useLocationConvexHull = (roomId: string) => {
     ...result,
     data: transformedData,
   };
+};
+
+export const useMemberLocation = (roomId: string, memberId: string) => {
+  return useQuery({
+    queryKey: ["locations", roomId, memberId],
+    queryFn: () =>
+      getRequest<LocationsResponse>({
+        url: `${API_URLS.GET_LOCATION}${roomId}/${memberId}`,
+      }),
+  });
 };
