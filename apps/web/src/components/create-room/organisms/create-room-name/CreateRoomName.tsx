@@ -7,11 +7,13 @@ import { DeleteIcon } from "@repo/ui/icons";
 
 import {
   containerStyle,
+  deleteButtonStyle,
   footerContainerStyle,
   headingContainerStyle,
   invalidSpanStyle,
 } from "./style.css";
 import ErrorIcon from "../../atom/error-icon/ErrorIcon";
+import { motion } from "@repo/motion";
 
 interface ICreateRoomName {
   onNext: (name: string) => void;
@@ -64,9 +66,14 @@ const CreateRoomName = ({ onNext }: ICreateRoomName) => {
             isInvalid={isInvalid}
             rightElement={
               inputValue.length > 0 ? (
-                <button onClick={handleClear}>
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  onClick={handleClear}
+                  className={deleteButtonStyle}
+                >
                   <DeleteIcon />
-                </button>
+                </motion.button>
               ) : null
             }
           />
