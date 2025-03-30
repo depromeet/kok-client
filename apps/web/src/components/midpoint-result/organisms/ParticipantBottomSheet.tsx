@@ -8,9 +8,8 @@ import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 import { ReactNode } from "react";
 
 interface ParticipantBottomSheetProps {
-  totalParticipants?: number;
-  roomId?: string;
-  roomName?: string;
+  roomId: string;
+  totalParticipants?: number | React.ReactNode;
   banner?: ReactNode;
 }
 

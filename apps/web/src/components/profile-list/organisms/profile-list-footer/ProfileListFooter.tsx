@@ -1,5 +1,7 @@
 import { Button, Flex, textRecipe } from "@repo/ui/components";
 import { useRouter, useParams } from "next/navigation";
+import { useQueryClient } from "@repo/shared/tanstack-query";
+import { prefetchRoomData } from "@/utils/prefetch";
 
 import { footerContainerStyle } from "./style.css";
 
@@ -10,11 +12,15 @@ interface IProfileListFooterProps {
 const ProfileListFooter = ({ currentMemberId }: IProfileListFooterProps) => {
   const router = useRouter();
   const params = useParams();
+  const queryClient = useQueryClient();
   const roomId = (params?.roomId as string) || "";
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     if (currentMemberId) {
-      router.push(`/share/${roomId}?memberId=${currentMemberId}`);
+      await prefetchRoomData(queryClient, roomId);
+
+      router.prefetch(`/share/${roomId}?memberId=${currentMemberId}`);
+      router.replace(`/share/${roomId}?memberId=${currentMemberId}`);
     }
   };
 

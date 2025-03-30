@@ -10,7 +10,7 @@ import { Mascot } from "./Mascot";
 interface BannerProps {
   onClose: () => void;
   title: string;
-  roomName: string;
+  roomName?: string | React.ReactNode;
   isBannerVisible: boolean;
   onDeleteClick: () => void;
 }

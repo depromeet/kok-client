@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import * as styles from "./styles.css";
 
 interface MapHeaderProps {
-  title: string;
+  title: string | React.ReactNode;
 }
 
 const MapHeader = ({ title }: MapHeaderProps) => {

@@ -21,9 +21,13 @@ const LocationDisplay = ({
 }) => (
   <>
     <GreyDividerIcon />
-    <Text variant="title4" className={styles.stationTextStyle}>
-      {isLoading ? "로딩 중..." : district}
-    </Text>
+    {isLoading ? (
+      <div className={styles.skeletonLoading} />
+    ) : (
+      <Text variant="title4" className={styles.stationTextStyle}>
+        {district}
+      </Text>
+    )}
   </>
 );
 
