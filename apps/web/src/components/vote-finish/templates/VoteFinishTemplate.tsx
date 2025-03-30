@@ -7,7 +7,11 @@ import { dummyPlaceList } from "./dummy";
 const DUMMY_PLACE_NUM = 3;
 const DUMMY_UNVOTED_NUMBER = 1;
 
-export function VoteFinishTemplate() {
+interface Props {
+  onRevote: VoidFunction;
+}
+
+export function VoteFinishTemplate({ onRevote }: Props) {
   return (
     <Flex
       justify="between"
@@ -39,10 +43,15 @@ export function VoteFinishTemplate() {
         <Spacing size={22} />
         <div className={Style.buttonContainerStyle}>
           <button className={Style.leftButtonStyle}>
-            <Text variant="title3">재투표 하기</Text>
+            <Text variant="title3" onClick={onRevote}>
+              재투표 하기
+            </Text>
           </button>
+          {/* 투표 완료되었으면 모임장소 확인하기로 변경 */}
           <button className={Style.rightButtonStyle}>
-            <Text variant="title3">링크 복사하기</Text>
+            <Text variant="title3" onClick={() => {}}>
+              링크 복사하기
+            </Text>
           </button>
         </div>
       </div>
