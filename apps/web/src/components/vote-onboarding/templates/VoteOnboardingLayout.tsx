@@ -6,13 +6,20 @@ import { Tooltip } from "../atom/Tooltip/Tooltip";
 import Image from "next/image";
 import { Stepper } from "../atom/Stepper/Stepper";
 import { useParams, useRouter } from "next/navigation";
+import { useVoteDeadline } from "@/hooks/api/useVoteDeadline";
+import { getTimeDifferenceInMinutes } from "./getDeadlineInMinutes";
+import { convertMinutes } from "@/components/vote-onboarding/templates/convertMinutes";
 
 const DUMMY_PLACE_NUM = 3;
-const DUMMY_HOUR = "9시간 59분";
 
 export function VoteOnboardingLayout() {
   const router = useRouter();
   const params = useParams();
+
+  const { data } = useVoteDeadline(params?.roomId as string);
+
+  const restMinutes =
+    data != null ? getTimeDifferenceInMinutes(data?.data.endAt) : 0;
 
   return (
     <Flex
@@ -49,7 +56,9 @@ export function VoteOnboardingLayout() {
         className={Style.footerContainerStyle}
       >
         <Text variant="caption">
-          <span className={Style.LimitHour}>{DUMMY_HOUR} </span>
+          <span className={Style.LimitHour}>
+            {convertMinutes(restMinutes)}{" "}
+          </span>
           안에 투표 해주세요!
         </Text>
         <Spacing size={20} />

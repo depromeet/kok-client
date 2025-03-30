@@ -2,18 +2,15 @@ import { Flex, Spacing, Text } from "@repo/ui/components";
 import * as Style from "./ProfileItem.css";
 import { motion, useAnimate } from "@repo/motion";
 import { theme } from "@repo/ui/tokens";
+import Image from "next/image";
 import { useEffect } from "react";
+import { TUserStatus } from "@/api/types/vote/index.type";
 
-interface Props {
-  id: string;
-  name: string;
-  profileSrc: string;
-  address: string;
+interface Props extends TUserStatus {
   selected: boolean;
-  voted: boolean;
 }
 
-export function ProfileItem({ name, address, selected, voted }: Props) {
+export function ProfileItem({ nickname, imageUrl, selected, isVoted }: Props) {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
@@ -39,8 +36,8 @@ export function ProfileItem({ name, address, selected, voted }: Props) {
       align="center"
       className={Style.container}
     >
-      <div className={Style.badgeRecipe({ voted: voted ? "finish" : "yet" })}>
-        {voted ? "투표 완료" : "투표 전"}
+      <div className={Style.badgeRecipe({ voted: isVoted ? "finish" : "yet" })}>
+        {isVoted ? "투표 완료" : "투표 전"}
       </div>
       <Spacing size={12} />
       <motion.div
@@ -52,18 +49,19 @@ export function ProfileItem({ name, address, selected, voted }: Props) {
         initial={selected ? "selected" : "unselected"}
         animate={selected ? "selected" : "unselected"}
         className={Style.img}
-      />
-      {/* <Image
-        src={profileSrc}
-        alt=""
-        width={64}
-        height={64}
-        className={Style.img}
-      /> */}
+      >
+        <Image
+          src={imageUrl}
+          alt=""
+          width={64}
+          height={64}
+          className={Style.img}
+        />
+      </motion.div>
       <Spacing size={16} />
-      <Text className={Style.name}>{name}</Text>
+      <Text className={Style.name}>{nickname}</Text>
       <Spacing size={8} />
-      <Text className={Style.address}>{address}</Text>
+      {/* <Text className={Style.address}>{address}</Text> */}
     </Flex>
   );
 }

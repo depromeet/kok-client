@@ -1,10 +1,10 @@
-import { DummyProfile } from "../templates/dummy";
 import { ProfileItem } from "./ProfileItem";
 import * as Style from "./ProfileList.css";
+import { TUserStatus } from "@/api/types/vote/index.type";
 
 interface Props {
   selectedProfileId?: string;
-  profileList?: DummyProfile[]; // 선택적으로 만듦
+  profileList?: TUserStatus[]; // 선택적으로 만듦
   onProfileClick: (id: string) => void;
 }
 
@@ -17,15 +17,15 @@ export function ProfileList({
     <ul className={Style.list}>
       {profileList.map((profile) => (
         <li
-          key={profile.id}
+          key={profile.memberId}
           onClick={() => {
-            if (!profile.voted) {
-              onProfileClick(profile.id);
+            if (!profile.isVoted) {
+              onProfileClick(profile.memberId);
             }
           }}
         >
           <ProfileItem
-            selected={profile.id === selectedProfileId}
+            selected={profile.memberId === selectedProfileId}
             {...profile}
           />
         </li>

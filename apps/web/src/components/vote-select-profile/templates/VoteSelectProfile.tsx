@@ -3,15 +3,23 @@
 import { Flex, Text, Button, Spacing } from "@repo/ui/components";
 import * as Style from "./style.css";
 import { ProfileList } from "../organism/ProfileList";
-import { useState } from "react";
-import { profileList } from "./dummy";
+import { useUserVoteStatus } from "@/hooks/api/useUserVoteStatus";
+import { useParams } from "next/navigation";
 
 interface Props {
+  selectedMemberId?: string;
+  onSelectMemberId: (id: string) => void;
   onNext: VoidFunction;
 }
 
-export function VoteSelectProfile({ onNext }: Props) {
-  const [selectedProfileId, setSelectedProfileId] = useState<string>();
+export function VoteSelectProfile({
+  selectedMemberId,
+  onNext,
+  onSelectMemberId,
+}: Props) {
+  const params = useParams();
+
+  const { data } = useUserVoteStatus(params?.roomId as string);
 
   return (
     <Flex
@@ -30,17 +38,19 @@ export function VoteSelectProfile({ onNext }: Props) {
         </Text>
         <div className={Style.scrollArea}>
           <Spacing size="8.2vh" />
-          <ProfileList
-            profileList={profileList}
-            selectedProfileId={selectedProfileId}
-            onProfileClick={setSelectedProfileId}
-          />
+          {data != null ? (
+            <ProfileList
+              profileList={data.data}
+              selectedProfileId={selectedMemberId}
+              onProfileClick={onSelectMemberId}
+            />
+          ) : null}
         </div>
       </Flex>
 
       {/* 아래 */}
       <div className={Style.footerContainerStyle}>
-        <Button disabled={selectedProfileId == null} onClick={onNext}>
+        <Button disabled={selectedMemberId == null} onClick={onNext}>
           투표 하러가기
         </Button>
       </div>

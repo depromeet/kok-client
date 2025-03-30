@@ -13,4 +13,8 @@ export const API_URLS = {
   POST_ROUTE_COMPLEX: "/route/complex/",
   GET_RECOMMEND_STATION: "/stations/recommend/",
   POST_JOIN_ROOM: (roomId: string) => `/rooms/${roomId}/join`,
+
+  // vote
+  GET_USER_VOTE_STATUS: (roomId: string) => `/vote/${roomId}/status`,
+  GET_VOTE_DEADLINE: (roomId: string) => `/vote/${roomId}/deadline`,
 };
