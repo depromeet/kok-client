@@ -48,6 +48,11 @@ export const buttonReceipe = recipe({
         backgroundSize: "200% 200%",
         animation: `${gradientMove} 4s linear infinite`,
       },
+      "share-icon": {
+        backgroundColor: theme.colors.gray0,
+        borderRadius: "100px",
+        border: `1px solid ${theme.colors.gray10}`,
+      },
       border: {
         color: theme.colors.text.secondary,
         border: `1px solid ${theme.colors.gray10}`,

@@ -21,7 +21,7 @@ export const useRoomInfo = (roomId: string) => {
     queryKey: ["RoomInfo", roomId],
     queryFn: () => getRoomInfo(roomId),
     retry: false,
-    staleTime: Infinity,
-    gcTime: Infinity,
+    staleTime: 0,
+    gcTime: 0,
   });
 };

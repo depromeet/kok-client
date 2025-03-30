@@ -91,6 +91,8 @@ const FindingMidPoint = ({
     roomInfo?.data?.nonParticipantCount
   );
 
+  const isVoteMode = roomInfo?.data?.roomStatus === "VOTE" ? true : false;
+
   return (
     <div className={mapContainer}>
       <Flex direction="column">
@@ -143,6 +145,7 @@ const FindingMidPoint = ({
         <ParticipantBottomSheet
           roomId={roomId}
           totalParticipants={totalParticipants}
+          isVoteMode={isVoteMode}
           banner={
             isOverlayVisible && (
               <StartBanner
