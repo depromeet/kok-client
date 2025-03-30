@@ -162,6 +162,7 @@ export const patternWrapperStyle = style({
 export const transportContainerStyle = style({
   display: "flex",
   alignItems: "center",
+  justifyContent: "center",
   zIndex: zIndex.toast,
 });
 
@@ -190,7 +191,7 @@ export const progressBarStyle = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  zIndex: zIndex.overlay,
+  zIndex: 1,
   transform: "translate(-8px, 0)",
 });
 
