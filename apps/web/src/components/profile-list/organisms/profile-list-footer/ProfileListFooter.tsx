@@ -14,7 +14,7 @@ const ProfileListFooter = ({ currentMemberId }: IProfileListFooterProps) => {
 
   const handleNextClick = () => {
     if (currentMemberId) {
-      router.push(`/result/${roomId}?memberId=${currentMemberId}`);
+      router.push(`/share/${roomId}?memberId=${currentMemberId}`);
     }
   };
 

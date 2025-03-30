@@ -29,6 +29,7 @@ export const NaverMap = ({
   markerData = [],
   centerMarker,
   finalCenterMarker,
+  memberMarkers = [],
   onMarkerClick,
   polygon = [],
 }: NaverMapProps) => {
@@ -38,6 +39,7 @@ export const NaverMap = ({
   const [showPolygon, setShowPolygon] = useState<boolean>(false);
   const centerMarkerRef = useRef<naver.maps.Marker | null>(null);
   const leaderMarkerRef = useRef<naver.maps.Marker | null>(null);
+  const memberMarkersRef = useRef<naver.maps.Marker[]>([]);
   const { setMap } = useNaverMap();
 
   const loadNaverMapScript = () => {
@@ -153,6 +155,35 @@ export const NaverMap = ({
     mapInstance.setZoom(NAVER_MAP_CONFIG.ZOOM_LEVEL);
   };
 
+  const updateMemberMarkers = () => {
+    if (!mapInstance) return;
+
+    // 기존 마커 제거
+    memberMarkersRef.current.forEach((marker) => marker.setMap(null));
+    memberMarkersRef.current = [];
+
+    memberMarkers.forEach((markerData) => {
+      const markerPosition = createLatLng(
+        markerData.latitude,
+        markerData.longitude
+      );
+      const profileMarkerElement = ProfileMarker({
+        profileImageUrl: markerData.imageUrl || "",
+      });
+
+      const marker = new window.naver.maps.Marker({
+        position: markerPosition,
+        map: mapInstance,
+        icon: {
+          content: profileMarkerElement || "",
+          anchor: new window.naver.maps.Point(24, 48),
+        },
+      });
+
+      memberMarkersRef.current.push(marker);
+    });
+  };
+
   const handleMarkerClicked = (markerId: number) => {
     if (onMarkerClick) {
       onMarkerClick(markerId);
@@ -184,6 +215,17 @@ export const NaverMap = ({
       }
     };
   }, [mapInstance, markerData]);
+
+  useEffect(() => {
+    if (mapInstance && memberMarkers.length > 0) {
+      updateMemberMarkers();
+    }
+
+    return () => {
+      memberMarkersRef.current.forEach((marker) => marker.setMap(null));
+      memberMarkersRef.current = [];
+    };
+  }, [mapInstance, memberMarkers]);
 
   const isMarkerDataValid = Array.isArray(markerData) && markerData.length > 0;
   const isPolygonValid = Array.isArray(polygon) && polygon.length > 0;
