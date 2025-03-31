@@ -56,7 +56,8 @@ const ParticipantBottomSheet = ({
       </Flex>
       <Flex as="div" direction="column" gap={20}>
         {isVoteMode ? (
-          <Flex gap={8}>
+          // 소정 추가 todo: gap 적용 안됨, Inline으로 처리
+          <Flex style={{ width: "100%", gap: "8px" }}>
             <KakaoTalkShareButton
               templateId={KAKAO_TEMPLATE_IDS.VOTE}
               templateArgs={{ roomId }}
@@ -68,7 +69,7 @@ const ParticipantBottomSheet = ({
             <Button
               variant="gradient-loop"
               className={textRecipe({ variant: "title3" })}
-              style={{ alignItems: "center" }}
+              width="full"
             >
               투표하러 가기
             </Button>
