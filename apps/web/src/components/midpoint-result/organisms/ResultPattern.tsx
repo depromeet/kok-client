@@ -1,7 +1,7 @@
 const ResultPattern = () => {
   return (
     <svg
-      width="375"
+      width="100%"
       height="169"
       viewBox="0 0 375 169"
       fill="none"

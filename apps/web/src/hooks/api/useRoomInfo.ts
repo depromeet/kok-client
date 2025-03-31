@@ -1,5 +1,5 @@
 import { RoomInfoResponse } from "@/api/types/room/index.type";
-import { useQuery } from "@repo/shared/tanstack-query";
+import { useQuery, QueryClient } from "@repo/shared/tanstack-query";
 
 export const getRoomInfo = async (roomId: string) => {
   try {
@@ -21,7 +21,15 @@ export const useRoomInfo = (roomId: string) => {
     queryKey: ["RoomInfo", roomId],
     queryFn: () => getRoomInfo(roomId),
     retry: false,
-    staleTime: Infinity,
-    gcTime: Infinity,
+  });
+};
+
+export const prefetchRoomData = async (
+  queryClient: QueryClient,
+  roomId: string
+) => {
+  await queryClient.prefetchQuery({
+    queryKey: ["RoomInfo", roomId],
+    queryFn: () => getRoomInfo(roomId),
   });
 };

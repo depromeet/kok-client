@@ -17,7 +17,7 @@ interface AnimationBottomSheetProps {
 export const AnimationBottomSheet = ({
   children,
   banner,
-  bannerBottom = "140px",
+  bannerBottom = "135px",
   onAnimationComplete,
   initialY = "100%",
   animateY = 0,

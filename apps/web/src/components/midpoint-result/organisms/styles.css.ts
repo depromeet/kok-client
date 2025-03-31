@@ -2,6 +2,7 @@ import { theme } from "@repo/ui/tokens";
 import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { keyframes } from "@vanilla-extract/css";
 
 export const containerRecipe = recipe({
   base: {
@@ -210,4 +211,23 @@ export const AddLocationButtonStyle = style({
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
+});
+
+const shimmer = keyframes({
+  "0%": {
+    backgroundPosition: "200% 0",
+  },
+  "100%": {
+    backgroundPosition: "-200% 0",
+  },
+});
+
+export const skeletonLoading = style({
+  width: "45px",
+  height: "16px",
+  marginLeft: "8px",
+  borderRadius: "4px",
+  background: `linear-gradient(90deg, ${theme.colors.gray20} 25%, ${theme.colors.gray30} 50%, ${theme.colors.gray20} 75%)`,
+  backgroundSize: "200% 100%",
+  animation: `${shimmer} 1.5s infinite`,
 });

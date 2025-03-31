@@ -8,6 +8,8 @@ type KakaoTalkShareButtonProps = ButtonProps & {
   templateArgs?: {
     roomId?: string;
   };
+  className?: string;
+  variant?: string;
 };
 
 const KakaoTalkShareButton = ({
@@ -16,6 +18,9 @@ const KakaoTalkShareButton = ({
   templateArgs = {
     roomId: "",
   },
+  className,
+  variant = "gradient-loop",
+  width,
   ...props
 }: PropsWithChildren<KakaoTalkShareButtonProps>) => {
   const onClickShareButton = () => {
@@ -36,7 +41,8 @@ const KakaoTalkShareButton = ({
   return (
     <Button
       {...props}
-      variant="gradient-loop"
+      variant={variant}
+      width={variant === "share-icon" ? "fit" : "full"}
       onClick={onClickShareButton}
       className={textRecipe({ variant: "title3" })}
     >
