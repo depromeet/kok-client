@@ -61,11 +61,12 @@ export const Button = ({
 };
 
 const buttonBackgroundVariants: Record<
-  "primary" | "secondary" | "border" | "gradient-loop",
+  "primary" | "secondary" | "border" | "gradient-loop" | "share-icon",
   string
 > = {
   primary: theme.colors.navy,
   secondary: theme.colors.orange40,
   border: "transparent",
   "gradient-loop": "linear-gradient(90deg, #1B202C, #263350, #1B202C)",
+  "share-icon": "transparent",
 };
