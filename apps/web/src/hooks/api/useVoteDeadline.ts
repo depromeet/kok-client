@@ -1,6 +1,5 @@
 import { useQuery } from "@repo/shared/tanstack-query";
 import { API_URLS } from "@/constants/api";
-import { TUserStatus } from "@/api/types/vote/index.type";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 

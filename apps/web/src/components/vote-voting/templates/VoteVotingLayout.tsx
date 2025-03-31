@@ -7,17 +7,43 @@ import { useState } from "react";
 import { Counter } from "../atom/Counter";
 import { Controller } from "../atom/Controller";
 import { CardList } from "../organism/CardList";
-import { dummyPlaceList } from "@/components/vote-voting/templates/dummy";
-
-const DUMMY_REST_TIME = "9시간 59분";
+// import { dummyPlaceList } from "@/components/vote-voting/templates/dummy";
+import { useParams } from "next/navigation";
+import { useVoteDeadline } from "@/hooks/api/useVoteDeadline";
+import { getTimeDifferenceInMinutes } from "@/components/vote-onboarding/templates/getDeadlineInMinutes";
+import { convertMinutes } from "@/components/vote-onboarding/templates/convertMinutes";
+import { useVoteCandidates } from "@/hooks/api/useVoteCandidates";
+import { useVoting } from "@/hooks/api/useVoting";
+import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
 
 interface Props {
+  memberId: string;
   onNext: VoidFunction;
 }
 
-export function VoteVotingLayout({ onNext }: Props) {
+export function VoteVotingLayout({ memberId, onNext }: Props) {
   const [view, setView] = useState<"card" | "list">("card");
   const [order, setOrder] = useState(1);
+  const [agreedStationIds, setAgreedStationIds] = useState<number[]>([]);
+
+  const params = useParams();
+
+  const { data: deadlineData } = useVoteDeadline(params?.roomId as string);
+  const { data: candidatesData } = useVoteCandidates(
+    params?.roomId as string,
+    memberId
+  );
+
+  const { mutate: vote } = useVoting({
+    onSuccess: () => onNext(),
+  });
+
+  const restMinutes =
+    deadlineData != null
+      ? getTimeDifferenceInMinutes(deadlineData?.data.endAt)
+      : 0;
+
+  const totalCounter = candidatesData != null ? candidatesData.data.length : 0;
 
   return (
     <Flex
@@ -36,7 +62,7 @@ export function VoteVotingLayout({ onNext }: Props) {
         className={Style.innerContainerStyle}
       >
         <Text variant="heading3" color={theme.colors.text.primary}>
-          마음에 드는 장소를 '콕'
+          {`마음에 드는 장소를 '콕'`}
         </Text>
         <Spacing size={20} />
         <Text
@@ -44,26 +70,50 @@ export function VoteVotingLayout({ onNext }: Props) {
           color={theme.colors.text.secondary}
           className={Style.subtitleStyle}
         >
-          <span className={Style.timeStyle}>{DUMMY_REST_TIME}</span> 안에
-          투표해요
+          <span className={Style.timeStyle}>
+            {convertMinutes(restMinutes)}{" "}
+          </span>{" "}
+          안에 투표해요
         </Text>
         <Spacing size={20} />
         <div className={Style.topNavStyle}>
-          <Counter
-            view={view}
-            order={order}
-            totalOrder={dummyPlaceList.length}
-          />
+          <Counter view={view} order={order} totalOrder={totalCounter} />
           <Controller view={view} onItemClick={setView} />
         </div>
         <Spacing size={45} />
-        <CardList view={view} list={dummyPlaceList} onIndexChange={setOrder} />
+        {candidatesData != null && (
+          <CardList
+            view={view}
+            list={candidatesData.data}
+            selectedCardIds={agreedStationIds}
+            onIndexChange={setOrder}
+            onSelectCard={(id) => {
+              if (agreedStationIds.includes(id)) {
+                setAgreedStationIds((prev) =>
+                  prev.filter((selectedId) => selectedId !== id)
+                );
+                return;
+              }
+              setAgreedStationIds((prev) => [...prev, id]);
+            }}
+          />
+        )}
       </Flex>
 
       {/* 아래 */}
-      <div className={Style.footerContainerStyle}>
-        <Button onClick={onNext}>1가지 이상 장소에 콕!</Button>
-      </div>
+      <FixedBottomWithSpacing>
+        <Button
+          onClick={() => {
+            vote({
+              roomId: params?.roomId as string,
+              memberId,
+              agreedStationIds,
+            });
+          }}
+        >
+          1가지 이상 장소에 콕!
+        </Button>
+      </FixedBottomWithSpacing>
     </Flex>
   );
 }

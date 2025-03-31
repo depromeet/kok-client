@@ -1,6 +1,6 @@
 import * as Style from "./RowCardList.css";
 import { motion } from "@repo/motion";
-import { Place } from "../templates/dummy";
+import { Place } from "../templates/type";
 import { Spacing, Text } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 

@@ -26,13 +26,3 @@ export const scrollArea = style({
   overflow: "auto",
   flex: 1,
 });
-
-export const footerContainerStyle = style({
-  width: "100%",
-  maxWidth: 600,
-  position: "fixed",
-  padding: "16px 20px",
-  bottom: 0,
-  left: 0,
-  zIndex: zIndex.floating,
-});

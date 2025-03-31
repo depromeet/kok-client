@@ -5,6 +5,7 @@ import * as Style from "./style.css";
 import { ProfileList } from "../organism/ProfileList";
 import { useUserVoteStatus } from "@/hooks/api/useUserVoteStatus";
 import { useParams } from "next/navigation";
+import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
 
 interface Props {
   selectedMemberId?: string;
@@ -49,11 +50,11 @@ export function VoteSelectProfile({
       </Flex>
 
       {/* 아래 */}
-      <div className={Style.footerContainerStyle}>
+      <FixedBottomWithSpacing>
         <Button disabled={selectedMemberId == null} onClick={onNext}>
           투표 하러가기
         </Button>
-      </div>
+      </FixedBottomWithSpacing>
     </Flex>
   );
 }

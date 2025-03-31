@@ -11,6 +11,7 @@ export default function Page() {
   );
   const [selectedMemberId, setSelectedMemberId] = useState<string>();
 
+  console.log(funnel, selectedMemberId);
   if (funnel === "select-profile") {
     return (
       <VoteSelectProfile
@@ -20,9 +21,24 @@ export default function Page() {
       />
     );
   }
-  if (funnel === "voting") {
-    return <VoteVotingLayout onNext={() => setFunnel("finish")} />;
+
+  if (selectedMemberId == null) {
+    return <>error</>;
   }
 
-  return <VoteFinishTemplate onRevote={() => setFunnel("voting")} />;
+  if (funnel === "voting") {
+    return (
+      <VoteVotingLayout
+        memberId={selectedMemberId}
+        onNext={() => setFunnel("finish")}
+      />
+    );
+  }
+
+  return (
+    <VoteFinishTemplate
+      memberId={selectedMemberId}
+      onRevote={() => setFunnel("voting")}
+    />
+  );
 }

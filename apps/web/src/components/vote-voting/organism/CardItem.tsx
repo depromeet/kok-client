@@ -2,15 +2,23 @@ import { classMerge } from "@repo/ui/utils";
 import * as Style from "./CardItem.css";
 import { motion } from "@repo/motion";
 import { Text, Spacing } from "@repo/ui/components";
-import { Place } from "../templates/dummy";
+import { Candidate } from "../templates/type";
 import { theme } from "@repo/ui/tokens";
 
-interface Props extends Place {
+interface Props extends Candidate {
   view: "card" | "list";
   className: string;
+  selected: boolean;
+  onSelectCard: (id: number) => void;
 }
 
-export function CardItem({ className, view, name }: Props) {
+export function CardItem({
+  className,
+  view,
+  stationId,
+  stationName,
+  onSelectCard,
+}: Props) {
   return (
     <div className={classMerge(className, Style.containerStyle)}>
       <motion.div
@@ -36,10 +44,13 @@ export function CardItem({ className, view, name }: Props) {
           className={Style.innerCardContainerStyle}
         >
           <Text variant="title3" color={theme.colors.text.primary}>
-            {name}
+            {stationName}
           </Text>
           <Spacing size={10} />
-          <button className={Style.cardButtonStyle}>
+          <button
+            className={Style.cardButtonStyle}
+            onClick={() => onSelectCard(stationId)}
+          >
             <Text
               color={theme.colors.icon.pressed}
               className={Style.cardButtonTitleStyle}

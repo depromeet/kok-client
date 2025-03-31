@@ -4,15 +4,23 @@ import useInfiniteSliderDrag from "./useInfiniteSliderDrag";
 import { CardItem } from "./CardItem";
 import { useViewTransform } from "./useViewTransform";
 import { RowCardList } from "./RowCardList";
-import { Place } from "../templates/dummy";
+import { Candidate } from "../templates/type";
 
 interface Props {
   view: "card" | "list";
-  list: Place[];
+  list: Candidate[];
+  selectedCardIds: number[];
   onIndexChange: (index: number) => void;
+  onSelectCard: (id: number) => void;
 }
 
-export function CardList({ view, list, onIndexChange }: Props) {
+export function CardList({
+  view,
+  list,
+  selectedCardIds,
+  onIndexChange,
+  onSelectCard,
+}: Props) {
   const { focusedIndex, translateXMotion, dragEvents } = useInfiniteSliderDrag({
     totalNum: list.length,
     onIndexChange,
@@ -35,22 +43,34 @@ export function CardList({ view, list, onIndexChange }: Props) {
         {...dragEvents}
       >
         <motion.div
-          className={`hohooh ${Style.innerContainerStyle}`}
+          className={Style.innerContainerStyle}
           style={{ x: translateXMotion }}
         >
-          {first && <CardItem view={view} className="card-0" {...first} />}
+          {first && (
+            <CardItem
+              onSelectCard={onSelectCard}
+              view={view}
+              className="card-0"
+              selected={selectedCardIds.includes(first.stationId)}
+              {...first}
+            />
+          )}
           {list.map((place, index) => (
             <CardItem
+              onSelectCard={onSelectCard}
               view={view}
               key={index}
               className={`card-${index + 1}`}
+              selected={selectedCardIds.includes(place.stationId)}
               {...place}
             />
           ))}
           {last && (
             <CardItem
+              onSelectCard={onSelectCard}
               view={view}
               className={`card-${list.length + 1}`}
+              selected={selectedCardIds.includes(last.stationId)}
               {...last}
             />
           )}

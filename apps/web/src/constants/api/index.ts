@@ -15,6 +15,13 @@ export const API_URLS = {
   POST_JOIN_ROOM: (roomId: string) => `/rooms/${roomId}/join`,
 
   // vote
-  GET_USER_VOTE_STATUS: (roomId: string) => `/vote/${roomId}/status`,
-  GET_VOTE_DEADLINE: (roomId: string) => `/vote/${roomId}/deadline`,
+  GET_USER_VOTE_STATUS: (roomId: string) => `/votes/${roomId}/status`,
+  GET_VOTE_DEADLINE: (roomId: string) => `/votes/${roomId}/deadline`,
+  GET_VOTE_CANDIDATES: (roomId: string, memberId: string) =>
+    `/votes/${roomId}/${memberId}/candidates`,
+  GET_VOTE_RESULT: (roomId: string, memberId: string) =>
+    `/votes/${roomId}/${memberId}`,
+  POST_VOTE_FINISH: (roomId: string) => `/votes/${roomId}/close`,
+  POST_VOTING: (roomId: string, memberId: string) =>
+    `/votes/${roomId}/${memberId}`,
 };
