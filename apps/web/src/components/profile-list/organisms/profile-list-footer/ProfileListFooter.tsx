@@ -1,7 +1,7 @@
 import { Button, Flex, textRecipe } from "@repo/ui/components";
 import { useRouter, useParams } from "next/navigation";
 import { useQueryClient } from "@repo/shared/tanstack-query";
-import { prefetchRoomData } from "@/utils/prefetch";
+import { prefetchRoomData } from "@/hooks/api/useRoomInfo";
 
 import { footerContainerStyle } from "./style.css";
 
