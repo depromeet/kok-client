@@ -187,13 +187,14 @@ export const lineNumberStyle = style({
 export const progressBarStyle = style({
   height: "14px",
   flexGrow: 1,
-  borderRadius: "10px",
+  borderTopRightRadius: "10px",
+  borderBottomRightRadius: "10px",
   position: "relative",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   zIndex: 1,
-  transform: "translate(-8px, 0)",
+  transform: "translate(-2px, 0)",
 });
 
 export const timeDisplayStyle = style({
