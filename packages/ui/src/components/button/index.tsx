@@ -26,7 +26,7 @@ export const Button = ({
 
   return (
     <motion.div
-      className={buttonContainerStyle}
+      className={variant === "share-icon" ? "" : buttonContainerStyle}
       variants={{
         wiggle: {
           x: [4, -4, 4, -4, 4, -4, 4, -4],
