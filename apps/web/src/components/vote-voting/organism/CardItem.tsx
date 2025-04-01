@@ -18,6 +18,7 @@ export function CardItem({
   stationId,
   stationName,
   onSelectCard,
+  selected,
 }: Props) {
   return (
     <div className={classMerge(className, Style.containerStyle)}>
@@ -49,13 +50,20 @@ export function CardItem({
           <Spacing size={10} />
           <button
             className={Style.cardButtonStyle}
+            style={{
+              border: `1px solid ${selected ? theme.colors.orange40 : theme.colors.gray15}`,
+              backgroundColor: selected
+                ? theme.colors.orange40
+                : theme.colors.gray0,
+              color: selected ? "white" : theme.colors.icon.pressed,
+            }}
             onClick={() => onSelectCard(stationId)}
           >
             <Text
-              color={theme.colors.icon.pressed}
+              color={selected ? "white" : theme.colors.icon.pressed}
               className={Style.cardButtonTitleStyle}
             >
-              콕
+              {"✓ "}콕
             </Text>
           </button>
         </motion.div>

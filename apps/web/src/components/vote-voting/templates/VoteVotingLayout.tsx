@@ -34,8 +34,11 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
     memberId
   );
 
-  const { mutate: vote } = useVoting({
-    onSuccess: () => onNext(),
+  const { mutate: vote, isPending } = useVoting({
+    onSuccess: () => {
+      setAgreedStationIds([]);
+      onNext();
+    },
   });
 
   const restMinutes =
@@ -44,6 +47,20 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
       : 0;
 
   const totalCounter = candidatesData != null ? candidatesData.data.length : 0;
+
+  const handleVoteSubmit = () => {
+    if (agreedStationIds.length === 0) return;
+
+    const validStationIds = agreedStationIds
+      .filter((id) => id !== undefined && id !== null)
+      .map((id) => Number(id));
+
+    vote({
+      roomId: typeof params?.roomId === "string" ? params.roomId : "",
+      memberId,
+      agreedStationIds: validStationIds,
+    });
+  };
 
   return (
     <Flex
@@ -103,15 +120,12 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
       {/* 아래 */}
       <FixedBottomWithSpacing>
         <Button
-          onClick={() => {
-            vote({
-              roomId: params?.roomId as string,
-              memberId,
-              agreedStationIds,
-            });
-          }}
+          onClick={handleVoteSubmit}
+          disabled={agreedStationIds.length === 0 || isPending}
         >
-          1가지 이상 장소에 콕!
+          {agreedStationIds.length > 0
+            ? `${agreedStationIds.length}가지 장소에 콕!`
+            : "1가지 이상 장소에 콕!"}
         </Button>
       </FixedBottomWithSpacing>
     </Flex>

@@ -6,7 +6,12 @@ import Image from "next/image";
 import { ConfirmIcon } from "../atom/ConfirmIcon";
 import { UnConfirmIcon } from "../atom/UnConfirmIcon";
 
-export function PlaceItem({ stationName, voteStatus, members }: Candidate) {
+export function PlaceItem({
+  stationName,
+  voteStatus,
+  members,
+  votedCount,
+}: Candidate) {
   return (
     <Flex
       direction="column"
@@ -32,10 +37,12 @@ export function PlaceItem({ stationName, voteStatus, members }: Candidate) {
       </div>
       <Spacing size={12} />
       <Text variant="caption" color={theme.colors.text4}>
-        {members.length}명의 친구들도 찬성 중
+        {voteStatus === "agree"
+          ? `${votedCount}명의 친구들도 찬성 중`
+          : `${votedCount}명의 친구들이 반대 중`}
       </Text>
       <div className={Style.iconStyle}>
-        {voteStatus ? <ConfirmIcon /> : <UnConfirmIcon />}
+        {voteStatus === "agree" ? <ConfirmIcon /> : <UnConfirmIcon />}
       </div>
     </Flex>
   );

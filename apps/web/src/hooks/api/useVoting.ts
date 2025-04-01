@@ -8,6 +8,8 @@ const voting = async (params: {
   memberId: string;
   agreedStationIds: number[];
 }) => {
+  const validStationIds = params.agreedStationIds.filter(Boolean).map(Number);
+
   const response = await fetch(
     `${BASE_URL}${API_URLS.POST_VOTING(params.roomId, params.memberId)}`,
     {
@@ -15,9 +17,10 @@ const voting = async (params: {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ agreedStationIds: params.agreedStationIds }),
+      body: JSON.stringify({ agreedStationIds: validStationIds }),
     }
   );
+
   return response.json();
 };
 

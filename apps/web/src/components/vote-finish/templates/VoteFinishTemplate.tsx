@@ -4,7 +4,8 @@ import { theme } from "@repo/ui/tokens";
 import { PlaceList } from "../organism/PlaceList";
 import { useParams } from "next/navigation";
 import { useVoteResult } from "@/hooks/api/useVoteResult";
-import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
+// import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
+import { AnimationBottomSheet } from "@repo/ui/components";
 
 interface Props {
   memberId: string;
@@ -15,6 +16,7 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
   const params = useParams();
 
   const { data } = useVoteResult(params?.roomId as string, memberId);
+  console.log("VoteFinishTemplate", data);
 
   return (
     <Flex
@@ -35,34 +37,34 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
       </Flex>
 
       {/* 아래 */}
-      <FixedBottomWithSpacing>
-        <div className={Style.bottomsheetContainerStyle}>
-          <Text variant="title2" color={theme.colors.text.primary}>
-            <Text color={theme.colors.text.kok}>
-              {data?.data.notVotedCount ?? 0}
+      <AnimationBottomSheet>
+        {/* <div className={Style.bottomsheetContainerStyle}> */}
+        <Text variant="title2" color={theme.colors.text.primary}>
+          <Text color={theme.colors.text.kok}>
+            {data?.data.notVotedCount ?? 0}
+          </Text>
+          명이 투표하지 않았어요!
+        </Text>
+        <Spacing size={12} />
+        <Text variant="caption" color={theme.colors.text.caption}>
+          친구들이 모두 입장할 수 있도록 링크를 공유해요!
+        </Text>
+        <Spacing size={22} />
+        <div className={Style.buttonContainerStyle}>
+          <button className={Style.leftButtonStyle}>
+            <Text variant="title3" onClick={onRevote}>
+              재투표 하기
             </Text>
-            명이 투표하지 않았어요!
-          </Text>
-          <Spacing size={12} />
-          <Text variant="caption" color={theme.colors.text.caption}>
-            친구들이 모두 입장할 수 있도록 링크를 공유해요!
-          </Text>
-          <Spacing size={22} />
-          <div className={Style.buttonContainerStyle}>
-            <button className={Style.leftButtonStyle}>
-              <Text variant="title3" onClick={onRevote}>
-                재투표 하기
-              </Text>
-            </button>
-            {/* 투표 완료되었으면 모임장소 확인하기로 변경 */}
-            <button className={Style.rightButtonStyle}>
-              <Text variant="title3" onClick={() => {}}>
-                링크 복사하기
-              </Text>
-            </button>
-          </div>
+          </button>
+          {/* 투표 완료되었으면 모임장소 확인하기로 변경 */}
+          <button className={Style.rightButtonStyle}>
+            <Text variant="title3" onClick={() => {}}>
+              링크 복사하기
+            </Text>
+          </button>
         </div>
-      </FixedBottomWithSpacing>
+        {/* </div> */}
+      </AnimationBottomSheet>
     </Flex>
   );
 }
