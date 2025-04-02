@@ -18,6 +18,9 @@ const subwayBackgroundVariants = {
   shinbundang: { background: theme.colors.subwayAdjustShinbundang },
   gyeonguiJungang: { background: theme.colors.subwayAdjustGyeonguiJungang },
   suinbundang: { background: theme.colors.subwayAdjustSuinbundang },
+  gonghang: { background: theme.colors.subwayAdjustAirport },
+  incheon1: { background: theme.colors.subwayAdjustIncheon1 },
+  incheon2: { background: theme.colors.subwayAdjustIncheon2 },
   default: { background: theme.colors.orange30 },
 } as const;
 
@@ -34,6 +37,9 @@ const subwayBorderVariants = {
   shinbundang: { borderColor: theme.colors.subwayAdjustShinbundang },
   gyeonguiJungang: { borderColor: theme.colors.subwayAdjustGyeonguiJungang },
   suinbundang: { borderColor: theme.colors.subwayAdjustSuinbundang },
+  gonghang: { borderColor: theme.colors.subwayAdjustAirport },
+  incheon1: { borderColor: theme.colors.subwayAdjustIncheon1 },
+  incheon2: { borderColor: theme.colors.subwayAdjustIncheon2 },
   default: { borderColor: theme.colors.orange30 },
 } as const;
 

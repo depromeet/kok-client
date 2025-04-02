@@ -103,6 +103,7 @@ const scale = {
   subwayAdjustGyeonguiJungang: "#40B8C0",
   subwayAdjustIncheon1: "#7EA5CD",
   subwayAdjustIncheon2: "#F7931D",
+  subwayAdjustAirport: "#1589BC",
 
   mapPolygon: "rgba(27, 32, 44, 0.1)",
   mapMarkerBorder: "#000000",
