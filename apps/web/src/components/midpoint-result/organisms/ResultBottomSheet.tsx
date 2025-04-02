@@ -115,7 +115,7 @@ const ResultBottomSheet = ({
                   time={Math.round(leg.sectionTime / 60)}
                   lineNum={0}
                   isSubway={false}
-                  color={theme.colors.gray40}
+                  color={theme.colors.gray50}
                   route={leg.route || undefined}
                   mode={leg.mode}
                 />

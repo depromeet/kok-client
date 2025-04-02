@@ -8,7 +8,8 @@ interface StartBannerProps {
   onDeleteClick: () => void;
   isVisible?: boolean;
   isLeader?: boolean;
-  roomName?: string;
+  roomName?: string | React.ReactNode;
+  isLoading?: boolean | React.ReactNode;
 }
 
 const StartBanner = ({
@@ -17,6 +18,7 @@ const StartBanner = ({
   onDeleteClick,
   isLeader = false,
   roomName,
+  isLoading = false,
 }: StartBannerProps) => {
   const title = isLeader ? "모임이 생성 됐어요!" : "출발지 입력 완료!";
 
@@ -27,7 +29,7 @@ const StartBanner = ({
         onDeleteClick={onDeleteClick}
         isBannerVisible={isVisible}
         title={title}
-        roomName={roomName || ""}
+        roomName={roomName}
       />
     </div>
   );

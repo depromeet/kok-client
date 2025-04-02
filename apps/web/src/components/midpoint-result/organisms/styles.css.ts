@@ -2,6 +2,7 @@ import { theme } from "@repo/ui/tokens";
 import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { keyframes } from "@vanilla-extract/css";
 
 export const containerRecipe = recipe({
   base: {
@@ -186,13 +187,14 @@ export const lineNumberStyle = style({
 export const progressBarStyle = style({
   height: "14px",
   flexGrow: 1,
-  borderRadius: "10px",
+  borderTopRightRadius: "10px",
+  borderBottomRightRadius: "10px",
   position: "relative",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   zIndex: 1,
-  transform: "translate(-8px, 0)",
+  transform: "translate(-2px, 0)",
 });
 
 export const timeDisplayStyle = style({
@@ -210,4 +212,23 @@ export const AddLocationButtonStyle = style({
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
+});
+
+const shimmer = keyframes({
+  "0%": {
+    backgroundPosition: "200% 0",
+  },
+  "100%": {
+    backgroundPosition: "-200% 0",
+  },
+});
+
+export const skeletonLoading = style({
+  width: "45px",
+  height: "16px",
+  marginLeft: "8px",
+  borderRadius: "4px",
+  background: `linear-gradient(90deg, ${theme.colors.gray20} 25%, ${theme.colors.gray30} 50%, ${theme.colors.gray20} 75%)`,
+  backgroundSize: "200% 100%",
+  animation: `${shimmer} 1.5s infinite`,
 });

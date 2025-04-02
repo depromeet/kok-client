@@ -131,7 +131,10 @@ const SearchPlaceBottomSheet = ({
       memberId,
       latitude: Number(place.mapy),
       longitude: Number(place.mapx),
-      name: place.address,
+      name: place.address
+        .split(" ")
+        .filter((_, index) => index !== 0)
+        .join(" "),
     });
   };
 

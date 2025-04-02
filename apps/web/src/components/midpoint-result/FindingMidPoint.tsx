@@ -10,6 +10,9 @@ import {
   mapContainer,
   overlayStyle,
   AddLocationButtonPositionStyle,
+  roomNameSkeletonStyle,
+  participantsSkeletonStyle,
+  headerSkeletonWrapper,
 } from "./style.css";
 import {
   useLocationCentroid,
@@ -54,7 +57,11 @@ const FindingMidPoint = ({
     : undefined;
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
-  const { data: roomInfo, refetch: refetchRoomInfo } = useRoomInfo(roomId);
+  const {
+    data: roomInfo,
+    isLoading: isRoomInfoLoading,
+    refetch: refetchRoomInfo,
+  } = useRoomInfo(roomId);
   const { data: locationsData } = useMemberLocation(roomId, memberId);
 
   const handleBannerClose = () => {
@@ -70,11 +77,21 @@ const FindingMidPoint = ({
     displayMarkerData = markerData;
   }
 
-  if (centroidLoading || convHLoading) {
-    return <div>Loading...</div>;
-  }
+  const roomName = isRoomInfoLoading ? (
+    <div className={headerSkeletonWrapper}>
+      <div className={roomNameSkeletonStyle} />
+    </div>
+  ) : (
+    roomInfo?.data?.roomName || ""
+  );
 
-  const roomName = roomInfo?.data?.roomName || "";
+  const totalParticipants = isRoomInfoLoading ? (
+    <div className={participantsSkeletonStyle} />
+  ) : (
+    roomInfo?.data?.nonParticipantCount
+  );
+
+  const isVoteMode = roomInfo?.data?.roomStatus === "VOTE" ? true : false;
 
   return (
     <div className={mapContainer}>
@@ -127,7 +144,8 @@ const FindingMidPoint = ({
         </Flex>
         <ParticipantBottomSheet
           roomId={roomId}
-          totalParticipants={roomInfo?.data?.nonParticipantCount}
+          totalParticipants={totalParticipants}
+          isVoteMode={isVoteMode}
           banner={
             isOverlayVisible && (
               <StartBanner
@@ -136,6 +154,7 @@ const FindingMidPoint = ({
                 onClose={handleBannerClose}
                 onDeleteClick={handleClick}
                 isLeader={isLeader}
+                isLoading={isRoomInfoLoading}
               />
             )
           }
