@@ -26,7 +26,10 @@ export const Button = ({
 
   return (
     <motion.div
-      className={variant === "share-icon" ? "" : buttonContainerStyle}
+      className={classMerge(
+        variant === "share-icon" ? "" : buttonContainerStyle,
+        className
+      )}
       variants={{
         wiggle: {
           x: [4, -4, 4, -4, 4, -4, 4, -4],
@@ -43,14 +46,11 @@ export const Button = ({
               }
             : { background: buttonBackgroundVariants[variant] }
         }
-        className={classMerge(
-          buttonReceipe({
-            variant,
-            width,
-            padding,
-          }),
-          className
-        )}
+        className={buttonReceipe({
+          variant,
+          width,
+          padding,
+        })}
         ref={mergeRefs(ref, containerRef)}
         {...mergeProps(props, props.disabled ? {} : pressProps)}
       >
