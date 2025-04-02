@@ -5,7 +5,9 @@ import SearchResultMap from "../organisms/SearchResultMap";
 const SelectStation = () => {
   const { stationInfo } = useStationInfo();
 
-  return stationInfo ? <SearchResultMap /> : <SearchList />;
+  if (!stationInfo) return <SearchList />;
+
+  return <SearchResultMap {...stationInfo} />;
 };
 
 export default SelectStation;

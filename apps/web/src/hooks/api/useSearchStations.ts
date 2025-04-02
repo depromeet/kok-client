@@ -2,7 +2,6 @@ import { SearchedStationsResponse } from "@/api/types/stations/index.type";
 import { useQuery } from "@repo/shared/tanstack-query";
 
 const getSearchedStationList = async (searchWord: string) => {
-  console.log(searchWord);
   const response = await fetch(`/api/stations/search/${searchWord}`, {
     method: "GET",
     headers: {

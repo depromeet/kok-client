@@ -1,14 +1,16 @@
 import { ICommon } from "../common/common.type";
 
+export interface Station {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  priority: number;
+}
+
 export interface StationInfo {
   routes: string[];
-  station: {
-    id: number;
-    name: string;
-    latitude: number;
-    longitude: number;
-    priority: number;
-  };
+  station: Station;
 }
 
 export type SearchedStationsResponse = ICommon<StationInfo[]>;

@@ -7,7 +7,6 @@ export async function GET(
 ) {
   try {
     const { searchWord } = await params;
-    console.log(searchWord);
     const data = await getRequest({
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/stations/search/${searchWord}`,
     });
