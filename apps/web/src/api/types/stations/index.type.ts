@@ -14,3 +14,4 @@ export interface StationInfo {
 }
 
 export type SearchedStationsResponse = ICommon<StationInfo[]>;
+export type CandidateStationResponse = ICommon<StationInfo>;
