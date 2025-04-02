@@ -1,13 +1,13 @@
 import { Flex, Text } from "@repo/ui/components";
-import { StationInfo } from "../types";
+import { StationInfo } from "@/api/types/stations/index.type";
 import * as styles from "../style.css";
 import LineNumbers, { removeLineSuffix } from "./LineNumbers";
 import { getLineColorName } from "../atoms/LineNumber";
 
-type StationBannerProps = Pick<StationInfo, "name" | "lines">;
+type StationBannerProps = StationInfo;
 
-const StationBanner = ({ name, lines }: StationBannerProps) => {
-  const lineColor = getLineColorName(removeLineSuffix(lines[0]!));
+const StationBanner = ({ station, routes }: StationBannerProps) => {
+  const lineColor = getLineColorName(removeLineSuffix(routes[0]!));
   return (
     <Flex justify="center" className={styles.bannerContainer}>
       <Flex
@@ -16,8 +16,8 @@ const StationBanner = ({ name, lines }: StationBannerProps) => {
         gap={12}
         className={styles.bannerRecipe({ border: lineColor })}
       >
-        <LineNumbers lines={lines} size="md" />
-        <Text variant="heading3">{name}</Text>
+        <LineNumbers lines={routes} size="md" />
+        <Text variant="heading3">{station.name}</Text>
       </Flex>
 
       <div className={styles.bannerLineRecipe({ border: lineColor })} />

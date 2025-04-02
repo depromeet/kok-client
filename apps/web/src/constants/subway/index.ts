@@ -82,17 +82,17 @@ export const SUBWAY_META = {
   인천1: {
     name: "인천1호선",
     color: theme.colors.subwayAdjustIncheon1,
-    pattern: /인천1호선/,
+    pattern: /인천1호선|인천1/,
   },
   인천2: {
     name: "인천2호선",
     color: theme.colors.subwayAdjustIncheon2,
-    pattern: /인천2호선/,
+    pattern: /인천2호선|인천1/,
   },
   공항철도: {
     name: "공항철도",
     color: "#0065B3",
-    pattern: /공항철도/,
+    pattern: /공항철도|공항철도1/,
   },
   unknown: {
     name: "알 수 없음",

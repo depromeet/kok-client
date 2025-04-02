@@ -15,12 +15,17 @@ export const getLineColorName = (lineName: string): styles.SubwayColorProps => {
   switch (lineName) {
     case "신분당":
       return "shinbundang";
-    // case "공항":
-    //   return "gonghang";
+    case "공항":
+      return "gonghang";
     case "경의중앙":
       return "gyeonguiJungang";
-    case "수인분당":
+    case "분당":
+    case "수인":
       return "suinbundang";
+    case "인천1":
+      return "incheon1";
+    case "인천2":
+      return "incheon2";
   }
 
   return "default";

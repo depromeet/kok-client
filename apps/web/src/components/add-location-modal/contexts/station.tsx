@@ -1,3 +1,4 @@
+import { StationInfo } from "@/api/types/stations/index.type";
 import {
   createContext,
   Dispatch,
@@ -6,26 +7,25 @@ import {
   useContext,
   useState,
 } from "react";
-import { StationInfo } from "../types";
 
-interface StationContextProps {
-  station: StationInfo | null;
-  setStation: Dispatch<SetStateAction<StationInfo | null>>;
+interface StationInfoContextProps {
+  stationInfo: StationInfo | null;
+  setStationInfo: Dispatch<SetStateAction<StationInfo | null>>;
 }
 
-const StationContext = createContext<StationContextProps | null>(null);
+const StationInfoContext = createContext<StationInfoContextProps | null>(null);
 
 export const StationProvider = ({ children }: { children: ReactNode }) => {
-  const [station, setStation] = useState<StationInfo | null>(null);
+  const [stationInfo, setStationInfo] = useState<StationInfo | null>(null);
   return (
-    <StationContext.Provider value={{ station, setStation }}>
+    <StationInfoContext.Provider value={{ stationInfo, setStationInfo }}>
       {children}
-    </StationContext.Provider>
+    </StationInfoContext.Provider>
   );
 };
 
-export function useStation() {
-  const context = useContext(StationContext);
+export function useStationInfo() {
+  const context = useContext(StationInfoContext);
   if (!context) throw new Error("Cannot find StationProvider");
   return context;
 }

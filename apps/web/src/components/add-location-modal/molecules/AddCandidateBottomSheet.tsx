@@ -1,25 +1,47 @@
-import { Button, Flex, Text } from "@repo/ui/components";
+"use react";
+
+import { Button, Flex, LoadingDots, Text } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
-import { useStation } from "../contexts/station";
+import { useStationInfo } from "../contexts/station";
 import LineNumbers from "./LineNumbers";
 import WarningIcon from "@/assets/icons/WarningIcon";
 import { useSelectFlag } from "../contexts/selected-flag";
 import * as styles from "../style.css";
+import { notFound, useParams } from "next/navigation";
+import { useCreateCandidateStation } from "@/hooks/api/useCreateCandidateStation";
+import { useEffect } from "react";
 
 const AddCandidateBottomSheet = () => {
-  const { station, setStation } = useStation();
-  const { setSelectFlag } = useSelectFlag();
+  const params = useParams<{ roomId: string }>();
 
-  if (!station || !setSelectFlag) return null;
+  const { stationInfo, setStationInfo } = useStationInfo();
+  const { setSelectFlag } = useSelectFlag();
+  const {
+    mutate: createCandidateStation,
+    isPending,
+    isSuccess,
+  } = useCreateCandidateStation();
+
+  // TODO: 잘못된 정보 및 경로이므로 404 페이지로 라우팅
+  if (!stationInfo || !setSelectFlag || !params) {
+    notFound();
+  }
+
+  const { roomId } = params;
+  const { station, routes } = stationInfo;
 
   const handleClickDelete = () => {
-    setStation(null);
+    setStationInfo(null);
   };
 
   const handleClickAddCandidate = () => {
-    // TODO: 후보지 추가 API 연결
-    setSelectFlag(true);
+    createCandidateStation({ roomId, stationId: station.id });
   };
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    setSelectFlag(true);
+  }, [setSelectFlag, isSuccess]);
 
   return (
     <Flex
@@ -31,7 +53,7 @@ const AddCandidateBottomSheet = () => {
       <Flex direction="column" gap={12} className={styles.infoContainer}>
         <Flex justify="between" align="center">
           <Flex gap={8}>
-            <LineNumbers lines={station.lines} />
+            <LineNumbers lines={routes} />
             <Text variant="title2">{station.name}</Text>
           </Flex>
 
@@ -48,7 +70,9 @@ const AddCandidateBottomSheet = () => {
         </Flex>
       </Flex>
 
-      <Button onClick={handleClickAddCandidate}>투표 후보 추가하기</Button>
+      <Button onClick={handleClickAddCandidate} disabled={isPending}>
+        {isPending ? <LoadingDots /> : "투표 후보 추가하기"}
+      </Button>
     </Flex>
   );
 };
