@@ -35,8 +35,6 @@ const AddCandidateBottomSheet = () => {
   };
 
   const handleClickAddCandidate = () => {
-    // TODO: 후보지 추가 API 연결
-    setSelectFlag(true);
     createCandidateStation({ roomId, stationId: station.id });
   };
 
