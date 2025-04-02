@@ -11,7 +11,6 @@ export default function Page() {
   );
   const [selectedMemberId, setSelectedMemberId] = useState<string>();
 
-  console.log(funnel, selectedMemberId);
   if (funnel === "select-profile") {
     return (
       <VoteSelectProfile

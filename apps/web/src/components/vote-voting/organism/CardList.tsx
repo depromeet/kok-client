@@ -77,7 +77,12 @@ export function CardList({
         </motion.div>
       </div>
       <div style={{ pointerEvents: view === "list" ? "auto" : "none" }}>
-        <RowCardList view={view} list={list} />
+        <RowCardList
+          selectedCardIds={selectedCardIds}
+          view={view}
+          list={list}
+          onSelectCard={onSelectCard}
+        />
       </div>
     </div>
   );

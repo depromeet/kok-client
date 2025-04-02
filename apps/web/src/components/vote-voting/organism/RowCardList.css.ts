@@ -10,7 +10,7 @@ export const containerStyle = style({
 
 export const itemContainerStyle = style({
   width: 335,
-  height: 140,
+  height: 94,
   position: "absolute",
   backgroundColor: "#fff",
   left: "50%",
@@ -18,12 +18,61 @@ export const itemContainerStyle = style({
   borderRadius: 20,
   display: "flex",
   justifyContent: "space-between",
-  padding: "16px 11px 18px 18px",
+  padding: "20px 11px 22px 20px",
 });
 
 export const buttonStyle = style({
-  width: 24,
-  height: "100%",
+  width: 32,
+  height: "62",
   backgroundColor: theme.colors.btn.input.default,
   borderRadius: 24,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  WebkitTapHighlightColor: "transparent",
+});
+
+export const left = style({
+  height: "100%",
+  display: "flex",
+
+  flexDirection: "column",
+  justifyContent: "space-between",
+});
+
+export const titleContainer = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 6,
+});
+
+export const subwayItem = style({
+  padding: 5,
+  borderRadius: "15px",
+  color: "white",
+  minWidth: 20,
+  minHeight: 20,
+  fontSize: 9,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontWeight: 700,
+});
+
+export const bottom = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 12,
+});
+
+export const line = style({
+  height: 14,
+  width: 1,
+  backgroundColor: "#AFB4BA",
+});
+
+export const bottomInfo = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 6,
 });

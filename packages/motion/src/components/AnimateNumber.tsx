@@ -39,14 +39,11 @@ export function AnimateNumber({ variant, number }: Props) {
 
 const numbers = [0, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 export function Col({ number }: ColProps) {
-  console.log(number);
   const numIndex = numbers.findIndex((num) => num === Number(number));
 
   return (
     <motion.div
-      animate={{
-        y: -type1Height * numIndex,
-      }}
+      animate={{ y: -type1Height * numIndex }}
       transition={{ ease: "easeOut", duration: 0.15 }}
       style={{ height: type1Height * 10 }}
       className={colContainerStyle}

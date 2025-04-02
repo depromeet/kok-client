@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useVoteResult } from "@/hooks/api/useVoteResult";
 // import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
 import { AnimationBottomSheet } from "@repo/ui/components";
+import { useRouter } from "next/router";
 
 interface Props {
   memberId: string;
@@ -14,9 +15,12 @@ interface Props {
 
 export function VoteFinishTemplate({ memberId, onRevote }: Props) {
   const params = useParams();
+  const router = useRouter();
 
   const { data } = useVoteResult(params?.roomId as string, memberId);
-  console.log("VoteFinishTemplate", data);
+  console.log("VoteFinishTemplate", data, params?.roomId, memberId);
+
+  const votedAll = data?.data.notVotedCount === 0;
 
   return (
     <Flex
@@ -38,12 +42,17 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
 
       {/* 아래 */}
       <AnimationBottomSheet>
-        {/* <div className={Style.bottomsheetContainerStyle}> */}
         <Text variant="title2" color={theme.colors.text.primary}>
-          <Text color={theme.colors.text.kok}>
-            {data?.data.notVotedCount ?? 0}
-          </Text>
-          명이 투표하지 않았어요!
+          {votedAll ? (
+            <></>
+          ) : (
+            <>
+              <Text color={theme.colors.text.kok}>
+                {data?.data.notVotedCount ?? "-"}
+              </Text>
+              명이 투표하지 않았어요!
+            </>
+          )}
         </Text>
         <Spacing size={12} />
         <Text variant="caption" color={theme.colors.text.caption}>
@@ -56,11 +65,20 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
               재투표 하기
             </Text>
           </button>
-          {/* 투표 완료되었으면 모임장소 확인하기로 변경 */}
+
           <button className={Style.rightButtonStyle}>
-            <Text variant="title3" onClick={() => {}}>
-              링크 복사하기
-            </Text>
+            {votedAll ? (
+              <Text
+                variant="title3"
+                onClick={() => router.push(`/room/${params?.roomId}/result`)}
+              >
+                모임장소 확인하기
+              </Text>
+            ) : (
+              <Text variant="title3" onClick={() => {}}>
+                링크 복사하기
+              </Text>
+            )}
           </button>
         </div>
         {/* </div> */}

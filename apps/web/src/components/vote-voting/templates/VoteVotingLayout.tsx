@@ -15,6 +15,7 @@ import { convertMinutes } from "@/components/vote-onboarding/templates/convertMi
 import { useVoteCandidates } from "@/hooks/api/useVoteCandidates";
 import { useVoting } from "@/hooks/api/useVoting";
 import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
+import { useStopWatch } from "@/hooks/useStopWatch";
 
 interface Props {
   memberId: string;
@@ -44,7 +45,8 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
   const restMinutes =
     deadlineData != null
       ? getTimeDifferenceInMinutes(deadlineData?.data.endAt)
-      : 0;
+      : undefined;
+  const { restTime } = useStopWatch({ startTime: restMinutes });
 
   const totalCounter = candidatesData != null ? candidatesData.data.length : 0;
 
@@ -88,7 +90,7 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
           className={Style.subtitleStyle}
         >
           <span className={Style.timeStyle}>
-            {convertMinutes(restMinutes)}{" "}
+            {restMinutes == null ? "-" : convertMinutes(restTime)}{" "}
           </span>{" "}
           안에 투표해요
         </Text>
@@ -124,7 +126,7 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
           disabled={agreedStationIds.length === 0 || isPending}
         >
           {agreedStationIds.length > 0
-            ? `${agreedStationIds.length}가지 장소에 콕!`
+            ? `투표 끝내기`
             : "1가지 이상 장소에 콕!"}
         </Button>
       </FixedBottomWithSpacing>

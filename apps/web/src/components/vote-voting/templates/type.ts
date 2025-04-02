@@ -3,6 +3,7 @@ export interface Candidate {
   stationName: string;
   totalTime: number;
   transferCount: number;
+  routes: string[];
   coments: {
     memberId: string;
     imageUrl: string;

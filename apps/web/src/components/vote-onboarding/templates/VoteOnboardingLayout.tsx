@@ -9,6 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useVoteDeadline } from "@/hooks/api/useVoteDeadline";
 import { getTimeDifferenceInMinutes } from "./getDeadlineInMinutes";
 import { convertMinutes } from "@/components/vote-onboarding/templates/convertMinutes";
+import { useStopWatch } from "@/hooks/useStopWatch";
 
 const DUMMY_PLACE_NUM = 3;
 
@@ -19,7 +20,8 @@ export function VoteOnboardingLayout() {
   const { data } = useVoteDeadline(params?.roomId as string);
 
   const restMinutes =
-    data != null ? getTimeDifferenceInMinutes(data?.data.endAt) : 0;
+    data != null ? getTimeDifferenceInMinutes(data?.data.endAt) : undefined;
+  const { restTime } = useStopWatch({ startTime: restMinutes });
 
   return (
     <Flex
@@ -57,7 +59,7 @@ export function VoteOnboardingLayout() {
       >
         <Text variant="caption">
           <span className={Style.LimitHour}>
-            {convertMinutes(restMinutes)}{" "}
+            {restMinutes == null ? "-" : convertMinutes(restTime)}{" "}
           </span>
           안에 투표 해주세요!
         </Text>
