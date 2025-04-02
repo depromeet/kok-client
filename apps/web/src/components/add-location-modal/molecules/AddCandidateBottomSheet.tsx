@@ -1,19 +1,21 @@
 import { Button, Flex, Text } from "@repo/ui/components";
 import { DeleteIcon } from "@repo/ui/icons";
-import { useStation } from "../contexts/station";
+import { useStationInfo } from "../contexts/station";
 import LineNumbers from "./LineNumbers";
 import WarningIcon from "@/assets/icons/WarningIcon";
 import { useSelectFlag } from "../contexts/selected-flag";
 import * as styles from "../style.css";
 
 const AddCandidateBottomSheet = () => {
-  const { station, setStation } = useStation();
+  const { stationInfo, setStationInfo } = useStationInfo();
   const { setSelectFlag } = useSelectFlag();
 
-  if (!station || !setSelectFlag) return null;
+  if (!stationInfo || !setSelectFlag) return null;
+
+  const { station, routes } = stationInfo;
 
   const handleClickDelete = () => {
-    setStation(null);
+    setStationInfo(null);
   };
 
   const handleClickAddCandidate = () => {
@@ -31,7 +33,7 @@ const AddCandidateBottomSheet = () => {
       <Flex direction="column" gap={12} className={styles.infoContainer}>
         <Flex justify="between" align="center">
           <Flex gap={8}>
-            <LineNumbers lines={station.lines} />
+            <LineNumbers lines={routes} />
             <Text variant="title2">{station.name}</Text>
           </Flex>
 

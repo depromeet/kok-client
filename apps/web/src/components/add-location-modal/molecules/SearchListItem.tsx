@@ -1,17 +1,17 @@
 import { Flex, Text } from "@repo/ui/components";
 import * as styles from "../style.css";
-import { useStation } from "../contexts/station";
-import { StationInfo } from "../types";
+import { useStationInfo } from "../contexts/station";
+import { StationInfo } from "@/api/types/stations/index.type";
 import LineNumbers from "./LineNumbers";
 
 type SearchListItemProps = StationInfo;
 
 const SearchListItem = (stationInfo: SearchListItemProps) => {
-  const { setStation } = useStation();
-  const { name, lines } = stationInfo;
+  const { setStationInfo } = useStationInfo();
+  const { routes, station } = stationInfo;
 
   const handleClickItem = () => {
-    setStation(stationInfo);
+    setStationInfo(stationInfo);
   };
 
   return (
@@ -24,12 +24,12 @@ const SearchListItem = (stationInfo: SearchListItemProps) => {
           className={styles.searchItemButton}
           onClick={handleClickItem}
         >
-          <LineNumbers lines={lines} />
+          <LineNumbers lines={routes} />
 
           <div className={styles.divider} />
 
           <Text variant="body3" className={styles.stationName}>
-            {name}
+            {station.name}
           </Text>
         </Flex>
       </li>

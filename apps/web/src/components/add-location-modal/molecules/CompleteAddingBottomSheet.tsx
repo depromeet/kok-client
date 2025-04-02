@@ -1,6 +1,6 @@
 import { Button, Flex, Text } from "@repo/ui/components";
 import * as styles from "../style.css";
-import { useStation } from "../contexts/station";
+import { useStationInfo } from "../contexts/station";
 import { useSelectFlag } from "../contexts/selected-flag";
 
 interface CompleteAddingBottomSheetProps {
@@ -10,13 +10,13 @@ interface CompleteAddingBottomSheetProps {
 const CompleteAddingBottomSheet = ({
   onClose,
 }: CompleteAddingBottomSheetProps) => {
-  const { setStation } = useStation();
+  const { setStationInfo } = useStationInfo();
   const { setSelectFlag } = useSelectFlag();
 
-  if (!setStation || !setSelectFlag) return null;
+  if (!setStationInfo || !setSelectFlag) return null;
 
   const handleClickModify = () => {
-    setStation(null);
+    setStationInfo(null);
     setSelectFlag(false);
   };
 

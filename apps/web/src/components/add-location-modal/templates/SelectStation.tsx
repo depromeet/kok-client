@@ -1,11 +1,11 @@
-import { useStation } from "../contexts/station";
+import { useStationInfo } from "../contexts/station";
 import SearchList from "../organisms/SearchList";
 import SearchResultMap from "../organisms/SearchResultMap";
 
 const SelectStation = () => {
-  const { station } = useStation();
+  const { stationInfo } = useStationInfo();
 
-  return station ? <SearchResultMap /> : <SearchList />;
+  return stationInfo ? <SearchResultMap /> : <SearchList />;
 };
 
 export default SelectStation;
