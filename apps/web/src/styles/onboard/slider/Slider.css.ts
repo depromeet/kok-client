@@ -4,6 +4,7 @@ export const container = style({
   flex: 1,
   display: "flex",
   flexDirection: "column",
+  height: "calc(100vh - 90px)",
 });
 
 export const img = style({

@@ -23,6 +23,7 @@ export const img = style({
   width: "100%",
   userSelect: "none",
   WebkitUserSelect: "none",
+  objectFit: "cover",
 });
 
 export const title = style({

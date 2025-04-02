@@ -56,10 +56,10 @@ export default function useSliderDrag() {
   );
 
   const onDragEnd = useCallback(() => {
-    if (moveDirection.current === "left") {
+    if (moveDirection.current === "left" && sliderIndex > 0) {
       setSliderIndex((prev) => prev - 1);
       animate(translateXMotion, -window.innerWidth * (sliderIndex - 1));
-    } else if (moveDirection.current === "right") {
+    } else if (moveDirection.current === "right" && sliderIndex < 2) {
       setSliderIndex((prev) => prev + 1);
       animate(translateXMotion, -window.innerWidth * (sliderIndex + 1));
     }
