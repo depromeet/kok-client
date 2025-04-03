@@ -8,4 +8,5 @@ export interface IMemberProfile {
   profile: string;
   nickname: string;
   role: string;
+  address: string;
 }

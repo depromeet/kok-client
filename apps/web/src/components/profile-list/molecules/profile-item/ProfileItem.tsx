@@ -8,11 +8,13 @@ import {
   ProfileItemLayoutStyle,
   selectedImageStyle,
 } from "./style.css";
+import { getShortAddress } from "@/utils/getShortAddress";
 
 interface ProfileItemProps {
   profileImg: string;
   profileName: string;
   profileId: string;
+  profileAddress: string;
   isSelected: boolean;
   onSelect: (profileId: string) => void;
 }
@@ -21,11 +23,14 @@ const ProfileItem = ({
   profileImg,
   profileName,
   profileId,
+  profileAddress,
   isSelected,
   onSelect,
 }: ProfileItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const [scope, animate] = useAnimate();
+
+  console.log(profileAddress);
 
   useEffect(() => {
     if (isSelected) {
@@ -74,7 +79,21 @@ const ProfileItem = ({
         <Image src={profileImg} alt="profile" fill priority />
       </motion.div>
 
-      <Text variant="caption">{profileName}</Text>
+      <Flex direction="column" gap={8} align="center">
+        <Text variant="caption">{profileName}</Text>
+        <Text
+          variant="caption"
+          style={{
+            color: theme.colors.gray40,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            maxWidth: "115px",
+          }}
+        >
+          {getShortAddress(profileAddress)}
+        </Text>
+      </Flex>
     </Flex>
   );
 };
