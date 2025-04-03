@@ -1,6 +1,5 @@
-import { mergeProps } from "react-aria";
 import {
-  ButtonHTMLAttributes,
+  ComponentProps,
   CSSProperties,
   PropsWithChildren,
   RefObject,
@@ -11,11 +10,10 @@ import {
   ButtonVariants,
 } from "./style.css";
 import { classMerge } from "../../utils";
-import { motion, usePressEffect } from "@repo/motion";
-import mergeRefs from "merge-refs";
+import { motion } from "@repo/motion";
 import { theme } from "../../tokens";
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+export type ButtonProps = ComponentProps<typeof motion.button> &
   ButtonVariants & {
     ref?: RefObject<HTMLButtonElement | null>;
     containerStyle?: CSSProperties;
@@ -31,8 +29,6 @@ export const Button = ({
   containerStyle,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
-  const { containerRef, pressProps } = usePressEffect();
-
   return (
     <motion.div
       className={classMerge(
@@ -40,13 +36,16 @@ export const Button = ({
         className
       )}
       variants={{
+        touch: {
+          scale: 0.96,
+        },
         wiggle: {
           x: [4, -4, 4, -4, 4, -4, 4, -4],
+          transition: { duration: 3 },
         },
       }}
-      transition={{ duration: 3 }}
-      whileTap={props.disabled ? "wiggle" : ""}
       style={containerStyle}
+      whileTap={props.disabled ? "wiggle" : "touch"}
     >
       <motion.button
         animate={
@@ -61,8 +60,8 @@ export const Button = ({
           width,
           padding,
         })}
-        ref={mergeRefs(ref, containerRef)}
-        {...mergeProps(props, props.disabled ? {} : pressProps)}
+        ref={ref}
+        {...props}
       >
         {children}
       </motion.button>
