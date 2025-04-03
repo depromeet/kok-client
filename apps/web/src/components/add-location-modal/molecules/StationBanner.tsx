@@ -1,8 +1,9 @@
 import { Flex, Text } from "@repo/ui/components";
 import { StationInfo } from "@/api/types/stations/index.type";
 import * as styles from "../style.css";
-import LineNumbers, { removeLineSuffix } from "./LineNumbers";
+import LineNumbers from "./LineNumbers";
 import { getLineColorName } from "../atoms/LineNumber";
+import { removeLineSuffix } from "@/utils/subway";
 
 type StationBannerProps = StationInfo;
 

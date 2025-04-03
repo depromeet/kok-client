@@ -1,6 +1,10 @@
 import { theme } from "@repo/ui/tokens";
 import { SUBWAY_META, SubwayLineType } from "../constants/subway";
 
+export const removeLineSuffix = (line: string): string => {
+  return line.replace(/(선|호선|철도)$/, "");
+};
+
 export const parseSubwayLineNumber = (route: string | null): number => {
   if (!route) return 0;
   const matches = route.match(/\d+/);
