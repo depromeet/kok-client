@@ -19,9 +19,8 @@ export function ProfileList({
         <li
           key={profile.memberId}
           onClick={() => {
-            if (!profile.isVoted) {
-              onProfileClick(profile.memberId);
             }
+            onProfileClick(profile.memberId);
           }}
         >
           <ProfileItem
