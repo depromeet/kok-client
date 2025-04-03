@@ -14,9 +14,6 @@ const nextConfig = {
     ],
   },
   transpilePackages: ["@repo/ui"],
-  experimental: {
-    reactCompiler: true,
-  },
 };
 
 const config = withVanillaExtract(nextConfig);
