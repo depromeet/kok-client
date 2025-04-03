@@ -27,7 +27,7 @@ export const useVoteDeadline = (roomId: string) => {
   }
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  return useQuery<{ data: { endAt: string } }>({
+  return useQuery<{ data: { endAt: string; candidateCount: number } }>({
     queryKey: ["voteDeadline", roomId],
     queryFn: () => fetchVoteDeadline(roomId),
   });
