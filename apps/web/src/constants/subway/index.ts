@@ -1,22 +1,6 @@
 import { theme } from "@repo/ui/tokens";
 
-export type SubwayLineType =
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 9
-  | "신분당"
-  | "수인분당"
-  | "경의중앙"
-  | "인천1"
-  | "인천2"
-  | "공항철도"
-  | "unknown";
+export type SubwayLineType = keyof typeof SUBWAY_META;
 
 export const SUBWAY_META = {
   1: {
