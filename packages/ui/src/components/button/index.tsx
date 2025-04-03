@@ -1,4 +1,9 @@
-import { ComponentProps, PropsWithChildren, RefObject } from "react";
+import {
+  ComponentProps,
+  CSSProperties,
+  PropsWithChildren,
+  RefObject,
+} from "react";
 import {
   buttonContainerStyle,
   buttonReceipe,
@@ -9,7 +14,10 @@ import { motion } from "@repo/motion";
 import { theme } from "../../tokens";
 
 export type ButtonProps = ComponentProps<typeof motion.button> &
-  ButtonVariants & { ref?: RefObject<HTMLButtonElement | null> };
+  ButtonVariants & {
+    ref?: RefObject<HTMLButtonElement | null>;
+    containerStyle?: CSSProperties;
+  };
 
 export const Button = ({
   variant = "primary",
@@ -18,6 +26,7 @@ export const Button = ({
   ref,
   className,
   children,
+  containerStyle,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   return (
@@ -35,6 +44,7 @@ export const Button = ({
           transition: { duration: 3 },
         },
       }}
+      style={containerStyle}
       whileTap={props.disabled ? "wiggle" : "touch"}
     >
       <motion.button

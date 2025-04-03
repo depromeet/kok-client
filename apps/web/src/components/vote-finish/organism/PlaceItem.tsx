@@ -39,7 +39,7 @@ export function PlaceItem({
       <Text variant="caption" color={theme.colors.text4}>
         {voteStatus === "agree"
           ? `${votedCount}명의 친구들도 찬성 중`
-          : `${votedCount}명의 친구들이 찬성 중`}
+          : `${votedCount}명의 친구들이 반대 중`}
       </Text>
       <div className={Style.iconStyle}>
         {voteStatus === "agree" ? <ConfirmIcon /> : <UnConfirmIcon />}
