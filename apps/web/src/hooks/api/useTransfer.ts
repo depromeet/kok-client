@@ -87,6 +87,7 @@ export const useSimpleTransfer = (
     queryKey: ["transfer", "simple", stationId, request],
     queryFn: () => fetchSimpleTransfer(stationId, request),
     // staleTime: 1000 * 60 * 60,
+    enabled: !!stationId,
   });
 };
 
@@ -98,5 +99,6 @@ export const useComplexTransfer = (
     queryKey: ["transfer", "complex", stationId, request],
     queryFn: () => fetchComplexTransfer(stationId, request),
     // staleTime: 1000 * 60 * 60,
+    enabled: !!stationId,
   });
 };

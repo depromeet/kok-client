@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, Spacing, Text } from "@repo/ui/components";
+import { Button, Flex, LoadingDots, Spacing, Text } from "@repo/ui/components";
 import * as Style from "./style.css";
 import { Tooltip } from "../atom/Tooltip/Tooltip";
 import Image from "next/image";
@@ -10,8 +10,6 @@ import { useVoteDeadline } from "@/hooks/api/useVoteDeadline";
 import { getTimeDifferenceInMinutes } from "./getDeadlineInMinutes";
 import { convertMinutes } from "@/components/vote-onboarding/templates/convertMinutes";
 import { useStopWatch } from "@/hooks/useStopWatch";
-
-const DUMMY_PLACE_NUM = 3;
 
 export function VoteOnboardingLayout() {
   const router = useRouter();
@@ -35,7 +33,9 @@ export function VoteOnboardingLayout() {
 
       {/* 위 */}
       <Flex direction="column" align="center">
-        <Tooltip>{DUMMY_PLACE_NUM}가지 장소 후보</Tooltip>
+        <Tooltip>
+          {data ? data.data.candidateCount : <LoadingDots />}가지 장소 후보
+        </Tooltip>
         <Spacing size={4} />
         <Text variant="heading3" className={Style.titleStyle}>
           어디로 갈까요?
