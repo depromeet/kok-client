@@ -23,7 +23,7 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
   const { data } = useVoteResult(params?.roomId as string, memberId);
   const { mutate: endVote } = useVoteFinish({
     onSuccess: () => {
-      router.push(`/room/${params?.roomId}/result`);
+      router.push(`/room/${params?.roomId}/result?memberId=${memberId}`);
     },
   });
 

@@ -5,7 +5,6 @@ import { Text, Spacing } from "@repo/ui/components";
 import { Candidate } from "../templates/type";
 import { theme } from "@repo/ui/tokens";
 import { SUBWAY_META } from "@/constants/subway";
-import { convertMinutes } from "@/components/vote-onboarding/templates/convertMinutes";
 
 interface Props extends Candidate {
   view: "card" | "list";
@@ -92,7 +91,7 @@ export function CardItem({
                   이동 시간
                 </Text>
                 <Text color={theme.colors.text.secondary} variant="title3">
-                  {convertMinutes(totalTime)}
+                  {Math.floor(totalTime / 60)} 분
                 </Text>
               </div>
               <div className={Style.line} />

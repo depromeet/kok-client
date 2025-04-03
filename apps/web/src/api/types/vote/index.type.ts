@@ -7,4 +7,5 @@ export interface TUserStatus {
   nickname: string;
   imageUrl: string;
   isVoted: true;
+  address: string;
 }

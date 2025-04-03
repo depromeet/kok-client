@@ -8,7 +8,12 @@ import {
 } from "../constants/subway";
 
 export const removeLineSuffix = (line: string): string => {
-  return line.replace(/^수도권/, "").replace(/(선|호선)$/, "");
+  return line
+    .replace(/^수도권/, "")
+    .replace(/\([^)]*\)$/, "")
+    .replace(/(선|호선)$/, "")
+    .replace(/\s*(급행|특급)$/, "")
+    .replace(/\(성수지선\)|\(신정지선\)/, "");
 };
 
 export const parseSubwayLineNumber = (route: string | null): number => {
