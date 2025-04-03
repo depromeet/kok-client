@@ -4,7 +4,7 @@ import { Flex, Text, Button, Spacing } from "@repo/ui/components";
 import * as Style from "./style.css";
 import { ProfileList } from "../organism/ProfileList";
 import { useUserVoteStatus } from "@/hooks/api/useUserVoteStatus";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
 
 interface Props {
@@ -19,8 +19,21 @@ export function VoteSelectProfile({
   onSelectMemberId,
 }: Props) {
   const params = useParams();
+  const router = useRouter();
 
   const { data } = useUserVoteStatus(params?.roomId as string);
+
+  const allMembersVoted =
+    data?.data?.every((member) => member.isVoted) ?? false;
+
+  const handleResultCheck = () => {
+    if (selectedMemberId) {
+      router.push(
+        `/room/${params?.roomId}/result?memberId=${selectedMemberId}`
+      );
+    }
+  };
+  console.log("selectedMemberId", selectedMemberId);
 
   return (
     <Flex
@@ -35,7 +48,7 @@ export function VoteSelectProfile({
       {/* 위 */}
       <Flex direction="column" align="center">
         <Text variant="heading3" className={Style.titleStyle}>
-          투표를 시작해요!
+          {allMembersVoted ? "결과를 확인해요!" : "투표를 시작해요!"}
         </Text>
         <div className={Style.scrollArea}>
           <Spacing size="8.2vh" />
@@ -51,8 +64,11 @@ export function VoteSelectProfile({
 
       {/* 아래 */}
       <FixedBottomWithSpacing>
-        <Button disabled={selectedMemberId == null} onClick={onNext}>
-          투표 하러가기
+        <Button
+          disabled={selectedMemberId == null}
+          onClick={allMembersVoted ? handleResultCheck : onNext}
+        >
+          {allMembersVoted ? "결과 확인하기" : "투표 하러가기"}
         </Button>
       </FixedBottomWithSpacing>
     </Flex>
