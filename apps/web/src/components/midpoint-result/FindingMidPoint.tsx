@@ -114,7 +114,7 @@ const FindingMidPoint = ({
         </div>
         <NaverMap
           width="100vw"
-          height="100vh"
+          height="100dvh"
           markerData={displayMarkerData}
           centerMarker={markerData.length > 1 ? centerMarkerData : undefined}
           polygon={markerData.length > 1 ? polygonPath : []}

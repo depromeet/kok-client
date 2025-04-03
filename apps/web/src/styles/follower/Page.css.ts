@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 export const container = style({
-  height: "100vh",
+  height: "100dvh",
   // backgroundColor: theme.colors.semantic.bg.base,
 });
 
