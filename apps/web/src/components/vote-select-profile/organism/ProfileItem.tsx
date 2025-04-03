@@ -5,12 +5,19 @@ import { theme } from "@repo/ui/tokens";
 import Image from "next/image";
 import { useEffect } from "react";
 import { TUserStatus } from "@/api/types/vote/index.type";
+import { getShortAddress } from "@/utils/getShortAddress";
 
 interface Props extends TUserStatus {
   selected: boolean;
 }
 
-export function ProfileItem({ nickname, imageUrl, selected, isVoted }: Props) {
+export function ProfileItem({
+  nickname,
+  imageUrl,
+  selected,
+  isVoted,
+  address,
+}: Props) {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
@@ -61,7 +68,7 @@ export function ProfileItem({ nickname, imageUrl, selected, isVoted }: Props) {
       <Spacing size={16} />
       <Text className={Style.name}>{nickname}</Text>
       <Spacing size={8} />
-      {/* <Text className={Style.address}>{address}</Text> */}
+      <Text className={Style.address}>{getShortAddress(address)}</Text>
     </Flex>
   );
 }
