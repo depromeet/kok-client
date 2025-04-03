@@ -44,7 +44,7 @@ export const placeContainer = style({
   display: "flex",
   flexDirection: "column",
   width: "100%",
-  justifyContent: "space-between",
+  height: "100%",
 });
 
 export const buttonContainer = style({
