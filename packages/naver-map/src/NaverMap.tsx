@@ -11,8 +11,8 @@ import { ProfileMarker } from "./overlays/profile-marker";
 
 export const NAVER_MAP_CONFIG = {
   ZOOM_LEVEL: 17,
-  MIN_ZOOM: 11,
-  MAX_ZOOM: 21,
+  MIN_ZOOM: 9,
+  MAX_ZOOM: 18,
   SCALE_FACTOR: 0.3,
   SEOUL_CENTER: { lat: 37.5665, lng: 126.978 },
   SEOUL_BOUNDS: {
