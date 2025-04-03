@@ -19,7 +19,6 @@ export function ProfileList({
         <li
           key={profile.memberId}
           onClick={() => {
-            }
             onProfileClick(profile.memberId);
           }}
         >
