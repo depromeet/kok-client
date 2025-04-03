@@ -1,30 +1,21 @@
 "use client";
 
-import { Button, Flex, LoadingDots, Text } from "@repo/ui/components";
+import { Button, Flex, Text } from "@repo/ui/components";
 import Image from "next/image";
 import * as Style from "./style.css";
-import { useRoomInfo } from "@/hooks/api/useRoomInfo";
-import { useRouter } from "next/navigation";
-import { usePressEffect } from "@repo/motion";
+import Link from "next/link";
 
 interface MemberOnboardingProps {
   roomId: string;
+  roomName: string;
 }
 
-const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
-  const router = useRouter();
-  const { data } = useRoomInfo(roomId);
-  const { backgroundRef, containerRef, pressProps } = usePressEffect();
-
+const MemberOnboarding = ({ roomId, roomName }: MemberOnboardingProps) => {
   const descriptions = [
     "내 프로필을 만들고 출발지를 입력해요",
     "중간장소 후보를 확인하고 추가해요",
     "투표 안한 친구 들을 독촉해요",
   ];
-
-  const handleClickJoin = () => {
-    router.push(`/room/${roomId}/select-profile`);
-  };
 
   return (
     <Flex
@@ -36,7 +27,7 @@ const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
       <Flex direction="column" align="center" justify="between" gap={80}>
         <div className={Style.header}>
           <Text variant="title3" className={Style.speachBubble}>
-            {data ? data.data.roomName : <LoadingDots />}
+            {roomName}
             <div className={Style.speachBubbleTail} />
           </Text>
           <Text variant="heading3">모임 초대장이 도착했어요</Text>
@@ -67,17 +58,12 @@ const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
         </Flex>
       </Flex>
 
-      <div className={Style.buttonContainer}>
-        <Button
-          variant="secondary"
-          ref={containerRef}
-          {...pressProps}
-          onClick={handleClickJoin}
-        >
-          <div ref={backgroundRef} className={Style.buttonBackground} />
+      <Button variant="secondary" className={Style.buttonContainer}>
+        <Link href={`/room/${roomId}/select-profile`}>
+          <div className={Style.buttonBackground} />
           약속방 참여하기
-        </Button>
-      </div>
+        </Link>
+      </Button>
     </Flex>
   );
 };
