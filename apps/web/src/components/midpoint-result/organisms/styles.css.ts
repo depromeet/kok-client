@@ -90,7 +90,7 @@ export const headerStyle = style({
 
 export const backBtnStyle = style({
   position: "absolute",
-  left: "16px",
+  left: "8px",
 });
 
 export const titleStyle = style({

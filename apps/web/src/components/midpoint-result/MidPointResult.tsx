@@ -54,7 +54,7 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
   return (
     <div className={mapContainer}>
       <Flex direction="column">
-        <MapHeader title="중간 장소 결과" />
+        <MapHeader title="투표 결과" isFinal={true} />
         {centerPoint.latitude !== undefined &&
           centerPoint.longitude !== undefined && (
             <NaverMap
