@@ -22,7 +22,10 @@ const CompleteSelection = ({ onClose }: CompleteSelectionProps) => {
 
       <StationBanner {...stationInfo} />
 
-      <CompleteAddingBottomSheet onClose={onClose} />
+      <CompleteAddingBottomSheet
+        onClose={onClose}
+        stationName={stationInfo.station.name}
+      />
     </div>
   );
 };
