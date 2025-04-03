@@ -12,21 +12,38 @@ interface IProfileListContentProps {
   profileData: IProfileData;
   currentMemberId: string;
   setCurrentMemberId: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentMemberAddress: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentMemberNickname: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentMemberImage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProfileListContent = ({
   profileData,
   currentMemberId,
   setCurrentMemberId,
+  setCurrentMemberAddress,
+  setCurrentMemberNickname,
+  setCurrentMemberImage,
 }: IProfileListContentProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleSelectProfile = (profileId: string) => {
+  const handleSelectProfile = (
+    profileId: string,
+    profileAddress: string,
+    profileNickname: string,
+    profileImage: string
+  ) => {
     if (currentMemberId === profileId) {
       setCurrentMemberId("");
+      setCurrentMemberAddress("");
+      setCurrentMemberNickname("");
+      setCurrentMemberImage("");
     } else {
       setCurrentMemberId(profileId);
+      setCurrentMemberAddress(profileAddress);
+      setCurrentMemberNickname(profileNickname);
+      setCurrentMemberImage(profileImage);
     }
   };
 

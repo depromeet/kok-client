@@ -16,7 +16,12 @@ interface ProfileItemProps {
   profileId: string;
   profileAddress: string;
   isSelected: boolean;
-  onSelect: (profileId: string) => void;
+  onSelect: (
+    profileId: string,
+    profileAddress: string,
+    profileNickname: string,
+    profileImage: string
+  ) => void;
 }
 
 const ProfileItem = ({
@@ -29,8 +34,6 @@ const ProfileItem = ({
 }: ProfileItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const [scope, animate] = useAnimate();
-
-  console.log(profileAddress);
 
   useEffect(() => {
     if (isSelected) {
@@ -49,7 +52,7 @@ const ProfileItem = ({
   }, [animate, scope, isSelected]);
 
   const handleClick = () => {
-    onSelect(profileId);
+    onSelect(profileId, profileAddress, profileName, profileImg);
     itemRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "center",
@@ -91,7 +94,13 @@ const ProfileItem = ({
             maxWidth: "115px",
           }}
         >
-          {getShortAddress(profileAddress)}
+          {profileAddress ? (
+            getShortAddress(profileAddress)
+          ) : (
+            <Text style={{ color: theme.colors.red50, fontWeight: 700 }}>
+              주소가 비어있어요!
+            </Text>
+          )}
         </Text>
       </Flex>
     </Flex>
