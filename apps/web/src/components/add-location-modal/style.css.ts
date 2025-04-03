@@ -152,38 +152,22 @@ export const bannerContainer = style({
   marginTop: "25%",
 });
 
-export const bannerRecipe = recipe({
-  base: {
-    padding: "24px",
-    width: "fit-content",
-    borderRadius: "100px",
-    border: "10px solid",
-    zIndex: zIndex.floating + 5,
-    background: theme.colors.gray0,
-    flexWrap: "wrap",
-  },
-  variants: {
-    border: subwayBorderVariants,
-  },
-  defaultVariants: {
-    border: "default",
-  },
+export const banner = style({
+  padding: "24px",
+  width: "fit-content",
+  borderRadius: "100px",
+  border: "10px solid",
+  zIndex: zIndex.floating + 5,
+  background: theme.colors.gray0,
+  flexWrap: "wrap",
 });
 
-export const bannerLineRecipe = recipe({
-  base: {
-    position: "absolute",
-    top: "50%",
-    left: 0,
-    transform: "translateY(-50%)",
-    width: "100%",
-    borderTop: "24px solid",
-    borderBottom: "24px solid",
-  },
-  variants: {
-    border: subwayBorderVariants,
-  },
-  defaultVariants: {
-    border: "default",
-  },
+export const bannerLine = style({
+  position: "absolute",
+  top: "50%",
+  left: 0,
+  transform: "translateY(-50%)",
+  width: "100%",
+  borderTop: "24px solid",
+  borderBottom: "24px solid",
 });

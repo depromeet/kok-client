@@ -2,12 +2,12 @@ import { Flex, Text } from "@repo/ui/components";
 import { StationInfo } from "@/api/types/stations/index.type";
 import * as styles from "../style.css";
 import LineNumbers from "./LineNumbers";
-import { getLineColorName, removeLineSuffix } from "@/utils/subway";
+import { getSubwayColor } from "@/utils/subway";
 
 type StationBannerProps = StationInfo;
 
 const StationBanner = ({ station, routes }: StationBannerProps) => {
-  const lineColor = getLineColorName(removeLineSuffix(routes[0]!));
+  const lineColor = getSubwayColor(routes[0]!);
 
   return (
     <Flex justify="center" className={styles.bannerContainer}>
@@ -15,13 +15,17 @@ const StationBanner = ({ station, routes }: StationBannerProps) => {
         align="center"
         justify="center"
         gap={12}
-        className={styles.bannerRecipe({ border: lineColor })}
+        className={styles.banner}
+        style={{ borderColor: lineColor }}
       >
         <LineNumbers lines={routes} size="md" />
         <Text variant="heading3">{station.name}</Text>
       </Flex>
 
-      <div className={styles.bannerLineRecipe({ border: lineColor })} />
+      <div
+        className={styles.bannerLine}
+        style={{ borderColor: lineColor, background: lineColor }}
+      />
     </Flex>
   );
 };

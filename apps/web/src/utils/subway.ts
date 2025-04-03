@@ -70,6 +70,8 @@ export const identifySubwayLine = (route: string | null): SubwayLineType => {
 
 export const getSubwayColor = (route: string | null): string => {
   if (!route) return theme.colors.gray40;
-  const lineType = identifySubwayLine(route);
+
+  const lineName = removeLineSuffix(route);
+  const lineType = identifySubwayLine(lineName);
   return SUBWAY_META[lineType].color;
 };
