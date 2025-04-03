@@ -3,7 +3,7 @@ import { SUBWAY_META, SubwayLineType } from "../constants/subway";
 import { SubwayColorProps } from "@/components/add-location-modal/style.css";
 
 export const removeLineSuffix = (line: string): string => {
-  return line.replace(/(선|호선|철도)$/, "");
+  return line.replace(/(선|호선)$/, "");
 };
 
 export const getLineColorName = (lineName: string): SubwayColorProps => {
@@ -12,7 +12,7 @@ export const getLineColorName = (lineName: string): SubwayColorProps => {
   switch (lineName) {
     case "신분당":
       return "shinbundang";
-    case "공항":
+    case "공항철도":
       return "gonghang";
     case "경의중앙":
       return "gyeonguiJungang";
