@@ -23,17 +23,18 @@ export const Flex = ({
   children,
   className,
   ref,
+  style,
   ...props
 }: PropsWithChildren<FlexProps>) => {
   return (
     <Tag
+      {...props}
       ref={ref}
-      style={{ gap }}
+      style={{ gap, ...style }}
       className={classMerge(
         flexRecipe({ justify, align, direction }),
         className
       )}
-      {...props}
     >
       {children}
     </Tag>

@@ -1,5 +1,6 @@
 import { Flex, Text } from "@repo/ui/components";
 import * as styles from "../style.css";
+import { getSubwayColor } from "@/utils/subway";
 
 export type LineNumberSizeType = "sm" | "md";
 
@@ -8,31 +9,10 @@ interface LineNumberProps {
   size?: LineNumberSizeType;
 }
 
-export const getLineColorName = (lineName: string): styles.SubwayColorProps => {
-  if (!isNaN(Number(lineName)))
-    return `line${lineName}` as styles.SubwayColorProps;
-
-  switch (lineName) {
-    case "신분당":
-      return "shinbundang";
-    case "공항":
-      return "gonghang";
-    case "경의중앙":
-      return "gyeonguiJungang";
-    case "분당":
-    case "수인":
-      return "suinbundang";
-    case "인천1":
-      return "incheon1";
-    case "인천2":
-      return "incheon2";
-  }
-
-  return "default";
-};
-
 const LineNumber = ({ line, size = "sm" }: LineNumberProps) => {
   const textVariant = size === "sm" ? "number" : "number-md";
+  const backgroundColor = getSubwayColor(line);
+
   return (
     <Flex
       key={line}
@@ -40,9 +20,9 @@ const LineNumber = ({ line, size = "sm" }: LineNumberProps) => {
       justify="center"
       align="center"
       className={styles.lineNumberRecipe({
-        subway: getLineColorName(line),
         size,
       })}
+      style={{ backgroundColor }}
     >
       <Text variant={textVariant}>{line}</Text>
     </Flex>

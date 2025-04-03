@@ -3,46 +3,6 @@ import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-export type SubwayColorProps = keyof typeof subwayBackgroundVariants;
-
-const subwayBackgroundVariants = {
-  line1: { background: theme.colors.subwayAdjust1 },
-  line2: { background: theme.colors.subwayAdjust2 },
-  line3: { background: theme.colors.subwayAdjust3 },
-  line4: { background: theme.colors.subwayAdjust4 },
-  line5: { background: theme.colors.subwayAdjust5 },
-  line6: { background: theme.colors.subwayAdjust6 },
-  line7: { background: theme.colors.subwayAdjust7 },
-  line8: { background: theme.colors.subwayAdjust8 },
-  line9: { background: theme.colors.subwayAdjust9 },
-  shinbundang: { background: theme.colors.subwayAdjustShinbundang },
-  gyeonguiJungang: { background: theme.colors.subwayAdjustGyeonguiJungang },
-  suinbundang: { background: theme.colors.subwayAdjustSuinbundang },
-  gonghang: { background: theme.colors.subwayAdjustAirport },
-  incheon1: { background: theme.colors.subwayAdjustIncheon1 },
-  incheon2: { background: theme.colors.subwayAdjustIncheon2 },
-  default: { background: theme.colors.orange30 },
-} as const;
-
-const subwayBorderVariants = {
-  line1: { borderColor: theme.colors.subwayAdjust1 },
-  line2: { borderColor: theme.colors.subwayAdjust2 },
-  line3: { borderColor: theme.colors.subwayAdjust3 },
-  line4: { borderColor: theme.colors.subwayAdjust4 },
-  line5: { borderColor: theme.colors.subwayAdjust5 },
-  line6: { borderColor: theme.colors.subwayAdjust6 },
-  line7: { borderColor: theme.colors.subwayAdjust7 },
-  line8: { borderColor: theme.colors.subwayAdjust8 },
-  line9: { borderColor: theme.colors.subwayAdjust9 },
-  shinbundang: { borderColor: theme.colors.subwayAdjustShinbundang },
-  gyeonguiJungang: { borderColor: theme.colors.subwayAdjustGyeonguiJungang },
-  suinbundang: { borderColor: theme.colors.subwayAdjustSuinbundang },
-  gonghang: { borderColor: theme.colors.subwayAdjustAirport },
-  incheon1: { borderColor: theme.colors.subwayAdjustIncheon1 },
-  incheon2: { borderColor: theme.colors.subwayAdjustIncheon2 },
-  default: { borderColor: theme.colors.orange30 },
-} as const;
-
 export const container = style({
   width: "100%",
   height: "100%",
@@ -90,7 +50,6 @@ export const lineNumberRecipe = recipe({
     color: "white",
   },
   variants: {
-    subway: subwayBackgroundVariants,
     size: {
       sm: {
         padding: "2px 6px",
@@ -105,7 +64,6 @@ export const lineNumberRecipe = recipe({
     },
   },
   defaultVariants: {
-    subway: "default",
     size: "sm",
   },
 });
@@ -152,38 +110,22 @@ export const bannerContainer = style({
   marginTop: "25%",
 });
 
-export const bannerRecipe = recipe({
-  base: {
-    padding: "24px",
-    width: "fit-content",
-    borderRadius: "100px",
-    border: "10px solid",
-    zIndex: zIndex.floating + 5,
-    background: theme.colors.gray0,
-    flexWrap: "wrap",
-  },
-  variants: {
-    border: subwayBorderVariants,
-  },
-  defaultVariants: {
-    border: "default",
-  },
+export const banner = style({
+  padding: "24px",
+  width: "fit-content",
+  borderRadius: "100px",
+  border: "10px solid",
+  zIndex: zIndex.floating + 5,
+  background: theme.colors.gray0,
+  flexWrap: "wrap",
 });
 
-export const bannerLineRecipe = recipe({
-  base: {
-    position: "absolute",
-    top: "50%",
-    left: 0,
-    transform: "translateY(-50%)",
-    width: "100%",
-    borderTop: "24px solid",
-    borderBottom: "24px solid",
-  },
-  variants: {
-    border: subwayBorderVariants,
-  },
-  defaultVariants: {
-    border: "default",
-  },
+export const bannerLine = style({
+  position: "absolute",
+  top: "50%",
+  left: 0,
+  transform: "translateY(-50%)",
+  width: "100%",
+  borderTop: "24px solid",
+  borderBottom: "24px solid",
 });

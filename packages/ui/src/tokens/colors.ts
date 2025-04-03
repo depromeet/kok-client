@@ -104,10 +104,23 @@ const scale = {
   subwayAdjustIncheon1: "#7EA5CD",
   subwayAdjustIncheon2: "#F7931D",
   subwayAdjustAirport: "#1589BC",
+  subwayAdjustUiSinseol: "#BAC94C",
+  subwayAdjustGyeongGang: "#1F5FCB",
+  subwayAdjustEverLine: "#7CC250",
+  subwayAdjustGimpoGold: "#C28B3E",
+  subwayAdjustSillim: "#6789CA",
+  subwayAdjustGTX: "#B072A7",
 
   mapPolygon: "rgba(27, 32, 44, 0.1)",
   mapMarkerBorder: "#000000",
 };
+
+/*
+TODO: 추후 GTX-A,B,C 구분
+  GTX A: B072A7
+  GTX B: 2F57B7
+  GTX C: 357965
+*/
 
 const token = {
   textPrimary: scale.gray95,

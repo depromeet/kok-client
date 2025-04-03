@@ -1,5 +1,15 @@
+import { NormalLineType } from "./../constants/subway/index";
 import { theme } from "@repo/ui/tokens";
-import { SUBWAY_META, SubwayLineType } from "../constants/subway";
+import {
+  SPECIAL_LINES,
+  SpecialLineType,
+  SUBWAY_META,
+  SubwayLineType,
+} from "../constants/subway";
+
+export const removeLineSuffix = (line: string): string => {
+  return line.replace(/(선|호선)$/, "");
+};
 
 export const parseSubwayLineNumber = (route: string | null): number => {
   if (!route) return 0;
@@ -10,23 +20,18 @@ export const parseSubwayLineNumber = (route: string | null): number => {
 export const identifySubwayLine = (route: string | null): SubwayLineType => {
   if (!route) return "unknown";
 
-  const specialLines = [
-    "신분당",
-    "수인분당",
-    "경의중앙",
-    "인천1",
-    "인천2",
-    "공항철도",
-  ] as const;
-  for (const line of specialLines) {
-    if (SUBWAY_META[line].pattern.test(route)) {
-      return line;
-    }
+  // NOTE: 숫자 노선 처리
+  if (!isNaN(Number(route))) {
+    return route as NormalLineType;
   }
 
-  const lineNumber = parseSubwayLineNumber(route);
-  if (lineNumber >= 1 && lineNumber <= 9) {
-    return lineNumber as SubwayLineType;
+  // NOTE: 특수 노선 처리
+  const specialLines = Object.keys(SPECIAL_LINES) as SpecialLineType[];
+
+  for (const line of specialLines) {
+    if (SPECIAL_LINES[line].pattern.test(route)) {
+      return line;
+    }
   }
 
   return "unknown";
@@ -34,6 +39,8 @@ export const identifySubwayLine = (route: string | null): SubwayLineType => {
 
 export const getSubwayColor = (route: string | null): string => {
   if (!route) return theme.colors.gray40;
-  const lineType = identifySubwayLine(route);
+
+  const lineName = removeLineSuffix(route);
+  const lineType = identifySubwayLine(lineName);
   return SUBWAY_META[lineType].color;
 };
