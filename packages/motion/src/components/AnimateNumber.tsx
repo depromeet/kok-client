@@ -52,7 +52,9 @@ export function Col({ number }: ColProps) {
       className={colContainerStyle}
     >
       {numbers.map((num) => (
-        <div className={numItemStyle}>{num}</div>
+        <div key={num} className={numItemStyle}>
+          {num}
+        </div>
       ))}
     </motion.div>
   );
