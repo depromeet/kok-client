@@ -1,8 +1,31 @@
 import { theme } from "@repo/ui/tokens";
 import { SUBWAY_META, SubwayLineType } from "../constants/subway";
+import { SubwayColorProps } from "@/components/add-location-modal/style.css";
 
 export const removeLineSuffix = (line: string): string => {
   return line.replace(/(선|호선|철도)$/, "");
+};
+
+export const getLineColorName = (lineName: string): SubwayColorProps => {
+  if (!isNaN(Number(lineName))) return `line${lineName}` as SubwayColorProps;
+
+  switch (lineName) {
+    case "신분당":
+      return "shinbundang";
+    case "공항":
+      return "gonghang";
+    case "경의중앙":
+      return "gyeonguiJungang";
+    case "분당":
+    case "수인":
+      return "suinbundang";
+    case "인천1":
+      return "incheon1";
+    case "인천2":
+      return "incheon2";
+  }
+
+  return "default";
 };
 
 export const parseSubwayLineNumber = (route: string | null): number => {

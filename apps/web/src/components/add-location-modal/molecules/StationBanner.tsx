@@ -2,13 +2,13 @@ import { Flex, Text } from "@repo/ui/components";
 import { StationInfo } from "@/api/types/stations/index.type";
 import * as styles from "../style.css";
 import LineNumbers from "./LineNumbers";
-import { getLineColorName } from "../atoms/LineNumber";
-import { removeLineSuffix } from "@/utils/subway";
+import { getLineColorName, removeLineSuffix } from "@/utils/subway";
 
 type StationBannerProps = StationInfo;
 
 const StationBanner = ({ station, routes }: StationBannerProps) => {
   const lineColor = getLineColorName(removeLineSuffix(routes[0]!));
+
   return (
     <Flex justify="center" className={styles.bannerContainer}>
       <Flex
