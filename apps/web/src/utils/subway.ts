@@ -16,9 +16,18 @@ export const getLineColorName = (lineName: string): SubwayColorProps => {
       return "gonghang";
     case "경의중앙":
       return "gyeonguiJungang";
-    case "분당":
-    case "수인":
+    case "수인분당":
       return "suinbundang";
+    case "우이신설":
+      return "uiSinseol";
+    case "경강":
+      return "gyeonggang";
+    case "에버라인":
+      return "everline";
+    case "김포골드":
+      return "gimpoGold";
+    case "GTX":
+      return "gtx";
     case "인천1":
       return "incheon1";
     case "인천2":

@@ -4,44 +4,43 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export type SubwayColorProps = keyof typeof subwayBackgroundVariants;
+const subwayColors = {
+  line1: theme.colors.subwayAdjust1,
+  line2: theme.colors.subwayAdjust2,
+  line3: theme.colors.subwayAdjust3,
+  line4: theme.colors.subwayAdjust4,
+  line5: theme.colors.subwayAdjust5,
+  line6: theme.colors.subwayAdjust6,
+  line7: theme.colors.subwayAdjust7,
+  line8: theme.colors.subwayAdjust8,
+  line9: theme.colors.subwayAdjust9,
+  shinbundang: theme.colors.subwayAdjustShinbundang,
+  gyeonguiJungang: theme.colors.subwayAdjustGyeonguiJungang,
+  suinbundang: theme.colors.subwayAdjustSuinbundang,
+  uiSinseol: theme.colors.subwayAdjustUiSinseol,
+  gyeonggang: theme.colors.subwayAdjustGyeongGang,
+  everline: theme.colors.subwayAdjustEverLine,
+  gimpoGold: theme.colors.subwayAdjustGimpoGold,
+  gtx: theme.colors.subwayAdjustGTX,
+  gonghang: theme.colors.subwayAdjustAirport,
+  incheon1: theme.colors.subwayAdjustIncheon1,
+  incheon2: theme.colors.subwayAdjustIncheon2,
+  default: theme.colors.orange30,
+};
 
-const subwayBackgroundVariants = {
-  line1: { background: theme.colors.subwayAdjust1 },
-  line2: { background: theme.colors.subwayAdjust2 },
-  line3: { background: theme.colors.subwayAdjust3 },
-  line4: { background: theme.colors.subwayAdjust4 },
-  line5: { background: theme.colors.subwayAdjust5 },
-  line6: { background: theme.colors.subwayAdjust6 },
-  line7: { background: theme.colors.subwayAdjust7 },
-  line8: { background: theme.colors.subwayAdjust8 },
-  line9: { background: theme.colors.subwayAdjust9 },
-  shinbundang: { background: theme.colors.subwayAdjustShinbundang },
-  gyeonguiJungang: { background: theme.colors.subwayAdjustGyeonguiJungang },
-  suinbundang: { background: theme.colors.subwayAdjustSuinbundang },
-  gonghang: { background: theme.colors.subwayAdjustAirport },
-  incheon1: { background: theme.colors.subwayAdjustIncheon1 },
-  incheon2: { background: theme.colors.subwayAdjustIncheon2 },
-  default: { background: theme.colors.orange30 },
-} as const;
+export const subwayBackgroundVariants = Object.fromEntries(
+  Object.entries(subwayColors).map(([key, color]) => [
+    key,
+    { background: color },
+  ])
+);
 
-const subwayBorderVariants = {
-  line1: { borderColor: theme.colors.subwayAdjust1 },
-  line2: { borderColor: theme.colors.subwayAdjust2 },
-  line3: { borderColor: theme.colors.subwayAdjust3 },
-  line4: { borderColor: theme.colors.subwayAdjust4 },
-  line5: { borderColor: theme.colors.subwayAdjust5 },
-  line6: { borderColor: theme.colors.subwayAdjust6 },
-  line7: { borderColor: theme.colors.subwayAdjust7 },
-  line8: { borderColor: theme.colors.subwayAdjust8 },
-  line9: { borderColor: theme.colors.subwayAdjust9 },
-  shinbundang: { borderColor: theme.colors.subwayAdjustShinbundang },
-  gyeonguiJungang: { borderColor: theme.colors.subwayAdjustGyeonguiJungang },
-  suinbundang: { borderColor: theme.colors.subwayAdjustSuinbundang },
-  gonghang: { borderColor: theme.colors.subwayAdjustAirport },
-  incheon1: { borderColor: theme.colors.subwayAdjustIncheon1 },
-  incheon2: { borderColor: theme.colors.subwayAdjustIncheon2 },
-  default: { borderColor: theme.colors.orange30 },
-} as const;
+export const subwayBorderVariants = Object.fromEntries(
+  Object.entries(subwayColors).map(([key, color]) => [
+    key,
+    { borderColor: color },
+  ])
+);
 
 export const container = style({
   width: "100%",
