@@ -7,6 +7,7 @@ import { ShareIcon } from "../atom/share/ShareIcon";
 import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 import { ReactNode } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 interface ParticipantBottomSheetProps {
   roomId: string;
@@ -21,6 +22,9 @@ const ParticipantBottomSheet = ({
   banner,
   isVoteMode,
 }: ParticipantBottomSheetProps) => {
+  const params = useParams();
+  const router = useRouter();
+
   return (
     <AnimationBottomSheet
       initialY="100%"
@@ -70,6 +74,7 @@ const ParticipantBottomSheet = ({
               variant="gradient-loop"
               className={textRecipe({ variant: "title3" })}
               width="full"
+              onClick={() => router.push(`/room/${params?.roomId}/vote`)}
             >
               투표하러 가기
             </Button>
