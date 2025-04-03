@@ -1,5 +1,10 @@
 import { mergeProps } from "react-aria";
-import { ButtonHTMLAttributes, PropsWithChildren, RefObject } from "react";
+import {
+  ButtonHTMLAttributes,
+  CSSProperties,
+  PropsWithChildren,
+  RefObject,
+} from "react";
 import {
   buttonContainerStyle,
   buttonReceipe,
@@ -11,7 +16,10 @@ import mergeRefs from "merge-refs";
 import { theme } from "../../tokens";
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  ButtonVariants & { ref?: RefObject<HTMLButtonElement | null> };
+  ButtonVariants & {
+    ref?: RefObject<HTMLButtonElement | null>;
+    containerStyle?: CSSProperties;
+  };
 
 export const Button = ({
   variant = "primary",
@@ -20,6 +28,7 @@ export const Button = ({
   ref,
   className,
   children,
+  containerStyle,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   const { containerRef, pressProps } = usePressEffect();
@@ -37,6 +46,7 @@ export const Button = ({
       }}
       transition={{ duration: 3 }}
       whileTap={props.disabled ? "wiggle" : ""}
+      style={containerStyle}
     >
       <motion.button
         animate={
