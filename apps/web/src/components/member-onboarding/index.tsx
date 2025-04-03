@@ -1,18 +1,16 @@
 "use client";
 
-import { Button, Flex, LoadingDots, Text } from "@repo/ui/components";
+import { Button, Flex, Text } from "@repo/ui/components";
 import Image from "next/image";
 import * as Style from "./style.css";
-import { useRoomInfo } from "@/hooks/api/useRoomInfo";
 import Link from "next/link";
 
 interface MemberOnboardingProps {
   roomId: string;
+  roomName: string;
 }
 
-const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
-  const { data } = useRoomInfo(roomId);
-
+const MemberOnboarding = ({ roomId, roomName }: MemberOnboardingProps) => {
   const descriptions = [
     "내 프로필을 만들고 출발지를 입력해요",
     "중간장소 후보를 확인하고 추가해요",
@@ -29,7 +27,7 @@ const MemberOnboarding = ({ roomId }: MemberOnboardingProps) => {
       <Flex direction="column" align="center" justify="between" gap={80}>
         <div className={Style.header}>
           <Text variant="title3" className={Style.speachBubble}>
-            {data ? data.data.roomName : <LoadingDots />}
+            {roomName}
             <div className={Style.speachBubbleTail} />
           </Text>
           <Text variant="heading3">모임 초대장이 도착했어요</Text>

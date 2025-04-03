@@ -1,5 +1,5 @@
 import MemberOnboarding from "@/components/member-onboarding";
-import { ErrorBoundary } from "react-error-boundary";
+import { notFound, redirect } from "next/navigation";
 
 export default async function MemberOnboardingPage({
   params,
@@ -8,10 +8,29 @@ export default async function MemberOnboardingPage({
 }) {
   const { roomId } = await params;
 
-  // TODO: 유효하지 않은 roomID의 경우 fallback 처리
-  return (
-    <ErrorBoundary fallback={<>유효하지 않은 방입니다.</>}>
-      <MemberOnboarding roomId={roomId} />
-    </ErrorBoundary>
-  );
+  let roomInfo = null;
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/rooms/${roomId}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    roomInfo = data.data;
+  } catch (error) {
+    console.error(error, "유효하지 않은 방입니다.");
+    notFound();
+  }
+
+  if (roomInfo.roomStatus === "VOTE") {
+    redirect(`/room/${roomId}/vote `);
+  } else if (roomInfo.roomStatus === "VOTE_RESULT") {
+    // TODO: 투표 결과 화면으로 redirect
+  }
+
+  return <MemberOnboarding roomId={roomId} roomName={roomInfo.roomName} />;
 }
