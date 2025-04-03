@@ -16,8 +16,9 @@ const voteFinish = async (roomId: string) => {
   return response.json();
 };
 
-export const useVoteFinish = () => {
+export const useVoteFinish = ({ onSuccess }: { onSuccess: VoidFunction }) => {
   return useMutation({
     mutationFn: voteFinish,
+    onSuccess,
   });
 };
