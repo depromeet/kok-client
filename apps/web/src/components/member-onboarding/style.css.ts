@@ -46,7 +46,6 @@ export const numbering = style({
 });
 
 export const buttonContainer = style({
-  padding: "16px 20px",
   width: "100%",
 });
 
