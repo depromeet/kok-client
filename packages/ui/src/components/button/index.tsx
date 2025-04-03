@@ -32,9 +32,9 @@ export const Button = ({
         },
         wiggle: {
           x: [4, -4, 4, -4, 4, -4, 4, -4],
+          transition: { duration: 3 },
         },
       }}
-      transition={{ duration: 3 }}
       whileTap={props.disabled ? "wiggle" : "touch"}
     >
       <motion.button
