@@ -21,6 +21,7 @@ const subwayColors = {
   gyeonggang: theme.colors.subwayAdjustGyeongGang,
   everline: theme.colors.subwayAdjustEverLine,
   gimpoGold: theme.colors.subwayAdjustGimpoGold,
+  sillim: theme.colors.subwayAdjustSillim,
   gtx: theme.colors.subwayAdjustGTX,
   gonghang: theme.colors.subwayAdjustAirport,
   incheon1: theme.colors.subwayAdjustIncheon1,

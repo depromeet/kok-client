@@ -108,6 +108,7 @@ const scale = {
   subwayAdjustGyeongGang: "#1F5FCB",
   subwayAdjustEverLine: "#7CC250",
   subwayAdjustGimpoGold: "#C28B3E",
+  subwayAdjustSillim: "#6789CA",
   subwayAdjustGTX: "#B072A7",
 
   mapPolygon: "rgba(27, 32, 44, 0.1)",
