@@ -62,7 +62,7 @@ const inputResetStyle = style({
   boxSizing: "border-box",
   fontSize: "16px",
   fontStyle: "normal",
-  fontWeight: 500,
+  fontWeight: 600,
   lineHeight: "100%",
 });
 
