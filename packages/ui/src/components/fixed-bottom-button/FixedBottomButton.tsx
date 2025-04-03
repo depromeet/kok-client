@@ -2,7 +2,7 @@
 
 import { Button, ButtonProps } from "../button";
 import * as Style from "./style.css";
-import { ReactNode, useState } from "react";
+import { PropsWithChildren, ReactNode, useState } from "react";
 import { useVisualViewport } from "../../hook/useVisualViewport";
 import { motion } from "@repo/motion";
 
@@ -10,7 +10,11 @@ interface Props extends ButtonProps {
   top?: ReactNode;
 }
 
-export function FixedBottomButton({ children, top, ...buttonProps }: Props) {
+export function FixedBottomButton({
+  children,
+  top,
+  ...buttonProps
+}: PropsWithChildren<Props>) {
   const [containerHeight, setContainerHeight] = useState(0);
   const { offsetYMotionValue } = useVisualViewport();
 
