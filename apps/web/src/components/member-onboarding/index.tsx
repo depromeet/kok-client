@@ -58,12 +58,11 @@ const MemberOnboarding = ({ roomId, roomName }: MemberOnboardingProps) => {
         </Flex>
       </Flex>
 
-      <Button variant="secondary" className={Style.buttonContainer}>
-        <Link href={`/room/${roomId}/select-profile`}>
-          <div className={Style.buttonBackground} />
+      <Link href={`/room/${roomId}/select-profile`} style={{ width: "100%" }}>
+        <Button variant="secondary" className={Style.buttonContainer}>
           약속방 참여하기
-        </Link>
-      </Button>
+        </Button>
+      </Link>
     </Flex>
   );
 };
