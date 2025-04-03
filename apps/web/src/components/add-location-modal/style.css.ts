@@ -3,46 +3,6 @@ import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-export type SubwayColorProps = keyof typeof subwayBackgroundVariants;
-const subwayColors = {
-  line1: theme.colors.subwayAdjust1,
-  line2: theme.colors.subwayAdjust2,
-  line3: theme.colors.subwayAdjust3,
-  line4: theme.colors.subwayAdjust4,
-  line5: theme.colors.subwayAdjust5,
-  line6: theme.colors.subwayAdjust6,
-  line7: theme.colors.subwayAdjust7,
-  line8: theme.colors.subwayAdjust8,
-  line9: theme.colors.subwayAdjust9,
-  shinbundang: theme.colors.subwayAdjustShinbundang,
-  gyeonguiJungang: theme.colors.subwayAdjustGyeonguiJungang,
-  suinbundang: theme.colors.subwayAdjustSuinbundang,
-  uiSinseol: theme.colors.subwayAdjustUiSinseol,
-  gyeonggang: theme.colors.subwayAdjustGyeongGang,
-  everline: theme.colors.subwayAdjustEverLine,
-  gimpoGold: theme.colors.subwayAdjustGimpoGold,
-  sillim: theme.colors.subwayAdjustSillim,
-  gtx: theme.colors.subwayAdjustGTX,
-  gonghang: theme.colors.subwayAdjustAirport,
-  incheon1: theme.colors.subwayAdjustIncheon1,
-  incheon2: theme.colors.subwayAdjustIncheon2,
-  default: theme.colors.orange30,
-};
-
-export const subwayBackgroundVariants = Object.fromEntries(
-  Object.entries(subwayColors).map(([key, color]) => [
-    key,
-    { background: color },
-  ])
-);
-
-export const subwayBorderVariants = Object.fromEntries(
-  Object.entries(subwayColors).map(([key, color]) => [
-    key,
-    { borderColor: color },
-  ])
-);
-
 export const container = style({
   width: "100%",
   height: "100%",
@@ -90,7 +50,6 @@ export const lineNumberRecipe = recipe({
     color: "white",
   },
   variants: {
-    subway: subwayBackgroundVariants,
     size: {
       sm: {
         padding: "2px 6px",
@@ -105,7 +64,6 @@ export const lineNumberRecipe = recipe({
     },
   },
   defaultVariants: {
-    subway: "default",
     size: "sm",
   },
 });
