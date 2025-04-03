@@ -33,7 +33,6 @@ export const ProgressBar = ({
     >
       {Array.from({ length: lastStep }, (_, index) => {
         const status = index === step - 1 ? "active" : "inactive";
-        console.log(status);
         return (
           <motion.div
             key={index}

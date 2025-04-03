@@ -59,7 +59,7 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
           centerPoint.longitude !== undefined && (
             <NaverMap
               width="100vw"
-              height="100vh"
+              height="100dvh"
               finalCenterMarker={
                 centerPoint as { latitude: number; longitude: number }
               }

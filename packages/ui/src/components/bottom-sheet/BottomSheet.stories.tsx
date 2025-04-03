@@ -28,7 +28,7 @@ export const PinInMap: StoryObj = {
           onClose={() => setOpen(false)}
         >
           <div
-            style={{ height: "100vh", width: "100%", backgroundColor: "blue" }}
+            style={{ height: "100dvh", width: "100%", backgroundColor: "blue" }}
           />
         </BottomSheet>
       </>

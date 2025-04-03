@@ -26,7 +26,6 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
       router.push(`/room/${params?.roomId}/result`);
     },
   });
-  console.log("VoteFinishTemplate", data, params?.roomId, memberId);
 
   const votedAll = data?.data.notVotedCount === 0;
 

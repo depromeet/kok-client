@@ -1,4 +1,4 @@
-import { animate, delay } from "@repo/motion";
+import { animate } from "@repo/motion";
 import { useCallback, useEffect } from "react";
 
 interface Props {
@@ -38,7 +38,6 @@ export function useViewTransform({
 
   const listToCard = useCallback(async () => {
     const timeout = setTimeout(() => {
-      console.log("called");
       new Array(listLength + 1).fill(0).forEach((_, index) => {
         if (index === focusedCarouselIndex) {
           return;

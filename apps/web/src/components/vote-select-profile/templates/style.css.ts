@@ -1,5 +1,4 @@
 import { style } from "@vanilla-extract/css";
-import { zIndex } from "@repo/z-index";
 import { theme } from "@repo/ui/tokens";
 
 export const containerStyle = style({
@@ -12,7 +11,7 @@ export const backgroundStyle = style({
   top: 0,
   left: 0,
   width: "100vw",
-  height: "100vh",
+  height: "100dvh",
   background:
     "linear-gradient(174deg, var(--Yellow-5, #FFFBEA) 0%, var(--Orange-5, #FFF2ED) 47.59%, var(--bg-base, #FBFBFB) 66.63%)",
 });

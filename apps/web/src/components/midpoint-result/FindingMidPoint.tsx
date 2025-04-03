@@ -40,16 +40,10 @@ const FindingMidPoint = ({
   memberId,
   isLeader = false,
 }: FindingMidPointProps) => {
-  const {
-    data: centroid,
-    isLoading: centroidLoading,
-    refetch: refetchCentroid,
-  } = useLocationCentroid(roomId);
-  const {
-    data: convH,
-    isLoading: convHLoading,
-    refetch: refetchConvexHull,
-  } = useLocationConvexHull(roomId);
+  const { data: centroid, refetch: refetchCentroid } =
+    useLocationCentroid(roomId);
+  const { data: convH, refetch: refetchConvexHull } =
+    useLocationConvexHull(roomId);
   const markerData = convH ? convertToMarkerData(convH) : [];
   const polygonPath = convH ? convertToPolygonPath(convH) : [];
   const centerMarkerData = centroid
@@ -120,7 +114,7 @@ const FindingMidPoint = ({
         </div>
         <NaverMap
           width="100vw"
-          height="100vh"
+          height="100dvh"
           markerData={displayMarkerData}
           centerMarker={markerData.length > 1 ? centerMarkerData : undefined}
           polygon={markerData.length > 1 ? polygonPath : []}
