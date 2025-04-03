@@ -16,16 +16,29 @@ interface IProfileListLayoutProps {
 
 const ProfileListLayout = ({ profileData }: IProfileListLayoutProps) => {
   const [currentMemberId, setCurrentMemberId] = useState("");
+  const [currentMemberAddress, setCurrentMemberAddress] = useState("");
+  const [currentMemberNickname, setCurrentMemberNickname] = useState("");
+  const [currentMemberImage, setCurrentMemberImage] = useState("");
 
   return (
     <Flex direction="column" className={containerStyle}>
       <ProfileListHeader />
+
       <ProfileListContent
         profileData={profileData}
         currentMemberId={currentMemberId}
         setCurrentMemberId={setCurrentMemberId}
+        setCurrentMemberAddress={setCurrentMemberAddress}
+        setCurrentMemberNickname={setCurrentMemberNickname}
+        setCurrentMemberImage={setCurrentMemberImage}
       />
-      <ProfileListFooter currentMemberId={currentMemberId} />
+
+      <ProfileListFooter
+        currentMemberId={currentMemberId}
+        currentMemberAddress={currentMemberAddress}
+        currentMemberNickname={currentMemberNickname}
+        currentMemberImage={currentMemberImage}
+      />
     </Flex>
   );
 };

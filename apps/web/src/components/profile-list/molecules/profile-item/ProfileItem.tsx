@@ -16,7 +16,12 @@ interface ProfileItemProps {
   profileId: string;
   profileAddress: string;
   isSelected: boolean;
-  onSelect: (profileId: string) => void;
+  onSelect: (
+    profileId: string,
+    profileAddress: string,
+    profileNickname: string,
+    profileImage: string
+  ) => void;
 }
 
 const ProfileItem = ({
@@ -29,8 +34,6 @@ const ProfileItem = ({
 }: ProfileItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const [scope, animate] = useAnimate();
-
-  console.log(profileAddress);
 
   useEffect(() => {
     if (isSelected) {
@@ -49,7 +52,7 @@ const ProfileItem = ({
   }, [animate, scope, isSelected]);
 
   const handleClick = () => {
-    onSelect(profileId);
+    onSelect(profileId, profileAddress, profileName, profileImg);
     itemRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "center",
