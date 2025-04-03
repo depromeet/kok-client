@@ -23,7 +23,6 @@ import {
 interface TransportBarProps {
   width: number;
   time: number;
-  lineNum: number | string;
   isSubway: boolean;
   color?: string;
   route?: string;
@@ -33,7 +32,6 @@ interface TransportBarProps {
 const TransportBar = ({
   width,
   time,
-  lineNum,
   isSubway,
   color,
   route,

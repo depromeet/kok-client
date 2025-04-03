@@ -7,7 +7,6 @@ import * as styles from "./styles.css";
 import { secondsToTime } from "@/utils/time";
 import { metersToKilometersString } from "@/utils/meterToKilometers";
 import TransportBar from "./TransporBar";
-import { parseSubwayLineNumber } from "@/utils/subway";
 import { ReactNode } from "react";
 import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
@@ -98,7 +97,6 @@ const ResultBottomSheet = ({
                   key={index}
                   width={widthPercentage}
                   time={Math.round(leg.sectionTime / 60)}
-                  lineNum={parseSubwayLineNumber(leg.route)}
                   isSubway={true}
                   color={
                     leg.routeColor ? `#${leg.routeColor}` : theme.colors.gray40
@@ -113,7 +111,6 @@ const ResultBottomSheet = ({
                   key={index}
                   width={widthPercentage}
                   time={Math.round(leg.sectionTime / 60)}
-                  lineNum={0}
                   isSubway={false}
                   color={theme.colors.gray50}
                   route={leg.route || undefined}
@@ -127,7 +124,6 @@ const ResultBottomSheet = ({
                   key={index}
                   width={widthPercentage}
                   time={Math.round(leg.sectionTime / 60)}
-                  lineNum={0}
                   isSubway={false}
                   color={theme.colors.gray15}
                   route="WALK"
