@@ -94,7 +94,13 @@ const ProfileItem = ({
             maxWidth: "115px",
           }}
         >
-          {getShortAddress(profileAddress)}
+          {profileAddress ? (
+            getShortAddress(profileAddress)
+          ) : (
+            <Text style={{ color: theme.colors.red50, fontWeight: 700 }}>
+              주소가 비어있어요!
+            </Text>
+          )}
         </Text>
       </Flex>
     </Flex>

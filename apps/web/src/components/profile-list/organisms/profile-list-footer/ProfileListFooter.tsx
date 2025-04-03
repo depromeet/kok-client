@@ -36,7 +36,7 @@ const ProfileListFooter = ({
       setMemberId(currentMemberId);
       setNickname(currentMemberNickname);
       setProfile(currentMemberImage);
-      router.push(`/profile/${roomId}/create-profile`);
+      router.push(`/room/${roomId}/create-profile`);
     }
   };
 
