@@ -8,7 +8,7 @@ import {
 } from "../constants/subway";
 
 export const removeLineSuffix = (line: string): string => {
-  return line.replace(/(선|호선)$/, "");
+  return line.replace(/^수도권/, "").replace(/(선|호선)$/, "");
 };
 
 export const parseSubwayLineNumber = (route: string | null): number => {
@@ -20,16 +20,18 @@ export const parseSubwayLineNumber = (route: string | null): number => {
 export const identifySubwayLine = (route: string | null): SubwayLineType => {
   if (!route) return "unknown";
 
+  const lineName = removeLineSuffix(route);
+
   // NOTE: 숫자 노선 처리
-  if (!isNaN(Number(route))) {
-    return route as NormalLineType;
+  if (!isNaN(Number(lineName))) {
+    return lineName as NormalLineType;
   }
 
   // NOTE: 특수 노선 처리
   const specialLines = Object.keys(SPECIAL_LINES) as SpecialLineType[];
 
   for (const line of specialLines) {
-    if (SPECIAL_LINES[line].pattern.test(route)) {
+    if (SPECIAL_LINES[line].pattern.test(lineName)) {
       return line;
     }
   }
