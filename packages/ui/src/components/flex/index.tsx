@@ -27,13 +27,13 @@ export const Flex = ({
 }: PropsWithChildren<FlexProps>) => {
   return (
     <Tag
+      {...props}
       ref={ref}
       style={{ gap }}
       className={classMerge(
         flexRecipe({ justify, align, direction }),
         className
       )}
-      {...props}
     >
       {children}
     </Tag>
