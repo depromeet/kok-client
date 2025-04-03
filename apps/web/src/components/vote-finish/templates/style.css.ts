@@ -1,5 +1,4 @@
 import { style } from "@vanilla-extract/css";
-import { zIndex } from "@repo/z-index";
 import { theme } from "@repo/ui/tokens";
 
 export const containerStyle = style({
@@ -18,12 +17,12 @@ export const backgroundStyle = style({
 
 export const bottomsheetContainerStyle = style({
   width: "100%",
-  maxWidth: 600,
-  position: "fixed",
-  bottom: 0,
-  left: 0,
+  // maxWidth: 600,
+  // position: "fixed",
+  // bottom: 0,
+  // left: 0,
+  // zIndex: zIndex.floating,
   padding: "26px 20px 20px 20px",
-  zIndex: zIndex.floating,
   borderTopLeftRadius: 32,
   borderTopRightRadius: 32,
   boxShadow: "0px -5px 32px 0px rgba(28, 28, 28, 0.08)",

@@ -4,6 +4,9 @@ import { zIndex } from "@repo/z-index";
 
 export const containerStyle = style({
   paddingTop: "5.8vh",
+  height: "100vh",
+  width: "100vw",
+  overflow: "hidden",
 });
 
 export const innerContainerStyle = style({

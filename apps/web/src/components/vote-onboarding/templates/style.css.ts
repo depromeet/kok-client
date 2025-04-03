@@ -36,6 +36,7 @@ export const footerContainerStyle = style({
   position: "fixed",
   padding: "16px 20px",
   bottom: 0,
-  left: 0,
+  left: "50%",
+  transform: "translateX(-50%)",
   zIndex: zIndex.floating,
 });
