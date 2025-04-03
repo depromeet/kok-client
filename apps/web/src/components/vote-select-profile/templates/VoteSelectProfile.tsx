@@ -33,7 +33,6 @@ export function VoteSelectProfile({
       );
     }
   };
-  console.log("selectedMemberId", selectedMemberId);
 
   return (
     <Flex
