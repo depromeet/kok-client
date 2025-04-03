@@ -23,6 +23,11 @@ const fetchUserVoteStatus = async (roomId: string) => {
 };
 
 export const useUserVoteStatus = (roomId: string) => {
+  if (typeof window === "undefined") {
+    return { data: undefined, isLoading: false, error: null };
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery<{ data: TUserStatus[] }>({
     queryKey: ["voteStatus", roomId],
     queryFn: () => fetchUserVoteStatus(roomId),

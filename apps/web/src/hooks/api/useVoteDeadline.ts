@@ -22,6 +22,11 @@ const fetchVoteDeadline = async (roomId: string) => {
 };
 
 export const useVoteDeadline = (roomId: string) => {
+  if (typeof window === "undefined") {
+    return { data: undefined, isLoading: false, error: null };
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery<{ data: { endAt: string } }>({
     queryKey: ["voteDeadline", roomId],
     queryFn: () => fetchVoteDeadline(roomId),
