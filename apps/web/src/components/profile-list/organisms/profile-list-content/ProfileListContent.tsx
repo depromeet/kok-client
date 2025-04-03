@@ -56,6 +56,7 @@ const ProfileListContent = ({
           profileName={item.nickname}
           isSelected={currentMemberId === item.memberId}
           onSelect={handleSelectProfile}
+          profileAddress={item.address}
         />
       ))}
     </div>

@@ -9,16 +9,16 @@ export const CreateBtnLayoutStyle = style({
 
 export const BtnLayoutStyle = styleVariants({
   full: {
-    width: "80px",
-    height: "80px",
+    width: "76px",
+    height: "76px",
     backgroundColor: theme.colors.gray20,
     borderRadius: "50%",
     cursor: "default",
     overflow: "hidden",
   },
   available: {
-    width: "80px",
-    height: "80px",
+    width: "76px",
+    height: "76px",
     backgroundColor: theme.colors.navy,
     borderRadius: "50%",
     cursor: "pointer",
