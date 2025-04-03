@@ -56,23 +56,23 @@ const TransportBar = ({
     const lineType = identifySubwayLine(route);
 
     switch (lineType) {
-      case 1:
+      case "1":
         return <Line1 />;
-      case 2:
+      case "2":
         return <Line2 />;
-      case 3:
+      case "3":
         return <Line3 />;
-      case 4:
+      case "4":
         return <Line4 />;
-      case 5:
+      case "5":
         return <Line5 />;
-      case 6:
+      case "6":
         return <Line6 />;
-      case 7:
+      case "7":
         return <Line7 />;
-      case 8:
+      case "8":
         return <Line8 />;
-      case 9:
+      case "9":
         return <Line9 />;
       case "신분당":
         return <LineShinBundang />;
