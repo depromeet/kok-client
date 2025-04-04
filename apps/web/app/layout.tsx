@@ -6,6 +6,7 @@ import QueryProvider from "@repo/shared/QueryProvider";
 import "@/styles/global.css";
 import { NaverMapProvider } from "@repo/naver-map";
 import { META } from "@/constants/metadata";
+import GoogleAnalytics from "@/components/google-analytics";
 
 export const metadata: Metadata = {
   title: META.title,
@@ -58,6 +59,7 @@ export default function RootLayout({
         crossOrigin="anonymous"
         async
       ></script>
+      <GoogleAnalytics />
     </html>
   );
 }
