@@ -1,6 +1,12 @@
 "use client";
 
-import { Button, Flex, Skeleton, Spacing, Text } from "@repo/ui/components";
+import {
+  Button,
+  Flex,
+  Spacing,
+  Text,
+  textRecipe,
+} from "@repo/ui/components";
 import * as Style from "./style.css";
 import { Tooltip } from "../atom/Tooltip/Tooltip";
 import Image from "next/image";
@@ -73,6 +79,7 @@ export function VoteOnboardingLayout() {
         <Spacing size={20} />
         <Button
           variant="secondary"
+          className={textRecipe({ variant: "title3" })}
           onClick={() =>
             router.push(`/room/${params?.roomId}/vote/select-profile`)
           }
