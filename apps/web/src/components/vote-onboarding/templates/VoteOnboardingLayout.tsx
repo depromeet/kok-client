@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, LoadingDots, Spacing, Text } from "@repo/ui/components";
+import { Button, Flex, Spacing, Text } from "@repo/ui/components";
 import * as Style from "./style.css";
 import { Tooltip } from "../atom/Tooltip/Tooltip";
 import Image from "next/image";
@@ -33,9 +33,7 @@ export function VoteOnboardingLayout() {
 
       {/* 위 */}
       <Flex direction="column" align="center">
-        <Tooltip>
-          {data ? data.data.candidateCount : <LoadingDots />}가지 장소 후보
-        </Tooltip>
+        <Tooltip>{data?.data.candidateCount}가지 장소 후보</Tooltip>
         <Spacing size={4} />
         <Text variant="heading3" className={Style.titleStyle}>
           어디로 갈까요?

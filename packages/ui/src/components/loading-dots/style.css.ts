@@ -6,13 +6,7 @@ const blink = keyframes({
   "50%": { opacity: "1" },
 });
 
-export const container = style({
-  height: "16px",
-});
-
 export const dot = style({
-  width: "8px",
-  height: "8px",
   borderRadius: "50%",
   backgroundColor: theme.colors.navy,
   opacity: 0.3,
