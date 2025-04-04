@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Text, Button, Spacing } from "@repo/ui/components";
+import { Flex, Text, Button, Spacing, textRecipe } from "@repo/ui/components";
 import * as Style from "./style.css";
 import { ProfileList } from "../organism/ProfileList";
 import { useUserVoteStatus } from "@/hooks/api/useUserVoteStatus";
@@ -66,8 +66,9 @@ export function VoteSelectProfile({
         <Button
           disabled={selectedMemberId == null}
           onClick={allMembersVoted ? handleResultCheck : onNext}
+          className={textRecipe({ variant: "title3" })}
         >
-          {allMembersVoted ? "결과 확인하기" : "투표 하러가기"}
+          {allMembersVoted ? "결과 확인하기" : "투표하러 가기"}
         </Button>
       </FixedBottomWithSpacing>
     </Flex>
