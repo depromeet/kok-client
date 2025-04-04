@@ -3,15 +3,13 @@
 import { useState } from "react";
 import MapHeader from "./organisms/MapHeader";
 import RefreshCenterButton from "./organisms/RefreshCenterButton";
-import { Flex } from "@repo/ui/components";
+import { Flex, Skeleton, Text } from "@repo/ui/components";
 import ParticipantBottomSheet from "@/components/midpoint-result/organisms/ParticipantBottomSheet";
 import {
   refreshStyle,
   mapContainer,
   overlayStyle,
   AddLocationButtonPositionStyle,
-  roomNameSkeletonStyle,
-  participantsSkeletonStyle,
   headerSkeletonWrapper,
 } from "./style.css";
 import {
@@ -28,6 +26,7 @@ import StartBanner from "./organisms/StartBanner";
 import AddLocationButton from "./organisms/AddLocationButton";
 import { useRoomInfo } from "@/hooks/api/useRoomInfo";
 import { useMemberLocation } from "@/hooks/api/useLocation";
+import { theme } from "@repo/ui/tokens";
 
 interface FindingMidPointProps {
   roomId: string;
@@ -73,16 +72,18 @@ const FindingMidPoint = ({
 
   const roomName = isRoomInfoLoading ? (
     <div className={headerSkeletonWrapper}>
-      <div className={roomNameSkeletonStyle} />
+      <Skeleton width={120} height={24} />
     </div>
   ) : (
     roomInfo?.data?.roomName || ""
   );
 
   const totalParticipants = isRoomInfoLoading ? (
-    <div className={participantsSkeletonStyle} />
+    <Skeleton width={32} height={24} style={{ display: "inline-block" }} />
   ) : (
-    roomInfo?.data?.nonParticipantCount
+    <Text variant="title1" style={{ color: theme.colors.red50 }}>
+      {roomInfo?.data?.nonParticipantCount}
+    </Text>
   );
 
   const isVoteMode = roomInfo?.data?.roomStatus === "VOTE" ? true : false;

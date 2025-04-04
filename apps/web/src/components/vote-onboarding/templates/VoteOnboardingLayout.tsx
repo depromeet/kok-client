@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Flex, Spacing, Text } from "@repo/ui/components";
+import { Button, Flex, Skeleton, Spacing, Text } from "@repo/ui/components";
 import * as Style from "./style.css";
 import { Tooltip } from "../atom/Tooltip/Tooltip";
 import Image from "next/image";
@@ -33,7 +33,12 @@ export function VoteOnboardingLayout() {
 
       {/* 위 */}
       <Flex direction="column" align="center">
-        <Tooltip>{data?.data.candidateCount}가지 장소 후보</Tooltip>
+        <Tooltip>
+          <Flex justify="center" align="center" gap={4}>
+            {data ? data.data.candidateCount : <Skeleton />}
+            <Text>가지 장소 후보</Text>
+          </Flex>
+        </Tooltip>
         <Spacing size={4} />
         <Text variant="heading3" className={Style.titleStyle}>
           어디로 갈까요?
@@ -55,12 +60,16 @@ export function VoteOnboardingLayout() {
         align="center"
         className={Style.footerContainerStyle}
       >
-        <Text variant="caption">
-          <span className={Style.LimitHour}>
-            {restMinutes == null ? "-" : convertMinutes(restTime)}{" "}
-          </span>
-          안에 투표 해주세요!
-        </Text>
+        <Flex align="center" justify="center" gap={4}>
+          {restMinutes == null ? (
+            <Skeleton width={65} height={14} />
+          ) : (
+            <Text variant="caption" className={Style.LimitHour}>
+              {convertMinutes(restTime)}
+            </Text>
+          )}
+          <Text variant="caption">안에 투표 해주세요!</Text>
+        </Flex>
         <Spacing size={20} />
         <Button
           variant="secondary"

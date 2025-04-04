@@ -11,3 +11,4 @@ export * from "./loading-dots";
 export * from "./loading-spinner";
 export * from "./page-modal";
 export * from "./header";
+export * from "./skeleton";
