@@ -16,6 +16,7 @@ import { useVoteCandidates } from "@/hooks/api/useVoteCandidates";
 import { useVoting } from "@/hooks/api/useVoting";
 import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
 import { useStopWatch } from "@/hooks/useStopWatch";
+import { motion } from "@repo/motion";
 
 interface Props {
   memberId: string;
@@ -30,7 +31,7 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
   const params = useParams();
 
   const { data: deadlineData } = useVoteDeadline(params?.roomId as string);
-  const { data: candidatesData } = useVoteCandidates(
+  const { data: candidatesData, isLoading } = useVoteCandidates(
     params?.roomId as string,
     memberId
   );
@@ -100,6 +101,7 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
           <Controller view={view} onItemClick={setView} />
         </div>
         <Spacing size={45} />
+        {isLoading && <div className={Style.skeletonLoading} />}
         {candidatesData != null && (
           <CardList
             view={view}
@@ -124,7 +126,40 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
         <Button
           onClick={handleVoteSubmit}
           disabled={agreedStationIds.length === 0 || isPending}
+          containerStyle={{ position: "relative" }}
         >
+          {agreedStationIds.length > 0 && (
+            <motion.div
+              initial={{
+                background: "linear-gradient(to right, #3D84FF, #3D84FF80)",
+              }}
+              animate={{
+                width: 28,
+                background: "#3D84FF",
+                transition: { delay: 1 },
+              }}
+              className={Style.buttonNumberContainer}
+            >
+              {agreedStationIds.length}
+              <motion.span
+                animate={{
+                  opacity: 0,
+                  width: 0,
+                  paddingLeft: 0,
+                  transition: { delay: 1 },
+                }}
+                className={Style.buttonNumberText}
+              >
+                <Text
+                  color="white"
+                  variant="caption"
+                  style={{ whiteSpace: "pre" }}
+                >
+                  망원역에 투표했습니다
+                </Text>
+              </motion.span>
+            </motion.div>
+          )}
           {agreedStationIds.length > 0
             ? `투표 끝내기`
             : "1가지 이상 장소에 콕!"}

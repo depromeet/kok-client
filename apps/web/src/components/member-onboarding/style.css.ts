@@ -10,6 +10,11 @@ export const background = style({
 
 export const header = style({});
 
+export const speachBubbleContainer = style({
+  transformOrigin: "50% 100%",
+  width: "fit-content",
+});
+
 export const speachBubble = style({
   marginBottom: "8px",
   position: "relative",

@@ -6,6 +6,7 @@ import {
   TooltipBoxStyle,
 } from "./style.css";
 import { useParams, useRouter } from "next/navigation";
+import { motion } from "@repo/motion";
 
 interface IProfileCreateBtnProps {
   isFull: boolean;
@@ -31,24 +32,26 @@ const ProfileCreateBtn = ({ isFull }: IProfileCreateBtnProps) => {
       onClick={handleClick}
     >
       {/* 이미지 */}
-      <Flex
-        justify="center"
-        align="center"
-        className={BtnLayoutStyle[isFull ? "full" : "available"]}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          viewBox="0 0 32 32"
-          fill="none"
+      <motion.div whileTap={{ scale: 0.96 }}>
+        <Flex
+          justify="center"
+          align="center"
+          className={BtnLayoutStyle[isFull ? "full" : "available"]}
         >
-          <path
-            d="M16.9451 24.4853L15.0595 24.4853V16.9428L7.51703 16.9428V15.0572L15.0595 15.0572V7.51472L16.9451 7.51472L16.9451 15.0572L24.4876 15.0572V16.9428L16.9451 16.9428L16.9451 24.4853Z"
-            fill="white"
-          />
-        </svg>
-      </Flex>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 32 32"
+            fill="none"
+          >
+            <path
+              d="M16.9451 24.4853L15.0595 24.4853V16.9428L7.51703 16.9428V15.0572L15.0595 15.0572V7.51472L16.9451 7.51472L16.9451 15.0572L24.4876 15.0572V16.9428L16.9451 16.9428L16.9451 24.4853Z"
+              fill="white"
+            />
+          </svg>
+        </Flex>
+      </motion.div>
 
       {/* 툴팁 */}
 

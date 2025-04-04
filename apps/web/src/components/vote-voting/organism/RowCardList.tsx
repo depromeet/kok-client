@@ -104,7 +104,8 @@ export function RowCardList({
                 </div>
               </div>
               <Spacing size={10} />
-              <button
+              <motion.button
+                whileTap={{ scale: 0.9 }}
                 style={{
                   border: `1px solid ${selected ? theme.colors.orange40 : theme.colors.gray15}`,
                   backgroundColor: selected
@@ -116,7 +117,7 @@ export function RowCardList({
                 className={Style.buttonStyle}
               >
                 {"✓"}
-              </button>
+              </motion.button>
             </motion.div>
           );
         }

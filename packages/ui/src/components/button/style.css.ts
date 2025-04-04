@@ -6,6 +6,7 @@ export type ButtonVariants = RecipeVariants<typeof buttonReceipe>;
 
 export const buttonContainerStyle = style({
   width: "inherit",
+  WebkitTapHighlightColor: "transparent",
 });
 
 const buttonReset = style({

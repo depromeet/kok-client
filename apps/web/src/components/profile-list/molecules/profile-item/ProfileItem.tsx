@@ -76,6 +76,7 @@ const ProfileItem = ({
           selected: { borderColor: theme.colors.divider2 },
           unselected: { borderColor: "rgba(0,0,0,0)" },
         }}
+        whileTap={{ scale: 0.96 }}
         initial={isSelected ? "selected" : "unselected"}
         animate={isSelected ? "selected" : "unselected"}
       >
