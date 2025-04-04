@@ -60,8 +60,7 @@ const ParticipantBottomSheet = ({
       </Flex>
       <Flex as="div" direction="column" gap={20}>
         {isVoteMode ? (
-          // 소정 추가 todo: gap 적용 안됨, Inline으로 처리
-          <Flex style={{ width: "100%", gap: "8px" }}>
+          <Flex gap={8} style={{ width: "100%" }}>
             <KakaoTalkShareButton
               templateId={KAKAO_TEMPLATE_IDS.VOTE}
               templateArgs={{ roomId }}

@@ -11,7 +11,7 @@ interface MapHeaderProps {
   isFinal?: boolean;
 }
 
-const MapHeader = ({ title, isFinal }: MapHeaderProps) => {
+const MapHeader = ({ title, isFinal = false }: MapHeaderProps) => {
   const router = useRouter();
 
   const handleBack = () => {
