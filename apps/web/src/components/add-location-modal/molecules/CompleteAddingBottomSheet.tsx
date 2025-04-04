@@ -19,7 +19,7 @@ const CompleteAddingBottomSheet = ({
     >
       <Flex direction="column" gap={12}>
         <Text as="p" variant="title2">
-          후보에 <Text variant="title2">{stationName}</Text>이 추가되었어요!
+          후보에 <Text variant="title2">{stationName}</Text>역이 추가되었어요!
         </Text>
 
         <Text as="p" variant="caption">
