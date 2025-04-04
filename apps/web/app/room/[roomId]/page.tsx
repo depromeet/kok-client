@@ -27,9 +27,9 @@ export default async function MemberOnboardingPage({
   }
 
   if (roomInfo.roomStatus === "VOTE") {
-    redirect(`/room/${roomId}/vote `);
+    redirect(`/room/${roomId}/vote`);
   } else if (roomInfo.roomStatus === "VOTE_RESULT") {
-    // TODO: 투표 결과 화면으로 redirect
+    redirect(`/room/${roomId}/vote/select-profile`);
   }
 
   return <MemberOnboarding roomId={roomId} roomName={roomInfo.roomName} />;
