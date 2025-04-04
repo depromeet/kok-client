@@ -3,6 +3,7 @@
 import {
   Button,
   Flex,
+  Skeleton,
   Spacing,
   Text,
   textRecipe,
