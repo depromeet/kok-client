@@ -17,6 +17,7 @@ import { useVoteDeadline } from "@/hooks/api/useVoteDeadline";
 import { getTimeDifferenceInMinutes } from "./getDeadlineInMinutes";
 import { convertMinutes } from "@/components/vote-onboarding/templates/convertMinutes";
 import { useStopWatch } from "@/hooks/useStopWatch";
+import { AnimateStack } from "@repo/motion";
 
 export function VoteOnboardingLayout() {
   const router = useRouter();
@@ -47,18 +48,25 @@ export function VoteOnboardingLayout() {
           </Flex>
         </Tooltip>
         <Spacing size={4} />
-        <Text variant="heading3" className={Style.titleStyle}>
-          어디로 갈까요?
-        </Text>
-        <Spacing size="12.65vh" />
-        <Image src="/images/vote/banner.png" width={335} height={160} alt="" />
-        <Spacing size="12.65vh" />
-        <Stepper>
-          <Stepper.Item order={1}>
-            중간장소 후보를 둘러보고 투표해요
-          </Stepper.Item>
-          <Stepper.Item order={2}>투표 안 한 친구들을 독촉해요</Stepper.Item>
-        </Stepper>
+        <AnimateStack>
+          <Text variant="heading3" className={Style.titleStyle}>
+            어디로 갈까요?
+          </Text>
+          <Spacing size="12.65vh" />
+          <Image
+            src="/images/vote/banner.png"
+            width={335}
+            height={160}
+            alt=""
+          />
+          <Spacing size="12.65vh" />
+          <Stepper>
+            <Stepper.Item order={1}>
+              중간장소 후보를 둘러보고 투표해요
+            </Stepper.Item>
+            <Stepper.Item order={2}>투표 안 한 친구들을 독촉해요</Stepper.Item>
+          </Stepper>
+        </AnimateStack>
       </Flex>
 
       {/* 아래 */}

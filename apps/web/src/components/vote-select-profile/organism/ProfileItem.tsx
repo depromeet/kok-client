@@ -55,6 +55,7 @@ export function ProfileItem({
         }}
         initial={selected ? "selected" : "unselected"}
         animate={selected ? "selected" : "unselected"}
+        whileTap={{ scale: 0.9 }}
         className={Style.img}
       >
         <Image

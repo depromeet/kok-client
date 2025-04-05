@@ -6,3 +6,4 @@ export type { Spring } from "./token/spring";
 export { usePressEffect } from "./hooks/usePressEffect";
 
 export { AnimateNumber } from "./components/AnimateNumber";
+export { AnimateStack } from "./components/AnimateStack";

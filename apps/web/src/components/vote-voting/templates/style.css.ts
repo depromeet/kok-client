@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 import { theme } from "@repo/ui/tokens";
 import { zIndex } from "@repo/z-index";
 
@@ -53,4 +53,39 @@ export const footerContainerStyle = style({
   bottom: 0,
   left: 0,
   zIndex: zIndex.floating,
+});
+
+const shimmer = keyframes({
+  "0%": {
+    backgroundPosition: "200% 0",
+  },
+  "100%": {
+    backgroundPosition: "-200% 0",
+  },
+});
+
+export const skeletonLoading = style({
+  width: 220,
+  height: 280,
+  borderRadius: 20,
+  background: `linear-gradient(90deg, ${theme.colors.gray20} 25%, ${theme.colors.gray30} 50%, ${theme.colors.gray20} 75%)`,
+  backgroundSize: "200% 100%",
+  animation: `${shimmer} 1.5s infinite`,
+});
+
+export const buttonNumberContainer = style({
+  position: "absolute",
+  height: 28,
+  left: 44,
+  padding: "0 10px",
+  borderRadius: 14,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  top: 0,
+  transform: "translateY(-50%)",
+});
+
+export const buttonNumberText = style({
+  paddingLeft: 10,
 });

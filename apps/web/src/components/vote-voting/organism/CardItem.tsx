@@ -110,7 +110,7 @@ export function CardItem({
             <div className={Style.subwayLine} />
           </div>
           <div className={Style.bottomContainerStyle}>
-            <button
+            <motion.button
               className={Style.cardButtonStyle}
               style={{
                 border: `1px solid ${selected ? theme.colors.orange40 : theme.colors.gray15}`,
@@ -119,6 +119,7 @@ export function CardItem({
                   : theme.colors.gray0,
                 color: selected ? "white" : theme.colors.icon.pressed,
               }}
+              whileTap={{ scale: 0.9 }}
               onClick={() => onSelectCard(stationId)}
             >
               <Text
@@ -127,7 +128,7 @@ export function CardItem({
               >
                 {"✓ "}콕
               </Text>
-            </button>
+            </motion.button>
           </div>
         </motion.div>
       </motion.div>

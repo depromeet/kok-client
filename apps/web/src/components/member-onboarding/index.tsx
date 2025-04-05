@@ -4,6 +4,7 @@ import { Button, Flex, Text } from "@repo/ui/components";
 import Image from "next/image";
 import * as Style from "./style.css";
 import Link from "next/link";
+import { AnimateStack, motion } from "@repo/motion";
 
 interface MemberOnboardingProps {
   roomId: string;
@@ -26,10 +27,16 @@ const MemberOnboarding = ({ roomId, roomName }: MemberOnboardingProps) => {
     >
       <Flex direction="column" align="center" justify="between" gap={80}>
         <div className={Style.header}>
-          <Text variant="title3" className={Style.speachBubble}>
-            {roomName}
-            <div className={Style.speachBubbleTail} />
-          </Text>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className={Style.speachBubbleContainer}
+          >
+            <Text variant="title3" className={Style.speachBubble}>
+              {roomName}
+              <div className={Style.speachBubbleTail} />
+            </Text>
+          </motion.div>
           <Text variant="heading3">모임 초대장이 도착했어요</Text>
         </div>
 
@@ -47,18 +54,23 @@ const MemberOnboarding = ({ roomId, roomName }: MemberOnboardingProps) => {
           gap={16}
           className={Style.descriptionContainer}
         >
-          {descriptions.map((description, index) => (
-            <Flex as="li" key={index} gap={12} align="center">
-              <div className={Style.numbering}>{index + 1}</div>
-              <Text as="p" variant="caption">
-                {description}
-              </Text>
-            </Flex>
-          ))}
+          <AnimateStack delay={0.3}>
+            {descriptions.map((description, index) => (
+              <Flex as="li" key={index} gap={12} align="center">
+                <div className={Style.numbering}>{index + 1}</div>
+                <Text as="p" variant="caption">
+                  {description}
+                </Text>
+              </Flex>
+            ))}
+          </AnimateStack>
         </Flex>
       </Flex>
 
-      <Link href={`/room/${roomId}/select-profile`} style={{ width: "100%" }}>
+      <Link
+        href={`/room/${roomId}/select-profile`}
+        style={{ width: "100%", WebkitTapHighlightColor: "transparent" }}
+      >
         <Button variant="secondary" className={Style.buttonContainer}>
           약속방 참여하기
         </Button>
