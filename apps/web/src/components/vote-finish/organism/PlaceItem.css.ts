@@ -21,7 +21,6 @@ export const imgContainerStyle = style({
 export const imgStyle = style({
   width: 32,
   height: 32,
-  backgroundColor: "red",
   borderRadius: 16,
 });
 
