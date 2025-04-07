@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSimpleTransfer, useComplexTransfer } from "@/hooks/api/useTransfer";
 import { useRecommendStation } from "@/hooks/api/useRecommendStation";
 import MapHeader from "./organisms/MapHeader";
 import { Flex } from "@repo/ui/components";
-import { NaverMap, MapCenterMarker } from "@repo/naver-map";
+import { NaverMap, useNaverMap, Marker } from "@repo/naver-map";
 import ResultBottomSheet from "@/components/midpoint-result/organisms/ResultBottomSheet";
 import { overlayStyle, mapContainer } from "./style.css";
 import ResultBanner from "./organisms/ResultBanner";
+import { getFinalMarkerElement } from "@repo/naver-map";
 
 interface MidPointResultProps {
   roomId: string;
@@ -18,6 +19,17 @@ interface MidPointResultProps {
 const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
+  const { map } = useNaverMap();
+  const [finalMarker, setFinalMarker] = useState<{
+    create: ({
+      latitude,
+      longitude,
+    }: {
+      latitude: number;
+      longitude: number;
+    }) => void;
+    cleanUp: () => void;
+  } | null>(null);
 
   const handleBannerClose = () => {
     setIsOverlayVisible(false);
@@ -31,13 +43,17 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
   const stations = stationsResponse?.data;
   const firstStation = stations?.[0]; //최종역
 
-  const centerPoint = firstStation
-    ? {
-        latitude: firstStation.station.latitude,
-        longitude: firstStation.station.longitude,
-        isFinal: true,
-      }
-    : undefined;
+  const centerPoint = useMemo(
+    () =>
+      firstStation
+        ? {
+            latitude: firstStation.station.latitude,
+            longitude: firstStation.station.longitude,
+            isFinal: true,
+          }
+        : undefined,
+    [firstStation]
+  );
 
   const { data: simpleData } = useSimpleTransfer(
     firstStation?.station.id || 0,
@@ -55,16 +71,40 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
     }
   );
 
+  useEffect(() => {
+    if (!map || !centerPoint) return;
+
+    const markerInstance = Marker({
+      map,
+      customMarkerData: {
+        marker: getFinalMarkerElement(),
+        width: 46,
+        height: 46,
+      },
+    });
+
+    setFinalMarker(markerInstance);
+
+    return () => {
+      markerInstance.cleanUp();
+    };
+  }, [map, centerPoint]);
+
+  useEffect(() => {
+    if (!finalMarker || !centerPoint) return;
+
+    finalMarker.cleanUp();
+    finalMarker.create({
+      latitude: Number(centerPoint?.latitude),
+      longitude: Number(centerPoint?.longitude),
+    });
+  }, [finalMarker, centerPoint]);
+
   return (
     <div className={mapContainer}>
       <Flex direction="column">
         <MapHeader title="투표 결과" isFinal={true} />
-
-        {centerPoint && (
-          <NaverMap width="100vw" height="100dvh" center={centerPoint}>
-            <MapCenterMarker markerData={centerPoint} />
-          </NaverMap>
-        )}
+        <NaverMap width="100vw" height="100dvh" center={centerPoint} />
 
         {isOverlayVisible && (
           <div className={overlayStyle} onClick={handleClick} />

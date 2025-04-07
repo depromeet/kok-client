@@ -1,45 +1,58 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useNaverMap } from "../naver-map-provider";
+import { useRef } from "react";
+import { NaverMapInstance } from "../types";
 
-export const usePolygon = (path: { lat: number; lng: number }[]) => {
-  const { map } = useNaverMap();
-  const polygonRef = useRef<naver.maps.Polygon | null>(null);
+interface PolygonParams {
+  map: NaverMapInstance;
+  options?: {
+    fillColor?: string;
+    fillOpacity?: number;
+    strokeColor?: string;
+    strokeWeight?: number;
+    strokeOpacity?: number;
+  };
+}
 
-  useEffect(() => {
-    if (!map || !path || path.length < 3) {
-      if (polygonRef.current) {
-        polygonRef.current.setMap(null);
-        polygonRef.current = null;
-      }
-      return;
-    }
+export const Polygon = ({
+  map,
+  options = {
+    fillColor: "rgba(0, 128, 255, 0.2)",
+    fillOpacity: 0.5,
+    strokeColor: "#0080ff",
+    strokeWeight: 3,
+    strokeOpacity: 0.6,
+  },
+}: PolygonParams) => {
+  const polygonsRef = useRef<naver.maps.Polygon[]>([]);
+
+  const create = (path: { latitude: number; longitude: number }[]) => {
+    if (!path || path.length < 3) return;
 
     const naverPath = path.map(
-      (point) => new window.naver.maps.LatLng(point.lat, point.lng)
+      (point) => new naver.maps.LatLng(point.latitude, point.longitude)
     );
 
-    if (polygonRef.current) {
-      polygonRef.current.setPath(naverPath);
-    } else {
-      polygonRef.current = new window.naver.maps.Polygon({
-        map: map,
-        paths: [naverPath],
-        fillColor: "rgba(0, 128, 255, 0.2)",
-        strokeColor: "#0080ff",
-        strokeWeight: 3,
-        strokeOpacity: 0.6,
-      });
-    }
+    const polygon = new naver.maps.Polygon({
+      map,
+      paths: [naverPath],
+      fillColor: options.fillColor,
+      fillOpacity: options.fillOpacity,
+      strokeColor: options.strokeColor,
+      strokeWeight: options.strokeWeight,
+      strokeOpacity: options.strokeOpacity,
+    });
 
-    return () => {
-      if (polygonRef.current) {
-        polygonRef.current.setMap(null);
-        polygonRef.current = null;
-      }
-    };
-  }, [map, path]);
+    polygonsRef.current.push(polygon);
+    return polygon;
+  };
 
-  return polygonRef.current;
+  const cleanUp = () => {
+    polygonsRef.current.forEach((polygon) => {
+      polygon.setMap(null);
+    });
+    polygonsRef.current = [];
+  };
+
+  return { create, cleanUp };
 };
