@@ -16,7 +16,7 @@ import {
   useLocationCentroid,
   useLocationConvexHull,
 } from "@/hooks/api/useLocation";
-import { MarkerItem, NaverMap } from "@repo/naver-map";
+import { NaverMap, MapOverlay } from "@repo/naver-map";
 import {
   convertToMarkerData,
   convertToPolygonPath,
@@ -43,19 +43,31 @@ const FindingMidPoint = ({
     useLocationCentroid(roomId);
   const { data: convH, refetch: refetchConvexHull } =
     useLocationConvexHull(roomId);
-  const markerData = convH ? convertToMarkerData(convH) : [];
+
+  const dotMarkers = convH ? convertToMarkerData(convH) : [];
   const polygonPath = convH ? convertToPolygonPath(convH) : [];
-  const centerMarkerData = centroid
+  const centerMarker = centroid
     ? convertToCenterMarkerData({ ...centroid, roomId: roomId })
     : undefined;
+
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
+
   const {
     data: roomInfo,
     isLoading: isRoomInfoLoading,
     refetch: refetchRoomInfo,
   } = useRoomInfo(roomId);
+
   const { data: locationsData } = useMemberLocation(roomId, memberId);
+
+  const profileMarker = locationsData?.data
+    ? {
+        latitude: locationsData.data.latitude,
+        longitude: locationsData.data.longitude,
+        imageUrl: locationsData.data.imageUrl || "",
+      }
+    : undefined;
 
   const handleBannerClose = () => {
     setIsOverlayVisible(false);
@@ -64,11 +76,6 @@ const FindingMidPoint = ({
   const handleClick = () => {
     setIsBannerVisible(false);
   };
-
-  let displayMarkerData: MarkerItem[] = [];
-  if (markerData.length > 0) {
-    displayMarkerData = markerData;
-  }
 
   const roomName = isRoomInfoLoading ? (
     <div className={headerSkeletonWrapper}>
@@ -88,6 +95,16 @@ const FindingMidPoint = ({
 
   const isVoteMode = roomInfo?.data?.roomStatus === "VOTE" ? true : false;
 
+  const mapCenter =
+    centerMarker && dotMarkers.length > 1
+      ? { latitude: centerMarker.latitude, longitude: centerMarker.longitude }
+      : profileMarker
+        ? {
+            latitude: profileMarker.latitude || 0,
+            longitude: profileMarker.longitude ?? 0,
+          }
+        : undefined;
+
   return (
     <div className={mapContainer}>
       <Flex direction="column">
@@ -96,14 +113,14 @@ const FindingMidPoint = ({
         <div className={refreshStyle}>
           <RefreshCenterButton
             coordinates={
-              centerMarkerData && markerData.length > 1
+              centerMarker && dotMarkers.length > 1
                 ? {
-                    lat: centerMarkerData.latitude,
-                    lng: centerMarkerData.longitude,
+                    lat: centerMarker.latitude,
+                    lng: centerMarker.longitude,
                   }
                 : { lat: 0, lng: 0 }
             }
-            participantCount={markerData.length}
+            participantCount={dotMarkers.length}
             onRefresh={async () => {
               await Promise.all([
                 refetchCentroid(),
@@ -113,24 +130,16 @@ const FindingMidPoint = ({
             }}
           />
         </div>
-        <NaverMap
-          width="100vw"
-          height="100dvh"
-          markerData={displayMarkerData}
-          centerMarker={markerData.length > 1 ? centerMarkerData : undefined}
-          polygon={markerData.length > 1 ? polygonPath : []}
-          memberMarkers={
-            locationsData?.data
-              ? [
-                  {
-                    latitude: locationsData.data.latitude,
-                    longitude: locationsData.data.longitude,
-                    imageUrl: locationsData.data.imageUrl,
-                  },
-                ]
-              : []
-          }
-        />
+
+        <NaverMap width="100vw" height="100dvh" center={mapCenter}>
+          <MapOverlay
+            centerMarker={dotMarkers.length > 1 ? centerMarker : undefined}
+            polygon={dotMarkers.length > 1 ? polygonPath : []}
+            profileMarker={profileMarker}
+            dotMarkers={dotMarkers}
+          />
+        </NaverMap>
+
         {isOverlayVisible && (
           <div className={overlayStyle} onClick={handleClick} />
         )}

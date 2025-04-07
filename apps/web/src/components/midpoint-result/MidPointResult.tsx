@@ -5,7 +5,7 @@ import { useSimpleTransfer, useComplexTransfer } from "@/hooks/api/useTransfer";
 import { useRecommendStation } from "@/hooks/api/useRecommendStation";
 import MapHeader from "./organisms/MapHeader";
 import { Flex } from "@repo/ui/components";
-import { NaverMap } from "@repo/naver-map";
+import { NaverMap, MapCenterMarker } from "@repo/naver-map";
 import ResultBottomSheet from "@/components/midpoint-result/organisms/ResultBottomSheet";
 import { overlayStyle, mapContainer } from "./style.css";
 import ResultBanner from "./organisms/ResultBanner";
@@ -22,18 +22,22 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
   const handleBannerClose = () => {
     setIsOverlayVisible(false);
   };
+
   const handleClick = () => {
     setIsBannerVisible(false);
   };
 
   const { data: stationsResponse } = useRecommendStation(roomId);
-
   const stations = stationsResponse?.data;
   const firstStation = stations?.[0]; //최종역
-  const centerPoint = {
-    latitude: firstStation?.station.latitude,
-    longitude: firstStation?.station.longitude,
-  };
+
+  const centerPoint = firstStation
+    ? {
+        latitude: firstStation.station.latitude,
+        longitude: firstStation.station.longitude,
+        isFinal: true,
+      }
+    : undefined;
 
   const { data: simpleData } = useSimpleTransfer(
     firstStation?.station.id || 0,
@@ -55,19 +59,17 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
     <div className={mapContainer}>
       <Flex direction="column">
         <MapHeader title="투표 결과" isFinal={true} />
-        {centerPoint.latitude !== undefined &&
-          centerPoint.longitude !== undefined && (
-            <NaverMap
-              width="100vw"
-              height="100dvh"
-              finalCenterMarker={
-                centerPoint as { latitude: number; longitude: number }
-              }
-            />
-          )}
+
+        {centerPoint && (
+          <NaverMap width="100vw" height="100dvh" center={centerPoint}>
+            <MapCenterMarker markerData={centerPoint} />
+          </NaverMap>
+        )}
+
         {isOverlayVisible && (
           <div className={overlayStyle} onClick={handleClick} />
         )}
+
         <Flex>
           <ResultBottomSheet
             roomId={roomId}

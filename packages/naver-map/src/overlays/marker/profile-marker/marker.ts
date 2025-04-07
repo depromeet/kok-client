@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
-import { NaverMapInstance, NaverMapMarker } from "../types";
+import { useRef } from "react";
+import { NaverMapInstance, NaverMapMarker } from "../../../types";
 
 interface MarkerParams {
   map: NaverMapInstance;

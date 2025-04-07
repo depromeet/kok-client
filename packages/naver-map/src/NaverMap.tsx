@@ -1,13 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { NaverMapProps, NaverMapInstance } from "./types";
-import Polygon from "./Polygon";
-import DotMarker from "./DotMarker";
-import { getFinalMarkerElement } from "./FinalMarker";
+import { NaverMapCoreProps, NaverMapInstance } from "./types";
 import { Flex, LoadingSpinner } from "@repo/ui/components";
 import { useNaverMap } from "./naver-map-provider";
-import { ProfileMarker } from "./overlays/profile-marker";
 
 export const NAVER_MAP_CONFIG = {
   ZOOM_LEVEL: 17,
@@ -26,20 +22,13 @@ export const NAVER_MAP_CONFIG = {
 export const NaverMap = ({
   width,
   height,
-  markerData = [],
-  centerMarker,
-  finalCenterMarker,
-  memberMarkers = [],
-  onMarkerClick,
-  polygon = [],
-}: NaverMapProps) => {
+  center,
+  zoom = NAVER_MAP_CONFIG.ZOOM_LEVEL,
+  children,
+}: NaverMapCoreProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapInstance, setMapInstance] = useState<NaverMapInstance | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showPolygon, setShowPolygon] = useState<boolean>(false);
-  const centerMarkerRef = useRef<naver.maps.Marker | null>(null);
-  const leaderMarkerRef = useRef<naver.maps.Marker | null>(null);
-  const memberMarkersRef = useRef<naver.maps.Marker[]>([]);
   const { setMap } = useNaverMap();
 
   const loadNaverMapScript = () => {
@@ -67,23 +56,20 @@ export const NaverMap = ({
     document.head.appendChild(script);
   };
 
-  const createLatLng = (lat: number, lng: number) => {
-    return new window.naver.maps.LatLng(lat, lng);
-  };
-
   const initializeMap = () => {
     if (!mapRef.current || !window.naver || !window.naver.maps) return;
 
     try {
-      const centerPosition = finalCenterMarker
-        ? createLatLng(finalCenterMarker.latitude, finalCenterMarker.longitude)
-        : centerMarker
-          ? createLatLng(centerMarker.latitude, centerMarker.longitude)
-          : undefined;
+      const centerPosition = center
+        ? new window.naver.maps.LatLng(center.latitude, center.longitude)
+        : new window.naver.maps.LatLng(
+            NAVER_MAP_CONFIG.SEOUL_CENTER.lat,
+            NAVER_MAP_CONFIG.SEOUL_CENTER.lng
+          );
 
       const mapOptions = {
         center: centerPosition,
-        zoom: NAVER_MAP_CONFIG.ZOOM_LEVEL,
+        zoom: zoom,
         minZoom: NAVER_MAP_CONFIG.MIN_ZOOM,
         maxZoom: NAVER_MAP_CONFIG.MAX_ZOOM,
         logoControl: false,
@@ -94,99 +80,9 @@ export const NaverMap = ({
       const map = new window.naver.maps.Map(mapRef.current, mapOptions);
 
       setMapInstance(map);
-      setShowPolygon(true);
       setMap(map);
     } catch (e) {
       console.error("네이버 지도 생성 실패", e);
-    }
-  };
-
-  const updateCenterMarker = () => {
-    if (!mapInstance) return;
-
-    if (centerMarkerRef.current) {
-      centerMarkerRef.current.setMap(null);
-      centerMarkerRef.current = null;
-    }
-
-    const markerToUse = finalCenterMarker || centerMarker;
-    if (!markerToUse) return;
-
-    const markerElement = getFinalMarkerElement();
-    const isFinalized = !!finalCenterMarker;
-
-    centerMarkerRef.current = new window.naver.maps.Marker({
-      position: createLatLng(markerToUse.latitude, markerToUse.longitude),
-      map: mapInstance,
-      icon: {
-        content: markerElement,
-        anchor: new window.naver.maps.Point(
-          isFinalized ? 46 : 20.5,
-          isFinalized ? 46 : 20.5
-        ),
-      },
-    });
-  };
-
-  const createLeaderMarker = () => {
-    if (!mapInstance || !Array.isArray(markerData) || !markerData[0]) return;
-
-    if (leaderMarkerRef.current) {
-      leaderMarkerRef.current.setMap(null);
-    }
-
-    const { position, profileUrl } = markerData[0];
-    const markerPosition = createLatLng(position.lat, position.lng);
-
-    const profileMarkerElement = ProfileMarker({
-      profileImageUrl: profileUrl || "",
-    });
-
-    leaderMarkerRef.current = new window.naver.maps.Marker({
-      position: markerPosition,
-      map: mapInstance,
-      icon: {
-        content: profileMarkerElement || "",
-        anchor: new window.naver.maps.Point(24, 48),
-      },
-    });
-
-    mapInstance.setCenter(markerPosition);
-    mapInstance.setZoom(NAVER_MAP_CONFIG.ZOOM_LEVEL);
-  };
-
-  const updateMemberMarkers = () => {
-    if (!mapInstance) return;
-
-    // 기존 마커 제거
-    memberMarkersRef.current.forEach((marker) => marker.setMap(null));
-    memberMarkersRef.current = [];
-
-    memberMarkers.forEach((markerData) => {
-      const markerPosition = createLatLng(
-        markerData.latitude,
-        markerData.longitude
-      );
-      const profileMarkerElement = ProfileMarker({
-        profileImageUrl: markerData.imageUrl || "",
-      });
-
-      const marker = new window.naver.maps.Marker({
-        position: markerPosition,
-        map: mapInstance,
-        icon: {
-          content: profileMarkerElement || "",
-          anchor: new window.naver.maps.Point(24, 48),
-        },
-      });
-
-      memberMarkersRef.current.push(marker);
-    });
-  };
-
-  const handleMarkerClicked = (markerId: number) => {
-    if (onMarkerClick) {
-      onMarkerClick(markerId);
     }
   };
 
@@ -199,36 +95,14 @@ export const NaverMap = ({
   }, [isLoaded]);
 
   useEffect(() => {
-    if (mapInstance) {
-      updateCenterMarker();
+    if (mapInstance && center) {
+      const centerPosition = new window.naver.maps.LatLng(
+        center.latitude,
+        center.longitude
+      );
+      mapInstance.setCenter(centerPosition);
     }
-  }, [mapInstance, centerMarker, finalCenterMarker]);
-
-  useEffect(() => {
-    if (mapInstance && Array.isArray(markerData) && markerData.length === 1) {
-      createLeaderMarker();
-    }
-
-    return () => {
-      if (leaderMarkerRef.current) {
-        leaderMarkerRef.current.setMap(null);
-      }
-    };
-  }, [mapInstance, markerData]);
-
-  useEffect(() => {
-    if (mapInstance && memberMarkers.length > 0) {
-      updateMemberMarkers();
-    }
-
-    return () => {
-      memberMarkersRef.current.forEach((marker) => marker.setMap(null));
-      memberMarkersRef.current = [];
-    };
-  }, [mapInstance, memberMarkers]);
-
-  const isMarkerDataValid = Array.isArray(markerData) && markerData.length > 0;
-  const isPolygonValid = Array.isArray(polygon) && polygon.length > 0;
+  }, [mapInstance, center]);
 
   return (
     <Flex style={{ maxWidth: "600px" }}>
@@ -241,32 +115,15 @@ export const NaverMap = ({
         }}
       >
         {!isLoaded ? (
-          <div
-            style={{
-              height: "100%",
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+          <Flex
+            justify="center"
+            align="center"
+            style={{ height: "100%", width: "100%" }}
           >
             <LoadingSpinner width={30} height={30} />
-          </div>
+          </Flex>
         ) : (
-          mapInstance && (
-            <>
-              {showPolygon && isPolygonValid && (
-                <Polygon map={mapInstance} path={polygon} />
-              )}
-              {isMarkerDataValid && markerData.length > 1 && (
-                <DotMarker
-                  map={mapInstance}
-                  markerData={markerData}
-                  onMarkerClicked={handleMarkerClicked}
-                />
-              )}
-            </>
-          )
+          mapInstance && children
         )}
       </div>
     </Flex>

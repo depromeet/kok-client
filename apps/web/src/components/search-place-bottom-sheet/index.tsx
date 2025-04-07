@@ -17,9 +17,8 @@ import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
 import {
   getLatLng,
-  Marker,
   NaverLatLng,
-  ProfileMarker,
+  MapOverlay,
   useNaverMap,
 } from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
@@ -57,17 +56,12 @@ const SearchPlaceBottomSheet = ({
   const { data: searchList, refetch: fetchSearchList } =
     useGetPlaceSearchList(query);
   const { setStartLocation } = useSetStartLocation();
-  const profileMarkerElement = ProfileMarker({ profileImageUrl: memberImgUrl });
-  const marker = Marker({
-    map: map!,
-    customMarkerData: profileMarkerElement
-      ? {
-          marker: profileMarkerElement,
-          width: 48,
-          height: 48,
-        }
-      : undefined, // NOTE: undefined시 기본 마커 사용
-  });
+
+  const [markerData, setMarkerData] = useState<{
+    latitude: number;
+    longitude: number;
+    profileImageUrl?: string;
+  } | null>(null);
 
   const moveTo = useCallback(
     (latLng: NaverLatLng) => {
@@ -102,35 +96,36 @@ const SearchPlaceBottomSheet = ({
   const onClickListItem = (place: Place) => {
     const latLng = convertWGS84ToLatLng({ y: place.mapy, x: place.mapx });
 
-    setPlace({
+    const updatedPlace = {
       ...place,
       mapy: latLng.y.toString(),
       mapx: latLng.x.toString(),
+    };
+
+    setPlace(updatedPlace);
+    setMarkerData({
+      latitude: latLng.y,
+      longitude: latLng.x,
+      profileImageUrl: memberImgUrl,
     });
     setIsSearching(false);
   };
 
   const onClickSelectPlace = () => {
-    if (!place) return;
-
-    marker.cleanUp();
-    marker.create({
-      latitude: Number(place.mapy),
-      longitude: Number(place.mapx),
-    });
+    if (!place || !markerData) return;
 
     setStartLocation({
       roomId,
-      latitude: Number(place.mapy),
-      longitude: Number(place.mapx),
+      latitude: markerData.latitude,
+      longitude: markerData.longitude,
       profileImageUrl: memberImgUrl,
     });
 
     mutate({
       roomId,
       memberId,
-      latitude: Number(place.mapy),
-      longitude: Number(place.mapx),
+      latitude: markerData.latitude,
+      longitude: markerData.longitude,
       name: place.address
         .split(" ")
         .filter((_, index) => index !== 0)
@@ -140,7 +135,7 @@ const SearchPlaceBottomSheet = ({
 
   const onClickRemovePlace = () => {
     setPlace(null);
-    marker.cleanUp();
+    setMarkerData(null);
   };
 
   // NOTE: 현 위치로 저장
@@ -150,28 +145,28 @@ const SearchPlaceBottomSheet = ({
     const { latitude, longitude } = currentLocation;
     const { title, fullAddress } = getFullAddressAndTitle(addressInfo);
 
-    setPlace({
+    const newPlace = {
       title,
       mapy: latitude.toString(),
       mapx: longitude.toString(),
       address: fullAddress,
+    };
+
+    setPlace(newPlace);
+    setMarkerData({
+      latitude,
+      longitude,
+      profileImageUrl: memberImgUrl,
     });
-  }, [currentLocation, addressInfo]);
+  }, [currentLocation, addressInfo, memberImgUrl]);
 
   useEffect(() => {
-    if (!place) return;
+    if (!place || !markerData) return;
 
     const latLng = getLatLng({ y: Number(place.mapy), x: Number(place.mapx) });
-
-    marker.cleanUp();
-    marker.create({
-      latitude: latLng.y,
-      longitude: latLng.x,
-    });
-
     moveTo(latLng);
     setIsLoading(false);
-  }, [place, moveTo, marker]);
+  }, [place, markerData, moveTo]);
 
   useEffect(() => {
     if (!isSuccess || !pathname) return;
@@ -322,6 +317,16 @@ const SearchPlaceBottomSheet = ({
           </Flex>
         )}
       </Flex>
+
+      {markerData && (
+        <MapOverlay
+          profileMarker={{
+            latitude: markerData.latitude,
+            longitude: markerData.longitude,
+            imageUrl: markerData.profileImageUrl || "",
+          }}
+        />
+      )}
     </>
   );
 };

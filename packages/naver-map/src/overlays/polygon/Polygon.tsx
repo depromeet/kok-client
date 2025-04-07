@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { PolygonProps, NaverPolygon } from "./types";
+import { NaverPolygon, PolygonProps } from "../../types";
 import { theme } from "@repo/ui/tokens";
 
 const Polygon = ({ map, path }: PolygonProps) => {
@@ -10,7 +10,6 @@ const Polygon = ({ map, path }: PolygonProps) => {
   useEffect(() => {
     if (!window.naver || !map || !path) return;
 
-    // 이전 폴리곤 제거
     if (polygonRef.current) {
       polygonRef.current.setMap(null);
     }
