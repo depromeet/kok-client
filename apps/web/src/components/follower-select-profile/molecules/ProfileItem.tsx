@@ -1,6 +1,5 @@
 import { Flex, Spacing, Text } from "@repo/ui/components";
-// import Image from "next/image";
-import * as Style from "../../../../styles/follower/select/ProfileItem.css";
+import * as Style from "./ProfileItem.css";
 import { motion, useAnimate } from "@repo/motion";
 import { theme } from "@repo/ui/tokens";
 import { useEffect } from "react";

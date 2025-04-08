@@ -1,7 +1,7 @@
 import { motion, usePressEffect } from "@repo/motion";
-import * as Style from "../../../../styles/follower/select/AddButton.css";
 import { Flex } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
+import * as Style from "./AddButton.css";
 
 interface Props {
   disabled: boolean;

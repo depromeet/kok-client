@@ -3,7 +3,7 @@
 import AddButton from "./AddButton";
 import { DummyProfile } from "../dummy";
 import ProfileItem from "./ProfileItem";
-import * as Style from "../../../../styles/follower/select/ProfileList.css";
+import * as Style from "./ProfileList.css";
 
 interface Props {
   selectedProfileId?: string;
