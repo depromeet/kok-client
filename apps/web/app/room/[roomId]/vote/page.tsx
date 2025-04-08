@@ -1,3 +1,3 @@
-import Page from "@pages/Vote/Page";
+import Page from "@components/vote-voting/Page";
 
 export default Page;
