@@ -14,8 +14,7 @@ import Image from "next/image";
 import { Stepper } from "../atom/Stepper/Stepper";
 import { useParams, useRouter } from "next/navigation";
 import { useVoteDeadline } from "@/hooks/api/useVoteDeadline";
-import { getTimeDifferenceInMinutes } from "./getDeadlineInMinutes";
-import { convertMinutes } from "@/components/vote-onboarding/templates/convertMinutes";
+import { convertMinutes, getTimeDifferenceInMinutes } from "@/utils/time";
 import { useStopWatch } from "@/hooks/useStopWatch";
 import { AnimateStack } from "@repo/motion";
 

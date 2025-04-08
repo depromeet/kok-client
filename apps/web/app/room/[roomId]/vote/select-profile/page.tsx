@@ -1,3 +1,3 @@
-import Page from "@pages/Vote/SelectProfile/Page";
+import Page from "@components/vote-select-profile/Page";
 
 export default Page;

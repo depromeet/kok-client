@@ -8,7 +8,7 @@ import { useVoteResult } from "@/hooks/api/useVoteResult";
 import { AnimationBottomSheet } from "@repo/ui/components";
 import { useRouter } from "next/navigation";
 import { useVoteFinish } from "@/hooks/api/useVoteFinish";
-import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
+import { KakaoTalkShareButton } from "@/components/common";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 
 interface Props {
