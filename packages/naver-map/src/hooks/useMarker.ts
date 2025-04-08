@@ -5,19 +5,26 @@ import { NaverMapInstance, NaverMapMarker } from "../types";
 
 interface MarkerParams {
   map: NaverMapInstance;
-  customMarkerData?: { marker: HTMLDivElement; width: number; height: number };
 }
 
-export const Marker = ({ map, customMarkerData }: MarkerParams) => {
+export const Marker = ({ map }: MarkerParams) => {
   const markersRef = useRef<NaverMapMarker[]>([]);
 
   const create = ({
     latitude,
     longitude,
+    customMarkerData,
   }: {
     latitude: number;
     longitude: number;
+    customMarkerData?: {
+      marker: HTMLDivElement;
+      width: number;
+      height: number;
+    };
   }) => {
+    if (!window.naver || !map) return;
+
     const markerOptions = {
       map,
       position: new naver.maps.LatLng(latitude, longitude),
@@ -34,6 +41,8 @@ export const Marker = ({ map, customMarkerData }: MarkerParams) => {
   };
 
   const cleanUp = () => {
+    if (!window.naver || !map) return;
+
     markersRef.current.forEach((marker) => {
       marker.setMap(null);
     });

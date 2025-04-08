@@ -27,6 +27,7 @@ export const Polygon = ({
   const polygonsRef = useRef<naver.maps.Polygon[]>([]);
 
   const create = (path: { latitude: number; longitude: number }[]) => {
+    if (!window.naver || !map) return;
     if (!path || path.length < 3) return;
 
     const naverPath = path.map(
@@ -48,6 +49,8 @@ export const Polygon = ({
   };
 
   const cleanUp = () => {
+    if (!window.naver || !map) return;
+
     polygonsRef.current.forEach((polygon) => {
       polygon.setMap(null);
     });

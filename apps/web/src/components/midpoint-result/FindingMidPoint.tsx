@@ -60,7 +60,7 @@ const FindingMidPoint = ({
     () => (convH ? convertToPolygonPath(convH) : []),
     [convH]
   );
-  const centerMarker = centroid
+  const centerMarkerData = centroid
     ? convertToCenterMarkerData({ ...centroid, roomId: roomId })
     : undefined;
 
@@ -76,18 +76,20 @@ const FindingMidPoint = ({
   const { data: locationsData } = useMemberLocation(roomId, memberId);
   const { map } = useNaverMap();
 
-  const [profileMarker, setProfileMarker] = useState<ReturnType<
-    typeof Marker
-  > | null>(null);
-  const [dotMarkersList, setDotMarkersList] = useState<
-    ReturnType<typeof Marker>[]
-  >([]);
-  const [centerMarkerInstance, setCenterMarkerInstance] = useState<ReturnType<
-    typeof Marker
-  > | null>(null);
-  const [polygonInstance, setPolygonInstance] = useState<ReturnType<
-    typeof Polygon
-  > | null>(null);
+  const profileMarker = Marker({ map: map! });
+  const dotMarker = Marker({ map: map! });
+  const centerMarker = Marker({ map: map! });
+
+  const { create: createPolygon, cleanUp: cleanUpPolygon } = Polygon({
+    map: map!,
+    options: {
+      fillColor: theme.colors.gray10,
+      fillOpacity: 0.5,
+      strokeColor: theme.colors.gray10,
+      strokeWeight: 1,
+      strokeOpacity: 0.8,
+    },
+  });
 
   useEffect(() => {
     if (!map || !locationsData?.data) return;
@@ -95,10 +97,11 @@ const FindingMidPoint = ({
       profileImageUrl: locationsData.data.imageUrl,
     });
 
-    if (profileMarker) profileMarker.cleanUp();
+    profileMarker.cleanUp();
 
-    const newProfileMarker = Marker({
-      map,
+    profileMarker.create({
+      latitude: locationsData.data.latitude,
+      longitude: locationsData.data.longitude,
       customMarkerData: profileMarkerElement
         ? {
             marker: profileMarkerElement,
@@ -108,26 +111,15 @@ const FindingMidPoint = ({
         : undefined,
     });
 
-    newProfileMarker.create({
-      latitude: locationsData.data.latitude,
-      longitude: locationsData.data.longitude,
-    });
-
-    setProfileMarker(newProfileMarker);
-
     return () => {
-      if (newProfileMarker) newProfileMarker.cleanUp();
+      profileMarker.cleanUp();
     };
   }, [map, locationsData, profileMarker]);
 
   useEffect(() => {
     if (!map || dotMarkers.length === 0) return;
 
-    dotMarkersList.forEach((marker) => {
-      if (marker) marker.cleanUp();
-    });
-
-    const newDotMarkers: ReturnType<typeof Marker>[] = [];
+    dotMarker.cleanUp();
 
     dotMarkers.forEach((marker) => {
       if (!marker.position.lat || !marker.position.lng) return;
@@ -138,45 +130,34 @@ const FindingMidPoint = ({
         borderColor: theme.colors.gray50,
       });
 
-      const newDotMarker = Marker({
-        map,
+      dotMarker.create({
+        latitude: marker.position.lat,
+        longitude: marker.position.lng,
         customMarkerData: {
           marker: dotMarkerElement ?? document.createElement("div"),
           width: 12,
           height: 12,
         },
       });
-
-      newDotMarker.create({
-        latitude: marker.position.lat,
-        longitude: marker.position.lng,
-      });
-
-      newDotMarkers.push(newDotMarker);
     });
 
-    setDotMarkersList(newDotMarkers);
-
     return () => {
-      newDotMarkers.forEach((marker) => {
-        if (marker) marker.cleanUp();
-      });
+      dotMarker.cleanUp();
     };
-  }, [map, dotMarkers, dotMarkersList]);
+  }, [map, dotMarkers, dotMarker]);
 
   useEffect(() => {
     if (!map) return;
 
-    if (!centerMarker || dotMarkers.length <= 1) {
-      if (centerMarkerInstance) centerMarkerInstance.cleanUp();
-      setCenterMarkerInstance(null);
+    centerMarker.cleanUp();
+
+    if (!centerMarkerData || dotMarkers.length <= 1) {
       return;
     }
 
-    if (centerMarkerInstance) centerMarkerInstance.cleanUp();
-
-    const newCenterMarker = Marker({
-      map,
+    centerMarker.create({
+      latitude: centerMarkerData.latitude,
+      longitude: centerMarkerData.longitude,
       customMarkerData: {
         marker: getFinalMarkerElement(),
         width: 24,
@@ -184,53 +165,31 @@ const FindingMidPoint = ({
       },
     });
 
-    newCenterMarker.create({
-      latitude: centerMarker.latitude,
-      longitude: centerMarker.longitude,
-    });
-
-    setCenterMarkerInstance(newCenterMarker);
-
     return () => {
-      if (newCenterMarker) newCenterMarker.cleanUp();
+      centerMarker.cleanUp();
     };
-  }, [map, centerMarker, dotMarkers.length, centerMarkerInstance]);
+  }, [map, centerMarkerData, dotMarkers.length, centerMarker]);
 
   useEffect(() => {
     if (!map) return;
 
+    cleanUpPolygon();
+
     if (polygonPath.length < 3) {
-      if (polygonInstance) polygonInstance.cleanUp();
-      setPolygonInstance(null);
       return;
     }
 
-    if (polygonInstance) polygonInstance.cleanUp();
-
-    const newPolygon = Polygon({
-      map,
-      options: {
-        fillColor: theme.colors.gray10,
-        fillOpacity: 0.5,
-        strokeColor: theme.colors.gray10,
-        strokeWeight: 1,
-        strokeOpacity: 0.8,
-      },
-    });
-
-    newPolygon.create(
+    createPolygon(
       polygonPath.map((point) => ({
         latitude: point.lat,
         longitude: point.lng,
       }))
     );
 
-    setPolygonInstance(newPolygon);
-
     return () => {
-      if (newPolygon) newPolygon.cleanUp();
+      cleanUpPolygon();
     };
-  }, [map, polygonPath, polygonInstance]);
+  }, [map, polygonPath, createPolygon, cleanUpPolygon]);
 
   const handleBannerClose = () => {
     setIsOverlayVisible(false);
@@ -271,10 +230,10 @@ const FindingMidPoint = ({
   const isVoteMode = roomInfo?.data?.roomStatus === "VOTE" ? true : false;
 
   const mapCenter = (() => {
-    if (centerMarker && dotMarkers.length > 1) {
+    if (centerMarkerData && dotMarkers.length > 1) {
       return {
-        latitude: centerMarker.latitude,
-        longitude: centerMarker.longitude,
+        latitude: centerMarkerData.latitude,
+        longitude: centerMarkerData.longitude,
       };
     }
     if (locationsData?.data) {
@@ -295,10 +254,10 @@ const FindingMidPoint = ({
         <div className={refreshStyle}>
           <RefreshCenterButton
             coordinates={
-              centerMarker && dotMarkers.length > 1
+              centerMarkerData && dotMarkers.length > 1
                 ? {
-                    lat: centerMarker.latitude,
-                    lng: centerMarker.longitude,
+                    lat: centerMarkerData.latitude,
+                    lng: centerMarkerData.longitude,
                   }
                 : { lat: 0, lng: 0 }
             }

@@ -20,16 +20,9 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
   const { map } = useNaverMap();
-  const [finalMarker, setFinalMarker] = useState<{
-    create: ({
-      latitude,
-      longitude,
-    }: {
-      latitude: number;
-      longitude: number;
-    }) => void;
-    cleanUp: () => void;
-  } | null>(null);
+  const { create, cleanUp } = Marker({
+    map: map!,
+  });
 
   const handleBannerClose = () => {
     setIsOverlayVisible(false);
@@ -74,31 +67,25 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
   useEffect(() => {
     if (!map || !centerPoint) return;
 
-    const markerInstance = Marker({
-      map,
+    return () => {
+      cleanUp();
+    };
+  }, [map, centerPoint, cleanUp]);
+
+  useEffect(() => {
+    if (!centerPoint) return;
+
+    cleanUp();
+    create({
+      latitude: Number(centerPoint?.latitude),
+      longitude: Number(centerPoint?.longitude),
       customMarkerData: {
         marker: getFinalMarkerElement(),
         width: 46,
         height: 46,
       },
     });
-
-    setFinalMarker(markerInstance);
-
-    return () => {
-      markerInstance.cleanUp();
-    };
-  }, [map, centerPoint]);
-
-  useEffect(() => {
-    if (!finalMarker || !centerPoint) return;
-
-    finalMarker.cleanUp();
-    finalMarker.create({
-      latitude: Number(centerPoint?.latitude),
-      longitude: Number(centerPoint?.longitude),
-    });
-  }, [finalMarker, centerPoint]);
+  }, [centerPoint, create, cleanUp]);
 
   return (
     <div className={mapContainer}>

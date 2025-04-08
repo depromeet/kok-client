@@ -61,20 +61,7 @@ const SearchPlaceBottomSheet = ({
   const profileMarkerElement = ProfileMarker({ profileImageUrl: memberImgUrl });
   const marker = Marker({
     map: map!,
-    customMarkerData: profileMarkerElement
-      ? {
-          marker: profileMarkerElement,
-          width: 48,
-          height: 48,
-        }
-      : undefined,
   });
-
-  const [markerData, setMarkerData] = useState<{
-    latitude: number;
-    longitude: number;
-    profileImageUrl?: string;
-  } | null>(null);
 
   const moveTo = useCallback(
     (latLng: NaverLatLng) => {
@@ -119,7 +106,7 @@ const SearchPlaceBottomSheet = ({
   };
 
   const onClickSelectPlace = () => {
-    if (!place || !markerData) return;
+    if (!place) return;
 
     setStartLocation({
       roomId,
@@ -169,10 +156,18 @@ const SearchPlaceBottomSheet = ({
     marker.create({
       latitude: latLng.y,
       longitude: latLng.x,
+
+      customMarkerData: profileMarkerElement
+        ? {
+            marker: profileMarkerElement,
+            width: 48,
+            height: 48,
+          }
+        : undefined,
     });
     moveTo(latLng);
     setIsLoading(false);
-  }, [place, moveTo, marker]);
+  }, [place, moveTo, marker, profileMarkerElement]);
 
   useEffect(() => {
     if (!isSuccess || !pathname) return;

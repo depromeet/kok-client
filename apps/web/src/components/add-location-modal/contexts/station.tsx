@@ -1,3 +1,5 @@
+"use client";
+
 import { StationInfo } from "@/api/types/stations/index.type";
 import {
   createContext,

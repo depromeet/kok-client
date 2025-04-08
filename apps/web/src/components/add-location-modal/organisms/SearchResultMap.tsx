@@ -1,3 +1,5 @@
+"use client";
+
 import {
   NaverMap,
   useNaverMap,
@@ -6,11 +8,16 @@ import {
 } from "@repo/naver-map";
 import AddCandidateBottomSheet from "../molecules/AddCandidateBottomSheet";
 import { StationInfo } from "@/api/types/stations/index.type";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 type SearchResultMapProps = Pick<StationInfo, "station">;
 
 const SearchResultMap = ({ station }: SearchResultMapProps) => {
+  const { map } = useNaverMap();
+  const { create, cleanUp } = Marker({
+    map: map!,
+  });
+
   const centerMarker = useMemo(
     () => ({
       latitude: station.latitude,
@@ -20,20 +27,12 @@ const SearchResultMap = ({ station }: SearchResultMapProps) => {
     [station.latitude, station.longitude]
   );
 
-  const { map } = useNaverMap();
-  const [markerData, setMarkerData] = useState<{ cleanUp: () => void } | null>(
-    null
-  );
-
   useEffect(() => {
     if (!map) return;
 
-    if (markerData) {
-      markerData.cleanUp();
-    }
-
-    const resultMarker = Marker({
-      map: map,
+    create({
+      latitude: centerMarker.latitude,
+      longitude: centerMarker.longitude,
       customMarkerData: {
         marker: getFinalMarkerElement(),
         width: 46,
@@ -41,17 +40,10 @@ const SearchResultMap = ({ station }: SearchResultMapProps) => {
       },
     });
 
-    resultMarker.create({
-      latitude: centerMarker.latitude,
-      longitude: centerMarker.longitude,
-    });
-
-    setMarkerData(resultMarker);
-
     return () => {
-      if (resultMarker) resultMarker.cleanUp();
+      cleanUp();
     };
-  }, [map, station, centerMarker, markerData]);
+  }, [map, station, centerMarker, create, cleanUp]);
 
   return (
     <>
