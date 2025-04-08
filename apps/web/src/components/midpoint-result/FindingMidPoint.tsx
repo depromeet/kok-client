@@ -83,14 +83,13 @@ const FindingMidPoint = ({
   const { create: createPolygon, cleanUp: cleanUpPolygon } = Polygon({
     map: map!,
     options: {
-      fillColor: theme.colors.gray10,
-      fillOpacity: 0.5,
-      strokeColor: theme.colors.gray10,
+      fillColor: theme.colors.mapPolygon,
+      strokeColor: theme.colors.mapPolygon,
       strokeWeight: 1,
-      strokeOpacity: 0.8,
+      strokeOpacity: 0.1,
     },
   });
-
+  // 프로필 마커
   useEffect(() => {
     if (!map || !locationsData?.data) return;
     const profileMarkerElement = ProfileMarker({
@@ -105,8 +104,8 @@ const FindingMidPoint = ({
       customMarkerData: profileMarkerElement
         ? {
             marker: profileMarkerElement,
-            width: 48,
-            height: 48,
+            width: 45,
+            height: 45,
           }
         : undefined,
     });
@@ -116,6 +115,7 @@ const FindingMidPoint = ({
     };
   }, [map, locationsData, profileMarker]);
 
+  // 나머지 마커
   useEffect(() => {
     if (!map || dotMarkers.length === 0) return;
 
@@ -125,9 +125,9 @@ const FindingMidPoint = ({
       if (!marker.position.lat || !marker.position.lng) return;
 
       const dotMarkerElement = DotMarker({
-        size: 12,
-        color: theme.colors.gray10,
-        borderColor: theme.colors.gray50,
+        size: 6,
+        color: theme.colors.mapMarkerBorder,
+        borderColor: "transparent",
       });
 
       dotMarker.create({
@@ -135,8 +135,6 @@ const FindingMidPoint = ({
         longitude: marker.position.lng,
         customMarkerData: {
           marker: dotMarkerElement ?? document.createElement("div"),
-          width: 12,
-          height: 12,
         },
       });
     });
@@ -146,6 +144,7 @@ const FindingMidPoint = ({
     };
   }, [map, dotMarkers, dotMarker]);
 
+  // 중심 마커
   useEffect(() => {
     if (!map) return;
 
@@ -170,6 +169,7 @@ const FindingMidPoint = ({
     };
   }, [map, centerMarkerData, dotMarkers.length, centerMarker]);
 
+  // 폴리곤
   useEffect(() => {
     if (!map) return;
 
@@ -245,6 +245,26 @@ const FindingMidPoint = ({
 
     return { latitude: 37.5665, longitude: 126.978 };
   })();
+
+  useEffect(() => {
+    if (!map || dotMarkers.length <= 1) return;
+
+    const bounds = new window.naver.maps.LatLngBounds(
+      new window.naver.maps.LatLng(0, 0),
+      new window.naver.maps.LatLng(0, 0)
+    );
+
+    dotMarkers.forEach((marker) => {
+      if (marker.position) {
+        const latLng = new window.naver.maps.LatLng(
+          marker.position.lat,
+          marker.position.lng
+        );
+        bounds.extend(latLng);
+      }
+    });
+    map.fitBounds(bounds);
+  }, [map, dotMarkers]);
 
   return (
     <div className={mapContainer}>

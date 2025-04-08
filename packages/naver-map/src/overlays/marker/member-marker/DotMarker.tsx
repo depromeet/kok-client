@@ -7,10 +7,10 @@ interface DotMarkerOptions {
 }
 
 export const DotMarker = ({
-  size = 12,
-  color = "#0080ff",
-  borderColor = "white",
-}: DotMarkerOptions = {}) => {
+  size = 6,
+  color = "rgba(27, 32, 44, 0.8)",
+  borderColor = "transparent",
+}: DotMarkerOptions) => {
   if (typeof document === "undefined") return null;
 
   const markerElement = document.createElement("div");
@@ -21,7 +21,7 @@ export const DotMarker = ({
       border-radius: 50%;
       background-color: ${color};
       border: 2px solid ${borderColor};
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);">
+      box-shadow: 0 0 12px rgba(27, 32, 44, 0.4);">
     </div>
   `;
 

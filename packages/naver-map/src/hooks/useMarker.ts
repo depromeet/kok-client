@@ -19,8 +19,8 @@ export const Marker = ({ map }: MarkerParams) => {
     longitude: number;
     customMarkerData?: {
       marker: HTMLDivElement;
-      width: number;
-      height: number;
+      width?: number;
+      height?: number;
     };
   }) => {
     if (!window.naver || !map) return;
@@ -31,8 +31,8 @@ export const Marker = ({ map }: MarkerParams) => {
       icon: customMarkerData && {
         content: customMarkerData.marker,
         anchor: new naver.maps.Point(
-          customMarkerData.width / 2,
-          customMarkerData.height + 4
+          (customMarkerData.width ?? 0) / 2,
+          (customMarkerData.height ?? 0) + 4
         ),
       },
     };
