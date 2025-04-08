@@ -18,12 +18,10 @@ const KakaoTalkShareButton = ({
   templateArgs = {
     roomId: "",
   },
-  className,
   variant = "gradient-loop",
-  width,
   ...props
 }: PropsWithChildren<KakaoTalkShareButtonProps>) => {
-  const onClickShareButton = () => {
+  const handleClickShareButton = () => {
     if (!window.Kakao) return;
 
     window.Kakao.Share.sendCustom({
@@ -43,7 +41,7 @@ const KakaoTalkShareButton = ({
       {...props}
       variant={variant}
       width={variant === "share-icon" ? "fit" : "full"}
-      onClick={onClickShareButton}
+      onClick={handleClickShareButton}
       className={textRecipe({ variant: "title3" })}
     >
       {children}

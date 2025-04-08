@@ -78,28 +78,28 @@ const SearchPlaceBottomSheet = ({
     [map]
   );
 
-  const onChangeInputText = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInputText = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
-  const onClickCurrentLocation = () => {
+  const handleClickCurrentLocation = () => {
     setIsLoading(true);
     getCurrentLocation();
   };
 
-  const onClickSearchButton = () => {
+  const handleClickSearchButton = () => {
     fetchSearchList();
   };
 
-  const onFocusSearchInput = () => {
+  const handleFocusSearchInput = () => {
     setIsSearching(true);
   };
 
-  const onClickBackground = () => {
+  const handleClickBackground = () => {
     setIsSearching(false);
   };
 
-  const onClickListItem = (place: Place) => {
+  const handleClickListItem = (place: Place) => {
     const latLng = convertWGS84ToLatLng({ y: place.mapy, x: place.mapx });
 
     setPlace({
@@ -110,7 +110,7 @@ const SearchPlaceBottomSheet = ({
     setIsSearching(false);
   };
 
-  const onClickSelectPlace = () => {
+  const handleClickSelectPlace = () => {
     if (!place) return;
 
     marker.cleanUp();
@@ -138,7 +138,7 @@ const SearchPlaceBottomSheet = ({
     });
   };
 
-  const onClickRemovePlace = () => {
+  const handleClickRemovePlace = () => {
     setPlace(null);
     marker.cleanUp();
   };
@@ -191,7 +191,7 @@ const SearchPlaceBottomSheet = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className={Style.backgroundDimmed}
-            onClick={onClickBackground}
+            onClick={handleClickBackground}
           />
         )}
       </AnimatePresence>
@@ -215,14 +215,14 @@ const SearchPlaceBottomSheet = ({
                 rightElement={
                   <motion.button
                     className={searchButton}
-                    onClick={onClickSearchButton}
+                    onClick={handleClickSearchButton}
                   >
                     <SearchIcon />
                   </motion.button>
                 }
                 padding="xs"
-                onChange={onChangeInputText}
-                onFocus={onFocusSearchInput}
+                onChange={handleChangeInputText}
+                onFocus={handleFocusSearchInput}
               />
             </motion.div>
 
@@ -236,7 +236,7 @@ const SearchPlaceBottomSheet = ({
                 >
                   <Button
                     className={textRecipe({ variant: "title3" })}
-                    onClick={onClickCurrentLocation}
+                    onClick={handleClickCurrentLocation}
                     disabled={isLoading}
                   >
                     <Flex as="div" gap={4} align="center">
@@ -266,7 +266,7 @@ const SearchPlaceBottomSheet = ({
                       key={`search-result-${index}-${item.title}`}
                       {...item}
                       isLast={index === searchList.length - 1}
-                      onSelect={(place: Place) => onClickListItem(place)}
+                      onSelect={(place: Place) => handleClickListItem(place)}
                     />
                   ))
                 ) : (
@@ -310,13 +310,13 @@ const SearchPlaceBottomSheet = ({
                 </Text>
               </Flex>
 
-              <button onClick={onClickRemovePlace}>
+              <button onClick={handleClickRemovePlace}>
                 <DeleteIcon />
               </button>
             </Flex>
 
             {/* TODO: isSuccess를 활용해 API 요청중 버튼 disable */}
-            <Button onClick={onClickSelectPlace}>
+            <Button onClick={handleClickSelectPlace}>
               <Text variant="title3">출발지로 설정하기</Text>
             </Button>
           </Flex>
