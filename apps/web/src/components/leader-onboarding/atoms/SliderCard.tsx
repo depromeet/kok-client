@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import * as Style from "@/styles/onboard/slider/SliderCard.css";
+import * as Style from "./SliderCard.css";
 import { classMerge } from "@repo/ui/utils";
 import { ComponentProps } from "react";
 

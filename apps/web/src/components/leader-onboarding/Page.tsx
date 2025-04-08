@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@repo/ui/components";
-import * as Style from "../../styles/onboard/Page.css";
-import Slider from "./Slider/Slider";
+import * as Style from "./Page.css";
+import Slider from "./molecules/Slider";
 import { usePressEffect } from "@repo/motion";
 import { useRouter } from "next/navigation";
 
