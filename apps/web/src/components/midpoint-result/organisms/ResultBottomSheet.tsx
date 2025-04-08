@@ -8,7 +8,7 @@ import { secondsToTime } from "@/utils/time";
 import { metersToKilometersString } from "@/utils/meterToKilometers";
 import TransportBar from "./TransporBar";
 import { ReactNode } from "react";
-import KakaoTalkShareButton from "@/components/share-room/molecule/KakaoTalkShareButton";
+import { KakaoTalkShareButton } from "@/components/common";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 
 interface ResultBottomSheetProps {

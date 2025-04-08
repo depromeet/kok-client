@@ -12,7 +12,7 @@ type KakaoTalkShareButtonProps = ButtonProps & {
   variant?: string;
 };
 
-const KakaoTalkShareButton = ({
+export const KakaoTalkShareButton = ({
   children,
   templateId,
   templateArgs = {
@@ -48,5 +48,3 @@ const KakaoTalkShareButton = ({
     </Button>
   );
 };
-
-export default KakaoTalkShareButton;
