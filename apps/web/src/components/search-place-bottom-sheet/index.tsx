@@ -17,10 +17,10 @@ import { useGetPlaceSearchList } from "@/hooks/api/useGetPlaceSearchList";
 import CurrentLocationIcon from "../../assets/icons/CurrentLocationIcon";
 import {
   getLatLng,
-  Marker,
   NaverLatLng,
-  ProfileMarker,
   useNaverMap,
+  useMarker,
+  ProfileMarker,
 } from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
 import { useCurrentLocation } from "@/hooks/api/useCurrentLocation";
@@ -57,16 +57,10 @@ const SearchPlaceBottomSheet = ({
   const { data: searchList, refetch: fetchSearchList } =
     useGetPlaceSearchList(query);
   const { setStartLocation } = useSetStartLocation();
+
   const profileMarkerElement = ProfileMarker({ profileImageUrl: memberImgUrl });
-  const marker = Marker({
+  const marker = useMarker({
     map: map!,
-    customMarkerData: profileMarkerElement
-      ? {
-          marker: profileMarkerElement,
-          width: 48,
-          height: 48,
-        }
-      : undefined, // NOTE: undefined시 기본 마커 사용
   });
 
   const moveTo = useCallback(
@@ -107,17 +101,12 @@ const SearchPlaceBottomSheet = ({
       mapy: latLng.y.toString(),
       mapx: latLng.x.toString(),
     });
+
     setIsSearching(false);
   };
 
   const handleClickSelectPlace = () => {
     if (!place) return;
-
-    marker.cleanUp();
-    marker.create({
-      latitude: Number(place.mapy),
-      longitude: Number(place.mapx),
-    });
 
     setStartLocation({
       roomId,
@@ -167,11 +156,18 @@ const SearchPlaceBottomSheet = ({
     marker.create({
       latitude: latLng.y,
       longitude: latLng.x,
-    });
 
+      customMarkerData: profileMarkerElement
+        ? {
+            marker: profileMarkerElement,
+            width: 48,
+            height: 48,
+          }
+        : undefined,
+    });
     moveTo(latLng);
     setIsLoading(false);
-  }, [place, moveTo, marker]);
+  }, [place, moveTo, marker, profileMarkerElement]);
 
   useEffect(() => {
     if (!isSuccess || !pathname) return;

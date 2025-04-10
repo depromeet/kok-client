@@ -112,7 +112,7 @@ const scale = {
   subwayAdjustGTX: "#B072A7",
 
   mapPolygon: "rgba(27, 32, 44, 0.1)",
-  mapMarkerBorder: "#000000",
+  mapMarkerBorder: "rgba(27, 32, 44, 0.8)",
 };
 
 /*

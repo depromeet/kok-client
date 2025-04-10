@@ -1,39 +1,49 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
+import { useRef } from "react";
 import { NaverMapInstance, NaverMapMarker } from "../types";
 
 interface MarkerParams {
   map: NaverMapInstance;
-  customMarkerData?: { marker: HTMLDivElement; width: number; height: number };
 }
 
-export const Marker = ({ map, customMarkerData }: MarkerParams) => {
+export const useMarker = ({ map }: MarkerParams) => {
   const markersRef = useRef<NaverMapMarker[]>([]);
 
   const create = ({
     latitude,
     longitude,
+    customMarkerData,
   }: {
     latitude: number;
     longitude: number;
+    customMarkerData?: {
+      marker: HTMLDivElement;
+      width?: number;
+      height?: number;
+    };
   }) => {
+    if (!window.naver || !map) return;
+
     const markerOptions = {
       map,
       position: new naver.maps.LatLng(latitude, longitude),
       icon: customMarkerData && {
         content: customMarkerData.marker,
         anchor: new naver.maps.Point(
-          customMarkerData.width / 2,
-          customMarkerData.height + 4
+          (customMarkerData.width ?? 0) / 2,
+          (customMarkerData.height ?? 0) + 4
         ),
       },
     };
     const marker = new naver.maps.Marker(markerOptions);
     markersRef.current.push(marker);
+    return marker;
   };
 
   const cleanUp = () => {
+    if (!window.naver || !map) return;
+
     markersRef.current.forEach((marker) => {
       marker.setMap(null);
     });

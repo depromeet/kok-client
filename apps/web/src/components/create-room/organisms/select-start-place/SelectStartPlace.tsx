@@ -1,5 +1,7 @@
-import SearchPlaceBottomSheet from "@/components/search-place-bottom-sheet";
+"use client";
+
 import { NaverMap } from "@repo/naver-map";
+import SearchPlaceBottomSheet from "@/components/search-place-bottom-sheet";
 
 interface SelectStartPlaceProps {
   roomId: string;
