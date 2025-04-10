@@ -127,3 +127,15 @@ export const fullScreenMapContainer = style({
   display: "flex",
   flexDirection: "column",
 });
+
+export const tooltipStyle = style({
+  width: "auto",
+  padding: "9px 8px 9px 12px",
+  margin: "0 80px 0 80px",
+  borderRadius: 10,
+  backgroundColor: theme.colors.orange40,
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+});

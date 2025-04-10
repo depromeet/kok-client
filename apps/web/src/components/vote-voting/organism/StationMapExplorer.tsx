@@ -11,7 +11,8 @@ interface StationMapExplorerProps {
 export const StationMapExplorer = ({
   setShowFullScreenMap,
 }: StationMapExplorerProps) => {
-  const handleMapClose = () => {
+  const handleMapClose = (e: any) => {
+    if (e) e.stopPropagation();
     setShowFullScreenMap(false);
   };
 
