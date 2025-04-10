@@ -5,7 +5,7 @@ import { useSimpleTransfer, useComplexTransfer } from "@/hooks/api/useTransfer";
 import { useRecommendStation } from "@/hooks/api/useRecommendStation";
 import MapHeader from "./organisms/MapHeader";
 import { Flex } from "@repo/ui/components";
-import { NaverMap, useNaverMap, Marker } from "@repo/naver-map";
+import { NaverMap, useNaverMap, useMarker } from "@repo/naver-map";
 import ResultBottomSheet from "@/components/midpoint-result/organisms/ResultBottomSheet";
 import { overlayStyle, mapContainer } from "./style.css";
 import ResultBanner from "./organisms/ResultBanner";
@@ -20,7 +20,7 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
   const [isOverlayVisible, setIsOverlayVisible] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(true);
   const { map } = useNaverMap();
-  const { create, cleanUp } = Marker({
+  const { create, cleanUp } = useMarker({
     map: map!,
   });
 

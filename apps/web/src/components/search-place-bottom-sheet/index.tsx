@@ -19,7 +19,7 @@ import {
   getLatLng,
   NaverLatLng,
   useNaverMap,
-  Marker,
+  useMarker,
   ProfileMarker,
 } from "@repo/naver-map";
 import { convertWGS84ToLatLng, getFullAddressAndTitle } from "@/utils/location";
@@ -59,7 +59,7 @@ const SearchPlaceBottomSheet = ({
   const { setStartLocation } = useSetStartLocation();
 
   const profileMarkerElement = ProfileMarker({ profileImageUrl: memberImgUrl });
-  const marker = Marker({
+  const marker = useMarker({
     map: map!,
   });
 

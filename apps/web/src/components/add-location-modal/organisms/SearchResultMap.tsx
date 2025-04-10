@@ -3,7 +3,7 @@
 import {
   NaverMap,
   useNaverMap,
-  Marker,
+  useMarker,
   getFinalMarkerElement,
 } from "@repo/naver-map";
 import AddCandidateBottomSheet from "../molecules/AddCandidateBottomSheet";
@@ -14,9 +14,10 @@ type SearchResultMapProps = Pick<StationInfo, "station">;
 
 const SearchResultMap = ({ station }: SearchResultMapProps) => {
   const { map } = useNaverMap();
-  const { create, cleanUp } = Marker({
+  const { create, cleanUp } = useMarker({
     map: map!,
   });
+  cleanUp();
 
   const centerMarker = useMemo(
     () => ({

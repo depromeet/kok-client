@@ -19,8 +19,8 @@ import {
 import {
   NaverMap,
   useNaverMap,
-  Marker,
-  Polygon,
+  useMarker,
+  usePolygon,
   ProfileMarker,
   DotMarker,
 } from "@repo/naver-map";
@@ -76,11 +76,11 @@ const FindingMidPoint = ({
   const { data: locationsData } = useMemberLocation(roomId, memberId);
   const { map } = useNaverMap();
 
-  const profileMarker = Marker({ map: map! });
-  const dotMarker = Marker({ map: map! });
-  const centerMarker = Marker({ map: map! });
+  const profileMarker = useMarker({ map: map! });
+  const dotMarker = useMarker({ map: map! });
+  const centerMarker = useMarker({ map: map! });
 
-  const { create: createPolygon, cleanUp: cleanUpPolygon } = Polygon({
+  const { create: createPolygon, cleanUp: cleanUpPolygon } = usePolygon({
     map: map!,
     options: {
       fillColor: theme.colors.mapPolygon,
@@ -89,6 +89,7 @@ const FindingMidPoint = ({
       strokeOpacity: 0.1,
     },
   });
+
   // 프로필 마커
   useEffect(() => {
     if (!map || !locationsData?.data) return;

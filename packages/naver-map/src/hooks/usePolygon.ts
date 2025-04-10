@@ -14,7 +14,7 @@ interface PolygonParams {
   };
 }
 
-export const Polygon = ({
+export const usePolygon = ({
   map,
   options = {
     fillColor: "rgba(0, 128, 255, 0.2)",

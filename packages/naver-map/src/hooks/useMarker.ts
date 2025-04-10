@@ -7,7 +7,7 @@ interface MarkerParams {
   map: NaverMapInstance;
 }
 
-export const Marker = ({ map }: MarkerParams) => {
+export const useMarker = ({ map }: MarkerParams) => {
   const markersRef = useRef<NaverMapMarker[]>([]);
 
   const create = ({
@@ -38,6 +38,7 @@ export const Marker = ({ map }: MarkerParams) => {
     };
     const marker = new naver.maps.Marker(markerOptions);
     markersRef.current.push(marker);
+    return marker;
   };
 
   const cleanUp = () => {
