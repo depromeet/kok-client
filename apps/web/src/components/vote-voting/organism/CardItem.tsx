@@ -6,9 +6,7 @@ import { Candidate } from "../templates/type";
 import { theme } from "@repo/ui/tokens";
 import { SUBWAY_META } from "@/constants/subway";
 import { useState } from "react";
-import { NaverMap } from "@repo/naver-map";
-import { createPortal } from "react-dom";
-import MapHeader from "@/components/midpoint-result/organisms/MapHeader";
+import { StationMapExplorer } from "./StationMapExplorer";
 
 interface Props extends Candidate {
   view: "card" | "list";
@@ -33,12 +31,6 @@ export function CardItem({
   const handleMapOpen = () => {
     setShowFullScreenMap(true);
   };
-
-  const handleMapClose = () => {
-    setShowFullScreenMap(false);
-  };
-
-  const subway = "망원";
 
   return (
     <div className={classMerge(className, Style.containerStyle)}>
@@ -152,21 +144,9 @@ export function CardItem({
         </motion.div>
       </motion.div>
 
-      {showFullScreenMap &&
-        typeof window !== "undefined" &&
-        createPortal(
-          <>
-            <MapHeader
-              title={`${subway}역 둘러보기`}
-              isLookAround={true}
-              onClose={handleMapClose}
-            />
-            <div className={Style.fullScreenMapContainer}>
-              <NaverMap width="100%" height="100vh" zoom={17} />
-            </div>
-          </>,
-          document.body
-        )}
+      {showFullScreenMap && typeof window !== "undefined" && (
+        <StationMapExplorer setShowFullScreenMap={setShowFullScreenMap} />
+      )}
     </div>
   );
 }
