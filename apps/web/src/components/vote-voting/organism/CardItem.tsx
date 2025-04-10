@@ -5,6 +5,10 @@ import { Text, Spacing } from "@repo/ui/components";
 import { Candidate } from "../templates/type";
 import { theme } from "@repo/ui/tokens";
 import { SUBWAY_META } from "@/constants/subway";
+import { useState } from "react";
+import { NaverMap } from "@repo/naver-map";
+import { createPortal } from "react-dom";
+import MapHeader from "@/components/midpoint-result/organisms/MapHeader";
 
 interface Props extends Candidate {
   view: "card" | "list";
@@ -24,6 +28,18 @@ export function CardItem({
   selected,
   onSelectCard,
 }: Props) {
+  const [showFullScreenMap, setShowFullScreenMap] = useState(false);
+
+  const handleMapOpen = () => {
+    setShowFullScreenMap(true);
+  };
+
+  const handleMapClose = () => {
+    setShowFullScreenMap(false);
+  };
+
+  const subway = "망원";
+
   return (
     <div className={classMerge(className, Style.containerStyle)}>
       <motion.div
@@ -107,6 +123,9 @@ export function CardItem({
                 </Text>
               </div>
             </div>
+            <div className={Style.lookAroundContainer} onClick={handleMapOpen}>
+              <Text>둘러보기</Text>
+            </div>
             <div className={Style.subwayLine} />
           </div>
           <div className={Style.bottomContainerStyle}>
@@ -132,6 +151,22 @@ export function CardItem({
           </div>
         </motion.div>
       </motion.div>
+
+      {showFullScreenMap &&
+        typeof window !== "undefined" &&
+        createPortal(
+          <>
+            <MapHeader
+              title={`${subway}역 둘러보기`}
+              isLookAround={true}
+              onClose={handleMapClose}
+            />
+            <div className={Style.fullScreenMapContainer}>
+              <NaverMap width="100%" height="100vh" zoom={17} />
+            </div>
+          </>,
+          document.body
+        )}
     </div>
   );
 }

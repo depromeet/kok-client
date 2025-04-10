@@ -9,9 +9,16 @@ import { useRouter } from "next/navigation";
 interface MapHeaderProps {
   title: string | React.ReactNode;
   isFinal?: boolean;
+  isLookAround?: boolean;
+  onClose?: () => void;
 }
 
-const MapHeader = ({ title, isFinal = false }: MapHeaderProps) => {
+const MapHeader = ({
+  title,
+  isFinal = false,
+  isLookAround = false,
+  onClose,
+}: MapHeaderProps) => {
   const router = useRouter();
 
   const handleBack = () => {
@@ -21,8 +28,11 @@ const MapHeader = ({ title, isFinal = false }: MapHeaderProps) => {
   return (
     <>
       <div className={styles.headerStyle}>
-        {isFinal !== false && (
-          <div onClick={handleBack} className={styles.backBtnStyle}>
+        {(isFinal === true || isLookAround === true) && (
+          <div
+            onClick={isLookAround ? onClose : handleBack}
+            className={styles.backBtnStyle}
+          >
             <BackIcon />
           </div>
         )}

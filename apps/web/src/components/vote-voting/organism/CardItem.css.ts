@@ -1,4 +1,5 @@
 import { theme } from "@repo/ui/tokens";
+import { zIndex } from "@repo/z-index";
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
@@ -95,6 +96,12 @@ export const infoContainer = style({
   alignItems: "flex-end",
 });
 
+export const lookAroundContainer = style({
+  cursor: "pointer",
+  display: "flex",
+  marginTop: "14px",
+});
+
 export const infoInnerContainer = style({
   width: 50,
   display: "flex",
@@ -107,4 +114,16 @@ export const line = style({
   height: 14,
   width: 1,
   backgroundColor: "#AFB4BA",
+});
+
+export const fullScreenMapContainer = style({
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  maxWidth: "600px",
+  height: "100vh",
+  zIndex: zIndex.overlay,
+  display: "flex",
+  flexDirection: "column",
 });
