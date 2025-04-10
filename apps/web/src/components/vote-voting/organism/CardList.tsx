@@ -11,7 +11,7 @@ interface Props {
   list: Candidate[];
   selectedCardIds: number[];
   onIndexChange: (index: number) => void;
-  onSelectCard: (id: number) => void;
+  onSelectCard: ({ id, name }: { id: number; name: string }) => void;
 }
 
 export function CardList({

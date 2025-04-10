@@ -9,7 +9,7 @@ interface Props {
   view: "card" | "list";
   list: Candidate[];
   selectedCardIds: number[];
-  onSelectCard: (id: number) => void;
+  onSelectCard: ({ id, name }: { id: number; name: string }) => void;
 }
 
 export function RowCardList({
@@ -113,7 +113,9 @@ export function RowCardList({
                     : theme.colors.gray0,
                   color: selected ? "white" : theme.colors.icon.pressed,
                 }}
-                onClick={() => onSelectCard(stationId)}
+                onClick={() =>
+                  onSelectCard({ id: stationId, name: stationName })
+                }
                 className={Style.buttonStyle}
               >
                 {"✓"}

@@ -22,10 +22,15 @@ interface Props {
   onNext: VoidFunction;
 }
 
+interface AgreedStation {
+  id: number;
+  name: string;
+}
+
 export function VoteVotingLayout({ memberId, onNext }: Props) {
   const [view, setView] = useState<"card" | "list">("card");
   const [order, setOrder] = useState(1);
-  const [agreedStationIds, setAgreedStationIds] = useState<number[]>([]);
+  const [agreedStationIds, setAgreedStationIds] = useState<AgreedStation[]>([]);
 
   const params = useParams();
 
@@ -54,6 +59,7 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
     if (agreedStationIds.length === 0) return;
 
     const validStationIds = agreedStationIds
+      .map(({ id }) => id)
       .filter((id) => id !== undefined && id !== null)
       .map((id) => Number(id));
 
@@ -105,16 +111,21 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
           <CardList
             view={view}
             list={candidatesData.data}
-            selectedCardIds={agreedStationIds}
+            selectedCardIds={agreedStationIds.map(({ id }) => id)}
             onIndexChange={setOrder}
-            onSelectCard={(id) => {
-              if (agreedStationIds.includes(id)) {
+            onSelectCard={({ id, name }) => {
+              const isSelected = agreedStationIds.some(
+                (station) => station.id === id
+              );
+
+              if (isSelected) {
                 setAgreedStationIds((prev) =>
-                  prev.filter((selectedId) => selectedId !== id)
+                  prev.filter((station) => station.id !== id)
                 );
                 return;
               }
-              setAgreedStationIds((prev) => [...prev, id]);
+
+              setAgreedStationIds((prev) => [...prev, { id, name }]);
             }}
           />
         )}
@@ -154,7 +165,8 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
                   variant="caption"
                   style={{ whiteSpace: "pre" }}
                 >
-                  망원역에 투표했습니다
+                  {agreedStationIds[agreedStationIds.length - 1]?.name}에
+                  투표했습니다
                 </Text>
               </motion.span>
             </motion.div>
