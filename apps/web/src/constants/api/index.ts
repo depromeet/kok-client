@@ -24,4 +24,5 @@ export const API_URLS = {
   POST_VOTE_FINISH: (roomId: string) => `/votes/${roomId}/close`,
   POST_VOTING: (roomId: string, memberId: string) =>
     `/votes/${roomId}/${memberId}`,
+  GET_FINAL_VOTE_RESULT: (roomId: string) => `/votes/${roomId}/results`,
 };
