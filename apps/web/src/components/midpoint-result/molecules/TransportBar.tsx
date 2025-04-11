@@ -42,7 +42,12 @@ const TransportBar = ({ width, time, route, mode }: TransportBarProps) => {
               transform: `translate(${xOffset}px, 6px)`,
             }}
           >
-            <TransportIcon vehicle={mode!} line={lineType} size={"sm-icon"} />
+            <TransportIcon
+              vehicle={mode!}
+              line={lineType}
+              size={"sm-icon"}
+              isIcon={true}
+            />
             <Text
               variant="subway"
               style={{

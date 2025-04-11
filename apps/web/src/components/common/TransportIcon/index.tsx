@@ -7,11 +7,17 @@ import BusIcon from "@/assets/icons/BusIcon";
 import SubwayIcon from "@/assets/icons/SubwayIcon";
 
 type TransportIconProps = styles.TransportIconVariants & {
-  vehicle: VehicleType;
+  vehicle?: VehicleType;
   line: string;
+  isIcon?: boolean;
 };
 
-const TransportIcon = ({ vehicle, line, size = "sm" }: TransportIconProps) => {
+const TransportIcon = ({
+  vehicle = "SUBWAY",
+  line,
+  size = "sm",
+  isIcon = false,
+}: TransportIconProps) => {
   const textVariant = size === "sm" ? "number" : "number-md";
   const backgroundColor =
     vehicle === "BUS" ? theme.colors.gray40 : getSubwayColor(line);
@@ -28,7 +34,7 @@ const TransportIcon = ({ vehicle, line, size = "sm" }: TransportIconProps) => {
       style={{ backgroundColor }}
     >
       {vehicle === "SUBWAY" &&
-        (isNaN(Number(line)) ? (
+        (isIcon && isNaN(Number(line)) ? (
           <SubwayIcon />
         ) : (
           <Text variant={textVariant}>{line}</Text>
