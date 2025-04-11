@@ -17,7 +17,16 @@ interface TransportBarProps {
 }
 
 const TransportBar = ({ width, time, route, mode }: TransportBarProps) => {
-  if (mode === "WALK") return <div></div>;
+  if (mode === "WALK")
+    return (
+      <div
+        style={{
+          width: `${width}%`,
+          height: "100%",
+          backgroundColor: "transparent",
+        }}
+      ></div>
+    );
 
   const color = mode === "BUS" ? theme.colors.gray40 : getSubwayColor(route);
   const busNumber = getBusNumber(route);
