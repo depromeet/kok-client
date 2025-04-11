@@ -6,7 +6,7 @@ import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
 import * as styles from "./styles.css";
 import { secondsToTime } from "@/utils/time";
 import { metersToKilometersString } from "@/utils/meterToKilometers";
-import TransportBar from "./TransporBar";
+import TransportBar from "./TransportBar";
 import { ReactNode } from "react";
 import { KakaoTalkShareButton } from "@/components/common";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
