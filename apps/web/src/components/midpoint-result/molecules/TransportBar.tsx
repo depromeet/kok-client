@@ -54,7 +54,11 @@ const TransportBar = ({ width, time, route, mode }: TransportBarProps) => {
             </Text>
           </Flex>
         ) : (
-          <TransportIcon vehicle={mode!} line={lineType} />
+          <TransportIcon
+            vehicle={mode!}
+            line={lineType}
+            size={isNaN(Number(lineType)) ? "sm-icon" : "sm"}
+          />
         )}
       </div>
 
