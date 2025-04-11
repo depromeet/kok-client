@@ -1,4 +1,4 @@
-import FindingMidPoint from "@/components/midpoint-result/FindingMidPoint";
+import FindingMidPoint from "@/components/midpoint-result/templates/FindingMidPoint";
 
 export default async function ShareRoomPage({
   params,
