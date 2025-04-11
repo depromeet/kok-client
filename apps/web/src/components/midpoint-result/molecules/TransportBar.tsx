@@ -2,139 +2,66 @@ import { transportContainerStyle, progressBarStyle } from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 import { Flex, Text } from "@repo/ui/components";
 import { getSubwayColor, identifySubwayLine } from "../../../utils/subway";
-import {
-  Line1,
-  Line2,
-  Line3,
-  Line4,
-  Line5,
-  Line6,
-  Line7,
-  Line8,
-  Line9,
-  LineShinBundang,
-  LineSuinBundang,
-  LineGyeonguiJungang,
-  LineIncheon1,
-  LineIncheon2,
-  BusIcon,
-} from "../atom/transport-icon/TransportIcon";
+import { TransportType } from "@/types/transport";
+import TransportIcon from "@/components/common/TransportIcon";
 
 interface TransportBarProps {
   width: number;
   time: number;
-  isSubway: boolean;
-  color?: string;
-  route?: string;
-  mode?: "WALK" | "SUBWAY" | "BUS";
+  route: string | null;
+  mode?: TransportType;
 }
 
-const TransportBar = ({
-  width,
-  time,
-  isSubway,
-  color,
-  route,
-  mode,
-}: TransportBarProps) => {
-  const getBarColor = () => {
-    if (isSubway && route) {
-      return getSubwayColor(route);
-    }
-    return color || theme.colors.gray15;
-  };
+const getBusNumber = (route: string | null) => {
+  if (!route) return "";
+  const match = route.match(/[^:]+:(.+)/);
+  return match ? match[1] : "";
+};
 
-  const getBusNumber = (route: string | undefined) => {
-    if (!route) return "";
-    const match = route.match(/[^:]+:(.+)/);
-    return match ? match[1] : "";
-  };
+const TransportBar = ({ width, time, route, mode }: TransportBarProps) => {
+  if (mode === "WALK") return <div></div>;
 
-  const getSubwayIcon = (route: string | undefined) => {
-    if (!route) return <></>;
+  const color = mode === "BUS" ? theme.colors.gray40 : getSubwayColor(route);
+  const busNumber = getBusNumber(route);
+  const xOffset = (busNumber?.length || 0) >= 4 ? 5 : 2;
+  const lineType = identifySubwayLine(route);
+  const minutes = Math.round(time / 60);
 
-    const lineType = identifySubwayLine(route);
-
-    switch (lineType) {
-      case "1":
-        return <Line1 />;
-      case "2":
-        return <Line2 />;
-      case "3":
-        return <Line3 />;
-      case "4":
-        return <Line4 />;
-      case "5":
-        return <Line5 />;
-      case "6":
-        return <Line6 />;
-      case "7":
-        return <Line7 />;
-      case "8":
-        return <Line8 />;
-      case "9":
-        return <Line9 />;
-      case "신분당":
-        return <LineShinBundang />;
-      case "수인분당":
-        return <LineSuinBundang />;
-      case "경의중앙":
-        return <LineGyeonguiJungang />;
-      case "인천1":
-        return <LineIncheon1 />;
-      case "인천2":
-        return <LineIncheon2 />;
-      default:
-        return <></>;
-    }
-  };
-
-  const renderLineIcon = () => {
-    if (isSubway) {
-      return getSubwayIcon(route);
-    } else if (mode === "BUS") {
-      const busNumber = getBusNumber(route);
-      const xOffset = (busNumber?.length || 0) >= 4 ? 5 : 2;
-      return (
-        <Flex
-          direction="column"
-          align="center"
-          style={{
-            transform: `translate(${xOffset}px, 4px)`,
-          }}
-        >
-          <BusIcon />
-          {mode === "BUS" && route && (
+  return (
+    <div className={transportContainerStyle} style={{ width: `${width}%` }}>
+      {/* 교통수단 아이콘 */}
+      <div
+        style={{
+          zIndex: 2,
+          transform: "translate(2px, 0px)",
+        }}
+      >
+        {mode === "BUS" ? (
+          <Flex
+            direction="column"
+            align="center"
+            style={{
+              transform: `translate(${xOffset}px, 6px)`,
+            }}
+          >
+            <TransportIcon vehicle={mode!} line={lineType} size={"sm-icon"} />
             <Text
               variant="subway"
               style={{
-                color: theme.colors.gray40,
+                color: theme.colors.gray50,
                 marginTop: "2px",
               }}
             >
               {busNumber}
             </Text>
-          )}
-        </Flex>
-      );
-    }
-    return <></>; // WALK
-  };
-
-  return (
-    <div className={transportContainerStyle} style={{ width: `${width}%` }}>
-      <div
-        style={{
-          zIndex: 2,
-          transform: "translate(2px, 2px)",
-        }}
-      >
-        {renderLineIcon()}
+          </Flex>
+        ) : (
+          <TransportIcon vehicle={mode!} line={lineType} />
+        )}
       </div>
-      <div
-        className={progressBarStyle}
-        style={{ backgroundColor: getBarColor() }}
-      >
+
+      {/* 이동 시간 라인 */}
+      <div className={progressBarStyle} style={{ backgroundColor: color }}>
         <div
           style={{
             position: "absolute",
@@ -143,7 +70,7 @@ const TransportBar = ({
             transform: "translate(-50%, -50%)",
           }}
         >
-          {(isSubway || mode === "BUS") && (
+          {
             <>
               <Text
                 variant="subway"
@@ -153,10 +80,10 @@ const TransportBar = ({
                   textAlign: "center",
                 }}
               >
-                {time} 분
+                {minutes} 분
               </Text>
             </>
-          )}
+          }
         </div>
       </div>
     </div>
