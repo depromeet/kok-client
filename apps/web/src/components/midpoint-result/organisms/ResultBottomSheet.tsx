@@ -9,7 +9,7 @@ import { metersToKilometersString } from "@/utils/meterToKilometers";
 import { ReactNode } from "react";
 import { KakaoTalkShareButton } from "@/components/common";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
-import TransitPath from "./TransitPath";
+import TransportPath from "./TransportPath";
 
 interface ResultBottomSheetProps {
   totalTime?: number;
@@ -55,7 +55,6 @@ const ResultBottomSheet = ({
         <Text variant="title4" style={{ color: theme.colors.orange50 }}>
           최적 이동경로
         </Text>
-
         <Flex
           as="div"
           justify="between"
@@ -85,7 +84,7 @@ const ResultBottomSheet = ({
         </Flex>
       </div>
 
-      <TransitPath totalTime={totalTime} legs={legs} />
+      <TransportPath totalTime={totalTime} legs={legs} />
 
       <Flex as="div" direction="column" gap={20}>
         <KakaoTalkShareButton
