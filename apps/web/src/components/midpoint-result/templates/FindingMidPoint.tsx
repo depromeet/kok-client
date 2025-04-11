@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import MapHeader from "./organisms/MapHeader";
-import RefreshCenterButton from "./organisms/RefreshCenterButton";
 import { Flex, Skeleton, Text } from "@repo/ui/components";
 import ParticipantBottomSheet from "@/components/midpoint-result/organisms/ParticipantBottomSheet";
 import {
@@ -29,12 +27,14 @@ import {
   convertToPolygonPath,
   convertToCenterMarkerData,
 } from "@/utils/location";
-import StartBanner from "./organisms/StartBanner";
-import AddLocationButton from "./organisms/AddLocationButton";
 import { useRoomInfo } from "@/hooks/api/useRoomInfo";
 import { useMemberLocation } from "@/hooks/api/useLocation";
 import { theme } from "@repo/ui/tokens";
 import { getFinalMarkerElement } from "@repo/naver-map";
+import AddLocationButton from "../molecules/AddLocationButton";
+import MapHeader from "../molecules/MapHeader";
+import RefreshCenterButton from "../molecules/RefreshCenterButton";
+import StartBanner from "../organisms/StartBanner";
 
 interface FindingMidPointProps {
   roomId: string;

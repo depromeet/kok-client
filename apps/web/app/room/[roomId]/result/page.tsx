@@ -1,4 +1,4 @@
-import MidPointResult from "@/components/midpoint-result/MidPointResult";
+import MidPointResult from "@/components/midpoint-result/templates/MidPointResult";
 
 export default async function FinalPage({
   params,

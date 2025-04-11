@@ -6,10 +6,10 @@ import GreyDividerIcon from "@/assets/icons/GreyDividerIcon";
 import * as styles from "./styles.css";
 import { secondsToTime } from "@/utils/time";
 import { metersToKilometersString } from "@/utils/meterToKilometers";
-import TransportBar from "./TransportBar";
 import { ReactNode } from "react";
 import { KakaoTalkShareButton } from "@/components/common";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
+import TransitPath from "./TransitPath";
 
 interface ResultBottomSheetProps {
   totalTime?: number;
@@ -38,10 +38,7 @@ const ResultBottomSheet = ({
 }: ResultBottomSheetProps) => {
   const transferTotalTime = secondsToTime(totalTime);
   const transferTotalDistance = metersToKilometersString(totalDistance);
-  const getWidthPercentage = (sectionTime: number) => {
-    const originalPercentage = (sectionTime / totalTime) * 100;
-    return originalPercentage < 5 ? 5 : Math.round(originalPercentage);
-  };
+
   return (
     <AnimationBottomSheet
       initialY="100%"
@@ -58,6 +55,7 @@ const ResultBottomSheet = ({
         <Text variant="title4" style={{ color: theme.colors.orange50 }}>
           최적 이동경로
         </Text>
+
         <Flex
           as="div"
           justify="between"
@@ -86,54 +84,9 @@ const ResultBottomSheet = ({
           </Flex>
         </Flex>
       </div>
-      <div className={styles.directionLineStyle}>
-        <Flex direction="row" style={{ width: "100%", height: "100%" }}>
-          {legs.map((leg, index) => {
-            const widthPercentage = getWidthPercentage(leg.sectionTime);
 
-            if (leg.mode === "SUBWAY") {
-              return (
-                <TransportBar
-                  key={index}
-                  width={widthPercentage}
-                  time={Math.round(leg.sectionTime / 60)}
-                  isSubway={true}
-                  color={
-                    leg.routeColor ? `#${leg.routeColor}` : theme.colors.gray40
-                  }
-                  route={leg.route || undefined}
-                  mode={leg.mode}
-                />
-              );
-            } else if (leg.mode === "BUS") {
-              return (
-                <TransportBar
-                  key={index}
-                  width={widthPercentage}
-                  time={Math.round(leg.sectionTime / 60)}
-                  isSubway={false}
-                  color={theme.colors.gray50}
-                  route={leg.route || undefined}
-                  mode={leg.mode}
-                />
-              );
-            } else {
-              // WALK 모드
-              return (
-                <TransportBar
-                  key={index}
-                  width={widthPercentage}
-                  time={Math.round(leg.sectionTime / 60)}
-                  isSubway={false}
-                  color={theme.colors.gray15}
-                  route="WALK"
-                  mode={leg.mode}
-                />
-              );
-            }
-          })}
-        </Flex>
-      </div>
+      <TransitPath totalTime={totalTime} legs={legs} />
+
       <Flex as="div" direction="column" gap={20}>
         <KakaoTalkShareButton
           variant="primary"
