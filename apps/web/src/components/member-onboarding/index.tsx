@@ -72,7 +72,7 @@ const MemberOnboarding = ({ roomId, roomName }: MemberOnboardingProps) => {
         style={{ width: "100%", WebkitTapHighlightColor: "transparent" }}
       >
         <Button variant="secondary" className={Style.buttonContainer}>
-          약속방 참여하기
+          <Text variant="title3">모임 참여하기</Text>
         </Button>
       </Link>
     </Flex>
