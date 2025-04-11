@@ -16,6 +16,7 @@ import { useVoting } from "@/hooks/api/useVoting";
 import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
 import { useStopWatch } from "@/hooks/useStopWatch";
 import { motion } from "@repo/motion";
+import { Tooltip } from "../atom/Tooltip";
 
 interface Props {
   memberId: string;
@@ -102,21 +103,24 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
         <Spacing size={45} />
         {isLoading && <div className={Style.skeletonLoading} />}
         {candidatesData != null && (
-          <CardList
-            view={view}
-            list={candidatesData.data}
-            selectedCardIds={agreedStationIds}
-            onIndexChange={setOrder}
-            onSelectCard={(id) => {
-              if (agreedStationIds.includes(id)) {
-                setAgreedStationIds((prev) =>
-                  prev.filter((selectedId) => selectedId !== id)
-                );
-                return;
-              }
-              setAgreedStationIds((prev) => [...prev, id]);
-            }}
-          />
+          <>
+            <Tooltip />
+            <CardList
+              view={view}
+              list={candidatesData.data}
+              selectedCardIds={agreedStationIds}
+              onIndexChange={setOrder}
+              onSelectCard={(id) => {
+                if (agreedStationIds.includes(id)) {
+                  setAgreedStationIds((prev) =>
+                    prev.filter((selectedId) => selectedId !== id)
+                  );
+                  return;
+                }
+                setAgreedStationIds((prev) => [...prev, id]);
+              }}
+            />
+          </>
         )}
       </Flex>
 

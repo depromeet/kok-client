@@ -1,13 +1,12 @@
 import { theme } from "@repo/ui/tokens";
 import { zIndex } from "@repo/z-index";
-import { style } from "@vanilla-extract/css";
+import { style, keyframes } from "@vanilla-extract/css";
 
 export const containerStyle = style({
   width: "100vw",
   maxWidth: 600,
   position: "relative",
   flexShrink: 0,
-
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -116,26 +115,51 @@ export const line = style({
   backgroundColor: "#AFB4BA",
 });
 
-export const fullScreenMapContainer = style({
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  maxWidth: "600px",
-  height: "100vh",
-  zIndex: zIndex.overlay,
-  display: "flex",
-  flexDirection: "column",
-});
-
 export const tooltipStyle = style({
-  width: "auto",
+  width: "214px",
   padding: "9px 8px 9px 12px",
   margin: "0 80px 0 80px",
   borderRadius: 10,
   backgroundColor: theme.colors.orange40,
   display: "flex",
-  flexDirection: "row",
   justifyContent: "center",
-  alignItems: "center",
+  flexDirection: "row",
+  gap: 6,
+});
+
+const float = keyframes({
+  "0%": { transform: "translateY(0px)" },
+  "50%": { transform: "translateY(-10px)" },
+  "100%": { transform: "translateY(0px)" },
+});
+
+const fadeOutKeyframes = keyframes({
+  "0%": { opacity: 1, transform: "translateY(0)" },
+  "100%": { opacity: 0, transform: "translateY(10px)" },
+});
+
+export const floatingTooltipStyle = style([
+  tooltipStyle,
+  {
+    boxShadow: "4px 6px 6px rgba(128, 128, 128, 0.1)",
+    position: "absolute",
+    top: -25,
+  },
+]);
+
+export const floatingAnimation = {
+  floating: style({
+    animation: `${float} 3s ease-in-out infinite`,
+    position: "relative",
+    zIndex: zIndex.floating,
+  }),
+  fadeOut: style({
+    animation: `${fadeOutKeyframes} 0.5s ease-out forwards`,
+    position: "relative",
+    zIndex: zIndex.floating,
+  }),
+};
+
+export const XIconStyle = style({
+  cursor: "pointer",
 });

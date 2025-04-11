@@ -36,7 +36,6 @@ export function CardItem({
 
   return (
     <Flex direction="column" gap={8}>
-      <Tooltip />
       <div
         className={classMerge(className, Style.containerStyle)}
         onClick={handleMapOpen}
@@ -135,7 +134,10 @@ export function CardItem({
                   color: selected ? "white" : theme.colors.icon.pressed,
                 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => onSelectCard(stationId)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSelectCard(stationId);
+                }}
               >
                 <Text
                   color={selected ? "white" : theme.colors.icon.pressed}
