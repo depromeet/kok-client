@@ -51,13 +51,12 @@ export const deleteBtnStyle = style({
   zIndex: zIndex.overlay,
 });
 
-// TODO: 결과 화면 구현중
 export const directionLineStyle = style({
   width: "100%",
   height: "14px",
   padding: "8px",
   backgroundColor: theme.colors.gray15,
-  margin: "20px 0",
+  margin: "24px 0",
   borderRadius: "10px",
 });
 
