@@ -1,7 +1,11 @@
 import { transportContainerStyle, progressBarStyle } from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 import { Flex, Text } from "@repo/ui/components";
-import { getSubwayColor, identifySubwayLine } from "../../../utils/subway";
+import {
+  getBusNumber,
+  getSubwayColor,
+  identifySubwayLine,
+} from "../../../utils/transport";
 import { TransportType } from "@/types/transport";
 import TransportIcon from "@/components/common/TransportIcon";
 
@@ -11,12 +15,6 @@ interface TransportBarProps {
   route: string | null;
   mode?: TransportType;
 }
-
-const getBusNumber = (route: string | null) => {
-  if (!route) return "";
-  const match = route.match(/[^:]+:(.+)/);
-  return match ? match[1] : "";
-};
 
 const TransportBar = ({ width, time, route, mode }: TransportBarProps) => {
   if (mode === "WALK") return <div></div>;

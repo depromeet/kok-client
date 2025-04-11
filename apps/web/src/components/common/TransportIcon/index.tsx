@@ -1,6 +1,6 @@
 import { Flex, Text } from "@repo/ui/components";
 import * as styles from "./styles.css";
-import { getSubwayColor } from "@/utils/subway";
+import { getSubwayColor } from "@/utils/transport";
 import { VehicleType } from "@/types/transport";
 import { theme } from "@repo/ui/tokens";
 import BusIcon from "@/assets/icons/BusIcon";
