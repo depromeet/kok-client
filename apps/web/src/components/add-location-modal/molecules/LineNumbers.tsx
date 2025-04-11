@@ -1,6 +1,6 @@
 import { Flex } from "@repo/ui/components";
 import LineNumber, { type LineNumberSizeType } from "../atoms/LineNumber";
-import { removeLineSuffix } from "@/utils/subway";
+import { removeLineSuffix } from "@/utils/transport";
 
 interface LineNumbersProps {
   lines: string[];

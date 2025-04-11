@@ -1,6 +1,6 @@
 import { Flex, Text } from "@repo/ui/components";
 import * as styles from "../style.css";
-import { getSubwayColor } from "@/utils/subway";
+import { getSubwayColor } from "@/utils/transport";
 
 export type LineNumberSizeType = "sm" | "md";
 

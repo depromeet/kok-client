@@ -5,7 +5,7 @@ import { Text, Flex } from "@repo/ui/components";
 import * as styles from "./styles.css";
 import { theme } from "@repo/ui/tokens";
 import ResultPattern from "./ResultPattern";
-import { getSubwayColor } from "../../../utils/subway";
+import { getSubwayColor } from "../../../utils/transport";
 import { AnimationBanner } from "@repo/ui/components";
 
 interface ResultBannerProps {
