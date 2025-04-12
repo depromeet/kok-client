@@ -10,7 +10,7 @@ interface Props extends Candidate {
   view: "card" | "list";
   className: string;
   selected: boolean;
-  onSelectCard: (id: number) => void;
+  onSelectCard: ({ id, name }: { id: number; name: string }) => void;
 }
 
 export function CardItem({
@@ -120,7 +120,7 @@ export function CardItem({
                 color: selected ? "white" : theme.colors.icon.pressed,
               }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => onSelectCard(stationId)}
+              onClick={() => onSelectCard({ id: stationId, name: stationName })}
             >
               <Text
                 color={selected ? "white" : theme.colors.icon.pressed}
