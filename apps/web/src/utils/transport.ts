@@ -53,7 +53,7 @@ export const getSubwayColor = (route: string | null): string => {
 };
 
 export const getBusNumber = (route: string | null) => {
-  if (!route) return "";
+  if (!route) return null;
   const match = route.match(/[^:]+:(.+)/);
   return match ? match[1] : "";
 };
