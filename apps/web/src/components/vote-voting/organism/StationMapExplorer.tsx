@@ -13,7 +13,7 @@ interface StationMapExplorerProps {
 export const StationMapExplorer = ({
   setShowFullScreenMap,
 }: StationMapExplorerProps) => {
-  const handleMapClose = (e: any) => {
+  const handleMapClose = (e?: MouseEvent | TouchEvent) => {
     if (e) e.stopPropagation();
     setShowFullScreenMap(false);
   };

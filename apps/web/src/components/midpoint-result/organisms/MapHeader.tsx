@@ -30,7 +30,11 @@ const MapHeader = ({
       <div className={styles.headerStyle}>
         {(isFinal || isLookAround) && (
           <div
-            onClick={isLookAround ? onClose : handleBack}
+            onClick={
+              isLookAround
+                ? (e) => onClose?.(e as unknown as MouseEvent | TouchEvent)
+                : handleBack
+            }
             className={styles.backBtnStyle}
           >
             <BackIcon />
