@@ -7,13 +7,12 @@ import { theme } from "@repo/ui/tokens";
 import { SUBWAY_META } from "@/constants/subway";
 import { useState } from "react";
 import { StationMapExplorer } from "./StationMapExplorer";
-import { Tooltip } from "../atom/Tooltip";
 
 interface Props extends Candidate {
   view: "card" | "list";
   className: string;
   selected: boolean;
-  onSelectCard: (id: number) => void;
+  onSelectCard: ({ id, name }: { id: number; name: string }) => void;
 }
 
 export function CardItem({
@@ -134,7 +133,7 @@ export function CardItem({
                 whileTap={{ scale: 0.9 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onSelectCard(stationId);
+                  onSelectCard({ id: stationId, name: stationName });
                 }}
               >
                 <Text
@@ -147,7 +146,6 @@ export function CardItem({
             </div>
           </motion.div>
         </motion.div>
-
         {showFullScreenMap && typeof window !== "undefined" && (
           <StationMapExplorer setShowFullScreenMap={setShowFullScreenMap} />
         )}

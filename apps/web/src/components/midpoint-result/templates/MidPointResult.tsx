@@ -2,14 +2,14 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useSimpleTransfer, useComplexTransfer } from "@/hooks/api/useTransfer";
-import { useRecommendStation } from "@/hooks/api/useRecommendStation";
-import MapHeader from "./organisms/MapHeader";
 import { Flex } from "@repo/ui/components";
 import { NaverMap, useNaverMap, useMarker } from "@repo/naver-map";
 import ResultBottomSheet from "@/components/midpoint-result/organisms/ResultBottomSheet";
 import { overlayStyle, mapContainer } from "./style.css";
-import ResultBanner from "./organisms/ResultBanner";
+import MapHeader from "../molecules/MapHeader";
+import ResultBanner from "../organisms/ResultBanner";
 import { getFinalMarkerElement } from "@repo/naver-map";
+import { useFinalVoteResult } from "@/hooks/api/useFinalVoteResult";
 
 interface MidPointResultProps {
   roomId: string;
@@ -32,37 +32,30 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
     setIsBannerVisible(false);
   };
 
-  const { data: stationsResponse } = useRecommendStation(roomId);
-  const stations = stationsResponse?.data;
-  const firstStation = stations?.[0]; //최종역
+  const { data: voteResult } = useFinalVoteResult(roomId);
+  const station = voteResult?.data;
 
   const centerPoint = useMemo(
     () =>
-      firstStation
+      station
         ? {
-            latitude: firstStation.station.latitude,
-            longitude: firstStation.station.longitude,
+            latitude: station.latitude,
+            longitude: station.longitude,
             isFinal: true,
           }
         : undefined,
-    [firstStation]
+    [station]
   );
 
-  const { data: simpleData } = useSimpleTransfer(
-    firstStation?.station.id || 0,
-    {
-      roomId: roomId,
-      memberId: memberId,
-    }
-  );
+  const { data: simpleData } = useSimpleTransfer(station?.id || 0, {
+    roomId: roomId,
+    memberId: memberId,
+  });
 
-  const { data: complexData } = useComplexTransfer(
-    firstStation?.station.id || 0,
-    {
-      roomId: roomId,
-      memberId: memberId,
-    }
-  );
+  const { data: complexData } = useComplexTransfer(station?.id || 0, {
+    roomId: roomId,
+    memberId: memberId,
+  });
 
   useEffect(() => {
     if (!map || !centerPoint) return;
@@ -110,8 +103,8 @@ const MidPointResult = ({ roomId, memberId }: MidPointResultProps) => {
                   isVisible={isBannerVisible}
                   onClose={handleBannerClose}
                   onDeleteClick={handleClick}
-                  stationName={firstStation?.station.name}
-                  routes={firstStation?.routes}
+                  stationName={station?.name}
+                  routes={station?.routes}
                 />
               )
             }

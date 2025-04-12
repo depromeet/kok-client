@@ -2,7 +2,7 @@ import { Flex, Text } from "@repo/ui/components";
 import { StationInfo } from "@/api/types/stations/index.type";
 import * as styles from "../style.css";
 import LineNumbers from "./LineNumbers";
-import { getSubwayColor } from "@/utils/subway";
+import { getSubwayColor } from "@/utils/transport";
 
 type StationBannerProps = StationInfo;
 

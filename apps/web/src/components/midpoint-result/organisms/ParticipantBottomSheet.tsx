@@ -3,7 +3,7 @@ import { Button, Flex, Text, textRecipe } from "@repo/ui/components";
 import { theme } from "@repo/ui/tokens";
 import * as styles from "./styles.css";
 import { AnimationBottomSheet } from "@repo/ui/components";
-import { ShareIcon } from "../atom/share/ShareIcon";
+import { ShareIcon } from "@/assets/icons/ShareIcon";
 import { KakaoTalkShareButton } from "@/components/common";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 import { ReactNode } from "react";
