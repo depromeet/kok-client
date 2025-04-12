@@ -11,12 +11,12 @@ import TransportIcon from "@/components/common/TransportIcon";
 
 interface TransportBarProps {
   width: number;
-  time: number;
+  seconds: number;
   route: string | null;
   mode?: TransportType;
 }
 
-const TransportBar = ({ width, time, route, mode }: TransportBarProps) => {
+const TransportBar = ({ width, seconds, route, mode }: TransportBarProps) => {
   if (mode === "WALK")
     return (
       <div
@@ -32,7 +32,7 @@ const TransportBar = ({ width, time, route, mode }: TransportBarProps) => {
   const busNumber = getBusNumber(route);
   const xOffset = (busNumber?.length || 0) >= 4 ? 5 : 2;
   const lineType = identifySubwayLine(route);
-  const minutes = Math.round(time / 60);
+  const minutes = Math.round(seconds / 60);
 
   return (
     <div className={transportContainerStyle} style={{ width: `${width}%` }}>

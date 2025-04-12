@@ -48,7 +48,7 @@ const TransportPath = ({ totalTime, legs }: TransportPathProps) => {
             key={`${leg.mode}-${leg.distance}`}
             mode={leg.mode}
             width={percentages[index]!}
-            time={leg.sectionTime}
+            seconds={leg.sectionTime}
             route={leg.route}
           />
         ))}
