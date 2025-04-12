@@ -1,4 +1,4 @@
-export const Trainagle = () => {
+export const Triangle = () => {
   return (
     <svg
       width="12"

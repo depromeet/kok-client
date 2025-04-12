@@ -3,23 +3,8 @@ import { createPortal } from "react-dom";
 import MapHeader from "@/components/midpoint-result/organisms/MapHeader";
 import { AnimationBottomSheet, Text } from "@repo/ui/components";
 import * as Style from "./StationMapExplorer.css";
-import {
-  Activity,
-  Restaurant,
-  Cafe,
-  Bar,
-  Nature,
-  Exhibition,
-  Event,
-  Shopping,
-} from "../atom/filter-icon";
 import { useState } from "react";
-
-interface FilterOption {
-  id: string;
-  name: string;
-  icon: React.FC;
-}
+import { FILTER_OPTIONS } from "@/constants/filter-options";
 
 interface StationMapExplorerProps {
   setShowFullScreenMap: (value: boolean) => void;
@@ -37,16 +22,7 @@ export const StationMapExplorer = ({
 
   const subway = "망원";
 
-  const filterOptions: FilterOption[] = [
-    { id: "activity", name: "액티비티", icon: Activity },
-    { id: "restaurant", name: "식당", icon: Restaurant },
-    { id: "cafe", name: "카페", icon: Cafe },
-    { id: "bar", name: "술집", icon: Bar },
-    { id: "nature", name: "자연", icon: Nature },
-    { id: "exhibition", name: "전시", icon: Exhibition },
-    { id: "event", name: "이벤트", icon: Event },
-    { id: "shopping", name: "쇼핑", icon: Shopping },
-  ];
+  const filterOptions = FILTER_OPTIONS;
 
   const handleFilterClick = (filterId: string) => {
     if (selectedFilter === filterId) {

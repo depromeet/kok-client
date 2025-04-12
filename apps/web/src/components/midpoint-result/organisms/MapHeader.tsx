@@ -10,7 +10,7 @@ interface MapHeaderProps {
   title: string | React.ReactNode;
   isFinal?: boolean;
   isLookAround?: boolean;
-  onClose?: (e: any) => void;
+  onClose?: () => void;
 }
 
 const MapHeader = ({
@@ -28,7 +28,7 @@ const MapHeader = ({
   return (
     <>
       <div className={styles.headerStyle}>
-        {(isFinal === true || isLookAround === true) && (
+        {(isFinal || isLookAround) && (
           <div
             onClick={isLookAround ? onClose : handleBack}
             className={styles.backBtnStyle}

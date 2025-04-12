@@ -46,11 +46,9 @@ export function CardItem({
             card: {
               width: 220,
               height: 280,
-              // backgroundColor: "transparent",
               transition: { delay: 0.7 },
             },
             list: {
-              // backgroundColor: "white",
               width: 335,
               height: 94,
               transition: { delay: 0.5 },
