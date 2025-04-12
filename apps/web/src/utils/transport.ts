@@ -51,3 +51,9 @@ export const getSubwayColor = (route: string | null): string => {
   const lineType = identifySubwayLine(lineName);
   return SUBWAY_META[lineType].color;
 };
+
+export const getBusNumber = (route: string | null) => {
+  if (!route) return null;
+  const match = route.match(/[^:]+:(.+)/);
+  return match ? match[1] : "";
+};

@@ -18,7 +18,6 @@ const StartBanner = ({
   onDeleteClick,
   isLeader = false,
   roomName,
-  isLoading = false,
 }: StartBannerProps) => {
   const title = isLeader ? "모임이 생성 됐어요!" : "출발지 입력 완료!";
 

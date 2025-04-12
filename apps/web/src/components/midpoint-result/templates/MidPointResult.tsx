@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useSimpleTransfer, useComplexTransfer } from "@/hooks/api/useTransfer";
-import MapHeader from "./organisms/MapHeader";
 import { Flex } from "@repo/ui/components";
 import { NaverMap, useNaverMap, useMarker } from "@repo/naver-map";
 import ResultBottomSheet from "@/components/midpoint-result/organisms/ResultBottomSheet";
 import { overlayStyle, mapContainer } from "./style.css";
-import ResultBanner from "./organisms/ResultBanner";
+import MapHeader from "../molecules/MapHeader";
+import ResultBanner from "../organisms/ResultBanner";
 import { getFinalMarkerElement } from "@repo/naver-map";
 import { useFinalVoteResult } from "@/hooks/api/useFinalVoteResult";
 
