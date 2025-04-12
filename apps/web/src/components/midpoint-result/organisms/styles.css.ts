@@ -134,3 +134,27 @@ export const timeDisplayStyle = style({
   fontWeight: "bold",
   flexShrink: 0,
 });
+
+export const headerStyle = style({
+  backgroundColor: theme.colors.gray0,
+  position: "fixed",
+  top: 0,
+  width: "100%",
+  maxWidth: "600px",
+  height: "58px",
+  zIndex: zIndex.toast,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "pointer",
+});
+
+export const backBtnStyle = style({
+  position: "absolute",
+  left: "16px",
+});
+
+export const titleStyle = style({
+  flex: 1,
+  textAlign: "center",
+});
