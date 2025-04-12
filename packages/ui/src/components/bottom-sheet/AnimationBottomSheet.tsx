@@ -32,7 +32,7 @@ export const AnimationBottomSheet = ({
             width: "100%",
             maxWidth: "600px",
             bottom: bannerBottom,
-            zIndex: zIndex.floating,
+            zIndex: zIndex.toast,
           }}
           initial={{ y: "150%" }}
           animate={{ y: "0%" }}

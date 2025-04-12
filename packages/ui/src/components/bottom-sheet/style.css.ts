@@ -12,6 +12,6 @@ export const containerRecipe = recipe({
     borderTopLeftRadius: "32px",
     borderTopRightRadius: "32px",
     backgroundColor: theme.colors.bg.base2,
-    zIndex: zIndex.floating,
+    zIndex: zIndex.toast,
   },
 });

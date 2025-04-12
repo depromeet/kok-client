@@ -16,6 +16,7 @@ import { useVoting } from "@/hooks/api/useVoting";
 import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
 import { useStopWatch } from "@/hooks/useStopWatch";
 import { motion } from "@repo/motion";
+import { Tooltip } from "../atom/Tooltip";
 
 interface Props {
   memberId: string;
@@ -108,26 +109,29 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
         <Spacing size={45} />
         {isLoading && <div className={Style.skeletonLoading} />}
         {candidatesData != null && (
-          <CardList
-            view={view}
-            list={candidatesData.data}
-            selectedCardIds={agreedStationIds.map(({ id }) => id)}
-            onIndexChange={setOrder}
-            onSelectCard={({ id, name }) => {
-              const isSelected = agreedStationIds.some(
-                (station) => station.id === id
-              );
-
-              if (isSelected) {
-                setAgreedStationIds((prev) =>
-                  prev.filter((station) => station.id !== id)
+          <>
+            <Tooltip />
+            <CardList
+              view={view}
+              list={candidatesData.data}
+              selectedCardIds={agreedStationIds.map(({ id }) => id)}
+              onIndexChange={setOrder}
+              onSelectCard={({ id, name }) => {
+                const isSelected = agreedStationIds.some(
+                  (station) => station.id === id
                 );
-                return;
-              }
 
-              setAgreedStationIds((prev) => [...prev, { id, name }]);
-            }}
-          />
+                if (isSelected) {
+                  setAgreedStationIds((prev) =>
+                    prev.filter((station) => station.id !== id)
+                  );
+                  return;
+                }
+
+                setAgreedStationIds((prev) => [...prev, { id, name }]);
+              }}
+            />
+          </>
         )}
       </Flex>
 
