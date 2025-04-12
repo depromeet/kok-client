@@ -30,7 +30,6 @@ const TransportBar = ({ width, seconds, route, mode }: TransportBarProps) => {
 
   const color = mode === "BUS" ? theme.colors.gray40 : getSubwayColor(route);
   const busNumber = getBusNumber(route);
-  const xOffset = (busNumber?.length || 0) >= 4 ? 5 : 2;
   const lineType = identifySubwayLine(route);
   const minutes = Math.round(seconds / 60);
 
@@ -43,29 +42,29 @@ const TransportBar = ({ width, seconds, route, mode }: TransportBarProps) => {
           transform: "translate(2px, 0px)",
         }}
       >
-        {mode === "BUS" ? (
-          <Flex
-            direction="column"
-            align="center"
-            style={{
-              transform: `translate(${xOffset}px, 6px)`,
-            }}
-          >
-            <TransportIcon
-              vehicle={mode!}
-              line={lineType}
-              size={"sm-icon"}
-              hasText={false}
-            />
-            <Text
-              variant="subway"
-              style={{
-                color: theme.colors.gray50,
-                marginTop: "2px",
-              }}
-            >
-              {busNumber}
-            </Text>
+        {mode === "BUS" && busNumber ? (
+          <Flex direction="column" align="center">
+            <div style={{ position: "relative" }}>
+              <TransportIcon
+                vehicle={mode!}
+                line={lineType}
+                size={"sm-icon"}
+                hasText={false}
+              />
+              <Text
+                variant="subway"
+                style={{
+                  width: "60px",
+                  textAlign: "center",
+                  position: "absolute",
+                  bottom: "-12px",
+                  left: "-20px",
+                  color: theme.colors.gray50,
+                }}
+              >
+                {busNumber}
+              </Text>
+            </div>
           </Flex>
         ) : (
           <TransportIcon
@@ -83,7 +82,7 @@ const TransportBar = ({ width, seconds, route, mode }: TransportBarProps) => {
             position: "absolute",
             left: "50%",
             top: "40%",
-            transform: "translate(-50%, -50%)",
+            transform: "translate(-50%, -54%)",
           }}
         >
           {
