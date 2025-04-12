@@ -24,7 +24,7 @@ const TransportPath = ({ totalTime, legs }: TransportPathProps) => {
       const adjusted = rates.map((ratio, i) => {
         const basePercent = ratio;
         const mode = infos[i]!.mode;
-        const minPercent = mode === "WALK" ? 0 : 8;
+        const minPercent = mode === "WALK" ? 0 : 20;
         return Math.max(basePercent, minPercent);
       });
 
