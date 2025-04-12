@@ -55,7 +55,7 @@ const TransportBar = ({ width, time, route, mode }: TransportBarProps) => {
               vehicle={mode!}
               line={lineType}
               size={"sm-icon"}
-              isIcon={true}
+              hasText={false}
             />
             <Text
               variant="subway"

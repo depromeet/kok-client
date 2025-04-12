@@ -9,14 +9,14 @@ import SubwayIcon from "@/assets/icons/SubwayIcon";
 type TransportIconProps = styles.TransportIconVariants & {
   vehicle?: VehicleType;
   line: string;
-  isIcon?: boolean;
+  hasText?: boolean;
 };
 
 const TransportIcon = ({
   vehicle = "SUBWAY",
   line,
   size = "sm",
-  isIcon = false,
+  hasText = true,
 }: TransportIconProps) => {
   const textVariant = size === "sm" ? "number" : "number-md";
   const backgroundColor =
@@ -34,7 +34,7 @@ const TransportIcon = ({
       style={{ backgroundColor }}
     >
       {vehicle === "SUBWAY" &&
-        (isIcon && isNaN(Number(line)) ? (
+        (!hasText && isNaN(Number(line)) ? (
           <SubwayIcon />
         ) : (
           <Text variant={textVariant}>{line}</Text>
