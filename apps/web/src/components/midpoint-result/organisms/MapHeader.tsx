@@ -10,7 +10,7 @@ interface MapHeaderProps {
   title: string | React.ReactNode;
   isFinal?: boolean;
   isLookAround?: boolean;
-  onClose?: () => void;
+  onClose?: (e?: MouseEvent | TouchEvent) => void;
 }
 
 const MapHeader = ({
