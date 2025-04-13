@@ -29,6 +29,7 @@ export const NaverMap = ({
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapInstance, setMapInstance] = useState<NaverMapInstance | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasSetInitialCenter, setHasSetInitialCenter] = useState(false);
   const { setMap } = useNaverMap();
 
   const loadNaverMapScript = () => {
@@ -95,14 +96,15 @@ export const NaverMap = ({
   }, [isLoaded]);
 
   useEffect(() => {
-    if (mapInstance && center) {
+    if (mapInstance && center && !hasSetInitialCenter) {
       const centerPosition = new window.naver.maps.LatLng(
         center.latitude,
         center.longitude
       );
       mapInstance.setCenter(centerPosition);
+      setHasSetInitialCenter(true);
     }
-  }, [mapInstance, center]);
+  }, [mapInstance, center, hasSetInitialCenter]);
 
   return (
     <Flex style={{ maxWidth: "600px" }}>

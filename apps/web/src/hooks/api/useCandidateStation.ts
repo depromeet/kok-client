@@ -11,7 +11,7 @@ interface Station {
   priority: number;
 }
 
-export interface RecommendStationResponse {
+export interface CandidateStationResponse {
   code: number;
   message: string;
   data: Array<{
@@ -20,14 +20,14 @@ export interface RecommendStationResponse {
   }>;
 }
 
-export type RecommendStationData = Array<{
+export type CandidateStationData = Array<{
   routes: string[];
   station: Station;
 }>;
 
-const fetchRecommendStation = async (roomId: string) => {
+const fetchCandidateStation = async (roomId: string) => {
   const response = await fetch(
-    `${BASE_URL}${API_URLS.GET_RECOMMEND_STATION}${roomId}`,
+    `${BASE_URL}${API_URLS.GET_CANDIDATE_STATION(roomId)}`,
     {
       method: "GET",
       headers: {
@@ -40,13 +40,14 @@ const fetchRecommendStation = async (roomId: string) => {
     throw new Error("Network response was not ok");
   }
 
-  return response.json();
+  return response.json() as Promise<CandidateStationResponse>;
 };
 
-export const useRecommendStation = (roomId: string) => {
-  return useQuery<RecommendStationResponse>({
-    queryKey: ["recommendStation", roomId],
-    queryFn: () => fetchRecommendStation(roomId),
-    // staleTime: 1000 * 60 * 60, // 1시간 동안 신선하게 유지
+export const useCandidateStation = (roomId: string) => {
+  return useQuery<CandidateStationResponse>({
+    queryKey: ["candidateStation", roomId],
+    queryFn: () => fetchCandidateStation(roomId),
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 };
