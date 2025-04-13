@@ -1,6 +1,6 @@
 import { NaverMap } from "@repo/naver-map";
 import { createPortal } from "react-dom";
-import MapHeader from "@/components/midpoint-result/organisms/MapHeader";
+import MapHeader from "@/components/midpoint-result/molecules/MapHeader";
 import { AnimationBottomSheet, Text } from "@repo/ui/components";
 import * as Style from "./StationMapExplorer.css";
 import { useState } from "react";
@@ -62,7 +62,7 @@ export const StationMapExplorer = ({
                       </div>
                       <Text
                         variant="title4"
-                        className={`${Style.filterTextStyle} 
+                        className={`${Style.filterTextStyle}
                           ${isSelected && Style.selectedFilterTextStyle}`}
                       >
                         {filter.name}
