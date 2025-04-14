@@ -9,17 +9,9 @@ import {
   Shopping,
 } from "../../components/vote-voting/atom/filter-icon";
 
-export type PlaceType =
-  | "ACTIVITY"
-  | "RESTAURANT"
-  | "CAFE"
-  | "BAR"
-  | "NATURE"
-  | "EXHIBITION"
-  | "EVENT"
-  | "SHOPPING";
+export type PlaceType = keyof typeof PlaceFilter;
 
-export const PlaceType = {
+export const PlaceFilter = {
   ACTIVITY: "ACTIVITY" as const,
   RESTAURANT: "RESTAURANT" as const,
   CAFE: "CAFE" as const,
@@ -32,51 +24,51 @@ export const PlaceType = {
 
 export const FILTER_OPTIONS = [
   {
-    id: PlaceType.ACTIVITY,
+    id: PlaceFilter.ACTIVITY,
     name: "액티비티",
     icon: Activity,
-    apiValue: PlaceType.ACTIVITY,
+    apiValue: PlaceFilter.ACTIVITY,
   },
   {
-    id: PlaceType.RESTAURANT,
+    id: PlaceFilter.RESTAURANT,
     name: "식당",
     icon: Restaurant,
-    apiValue: PlaceType.RESTAURANT,
+    apiValue: PlaceFilter.RESTAURANT,
   },
   {
-    id: PlaceType.CAFE,
+    id: PlaceFilter.CAFE,
     name: "카페",
     icon: Cafe,
-    apiValue: PlaceType.CAFE,
+    apiValue: PlaceFilter.CAFE,
   },
   {
-    id: PlaceType.BAR,
+    id: PlaceFilter.BAR,
     name: "술집",
     icon: Bar,
-    apiValue: PlaceType.BAR,
+    apiValue: PlaceFilter.BAR,
   },
   {
-    id: PlaceType.NATURE,
+    id: PlaceFilter.NATURE,
     name: "자연",
     icon: Nature,
-    apiValue: PlaceType.NATURE,
+    apiValue: PlaceFilter.NATURE,
   },
   {
-    id: PlaceType.EXHIBITION,
+    id: PlaceFilter.EXHIBITION,
     name: "전시",
     icon: Exhibition,
-    apiValue: PlaceType.EXHIBITION,
+    apiValue: PlaceFilter.EXHIBITION,
   },
   {
-    id: PlaceType.EVENT,
+    id: PlaceFilter.EVENT,
     name: "이벤트",
     icon: Event,
-    apiValue: PlaceType.EVENT,
+    apiValue: PlaceFilter.EVENT,
   },
   {
-    id: PlaceType.SHOPPING,
+    id: PlaceFilter.SHOPPING,
     name: "쇼핑",
     icon: Shopping,
-    apiValue: PlaceType.SHOPPING,
+    apiValue: PlaceFilter.SHOPPING,
   },
 ];

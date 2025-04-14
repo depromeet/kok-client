@@ -4,7 +4,11 @@ import MapHeader from "@/components/midpoint-result/organisms/MapHeader";
 import { AnimationBottomSheet, Text } from "@repo/ui/components";
 import * as Style from "./StationMapExplorer.css";
 import { useState, useEffect } from "react";
-import { FILTER_OPTIONS, PlaceType } from "@/constants/filter-options";
+import {
+  FILTER_OPTIONS,
+  PlaceFilter,
+  PlaceType,
+} from "@/constants/filter-options";
 import { useNaverMap, useMarker, getFinalMarkerElement } from "@repo/naver-map";
 import { useSearchPlacesByFilter } from "@/hooks/useSearchPlacesByFilter";
 import { createPlaceMarkers } from "@/utils/createPlaceMarkers";
@@ -26,7 +30,7 @@ export const StationMapExplorer = ({
   };
 
   const [selectedFilter, setSelectedFilter] = useState<PlaceType | null>(
-    PlaceType.ACTIVITY
+    PlaceFilter.ACTIVITY
   );
 
   const { map } = useNaverMap();
