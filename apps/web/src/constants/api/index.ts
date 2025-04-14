@@ -11,8 +11,9 @@ export const API_URLS = {
   GET_ROOM_INFO: "/rooms",
   POST_ROUTE: "/route/",
   POST_ROUTE_COMPLEX: "/route/complex/",
-  GET_RECOMMEND_STATION: "/stations/recommend/",
+  GET_CANDIDATE_STATION: (roomId: string) => `/stations/candidate/${roomId}`,
   POST_JOIN_ROOM: (roomId: string) => `/rooms/${roomId}/join`,
+  POST_SEARCH_PLACES: "/search/places",
 
   // vote
   GET_USER_VOTE_STATUS: (roomId: string) => `/votes/${roomId}/status`,
