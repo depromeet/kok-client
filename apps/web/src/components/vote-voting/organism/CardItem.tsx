@@ -9,12 +9,14 @@ import { useState } from "react";
 import { StationMapExplorer } from "./StationMapExplorer";
 import { useCandidateStation } from "@/hooks/api/useCandidateStation";
 import { useParams } from "next/navigation";
+import { CandidateStationData } from "@/hooks/api/useCandidateStation";
 
 interface Props extends Candidate {
   view: "card" | "list";
   className: string;
   selected: boolean;
   onSelectCard: ({ id, name }: { id: number; name: string }) => void;
+  stationLocations: CandidateStationData;
 }
 
 export function CardItem({
@@ -27,13 +29,9 @@ export function CardItem({
   stationName,
   selected,
   onSelectCard,
+  stationLocations,
 }: Props) {
-  const params = useParams();
   const [showFullScreenMap, setShowFullScreenMap] = useState(false);
-  const { data: candidateStation } = useCandidateStation(
-    params?.roomId as string
-  );
-  const stationLocation = candidateStation?.data;
 
   const handleMapOpen = (e: any) => {
     e.stopPropagation();
@@ -41,7 +39,7 @@ export function CardItem({
   };
 
   const getStationLocation = (stationId: number) => {
-    const station = stationLocation?.find(
+    const station = stationLocations?.find(
       (station) => station.station.id === stationId
     );
 

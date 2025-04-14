@@ -9,16 +9,26 @@ import {
   Shopping,
 } from "../../components/vote-voting/atom/filter-icon";
 
-export enum PlaceType {
-  ACTIVITY = "ACTIVITY",
-  RESTAURANT = "RESTAURANT",
-  CAFE = "CAFE",
-  BAR = "BAR",
-  NATURE = "NATURE",
-  EXHIBITION = "EXHIBITION",
-  EVENT = "EVENT",
-  SHOPPING = "SHOPPING",
-}
+export type PlaceType =
+  | "ACTIVITY"
+  | "RESTAURANT"
+  | "CAFE"
+  | "BAR"
+  | "NATURE"
+  | "EXHIBITION"
+  | "EVENT"
+  | "SHOPPING";
+
+export const PlaceType = {
+  ACTIVITY: "ACTIVITY" as const,
+  RESTAURANT: "RESTAURANT" as const,
+  CAFE: "CAFE" as const,
+  BAR: "BAR" as const,
+  NATURE: "NATURE" as const,
+  EXHIBITION: "EXHIBITION" as const,
+  EVENT: "EVENT" as const,
+  SHOPPING: "SHOPPING" as const,
+} as const;
 
 export const FILTER_OPTIONS = [
   {
