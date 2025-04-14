@@ -46,7 +46,9 @@ export const createPlaceMarkers = ({
     let isFinal = false;
     const dotMarkerElement = createDotMarker();
     const nameElement = createNameElement({ displayName: place.displayName });
-
+    if (dotMarkerElement) {
+      dotMarkerElement.style.zIndex = "1";
+    }
     markerWrapper.appendChild(
       dotMarkerElement || document.createElement("div")
     );

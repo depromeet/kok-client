@@ -29,6 +29,8 @@ export const getFinalMarkerElement = () => {
       }
     </style>
   `;
+  element.style.zIndex = "2";
+  element.style.position = "relative";
   return element;
 };
 
