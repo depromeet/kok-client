@@ -34,7 +34,7 @@ export function CardItem({
   };
 
   return (
-    <Flex direction="column" gap={8}>
+    <Flex direction="column" gap={8} className={stationName}>
       <div
         className={classMerge(className, Style.containerStyle)}
         onClick={handleMapOpen}

@@ -1,3 +1,4 @@
+import { theme } from "@repo/ui/tokens";
 import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
@@ -6,7 +7,7 @@ export const containerStyle = style({
 
 export const sliderContainerStyle = style({
   position: "relative",
-  width: "100vw",
+  width: "min(600px, 100vw)",
   maxWidth: 600,
   display: "flex",
   overflow: "hidden",
@@ -15,4 +16,32 @@ export const sliderContainerStyle = style({
 
 export const innerContainerStyle = style({
   display: "flex",
+});
+
+export const leftArrowContainerStyle = style({
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  left: 26,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+});
+
+export const rightArrowContainerStyle = style({
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  right: 26,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+});
+
+export const arrowStationStyle = style({
+  width: 44,
+  color: theme.colors.icon.default,
+  fontSize: 12,
+  fontWeight: 600,
+  textAlign: "center",
 });

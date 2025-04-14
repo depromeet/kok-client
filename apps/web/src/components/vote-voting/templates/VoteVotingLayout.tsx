@@ -110,7 +110,7 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
         {isLoading && <div className={Style.skeletonLoading} />}
         {candidatesData != null && (
           <>
-            <Tooltip />
+            <Tooltip view={view} />
             <CardList
               view={view}
               list={candidatesData.data}
