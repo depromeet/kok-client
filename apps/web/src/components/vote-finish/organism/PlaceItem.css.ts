@@ -29,4 +29,7 @@ export const iconStyle = style({
   top: 0,
   left: 0,
   transform: "translate(-50%, -50%)",
+
+  borderRadius: 999,
+  padding: "10px 12px",
 });

@@ -44,7 +44,6 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
 
   const roomId = params?.roomId as string;
   const { data: stationLocationsData } = useCandidateStation(roomId);
-  console.log("stationLocationsData", stationLocationsData);
 
   const { mutate: vote, isPending } = useVoting({
     onSuccess: () => {
