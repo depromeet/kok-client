@@ -7,11 +7,13 @@ import { RowCardList } from "./RowCardList";
 import { Candidate } from "../templates/type";
 import { LeftArrowIcon } from "../atom/left-arrow-icon";
 import { RightArrowIcon } from "../atom/right-arrow-icon";
+import { CandidateStationData } from "@/hooks/api/useCandidateStation";
 
 interface Props {
   view: "card" | "list";
   list: Candidate[];
   selectedCardIds: number[];
+  stationLocations: CandidateStationData;
   onIndexChange: (index: number) => void;
   onSelectCard: ({ id, name }: { id: number; name: string }) => void;
 }
@@ -20,6 +22,7 @@ export function CardList({
   view,
   list,
   selectedCardIds,
+  stationLocations,
   onIndexChange,
   onSelectCard,
 }: Props) {
@@ -60,6 +63,7 @@ export function CardList({
               view={view}
               className="card-0"
               selected={selectedCardIds.includes(last.stationId)}
+              stationLocations={stationLocations}
               {...last}
             />
           )}
@@ -70,6 +74,7 @@ export function CardList({
               key={index}
               className={`card-${index + 1}`}
               selected={selectedCardIds.includes(place.stationId)}
+              stationLocations={stationLocations}
               {...place}
             />
           ))}
@@ -79,6 +84,7 @@ export function CardList({
               view={view}
               className={`card-${list.length + 1}`}
               selected={selectedCardIds.includes(first.stationId)}
+              stationLocations={stationLocations}
               {...first}
             />
           )}

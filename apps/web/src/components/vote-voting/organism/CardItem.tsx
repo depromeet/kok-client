@@ -7,12 +7,16 @@ import { theme } from "@repo/ui/tokens";
 import { SUBWAY_META } from "@/constants/subway";
 import { useState } from "react";
 import { StationMapExplorer } from "./StationMapExplorer";
+import { useCandidateStation } from "@/hooks/api/useCandidateStation";
+import { useParams } from "next/navigation";
+import { CandidateStationData } from "@/hooks/api/useCandidateStation";
 
 interface Props extends Candidate {
   view: "card" | "list";
   className: string;
   selected: boolean;
   onSelectCard: ({ id, name }: { id: number; name: string }) => void;
+  stationLocations: CandidateStationData;
 }
 
 export function CardItem({
@@ -25,6 +29,7 @@ export function CardItem({
   stationName,
   selected,
   onSelectCard,
+  stationLocations,
 }: Props) {
   const [showFullScreenMap, setShowFullScreenMap] = useState(false);
 
@@ -32,6 +37,25 @@ export function CardItem({
     e.stopPropagation();
     setShowFullScreenMap(true);
   };
+
+  const getStationLocation = (stationId: number) => {
+    const station = stationLocations?.find(
+      (station) => station.station.id === stationId
+    );
+
+    return station
+      ? {
+          latitude: station.station.latitude,
+          longitude: station.station.longitude,
+        }
+      : null;
+  };
+
+  const handleCardClick = (e: any, stationId: number) => {
+    e.stopPropagation();
+    onSelectCard({ id: stationId, name: stationName });
+  };
+  const stationCoords = getStationLocation(stationId);
 
   return (
     <Flex direction="column" gap={8} className={stationName}>
@@ -131,10 +155,7 @@ export function CardItem({
                   color: selected ? "white" : theme.colors.icon.pressed,
                 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSelectCard({ id: stationId, name: stationName });
-                }}
+                onClick={(e) => handleCardClick(e, stationId)}
               >
                 <Text
                   color={selected ? "white" : theme.colors.icon.pressed}
@@ -146,8 +167,12 @@ export function CardItem({
             </div>
           </motion.div>
         </motion.div>
-        {showFullScreenMap && typeof window !== "undefined" && (
-          <StationMapExplorer setShowFullScreenMap={setShowFullScreenMap} />
+        {showFullScreenMap && stationCoords && (
+          <StationMapExplorer
+            setShowFullScreenMap={setShowFullScreenMap}
+            stationLocation={stationCoords}
+            stationName={stationName}
+          />
         )}
       </div>
     </Flex>

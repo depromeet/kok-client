@@ -17,6 +17,7 @@ import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWit
 import { useStopWatch } from "@/hooks/useStopWatch";
 import { motion } from "@repo/motion";
 import { Tooltip } from "../atom/Tooltip";
+import { useCandidateStation } from "@/hooks/api/useCandidateStation";
 
 interface Props {
   memberId: string;
@@ -40,6 +41,10 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
     params?.roomId as string,
     memberId
   );
+
+  const roomId = params?.roomId as string;
+  const { data: stationLocationsData } = useCandidateStation(roomId);
+  console.log("stationLocationsData", stationLocationsData);
 
   const { mutate: vote, isPending } = useVoting({
     onSuccess: () => {
@@ -115,6 +120,7 @@ export function VoteVotingLayout({ memberId, onNext }: Props) {
               view={view}
               list={candidatesData.data}
               selectedCardIds={agreedStationIds.map(({ id }) => id)}
+              stationLocations={stationLocationsData?.data || []}
               onIndexChange={setOrder}
               onSelectCard={({ id, name }) => {
                 const isSelected = agreedStationIds.some(
