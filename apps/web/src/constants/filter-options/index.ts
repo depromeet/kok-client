@@ -16,8 +16,8 @@ export const PlaceFilter = {
   RESTAURANT: "RESTAURANT" as const,
   CAFE: "CAFE" as const,
   BAR: "BAR" as const,
-  NATURE: "NATURE" as const,
-  EXHIBITION: "EXHIBITION" as const,
+  NATURE: "PARK" as const,
+  EXHIBITION: "CULTURE" as const,
   EVENT: "EVENT" as const,
   SHOPPING: "SHOPPING" as const,
 } as const;
