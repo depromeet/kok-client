@@ -4,9 +4,9 @@ import { Candidate } from "@/components/vote-finish/templates/types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const fetchVoteResult = async (roomId: string, memberId: string) => {
+const fetchVoteResult = async (roomId: string) => {
   const response = await fetch(
-    `${BASE_URL}${API_URLS.GET_VOTE_RESULT(roomId, memberId)}`,
+    `${BASE_URL}${API_URLS.GET_VOTE_RESULT(roomId)}`,
     {
       method: "GET",
       headers: {
@@ -22,9 +22,9 @@ const fetchVoteResult = async (roomId: string, memberId: string) => {
   return response.json();
 };
 
-export const useVoteResult = (roomId: string, memberId: string) => {
+export const useVoteResult = (roomId: string) => {
   return useQuery<{ data: { notVotedCount: number; results: Candidate[] } }>({
-    queryKey: ["voteResult", roomId, memberId],
-    queryFn: () => fetchVoteResult(roomId, memberId),
+    queryKey: ["voteResult", roomId],
+    queryFn: () => fetchVoteResult(roomId),
   });
 };

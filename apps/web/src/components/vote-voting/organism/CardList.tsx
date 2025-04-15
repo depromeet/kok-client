@@ -31,7 +31,6 @@ export function CardList({
       totalNum: list.length,
       onIndexChange,
     });
-  console.log("🚀 ~ focusedIndex:", focusedIndex);
 
   useViewTransform({
     view,

@@ -20,7 +20,7 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
   const params = useParams();
   const router = useRouter();
 
-  const { data } = useVoteResult(params?.roomId as string, memberId);
+  const { data } = useVoteResult(params?.roomId as string);
   const { mutate: endVote } = useVoteFinish({
     onSuccess: () => {
       router.push(`/room/${params?.roomId}/result?memberId=${memberId}`);

@@ -20,8 +20,7 @@ export const API_URLS = {
   GET_VOTE_DEADLINE: (roomId: string) => `/votes/${roomId}/deadline`,
   GET_VOTE_CANDIDATES: (roomId: string, memberId: string) =>
     `/votes/${roomId}/${memberId}/candidates`,
-  GET_VOTE_RESULT: (roomId: string, memberId: string) =>
-    `/votes/${roomId}/${memberId}`,
+  GET_VOTE_RESULT: (roomId: string) => `/votes/${roomId}/results/current`,
   POST_VOTE_FINISH: (roomId: string) => `/votes/${roomId}/close`,
   POST_VOTING: (roomId: string, memberId: string) =>
     `/votes/${roomId}/${memberId}`,

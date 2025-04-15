@@ -3,12 +3,10 @@ import { Candidate } from "../templates/types";
 import * as Style from "./PlaceItem.css";
 import { theme } from "@repo/ui/tokens";
 import Image from "next/image";
-import { ConfirmIcon } from "../atom/ConfirmIcon";
-import { UnConfirmIcon } from "../atom/UnConfirmIcon";
 
 export function PlaceItem({
   stationName,
-  voteStatus,
+  resultTag,
   members,
   votedCount,
 }: Candidate) {
@@ -37,13 +35,21 @@ export function PlaceItem({
       </div>
       <Spacing size={12} />
       <Text variant="caption" color={theme.colors.text4}>
-        {voteStatus === "agree"
-          ? `${votedCount}명의 친구들도 찬성 중`
-          : `${votedCount}명의 친구들이 반대 중`}
+        {`${votedCount}명의 친구들이 찬성 중`}
       </Text>
-      <div className={Style.iconStyle}>
-        {voteStatus === "agree" ? <ConfirmIcon /> : <UnConfirmIcon />}
-      </div>
+      {resultTag !== "NONE" && (
+        <div
+          className={Style.iconStyle}
+          style={{
+            backgroundColor:
+              resultTag === "TOP" ? theme.colors.icon.kok : theme.colors.navy,
+          }}
+        >
+          <Text color={theme.colors.text.white} variant="title2">
+            {resultTag === "TOP" ? "유력" : "접전"}
+          </Text>
+        </div>
+      )}
     </Flex>
   );
 }
