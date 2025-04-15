@@ -7,8 +7,9 @@ import {
 } from "../organism/CardItem.css";
 import { theme } from "@repo/ui/tokens";
 import { useState, useEffect } from "react";
+import { motion } from "@repo/motion";
 
-export const Tooltip = () => {
+export const Tooltip = ({ view }: { view: "card" | "list" }) => {
   const [show, setShow] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -34,7 +35,14 @@ export const Tooltip = () => {
         isClosing ? floatingAnimation.fadeOut : floatingAnimation.floating
       }
     >
-      <div className={floatingTooltipStyle}>
+      <motion.div
+        variants={{
+          show: { opacity: 1, transition: { delay: 1.6 } },
+          hide: { opacity: 0 },
+        }}
+        animate={view === "list" ? "hide" : "show"}
+        className={floatingTooltipStyle}
+      >
         <Text
           variant="title4"
           style={{
@@ -54,7 +62,7 @@ export const Tooltip = () => {
         >
           <Triangle />
         </div>
-      </div>
+      </motion.div>
     </Flex>
   );
 };

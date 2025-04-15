@@ -5,6 +5,8 @@ import { CardItem } from "./CardItem";
 import { useViewTransform } from "./useViewTransform";
 import { RowCardList } from "./RowCardList";
 import { Candidate } from "../templates/type";
+import { LeftArrowIcon } from "../atom/left-arrow-icon";
+import { RightArrowIcon } from "../atom/right-arrow-icon";
 import { CandidateStationData } from "@/hooks/api/useCandidateStation";
 
 interface Props {
@@ -24,10 +26,12 @@ export function CardList({
   onIndexChange,
   onSelectCard,
 }: Props) {
-  const { focusedIndex, translateXMotion, dragEvents } = useInfiniteSliderDrag({
-    totalNum: list.length,
-    onIndexChange,
-  });
+  const { focusedIndex, translateXMotion, dragEvents, onNext, onPrev } =
+    useInfiniteSliderDrag({
+      totalNum: list.length,
+      onIndexChange,
+    });
+  console.log("🚀 ~ focusedIndex:", focusedIndex);
 
   useViewTransform({
     view,
@@ -37,6 +41,10 @@ export function CardList({
 
   const first = list[0];
   const last = list[list.length - 1];
+  const totalList = [last, ...list, first];
+
+  const prevStationName = totalList[focusedIndex - 1]?.stationName;
+  const nextStationName = totalList[focusedIndex + 1]?.stationName;
 
   return (
     <div className={Style.containerStyle}>
@@ -49,14 +57,14 @@ export function CardList({
           className={Style.innerContainerStyle}
           style={{ x: translateXMotion }}
         >
-          {first && (
+          {last && (
             <CardItem
               onSelectCard={onSelectCard}
               view={view}
               className="card-0"
-              selected={selectedCardIds.includes(first.stationId)}
+              selected={selectedCardIds.includes(last.stationId)}
               stationLocations={stationLocations}
-              {...first}
+              {...last}
             />
           )}
           {list.map((place, index) => (
@@ -70,19 +78,48 @@ export function CardList({
               {...place}
             />
           ))}
-          {last && (
+          {first && (
             <CardItem
               onSelectCard={onSelectCard}
               view={view}
               className={`card-${list.length + 1}`}
-              selected={selectedCardIds.includes(last.stationId)}
+              selected={selectedCardIds.includes(first.stationId)}
               stationLocations={stationLocations}
-              {...last}
+              {...first}
             />
           )}
         </motion.div>
+        <motion.div
+          variants={{
+            show: { opacity: 1, transition: { delay: 1.6 } },
+            hide: { opacity: 0 },
+          }}
+          animate={view === "list" ? "hide" : "show"}
+          className={Style.leftArrowContainerStyle}
+          onClick={onPrev}
+        >
+          <LeftArrowIcon />
+          <div className={Style.arrowStationStyle}>{prevStationName}</div>
+        </motion.div>
+        <motion.div
+          variants={{
+            show: { opacity: 1, transition: { delay: 1.6 } },
+            hide: { opacity: 0 },
+          }}
+          animate={view === "list" ? "hide" : "show"}
+          className={Style.rightArrowContainerStyle}
+          onClick={onNext}
+        >
+          <RightArrowIcon />
+          <div className={Style.arrowStationStyle}>{nextStationName}</div>
+        </motion.div>
       </div>
-      <div style={{ pointerEvents: view === "list" ? "auto" : "none" }}>
+      <div
+        style={{
+          pointerEvents: view === "list" ? "auto" : "none",
+          paddingBottom: view === "list" ? 70 : 0,
+        }}
+      >
         <RowCardList
           selectedCardIds={selectedCardIds}
           view={view}

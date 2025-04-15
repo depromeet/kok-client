@@ -3,7 +3,7 @@ import { zIndex } from "@repo/z-index";
 import { style, keyframes } from "@vanilla-extract/css";
 
 export const containerStyle = style({
-  width: "100vw",
+  width: "min(600px, 100vw)",
   maxWidth: 600,
   position: "relative",
   flexShrink: 0,
