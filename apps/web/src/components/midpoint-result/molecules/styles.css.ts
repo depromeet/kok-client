@@ -28,7 +28,7 @@ export const headerStyle = style({
   width: "100%",
   maxWidth: "600px",
   height: "58px",
-  zIndex: zIndex.floating,
+  zIndex: zIndex.toast,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -71,7 +71,7 @@ export const transportContainerStyle = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  zIndex: zIndex.toast,
+  zIndex: zIndex.overlay,
 });
 
 export const progressBarStyle = style({
