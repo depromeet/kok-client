@@ -17,27 +17,25 @@ export function useSearchPlacesByFilter({
 }: SearchPlacesOptions) {
   const [places, setPlaces] = useState<PlaceResponse[]>([]);
 
-  const placesQuery = selectedFilter
-    ? usePlacesQuery(
-        {
-          placeType: selectedFilter,
-          latitude: stationLocation.latitude,
-          longitude: stationLocation.longitude,
-          maxCount: 20,
-        },
-        {
-          enabled: !!map && !!selectedFilter,
-          onSuccess: (data: PlaceResponse[]) => {
-            setPlaces(data);
-          },
-          onError: (error: unknown) => {
-            console.error("장소 검색 중 오류 발생:", error);
-            setPlaces([]);
-            onCleanUp();
-          },
-        }
-      )
-    : null;
+  const placesQuery = usePlacesQuery(
+    {
+      placeType: selectedFilter || "ACTIVITY",
+      latitude: stationLocation.latitude,
+      longitude: stationLocation.longitude,
+      maxCount: 20,
+    },
+    {
+      enabled: !!map && !!selectedFilter,
+      onSuccess: (data: PlaceResponse[]) => {
+        setPlaces(data);
+      },
+      onError: (error: unknown) => {
+        console.error("장소 검색 중 오류 발생:", error);
+        setPlaces([]);
+        onCleanUp();
+      },
+    }
+  );
 
   const { mutate: searchPlaces } = usePlaces();
 
