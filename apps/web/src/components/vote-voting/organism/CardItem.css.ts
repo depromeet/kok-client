@@ -15,6 +15,7 @@ export const containerStyle = style({
 export const cardContainerStyle = style({
   backgroundColor: "#fff",
   borderRadius: 20,
+  cursor: "pointer",
 });
 
 export const topContainerStyle = style({
