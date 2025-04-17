@@ -7,8 +7,6 @@ import { theme } from "@repo/ui/tokens";
 import { SUBWAY_META } from "@/constants/subway";
 import { useState } from "react";
 import { StationMapExplorer } from "./StationMapExplorer";
-import { useCandidateStation } from "@/hooks/api/useCandidateStation";
-import { useParams } from "next/navigation";
 import { CandidateStationData } from "@/hooks/api/useCandidateStation";
 
 interface Props extends Candidate {
@@ -59,10 +57,7 @@ export function CardItem({
 
   return (
     <Flex direction="column" gap={8} className={stationName}>
-      <div
-        className={classMerge(className, Style.containerStyle)}
-        onClick={handleMapOpen}
-      >
+      <div className={classMerge(className, Style.containerStyle)}>
         <motion.div
           initial={view}
           variants={{
@@ -79,6 +74,7 @@ export function CardItem({
           }}
           animate={view}
           className={Style.cardContainerStyle}
+          onClick={handleMapOpen}
         >
           <motion.div
             initial={view}
