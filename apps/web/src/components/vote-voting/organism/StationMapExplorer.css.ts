@@ -8,10 +8,10 @@ export const fullScreenMapContainerStyle = style({
   width: "100%",
   maxWidth: "600px",
   height: "100vh",
-  zIndex: zIndex.overlay,
   display: "flex",
   flexDirection: "column",
   overflow: "hidden",
+  zIndex: zIndex.floating,
 });
 
 export const containerStyle = style({

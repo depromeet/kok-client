@@ -7,6 +7,7 @@ export const container = style({
   width: "100%",
   height: "100%",
   backgroundColor: "#ffffff",
+  zIndex: zIndex.toast,
 });
 
 export const searchSection = style({

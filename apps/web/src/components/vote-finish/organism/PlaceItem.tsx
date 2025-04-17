@@ -3,6 +3,7 @@ import { Candidate } from "../templates/types";
 import * as Style from "./PlaceItem.css";
 import { theme } from "@repo/ui/tokens";
 import Image from "next/image";
+import { NoVoteIcon } from "@/assets/icons/NoVoteIcon";
 
 export function PlaceItem({
   stationName,
@@ -21,22 +22,36 @@ export function PlaceItem({
         {stationName}
       </Text>
       <Spacing size={28} />
-      <div className={Style.imgContainerStyle}>
-        {members.map(({ id, imageUrl }) => (
-          <Image
-            key={id}
-            className={Style.imgStyle}
-            width={32}
-            height={32}
-            alt=""
-            src={imageUrl}
-          />
-        ))}
-      </div>
-      <Spacing size={12} />
-      <Text variant="caption" color={theme.colors.text4}>
-        {`${votedCount}명의 친구들이 찬성 중`}
-      </Text>
+
+      {votedCount > 0 ? (
+        <>
+          <div className={Style.imgContainerStyle}>
+            {members.map(({ id, imageUrl }) => (
+              <Image
+                key={id}
+                className={Style.imgStyle}
+                width={32}
+                height={32}
+                alt=""
+                src={imageUrl}
+              />
+            ))}
+          </div>
+          <Spacing size={12} />
+          <Text variant="caption" color={theme.colors.text4}>
+            {`${votedCount}명의 친구들이 찬성 중`}
+          </Text>
+        </>
+      ) : (
+        <>
+          <NoVoteIcon />
+          <Spacing size={12} />
+          <Text variant="caption" color={theme.colors.text4}>
+            아무도 콕하지 않은 장소
+          </Text>
+        </>
+      )}
+
       {resultTag !== "NONE" && (
         <div
           className={Style.iconStyle}

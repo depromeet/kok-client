@@ -1,5 +1,4 @@
 import { Flex, Text } from "@repo/ui/components";
-import XIcon from "@/assets/icons/XIcon";
 import { Triangle } from "./Triangle";
 import {
   floatingAnimation,
@@ -8,6 +7,7 @@ import {
 import { theme } from "@repo/ui/tokens";
 import { useState, useEffect } from "react";
 import { motion } from "@repo/motion";
+import SmallXIcon from "@/assets/icons/SmallXIcon";
 
 export const Tooltip = ({ view }: { view: "card" | "list" }) => {
   const [show, setShow] = useState(true);
@@ -52,7 +52,7 @@ export const Tooltip = ({ view }: { view: "card" | "list" }) => {
           역을 누르고 주변을 둘러보세요!
         </Text>
         <Flex onClick={handleClose} style={{ cursor: "pointer" }}>
-          <XIcon />
+          <SmallXIcon />
         </Flex>
         <div
           style={{

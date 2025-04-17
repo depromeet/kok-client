@@ -28,7 +28,7 @@ export const headerStyle = style({
   width: "100%",
   maxWidth: "600px",
   height: "58px",
-  zIndex: zIndex.toast,
+  zIndex: zIndex.header,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",

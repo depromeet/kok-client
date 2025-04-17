@@ -7,7 +7,7 @@ export const listContainer = style({
   overflow: "auto",
   gap: 12,
   flexWrap: "nowrap",
-  paddingTop: "10.2vh",
+  paddingLeft: "50px",
 
   "::-webkit-scrollbar": {
     display: "none",
