@@ -13,6 +13,7 @@ export interface PlaceResponse {
   displayName: string;
   formattedAddress: string;
   location: Location;
+  id: string;
 }
 
 interface PlacesApiResponse {

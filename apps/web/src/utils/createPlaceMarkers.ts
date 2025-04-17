@@ -27,31 +27,52 @@ export interface CreatePlaceMarkerOptions {
   map: naver.maps.Map | null;
   places: PlaceResponse[];
   placesMarkers: MarkerController;
+  activeMarkerId: string | null;
+  onMarkerClick?: (id: string | null) => void;
 }
 
 export const createPlaceMarkers = ({
   map,
   places,
   placesMarkers,
+  activeMarkerId,
+  onMarkerClick,
 }: CreatePlaceMarkerOptions) => {
   if (!map || !window.naver) return;
 
   placesMarkers.cleanUp();
 
   places.forEach((place) => {
+    const markerId =
+      place.id || `${place.location.latitude},${place.location.longitude}`;
     const markerWrapper = document.createElement("div");
     markerWrapper.style.position = "relative";
     markerWrapper.style.pointerEvents = "auto";
 
-    let isFinal = false;
-    const dotMarkerElement = createDotMarker();
     const nameElement = createNameElement({ displayName: place.displayName });
-    if (dotMarkerElement) {
-      dotMarkerElement.style.zIndex = "1";
+    const isActive = markerId === activeMarkerId;
+
+    if (isActive) {
+      const finalEl: HTMLDivElement = getFinalMarkerElement();
+      finalEl.style.position = "absolute";
+      finalEl.style.top = "50%";
+      finalEl.style.left = "50%";
+      finalEl.style.transform = "translate(-50%, -100%)";
+      finalEl.style.pointerEvents = "auto";
+
+      markerWrapper.appendChild(finalEl);
+      nameElement.style.display = "block";
+    } else {
+      const dotMarkerElement = createDotMarker();
+      if (dotMarkerElement) {
+        dotMarkerElement.style.zIndex = "1";
+      }
+      markerWrapper.appendChild(
+        dotMarkerElement || document.createElement("div")
+      );
+      nameElement.style.display = "none";
     }
-    markerWrapper.appendChild(
-      dotMarkerElement || document.createElement("div")
-    );
+
     markerWrapper.appendChild(nameElement);
 
     const marker = placesMarkers.create({
@@ -64,28 +85,13 @@ export const createPlaceMarkers = ({
       },
     });
 
-    if (marker && window.naver) {
+    if (marker) {
       naver.maps.Event.addListener(marker, "click", () => {
-        if (!isFinal) {
-          const finalEl = getFinalMarkerElement();
-          finalEl.style.position = "absolute";
-          finalEl.style.top = "50%";
-          finalEl.style.left = "50%";
-          finalEl.style.transform = "translate(-50%, -100%)";
-          finalEl.style.pointerEvents = "auto";
-
-          markerWrapper.replaceChildren(finalEl, nameElement);
-          isFinal = true;
+        if (isActive) {
+          onMarkerClick?.(null);
         } else {
-          markerWrapper.replaceChildren(
-            createDotMarker() || document.createElement("div"),
-            nameElement
-          );
-          isFinal = false;
+          onMarkerClick?.(markerId);
         }
-
-        nameElement.style.display =
-          nameElement.style.display === "none" ? "block" : "none";
       });
     }
   });

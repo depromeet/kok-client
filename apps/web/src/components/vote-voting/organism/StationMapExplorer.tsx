@@ -9,7 +9,7 @@ import {
   PlaceFilter,
   PlaceType,
 } from "@/constants/filter-options";
-import { useNaverMap, useMarker, getFinalMarkerElement } from "@repo/naver-map";
+import { useNaverMap, useMarker } from "@repo/naver-map";
 import { useSearchPlacesByFilter } from "@/hooks/useSearchPlacesByFilter";
 import { createPlaceMarkers } from "@/utils/createPlaceMarkers";
 
@@ -33,6 +33,8 @@ export const StationMapExplorer = ({
     PlaceFilter.ACTIVITY
   );
 
+  const [activeMarkerId, setActiveMarkerId] = useState<string | null>(null);
+
   const { map } = useNaverMap();
   const stationMarker = useMarker({ map: map! });
   const placesMarkers = useMarker({ map: map! });
@@ -53,17 +55,6 @@ export const StationMapExplorer = ({
   useEffect(() => {
     if (!map || !window.naver) return;
 
-    stationMarker.cleanUp();
-    stationMarker.create({
-      latitude: stationLocation.latitude,
-      longitude: stationLocation.longitude,
-      customMarkerData: {
-        marker: getFinalMarkerElement(),
-        width: 46,
-        height: 46,
-      },
-    });
-
     return () => {
       stationMarker.cleanUp();
     };
@@ -71,21 +62,24 @@ export const StationMapExplorer = ({
 
   useEffect(() => {
     if (places.length > 0 && selectedFilter && map) {
-      createPlaceMarkers({ map, places, placesMarkers });
+      createPlaceMarkers({
+        map,
+        places,
+        placesMarkers,
+        activeMarkerId,
+        onMarkerClick: setActiveMarkerId,
+      });
     }
-  }, [places, selectedFilter, map, placesMarkers]);
+  }, [places, selectedFilter, map, placesMarkers, activeMarkerId]);
 
   const handleFilterClick = (filterId: string) => {
     const newFilter = filterId as PlaceType;
-
     if (selectedFilter === newFilter) {
-      setSelectedFilter(null);
-      setPlaces([]);
-      placesMarkers.cleanUp();
-    } else {
-      setSelectedFilter(newFilter);
-      fetchPlaces(newFilter);
+      return;
     }
+    setActiveMarkerId(null);
+    setSelectedFilter(newFilter);
+    fetchPlaces(newFilter);
   };
 
   useEffect(() => {
