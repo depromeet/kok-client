@@ -152,12 +152,12 @@ export const floatingAnimation = {
   floating: style({
     animation: `${float} 3s ease-in-out infinite`,
     position: "relative",
-    zIndex: zIndex.floating,
+    zIndex: zIndex.tooltip,
   }),
   fadeOut: style({
     animation: `${fadeOutKeyframes} 0.5s ease-out forwards`,
     position: "relative",
-    zIndex: zIndex.floating,
+    zIndex: zIndex.tooltip,
   }),
 };
 
