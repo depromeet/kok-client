@@ -67,11 +67,31 @@ const TransportBar = ({ width, seconds, route, mode }: TransportBarProps) => {
             </div>
           </Flex>
         ) : (
-          <TransportIcon
-            vehicle={mode!}
-            line={lineType}
-            size={isNaN(Number(lineType)) ? "sm-icon" : "sm"}
-          />
+          <Flex direction="column" align="center">
+            <div style={{ position: "relative" }}>
+              <TransportIcon
+                vehicle={mode!}
+                line={lineType}
+                size={isNaN(Number(lineType)) ? "sm-icon" : "sm"}
+                hasText={!isNaN(Number(lineType))}
+              />
+              {isNaN(Number(lineType)) && (
+                <Text
+                  variant="subway"
+                  style={{
+                    width: "60px",
+                    textAlign: "center",
+                    position: "absolute",
+                    bottom: "-12px",
+                    left: "-20px",
+                    color: theme.colors.gray50,
+                  }}
+                >
+                  {lineType}
+                </Text>
+              )}
+            </div>
+          </Flex>
         )}
       </div>
 

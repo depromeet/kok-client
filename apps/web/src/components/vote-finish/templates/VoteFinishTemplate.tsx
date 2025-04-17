@@ -4,10 +4,8 @@ import { theme } from "@repo/ui/tokens";
 import { PlaceList } from "../organism/PlaceList";
 import { useParams } from "next/navigation";
 import { useVoteResult } from "@/hooks/api/useVoteResult";
-// import { FixedBottomWithSpacing } from "@/components/fixed-bottom/FixedBottomWithSpacing";
 import { AnimationBottomSheet } from "@repo/ui/components";
 import { useRouter } from "next/navigation";
-import { useVoteFinish } from "@/hooks/api/useVoteFinish";
 import { KakaoTalkShareButton } from "@/components/common";
 import { KAKAO_TEMPLATE_IDS } from "@/constants/kakao-template";
 
@@ -21,11 +19,6 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
   const router = useRouter();
 
   const { data } = useVoteResult(params?.roomId as string);
-  const { mutate: endVote } = useVoteFinish({
-    onSuccess: () => {
-      router.push(`/room/${params?.roomId}/result?memberId=${memberId}`);
-    },
-  });
 
   const votedAll = data?.data.notVotedCount === 0;
 
@@ -80,7 +73,10 @@ export function VoteFinishTemplate({ memberId, onRevote }: Props) {
               <Text
                 variant="title3"
                 onClick={() =>
-                  params != null && endVote(params.roomId as string)
+                  params != null &&
+                  router.push(
+                    `/room/${params?.roomId}/result?memberId=${memberId}`
+                  )
                 }
               >
                 모임장소 확인하기
