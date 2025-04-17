@@ -51,13 +51,14 @@ export const Tooltip = ({ view }: { view: "card" | "list" }) => {
         >
           역을 누르고 주변을 둘러보세요!
         </Text>
-        <Flex onClick={handleClose}>
+        <Flex onClick={handleClose} style={{ cursor: "pointer" }}>
           <XIcon />
         </Flex>
         <div
           style={{
             position: "absolute",
             top: 23,
+            cursor: "pointer",
           }}
         >
           <Triangle />
