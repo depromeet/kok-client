@@ -17,6 +17,7 @@ export const fullScreenMapContainerStyle = style({
 export const containerStyle = style({
   width: "100%",
   display: "flex",
+  justifyContent: "space-between",
   overflowX: "auto",
   scrollbarWidth: "none",
   WebkitOverflowScrolling: "touch",
