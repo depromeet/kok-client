@@ -297,9 +297,13 @@ const FindingMidPoint = ({
         {isOverlayVisible && (
           <div className={overlayStyle} onClick={handleClick} />
         )}
-        <Flex className={AddLocationButtonPositionStyle}>
-          <AddLocationButton />
-        </Flex>
+        {isVoteMode ? (
+          <></>
+        ) : (
+          <Flex className={AddLocationButtonPositionStyle}>
+            <AddLocationButton />
+          </Flex>
+        )}
         <ParticipantBottomSheet
           roomId={roomId}
           totalParticipants={totalParticipants}
