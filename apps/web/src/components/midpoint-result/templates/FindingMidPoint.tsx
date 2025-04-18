@@ -231,7 +231,7 @@ const FindingMidPoint = ({
   const isVoteMode = roomInfo?.data?.roomStatus === "VOTE" ? true : false;
 
   const mapCenter = (() => {
-    if (centerMarkerData && dotMarkers.length > 1) {
+    if (centerMarkerData) {
       return {
         latitude: centerMarkerData.latitude,
         longitude: centerMarkerData.longitude,
@@ -243,8 +243,6 @@ const FindingMidPoint = ({
         longitude: locationsData.data.longitude,
       };
     }
-
-    return { latitude: 37.5665, longitude: 126.978 };
   })();
 
   useEffect(() => {
