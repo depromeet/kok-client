@@ -65,11 +65,13 @@ export function CardItem({
               width: 220,
               height: 280,
               transition: { delay: 0.7 },
+              background: "#fff",
             },
             list: {
               width: 335,
               height: 94,
               transition: { delay: 0.5 },
+              background: "transparent",
             },
           }}
           animate={view}
