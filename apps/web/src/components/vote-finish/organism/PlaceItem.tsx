@@ -26,9 +26,9 @@ export function PlaceItem({
       {votedCount > 0 ? (
         <>
           <div className={Style.imgContainerStyle}>
-            {members.map(({ id, imageUrl }) => (
+            {members.map(({ imageUrl }) => (
               <Image
-                key={id}
+                key={imageUrl}
                 className={Style.imgStyle}
                 width={32}
                 height={32}

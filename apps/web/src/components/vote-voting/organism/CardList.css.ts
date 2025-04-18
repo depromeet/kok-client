@@ -16,6 +16,7 @@ export const sliderContainerStyle = style({
 
 export const innerContainerStyle = style({
   display: "flex",
+  zIndex: 10,
 });
 
 export const leftArrowContainerStyle = style({
@@ -26,6 +27,7 @@ export const leftArrowContainerStyle = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  zIndex: 20,
 });
 
 export const rightArrowContainerStyle = style({
@@ -36,6 +38,7 @@ export const rightArrowContainerStyle = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  zIndex: 20,
 });
 
 export const arrowStationStyle = style({

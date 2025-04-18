@@ -53,18 +53,18 @@ export const NoVoteIcon = () => {
           />
         </g>
       </g>
-      <g clip-path="url(#clip0_4956_21575)">
+      <g clipPath="url(#clip0_4956_21575)">
         <path
           d="M21.5 26.5L26.4497 21.5503"
           stroke="#C3C3C3"
-          stroke-width="1.5"
-          stroke-linecap="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
         <path
           d="M26.5 26.5L21.5503 21.5503"
           stroke="#C3C3C3"
-          stroke-width="1.5"
-          stroke-linecap="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
       </g>
       <defs>
