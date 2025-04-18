@@ -3,6 +3,7 @@ import { style } from "@vanilla-extract/css";
 
 export const containerStyle = style({
   position: "absolute",
+  zIndex: 10,
   top: 0,
   left: 0,
   width: "100%",

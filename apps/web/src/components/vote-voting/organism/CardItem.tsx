@@ -71,7 +71,7 @@ export function CardItem({
               width: 335,
               height: 94,
               transition: { delay: 0.5 },
-              background: "transparent",
+              background: "#fff",
             },
           }}
           animate={view}
