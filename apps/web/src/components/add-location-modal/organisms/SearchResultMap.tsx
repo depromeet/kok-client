@@ -2,6 +2,7 @@
 
 import {
   NaverMap,
+  NaverMapProvider,
   useNaverMap,
   useMarker,
   getFinalMarkerElement,
@@ -12,13 +13,32 @@ import { useEffect, useMemo } from "react";
 
 type SearchResultMapProps = Pick<StationInfo, "station">;
 
-const SearchResultMap = ({ station }: SearchResultMapProps) => {
+const StationMarker = ({ station }: SearchResultMapProps) => {
   const { map } = useNaverMap();
   const { create, cleanUp } = useMarker({
     map: map!,
   });
-  cleanUp();
 
+  useEffect(() => {
+    if (!map) return;
+
+    create({
+      latitude: station.latitude,
+      longitude: station.longitude,
+      customMarkerData: {
+        marker: getFinalMarkerElement(),
+        width: 46,
+        height: 46,
+      },
+    });
+
+    return () => cleanUp();
+  }, [map, station, create, cleanUp]);
+
+  return null;
+};
+
+const SearchResultMap = ({ station }: SearchResultMapProps) => {
   const centerMarker = useMemo(
     () => ({
       latitude: station.latitude,
@@ -28,33 +48,17 @@ const SearchResultMap = ({ station }: SearchResultMapProps) => {
     [station.latitude, station.longitude]
   );
 
-  useEffect(() => {
-    if (!map) return;
-
-    create({
-      latitude: centerMarker.latitude,
-      longitude: centerMarker.longitude,
-      customMarkerData: {
-        marker: getFinalMarkerElement(),
-        width: 46,
-        height: 46,
-      },
-    });
-
-    return () => {
-      cleanUp();
-    };
-  }, [map, station, centerMarker, create, cleanUp]);
-
   return (
-    <>
+    <NaverMapProvider>
       <NaverMap
         width="100vw"
         height="calc(100dvh - 58px)"
         center={centerMarker}
+        zoom={18}
       />
+      <StationMarker station={station} />
       <AddCandidateBottomSheet />
-    </>
+    </NaverMapProvider>
   );
 };
 
