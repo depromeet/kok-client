@@ -6,6 +6,17 @@ export const containerStyle = style({
   top: 0,
   left: 0,
   width: "100%",
+  height: "55vh",
+  overflowY: "auto",
+  selectors: {
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    "&": {
+      scrollbarWidth: "none",
+      msOverflowStyle: "none",
+    },
+  },
 });
 
 export const itemContainerStyle = style({
