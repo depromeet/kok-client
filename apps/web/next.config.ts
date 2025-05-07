@@ -8,8 +8,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "kr.object.ncloudstorage.com",
-        pathname: "/kok-bucket/profile_default/**",
+        hostname: "kok-2025-dev.s3.ap-northeast-2.amazonaws.com",
+        pathname: "/profile_default/**",
       },
     ],
   },
