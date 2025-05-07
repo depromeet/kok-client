@@ -4,8 +4,7 @@
 
 콕!은 모임에 참여하는 구성원들이 모두 함께 모일 장소를 정해가는 웹 서비스입니다.
 
-#### <strike><a href="https://www.kokokok.com">👉Kok 바로가기</a></strike>
-- 현재 서버 비용 및 마이그레이션 이슈로 잠시 닫아놓은 상태입니다! 곧 다시 오픈될 예정이에요 :)
+#### <a href="https://www.kokokok.com">👉Kok 바로가기</a>
 
 <br />
 
