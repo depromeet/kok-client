@@ -4,7 +4,7 @@ const withVanillaExtract = createVanillaExtractPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["localhost", process.env.NEXT_PUBLIC_PRODUCTION_URL],
+    domains: ["localhost", "www.kokokok.com", "kokokok.com"],
     remotePatterns: [
       {
         protocol: "https",
