@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await getRequest<NaverPlaceSearchResponse>({
-      url: `https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?coords=${longitude},${latitude}&output=json&orders=admcode,roadaddr`,
+      url: `https://maps.apigw.ntruss.com/map-reversegeocode/v2/gc?coords=${longitude},${latitude}&output=json&orders=admcode,roadaddr`,
       config: {
         headers: {
           "X-NCP-APIGW-API-KEY-ID": process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
